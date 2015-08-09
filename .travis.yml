@@ -1,5 +1,4 @@
 language: java
 jdk:
-  - openjdk7
   - oraclejdk7
-script: ./gradlew -q jbake publish
+script: ./gradle jbake publish
