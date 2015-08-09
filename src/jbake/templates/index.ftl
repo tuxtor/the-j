@@ -6,5 +6,6 @@
 		<h1>The J*</h1>
 	</div>
 	
+	<img src="/images/global/playground.png" alt="playground"> 
 
 <#include "footer.ftl">
