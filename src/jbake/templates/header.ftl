@@ -4,9 +4,9 @@
     <meta charset="utf-8"/>
     <title><#if (content.title)??><#escape x as x?xml>${content.title}</#escape><#else>The J*</#if></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="keywords" content="">
+    <meta name="description" content="The J*, a blog about Java, JVM, JavaScript and Gentoo Linux">
+    <meta name="author" content="Víctor Orozco">
+    <meta name="keywords" content="java,jvm,javascript,gentoo,linux">
     <meta name="generator" content="JBake">
 
     <!-- Le styles -->
@@ -26,6 +26,17 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
     <link rel="shortcut icon" href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>favicon.ico">
+
+    <meta property="og:title" content="<#if (content.title)??><#escape x as x?xml>${content.title}</#escape><#else>The J*</#if>">
+    <meta property="og:type" content="<#if (content.type)??>${content.type}<#else></#if>">
+    <meta property="og:url" content="${config.site_host}/<#if (content.uri)??>${content.uri}<#else></#if>">
+    <meta property="og:site_name" content="The J*">
+    <meta property="og:locale" content="en-US">
+    <meta property="article:published_time" content="<#if (content.date)??>${content.date?string("dd MMMM yyyy")}<#else></#if>">
+    <meta property="article:author" content="https://www.facebook.com/tuxtor">
+    <meta property="fb:app_id" content="753735224749731">
+    <meta content="/images/global/playground.png" property="og:image">
+
   </head>
   <body onload="prettyPrint()">
     <div id="wrap">

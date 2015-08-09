@@ -31,5 +31,7 @@ That's why I'm welcoming you to "The J*", the name is inspired in three facts
 
 For this site and considering my past experiences with Wordpress and Jekyll . . . I decided to try [JBake](http://jbake.org/), mainly because I'm familiar with Gradle, and for me is easier to write posts in markdown. Also because I fell in love with the results at [Vert.x](http://vertx.io) and [Hawkular](http://www.hawkular.org/) to name a few.
 
+At this time this blog is hosted at GitHub pages being built by [Travis-CI](https://travis-ci.org/tuxtor/the-j) with gradle, saving me hosting costs.
+
 
 I think that starting a web site in the [AOL 2.0](http://jacquesmattheij.com/aol-20) era is some kind of digital rebellion, so please grab a seat and feel free to drop comments :).
