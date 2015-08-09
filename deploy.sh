@@ -6,7 +6,10 @@ rev=$(git rev-parse --short HEAD)
 
 cd build/jbake
 
-ls -a
+ls -Ra
+rm -Rf cv/.git
+ls -Ra
+
 git init
 git config user.name "Víctor Orozco"
 git config user.email "tuxtor@shekalug.org"
