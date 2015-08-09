@@ -27,7 +27,7 @@ That's why I'm welcoming you to "The J*", the name is inspired in three facts
 
 * I write code in JVM Languages (specially Java) and JavaScript on daily basis
 * I was born in June
-* My daughter's second name starts with J
+* The second name of a child that means a lot to me starts with J
 
 For this site and considering my past experiences with Wordpress and Jekyll . . . I decided to try [JBake](http://jbake.org/), mainly because I'm familiar with Gradle, and for me is easier to write posts in markdown. Also because I fell in love with the results at [Vert.x](http://vertx.io) and [Hawkular](http://www.hawkular.org/) to name a few.
 
