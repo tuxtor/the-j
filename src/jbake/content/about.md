@@ -14,6 +14,6 @@ I'm mostly interested in Natural Languages, Open Source Software, Computer Scien
 
 Currently I spend most of my time trying to grow [Nabenik](http://www.nabenik.com) (my own consultancy company) and I'm one of the board members of [GuateJUG](http://www.guate-jug.net).
 
-You can view my professional profile at [Linkedin](https://gt.linkedin.com/in/victororozco) or as plain text :).
+You can view my professional profile at [Linkedin](https://gt.linkedin.com/in/victororozco) or as [plain text](/cv/index.html) :).
 
 ![Me](/images/global/me.jpg)
