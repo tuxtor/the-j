@@ -6,13 +6,13 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Sun, 9 Aug 2015 17:16:55 +0000</pubDate>
-    <lastBuildDate>Sun, 9 Aug 2015 17:16:55 +0000</lastBuildDate>
+    <pubDate>Sun, 9 Aug 2015 11:18:35 -0600</pubDate>
+    <lastBuildDate>Sun, 9 Aug 2015 11:18:35 -0600</lastBuildDate>
 
     <item>
       <title>Welcome</title>
       <link>http://www.vorozco.com/blog/2015/Welcome.html</link>
-      <pubDate>Sat, 8 Aug 2015 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 8 Aug 2015 00:00:00 -0600</pubDate>
       <guid isPermaLink="false">blog/2015/Welcome.html</guid>
       	<description>
 	&lt;p&gt;Hi, If you&apos;re reading this probably you are one of my few twitter followers, so thanks for your visit. For those that don&apos;t know me I wanna share a little story with you :).&lt;/p&gt;&lt;p&gt;As an IT guy, I started my main website/blog &lt;a href=&quot;http://tuxtor.shekalug.org/&quot;&gt;El abismo de tux (in spanish)&lt;/a&gt; in 2006 during my college years, mostly as an experiment that grew as the blog phenoma exploded, gaining great experiences like:&lt;/p&gt;
