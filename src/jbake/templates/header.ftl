@@ -35,7 +35,7 @@
     <meta property="article:published_time" content="<#if (content.date)??>${content.date?string("dd MMMM yyyy")}<#else></#if>">
     <meta property="article:author" content="https://www.facebook.com/tuxtor">
     <meta property="fb:app_id" content="753735224749731">
-    <meta content="/images/global/playground.png" property="og:image">
+    <meta property="og:image" content="http://vorozco.com/images/global/playground.png">
 
   </head>
   <body onload="prettyPrint()">
