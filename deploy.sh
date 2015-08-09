@@ -5,6 +5,7 @@ set -o errexit -o nounset
 rev=$(git rev-parse --short HEAD)
 
 cd build/jbake
+rm -Rf cv/.git
 
 git init
 git config user.name "Víctor Orozco"
