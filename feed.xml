@@ -6,8 +6,8 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Sun, 9 Aug 2015 04:44:03 -0600</pubDate>
-    <lastBuildDate>Sun, 9 Aug 2015 04:44:03 -0600</lastBuildDate>
+    <pubDate>Sun, 9 Aug 2015 10:42:30 -0600</pubDate>
+    <lastBuildDate>Sun, 9 Aug 2015 10:42:30 -0600</lastBuildDate>
 
     <item>
       <title>Welcome</title>
@@ -28,7 +28,7 @@
 &lt;ul&gt;
   &lt;li&gt;I write code in JVM Languages (specially Java) and JavaScript on daily basis&lt;/li&gt;
   &lt;li&gt;I was born in June&lt;/li&gt;
-  &lt;li&gt;My daughter&apos;s second name starts with J&lt;/li&gt;
+  &lt;li&gt;The second name of a child that means a lot to me starts with J&lt;/li&gt;
 &lt;/ul&gt;&lt;p&gt;For this site and considering my past experiences with Wordpress and Jekyll . . . I decided to try &lt;a href=&quot;http://jbake.org/&quot;&gt;JBake&lt;/a&gt;, mainly because I&apos;m familiar with Gradle, and for me is easier to write posts in markdown. Also because I fell in love with the results at &lt;a href=&quot;http://vertx.io&quot;&gt;Vert.x&lt;/a&gt; and &lt;a href=&quot;http://www.hawkular.org/&quot;&gt;Hawkular&lt;/a&gt; to name a few.&lt;/p&gt;&lt;p&gt;I think that starting a web site in the &lt;a href=&quot;http://jacquesmattheij.com/aol-20&quot;&gt;AOL 2.0&lt;/a&gt; era is some kind of digital rebellion, so please grab a seat and feel free to drop comments :).&lt;/p&gt;
 	</description>
     </item>
