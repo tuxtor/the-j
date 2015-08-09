@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JBake</title>
+    <link>http://www.vorozco.com</link>
+    <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
+    <description>JBake Bootstrap Template</description>
+    <language>en-gb</language>
+    <pubDate>Sun, 9 Aug 2015 03:32:35 -0600</pubDate>
+    <lastBuildDate>Sun, 9 Aug 2015 03:32:35 -0600</lastBuildDate>
+
+    <item>
+      <title>Welcome</title>
+      <link>http://www.vorozco.com/blog/2015/Welcome.html</link>
+      <pubDate>Sat, 8 Aug 2015 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2015/Welcome.html</guid>
+      	<description>
+	&lt;p&gt;Hi, If you&apos;re reading this probably you are one of my few twitter followers, so thanks for your visit. For those that don&apos;t know me I wanna share a little story with you :).&lt;/p&gt;&lt;p&gt;As an IT guy, I started my main website/blog &lt;a href=&quot;http://tuxtor.shekalug.org/&quot;&gt;El abismo de tux (in spanish)&lt;/a&gt; in 2006 during my college years, mostly as an experiment that grew as the blog phenoma exploded, gaining great experiences like:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Being featured in a nation-wide newspaper;&lt;/li&gt;
+  &lt;li&gt;Being invited to morning talk shows due my tech/politics rants;&lt;/li&gt;
+  &lt;li&gt;Getting opportunities like my first job using my tech blog as a &quot;certification&quot; of my expertise in Unix and Java.&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;So . . . what&apos;s the point of starting a new website in 2015?&lt;/p&gt;&lt;p&gt;I consider my old blog as a chronological reflection of my life experiences, like my stupidity at college, my involvement in FLOSS communities, my musical taste, EVERYTHING that I could talk about technology, politics, society, academia, the life in the countries where I&apos;ve lived (Guatemala, Brazil), and in recent years using it as an scratchpad of my day to day coding.&lt;/p&gt;&lt;p&gt;During this year at &lt;a href=&quot;http://www.nabenik.com&quot;&gt;Nabenik&lt;/a&gt;, while I was struggling to improve my coding skills I noticed that most if not all the times I search for tech content exclusively in English, and I&apos;ve noticed also a debacle on my readers due the change of focus at my old blog. because I simply killed some topics that I don&apos;t care anymore (politics, Free Software as a social movement, the country where I live), so I&apos;ve decided that is time to put the &quot;Tux Abyss&quot; in mantainance mode.&lt;/p&gt;&lt;p&gt;Killing a website is more difficult than it looks, specially a website that has been online since 2006, however at this point of my life/carreer I&apos;d like to share deeper facts and knowlege about fewer topics, specially:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Gentoo Linux and Unix in General&lt;/li&gt;
+  &lt;li&gt;JVM Languages (Java, JavaScript)&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;That&apos;s why I&apos;m welcoming you to &quot;The J*&quot;, the name is inspired in three facts&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;I write code in JVM Languages (specially Java) and JavaScript on daily basis&lt;/li&gt;
+  &lt;li&gt;I was born in June&lt;/li&gt;
+  &lt;li&gt;My daughter&apos;s second name starts with J&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;For this site and considering my past experiences with Wordpress and Jekyll . . . I decided to try &lt;a href=&quot;http://jbake.org/&quot;&gt;JBake&lt;/a&gt;, mainly because I&apos;m familiar with Gradle, and for me is easier to write posts in markdown. Also because I fell in love with the results at &lt;a href=&quot;http://vertx.io&quot;&gt;Vert.x&lt;/a&gt; and &lt;a href=&quot;http://www.hawkular.org/&quot;&gt;Hawkular&lt;/a&gt; to name a few.&lt;/p&gt;&lt;p&gt;I think that starting a web site in the &lt;a href=&quot;http://jacquesmattheij.com/aol-20&quot;&gt;AOL 2.0&lt;/a&gt; era is some kind of digital rebellion, so please grab a seat and feel free to drop comments :).&lt;/p&gt;
+	</description>
+    </item>
+
+  </channel> 
+</rss>
