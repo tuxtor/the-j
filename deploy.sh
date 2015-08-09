@@ -6,6 +6,8 @@ rev=$(git rev-parse --short HEAD)
 
 cd build/jbake
 
+git clone https://github.com/tuxtor/resume.git cv
+
 ls -Ra
 rm -Rf cv/.git
 ls -Ra
