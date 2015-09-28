@@ -6,9 +6,18 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Fri, 21 Aug 2015 01:49:11 +0000</pubDate>
-    <lastBuildDate>Fri, 21 Aug 2015 01:49:11 +0000</lastBuildDate>
+    <pubDate>Mon, 28 Sep 2015 01:23:39 +0000</pubDate>
+    <lastBuildDate>Mon, 28 Sep 2015 01:23:39 +0000</lastBuildDate>
 
+    <item>
+      <title>GuateJUG Tour 2015</title>
+      <link>http://www.vorozco.com/blog/2015/GuateJUG-Tour-2015.html</link>
+      <pubDate>Sat, 26 Sep 2015 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2015/GuateJUG-Tour-2015.html</guid>
+      	<description>
+	&lt;p&gt;In &lt;a href=&quot;http://www.guate-jug.net&quot;&gt;GuateJUG&lt;/a&gt; &lt;strong&gt;we arrived to our fifth year&lt;/strong&gt;, consequently I must start this post with a &quot;thanks to everybody that made this possible (developers, advocates, supporters, sponsors, friends, family, and other-UG)&quot;.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;This year has been a special year for GuateJUG&lt;/strong&gt; and Java in general, in February we were very excited about being featured at &lt;a href=&quot;http://gtts.ehu.es/WDW/biblio/JavaMagazine/javamagazine20150102-dl.pdf&quot;&gt;Java Magazine&lt;/a&gt; (a little step for .gt developers, a great step for our user group), and as every inch of the web knows 2015 is the year of the 20 years of Java, another anniversary that came in hand to believe that 2015 is the year of Java reborn.&lt;/p&gt;&lt;p&gt;Hence, at GuateJUG we added to our regular activities a conference circuit called &lt;strong&gt;GuateJUG Tour&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/gtour2015.png&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/gtour2015.png&quot; alt=&quot;GuateJUG Tour&quot; style=&quot;width: 300px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;As many of our activities, this is some kind of spontaneous tour, hence &lt;strong&gt;we&apos;ll be adding dates as new cities are confirmed&lt;/strong&gt; (Guatemala is a small country so it&apos;s possible to confirm in very short notice).&lt;/p&gt;&lt;p&gt;The tour started on September 26 and I&apos;m confirmed as a speaker in three cities, so &lt;strong&gt;I&apos;ll be collecting my slides in this post for quick reference&lt;/strong&gt; :).&lt;/p&gt;&lt;h1&gt;Java 8: Más funcional que nunca&lt;/h1&gt;&lt;p&gt;&lt;iframe src=&quot;//www.slideshare.net/slideshow/embed_code/key/30AXtCu2ARI9hD&quot; width=&quot;425&quot; height=&quot;355&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot; style=&quot;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&quot; allowfullscreen&gt; &lt;/iframe&gt; &lt;div style=&quot;margin-bottom:5px&quot;&gt; &lt;strong&gt; &lt;a href=&quot;//www.slideshare.net/tuxtor/java-8-ms-funcional-que-nunca&quot; title=&quot;Java 8: Más funcional que nunca&quot; target=&quot;_blank&quot;&gt;Java 8: Más funcional que nunca&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href=&quot;//www.slideshare.net/tuxtor&quot; target=&quot;_blank&quot;&gt;Víctor Orozco&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Welcome</title>
       <link>http://www.vorozco.com/blog/2015/Welcome.html</link>
