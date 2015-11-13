@@ -17,6 +17,7 @@
     <script src="<#if (content.rootpath)??>${content.rootpath}<#else></#if>js/galleria/galleria-1.4.2.min.js"></script>
     <style>
       .galleria{ width: 700px; height: 400px; background: #000 }
+      .galleria-errors {display: none}
     </style>
     <script>
         Galleria.loadTheme('<#if (content.rootpath)??>${content.rootpath}<#else></#if>js/galleria/themes/classic/galleria.classic.min.js');
