@@ -2,7 +2,7 @@ title=[Book Review] Java EE 7 Essentials, O’Reilly
 date=2015-11-12
 type=post
 tags=java
-status=draft
+status=published
 ~~~~~~
 
 <a href="/images/posts/gf-essentials.gif" target="_blank">
@@ -39,7 +39,7 @@ I don't wanna copy the index page but I have the following **favorite chapters**
 
 Most of the book samples are based on Glassfish, and is easy to guess why looking at the publication date. However, talking from my true-heavy-metal-monkey-developer-architect experience, **this book uses only pure JavaEE 7 apis** and I've been able to run/use the samples on Wildfly without issues.
 
-For those that are looking a good book for JavaEE 7 development on any of the [certified Java EE 7 servers](http://www.oracle.com/technetwork/java/javaee/overview/compatibility-jsp-136984.html) **this is a must**.
+For those that are looking a good book for JavaEE 7 development, on any of the [certified Java EE 7 servers](http://www.oracle.com/technetwork/java/javaee/overview/compatibility-jsp-136984.html) **this is a must**.
 
 Highlights
 ==========
@@ -50,4 +50,4 @@ Highlights
 Could be better
 ===============
 * WebSockets section is small in relation to the other chapters, it feels incomplete.
-* The cover remains me the good old days when Glassfish was that application server that everybody is talking.
+* The cover brings to my mind the good old days when Glassfish was that application server that everybody is talking.
