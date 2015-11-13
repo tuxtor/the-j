@@ -6,8 +6,8 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Fri, 13 Nov 2015 14:58:46 +0000</pubDate>
-    <lastBuildDate>Fri, 13 Nov 2015 14:58:46 +0000</lastBuildDate>
+    <pubDate>Fri, 13 Nov 2015 15:24:26 +0000</pubDate>
+    <lastBuildDate>Fri, 13 Nov 2015 15:24:26 +0000</lastBuildDate>
 
     <item>
       <title>[Book Review] Java EE 7 Essentials, O’Reilly</title>
@@ -21,7 +21,7 @@ Publisher: O’Reilly Media
 Release: Aug 2013
 ISBN-10: 978-1-4493-7016-9
 ISBN-13: 1-4493-7016-0
-&lt;/code&gt;&lt;/pre&gt;&lt;h1&gt;Book details&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;I received this book as a part of the now dead O&apos;Reilly users group program&lt;/strong&gt;. When I asked for this book I was specially interested due comments from my development peers . . . and most importantly because I was in the middle of a Software Architecture definition.&lt;/p&gt;&lt;p&gt;I&apos;m writing this review after 7 months of using it on daily basis, basically because our development stack is composed by AngularJS on the front-end and JavaEE 7 on the back-end (with a huge bias to the Hat company). At the office we have an small books collection (because IT books are pretty dead after five years), and &lt;strong&gt;Aurun&apos;s book is our prefered book&lt;/strong&gt; for the &quot;Java EE 7 rescue kit&quot;.&lt;/p&gt;&lt;p&gt;If I have to choose &lt;strong&gt;two adjectives for this book I must say &quot;quick and versatile&quot;&lt;/strong&gt;, this book deserves all of its fame because it has the balance between a good reference book and a user friendly introductory book, most of the IT books don&apos;t achieve it.&lt;/p&gt;&lt;p&gt;I don&apos;t wanna copy the index page but I have the following &lt;strong&gt;favorite chapters&lt;/strong&gt;:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h1&gt;Book details&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;I received this book as a part of the now dead O&apos;Reilly users group program&lt;/strong&gt;. When I asked for this book I was specially interested due comments from my development peers . . . and most importantly because I was in the middle of a Software Architecture definition.&lt;/p&gt;&lt;p&gt;I&apos;m writing this review after 7 months of using it on daily basis, basically because our development stack is composed by AngularJS on the front-end and JavaEE 7 on the back-end (with a huge bias to the Hat company). At the office we have a small books collection (because IT books are pretty dead after five years), and &lt;strong&gt;Aurun&apos;s book is our prefered book&lt;/strong&gt; for the &quot;Java EE 7 rescue kit&quot;.&lt;/p&gt;&lt;p&gt;If I have to choose &lt;strong&gt;two adjectives for this book I must say &quot;quick and versatile&quot;&lt;/strong&gt;, this book deserves all of its fame because it has the balance between a good reference book and a user friendly introductory book, most of the IT books don&apos;t achieve it.&lt;/p&gt;&lt;p&gt;I don&apos;t wanna copy the index page but I have the following &lt;strong&gt;favorite chapters&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Servlets&lt;/li&gt;
   &lt;li&gt;RESTFul Web Services&lt;/li&gt;
