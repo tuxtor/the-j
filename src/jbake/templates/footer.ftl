@@ -14,14 +14,7 @@
     <script src="<#if (content.rootpath)??>${content.rootpath}<#else></#if>js/jquery-1.11.1.min.js"></script>
     <script src="<#if (content.rootpath)??>${content.rootpath}<#else></#if>js/bootstrap.min.js"></script>
     <script src="<#if (content.rootpath)??>${content.rootpath}<#else></#if>js/prettify.js"></script>
-    <script src="<#if (content.rootpath)??>${content.rootpath}<#else></#if>js/galleria/galleria-1.4.2.min.js"></script>
-    <style>
-      .galleria{ width: 700px; height: 400px; background: #000 }
-      .galleria-errors {display: none}
-    </style>
-    <script>
-        Galleria.loadTheme('<#if (content.rootpath)??>${content.rootpath}<#else></#if>js/galleria/themes/classic/galleria.classic.min.js');
-        Galleria.run('.galleria');   // Use the class name of your gallery
-     </script>
+    <link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
   </body>
 </html>

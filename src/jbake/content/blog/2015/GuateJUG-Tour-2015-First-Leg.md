@@ -40,7 +40,7 @@ Place: Universidad de San Carlos de Guatemala - Chiquimula
 
 Random photos:
 
-<div class="galleria">
+<div class="fotorama">
     <img src="/images/posts/guatejugtour2015/1.jpg">
     <img src="/images/posts/guatejugtour2015/2.jpg">
     <img src="/images/posts/guatejugtour2015/3.jpg">

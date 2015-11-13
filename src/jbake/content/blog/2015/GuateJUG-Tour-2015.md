@@ -23,7 +23,10 @@ Java 8: Más funcional que nunca
 ===============================
 <iframe src="//www.slideshare.net/slideshow/embed_code/key/30AXtCu2ARI9hD" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/tuxtor/java-8-ms-funcional-que-nunca" title="Java 8: Más funcional que nunca" target="_blank">Java 8: Más funcional que nunca</a> </strong> from <strong><a href="//www.slideshare.net/tuxtor" target="_blank">Víctor Orozco</a></strong> </div>
 
+Git 101 (with Java)
+===================
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/H4g9lRHrc63bzj" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/tuxtor/introduccin-a-git-git-101" title="Introducción a Git (Git 101)" target="_blank">Introducción a Git (Git 101)</a> </strong> from <strong><a href="//www.slideshare.net/tuxtor" target="_blank">Víctor Orozco</a></strong> </div>
 
-
-
-
+Aplicaciones HTML5 con AngularJS y JavaEE
+=========================================
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/EVtupsoyepJrX3" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/tuxtor/inciando-con-angularjs-y-javaee-7" title="Inciando con AngularJS y JavaEE 7" target="_blank">Inciando con AngularJS y JavaEE 7</a> </strong> from <strong><a href="//www.slideshare.net/tuxtor" target="_blank">Víctor Orozco</a></strong> </div>
