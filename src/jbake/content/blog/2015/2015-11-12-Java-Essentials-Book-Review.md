@@ -21,7 +21,7 @@ Book details
 ============
 **I received this book as a part of the now dead O'Reilly users group program**. When I asked for this book I was specially interested due comments from my development peers . . . and most importantly because I was in the middle of a Software Architecture definition.
 
-I'm writing this review after 7 months of using it on daily basis, basically because our development stack is composed by AngularJS on the front-end and JavaEE 7 on the back-end (with a huge bias to the Hat company). At the office we have an small books collection (because IT books are pretty dead after five years), and **Aurun's book is our prefered book** for the "Java EE 7 rescue kit".
+I'm writing this review after 7 months of using it on daily basis, basically because our development stack is composed by AngularJS on the front-end and JavaEE 7 on the back-end (with a huge bias to the Hat company). At the office we have a small books collection (because IT books are pretty dead after five years), and **Aurun's book is our prefered book** for the "Java EE 7 rescue kit".
 
 If I have to choose **two adjectives for this book I must say "quick and versatile"**, this book deserves all of its fame because it has the balance between a good reference book and a user friendly introductory book, most of the IT books don't achieve it.
 
