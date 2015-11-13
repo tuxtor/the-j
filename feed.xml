@@ -6,9 +6,44 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Fri, 13 Nov 2015 05:39:35 +0000</pubDate>
-    <lastBuildDate>Fri, 13 Nov 2015 05:39:35 +0000</lastBuildDate>
+    <pubDate>Fri, 13 Nov 2015 14:58:46 +0000</pubDate>
+    <lastBuildDate>Fri, 13 Nov 2015 14:58:46 +0000</lastBuildDate>
 
+    <item>
+      <title>[Book Review] Java EE 7 Essentials, O’Reilly</title>
+      <link>http://www.vorozco.com/blog/2015/2015-11-12-Java-Essentials-Book-Review.html</link>
+      <pubDate>Thu, 12 Nov 2015 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2015/2015-11-12-Java-Essentials-Book-Review.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;/images/posts/gf-essentials.gif&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/gf-essentials.gif&quot; alt=&quot;JavaEE 7 Essentials Cover&quot; style=&quot;width: 150px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;h1&gt;About the book&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;Pages: 362
+Publisher: O’Reilly Media
+Release: Aug 2013
+ISBN-10: 978-1-4493-7016-9
+ISBN-13: 1-4493-7016-0
+&lt;/code&gt;&lt;/pre&gt;&lt;h1&gt;Book details&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;I received this book as a part of the now dead O&apos;Reilly users group program&lt;/strong&gt;. When I asked for this book I was specially interested due comments from my development peers . . . and most importantly because I was in the middle of a Software Architecture definition.&lt;/p&gt;&lt;p&gt;I&apos;m writing this review after 7 months of using it on daily basis, basically because our development stack is composed by AngularJS on the front-end and JavaEE 7 on the back-end (with a huge bias to the Hat company). At the office we have an small books collection (because IT books are pretty dead after five years), and &lt;strong&gt;Aurun&apos;s book is our prefered book&lt;/strong&gt; for the &quot;Java EE 7 rescue kit&quot;.&lt;/p&gt;&lt;p&gt;If I have to choose &lt;strong&gt;two adjectives for this book I must say &quot;quick and versatile&quot;&lt;/strong&gt;, this book deserves all of its fame because it has the balance between a good reference book and a user friendly introductory book, most of the IT books don&apos;t achieve it.&lt;/p&gt;&lt;p&gt;I don&apos;t wanna copy the index page but I have the following &lt;strong&gt;favorite chapters&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Servlets&lt;/li&gt;
+  &lt;li&gt;RESTFul Web Services&lt;/li&gt;
+  &lt;li&gt;SOAP Web Services&lt;/li&gt;
+  &lt;li&gt;JSON Processing&lt;/li&gt;
+  &lt;li&gt;Enterprise Java Beans&lt;/li&gt;
+  &lt;li&gt;Context and Dependency Injection&lt;/li&gt;
+  &lt;li&gt;Bean Validation&lt;/li&gt;
+  &lt;li&gt;Java Transactions&lt;/li&gt;
+  &lt;li&gt;Java Persistence&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;Most of the book samples are based on Glassfish, and is easy to guess why looking at the publication date. However, talking from my true-heavy-metal-monkey-developer-architect experience, &lt;strong&gt;this book uses only pure JavaEE 7 apis&lt;/strong&gt; and I&apos;ve been able to run/use the samples on Wildfly without issues.&lt;/p&gt;&lt;p&gt;For those that are looking a good book for JavaEE 7 development, on any of the &lt;a href=&quot;http://www.oracle.com/technetwork/java/javaee/overview/compatibility-jsp-136984.html&quot;&gt;certified Java EE 7 servers&lt;/a&gt; &lt;strong&gt;this is a must&lt;/strong&gt;.&lt;/p&gt;&lt;h1&gt;Highlights&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;Good balance between tutorial and reference.&lt;/li&gt;
+  &lt;li&gt;Few content compared to the Java EE Tutorial but still in the point.&lt;/li&gt;
+  &lt;li&gt;The samples should work on any Java EE 7 server.&lt;/li&gt;
+&lt;/ul&gt;&lt;h1&gt;Could be better&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;WebSockets section is small in relation to the other chapters, it feels incomplete.&lt;/li&gt;
+  &lt;li&gt;The cover brings to my mind the good old days when Glassfish was that application server that everybody is talking.&lt;/li&gt;
+&lt;/ul&gt;
+	</description>
+    </item>
     <item>
       <title>GuateJUG Tour 2015 First Leg</title>
       <link>http://www.vorozco.com/blog/2015/GuateJUG-Tour-2015-First-Leg.html</link>
