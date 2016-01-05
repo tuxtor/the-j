@@ -21,10 +21,14 @@
 				  <li><a href="http://twitter.com/tuxtor" target="_blank">Twitter</a></li>
 				  <li><a href="http://facebook.com/tuxtor" target="_blank">Facebook</a></li>
 				  <li><a href="http://github.com/tuxtor" target="_blank">GitHub</a></li>
-				  <li><a href="http://last.fm/cdmgt" target="_blank">Last.fm</a></li>
+				  <li><a href="http://last.fm/user/cdmgt" target="_blank">Last.fm</a></li>
 				  <li><a href="/cv/index.html" target="_blank">CV</a></li>
 				  <li><a href="http://tuxtor.shekalug.org" target="_blank">Old spanish blog</a></li>
 				</ul> 
+	    	</div>
+	    	<div class="row">
+	    		<p>Is The-J a broken blog?</p>
+	    		<p><a href="https://travis-ci.org/tuxtor/the-j" target="_blank"><img src="https://travis-ci.org/tuxtor/the-j.svg?branch=master" alt="travis status"></a></p>
 	    	</div>
 	    </div>
 	    <div class="col-md-6"><img src="/images/global/playground.png" alt="playground"></div>
