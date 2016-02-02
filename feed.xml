@@ -6,9 +6,22 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Tue, 5 Jan 2016 17:18:04 -0600</pubDate>
-    <lastBuildDate>Tue, 5 Jan 2016 17:18:04 -0600</lastBuildDate>
+    <pubDate>Tue, 2 Feb 2016 14:39:29 -0600</pubDate>
+    <lastBuildDate>Tue, 2 Feb 2016 14:39:29 -0600</lastBuildDate>
 
+    <item>
+      <title>[Quicktip] Fix font size in JBoss Developer Studio and OSX</title>
+      <link>http://www.vorozco.com/blog/2016/2016-02-02-Fix-font-size-JBoss-Developer-OSX.html</link>
+      <pubDate>Tue, 2 Feb 2016 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2016/2016-02-02-Fix-font-size-JBoss-Developer-OSX.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;/images/posts/jbossdeveloper/jbds9.png&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossdeveloper/jbds9.png&quot; alt=&quot;JBoss Developer Studio&quot; style=&quot;width: 300px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;One of the most annoying things of using JBoss Developer Studio on OSX is the &lt;strong&gt;default configuration&lt;/strong&gt;, specially the font size.&lt;/p&gt;&lt;p&gt;By default Eclipse (and consequently Jbossdevstudio) has a startup parameter called &lt;a href=&quot;https://bugs.eclipse.org/bugs/show_bug.cgi?id=56558&quot;&gt;&quot;-Dorg.eclipse.swt.internal.carbon.smallFonts&quot;&lt;/a&gt; and as its name suggests, it enforces the usage of the smallest font at the system. &lt;/p&gt;&lt;p&gt;Although default settings are tolerable on retina displays:&lt;br/&gt;&lt;a href=&quot;/images/posts/jbossdeveloper/retinagood.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;1080p bad fonts&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossdeveloper/retinagood.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;The problem gets worse on regular 1080p screens (like external non-mac displays):&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/jbossdeveloper/1080pbad.png&quot; data-lightbox=&quot;image-2&quot; title=&quot;1080p bad fonts&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossdeveloper/1080pbad.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;As you probably guess the solution of this issue is to delete the parameter, but the tricky part is that &lt;strong&gt;JBoss Developer Studio renames the eclipse.ini file (default Eclipse configuration) to jbdevstudio.ini&lt;/strong&gt;, making most of the how-to guides at internet &quot;complicated&quot;.&lt;/p&gt;&lt;p&gt;Anyway the file is located at:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;${JBDEVSTUDIO_HOME}/studio/jbdevstudio.app/Contents/Eclipse/jbdevstudio.ini
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Being the default location:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/Applications/studio/jbdevstudio.app/Contents/Eclipse/jbdevstudio.ini
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;With this &lt;strong&gt;your eyes will be gratefull&lt;/strong&gt; (actual 1080p screenshot):&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/jbossdeveloper/1080pgood.png&quot; data-lightbox=&quot;image-3&quot; title=&quot;1080p good fonts&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossdeveloper/1080pgood.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>20 years of Java in Java One and Java Day Guatemala</title>
       <link>http://www.vorozco.com/blog/2015/2015-11-16-20-years-Java-5-years-GuateJUG.html</link>

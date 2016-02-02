@@ -111,6 +111,13 @@
   <div class="page-header">
     <h1>Blog</h1>
   </div>
+        <a href="../blog/2016/2016-02-02-Fix-font-size-JBoss-Developer-OSX.html"><h1>[Quicktip] Fix font size in JBoss Developer Studio and OSX</h1></a>
+        <p>02 February 2016</p>
+        <p><p><a href="/images/posts/jbossdeveloper/jbds9.png" target="_blank"><br/> <img src="/images/posts/jbossdeveloper/jbds9.png" alt="JBoss Developer Studio" style="width: 300px;"/><br/></a></p><p>One of the most annoying things of using JBoss Developer Studio on OSX is the <strong>default configuration</strong>, specially the font size.</p><p>By default Eclipse (and consequently Jbossdevstudio) has a startup parameter called <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=56558">"-Dorg.eclipse.swt.internal.carbon.smallFonts"</a> and as its name suggests, it enforces the usage of the smallest font at the system. </p><p>Although default settings are tolerable on retina displays:<br/><a href="/images/posts/jbossdeveloper/retinagood.png" data-lightbox="image-1" title="1080p bad fonts" ><br/> <img src="/images/posts/jbossdeveloper/retinagood.png"><br/></a></p><p>The problem gets worse on regular 1080p screens (like external non-mac displays):</p><p><a href="/images/posts/jbossdeveloper/1080pbad.png" data-lightbox="image-2" title="1080p bad fonts" ><br/> <img src="/images/posts/jbossdeveloper/1080pbad.png"><br/></a></p><p>As you probably guess the solution of this issue is to delete the parameter, but the tricky part is that <strong>JBoss Developer Studio renames the eclipse.ini file (default Eclipse configuration) to jbdevstudio.ini</strong>, making most of the how-to guides at internet "complicated".</p><p>Anyway the file is located at:</p>
+<pre><code>${JBDEVSTUDIO_HOME}/studio/jbdevstudio.app/Contents/Eclipse/jbdevstudio.ini
+</code></pre><p>Being the default location:</p>
+<pre><code>/Applications/studio/jbdevstudio.app/Contents/Eclipse/jbdevstudio.ini
+</code></pre><p>With this <strong>your eyes will be gratefull</strong> (actual 1080p screenshot):</p><p><a href="/images/posts/jbossdeveloper/1080pgood.png" data-lightbox="image-3" title="1080p good fonts" ><br/> <img src="/images/posts/jbossdeveloper/1080pgood.png"><br/></a></p></p>
         <a href="../blog/2015/2015-11-16-20-years-Java-5-years-GuateJUG.html"><h1>20 years of Java in Java One and Java Day Guatemala</h1></a>
         <p>23 November 2015</p>
         <p><p><a href="/images/posts/java20/java20.jpg" target="_blank"><br/> <img src="/images/posts/java20/java20.jpg" alt="Java 20" style="width: 300px;"/><br/></a></p><p>For me <strong>2015 hacktivism is officially closed</strong>, this year I had the opportunity to attend my first Java One and met some of my development heroes, folks from another JUGs, being trapped at Patricia's hurricane (no kidding), and bring a huge amount of Java t-shirts to Guatemala. I must say thanks to the people that made this trip possible, special acknowledgments to Nichole Scott from Oracle, my peers at <a href="http://www.nabenik.com">Nabenik</a> that gratefully sponsored my trip and the Guatemala Java User Group for allowing me to take advantage of the Java One ticket :-D.</p><p>I think that every techie has a list of conferences to attend before die, as 2015 my top five is:</p>
@@ -221,5 +228,5 @@ ISBN-13: 1-4493-7016-0
     <script src="../js/prettify.js"></script>
     <link  href="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
-  </body>
+    </body>
 </html>
