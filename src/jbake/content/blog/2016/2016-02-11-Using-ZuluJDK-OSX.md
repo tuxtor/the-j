@@ -16,9 +16,9 @@ In this line, I've been a user of [Zulu JVM](https://www.azul.com/products/zulu/
 
 As my previous experiences in Windows and considering that Zulu is at some point a supported compilation of OpenJDK (basis for HotSpot aka OracleJDK), using Zulu **in OSX has been so far a painless solution**.
 
-Compared to HotSpot you have an additional security "feature" only available at [Server JRE](http://www.oracle.com/technetwork/java/javase/downloads/server-jre8-downloads-2133154.html), the lack of the infamous web plugin, however you will lose Java Mission Control because is a closed source tool.
+Compared to HotSpot you have **an additional security "feature"** only available at [Server JRE](http://www.oracle.com/technetwork/java/javase/downloads/server-jre8-downloads-2133154.html), the lack of the infamous web plugin, however you will lose Java Mission Control because is a closed source tool.
 
-If you are interested in formal benchmarks this guide (by Zulu creators BTW) could be helpful: http://www.azulsystems.com/sites/default/files/images/Azul_Zulu_Hotspot_Infographic_d2_v2.pdf
+If you are interested in **formal benchmarks** this guide (by Zulu creators BTW) could be helpful: http://www.azulsystems.com/sites/default/files/images/Azul_Zulu_Hotspot_Infographic_d2_v2.pdf
 
 In a more "day by day" test, no matter if you are using Eclipse
 
