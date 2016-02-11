@@ -6,9 +6,27 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Tue, 2 Feb 2016 14:39:29 -0600</pubDate>
-    <lastBuildDate>Tue, 2 Feb 2016 14:39:29 -0600</lastBuildDate>
+    <pubDate>Thu, 11 Feb 2016 12:46:54 -0600</pubDate>
+    <lastBuildDate>Thu, 11 Feb 2016 12:46:54 -0600</lastBuildDate>
 
+    <item>
+      <title>First impressions of Zulu on OSX</title>
+      <link>http://www.vorozco.com/blog/2016/2016-02-11-Using-ZuluJDK-OSX.html</link>
+      <pubDate>Thu, 11 Feb 2016 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2016/2016-02-11-Using-ZuluJDK-OSX.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;/images/posts/zulufirst/zulu.jpg&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/zulufirst/zulu.jpg&quot; alt=&quot;Zulu&quot; style=&quot;width: 300px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Although my first development box at this time is an Apple PC, &lt;strong&gt;I&apos;m pretty comfortable with Open Source&lt;/strong&gt; software due &lt;a href=&quot;http://opensourceforamerica.org/learn-more/benefits-of-open-source-software/&quot;&gt;technical and security benefits&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;In this line, I&apos;ve been a user of &lt;a href=&quot;https://www.azul.com/products/zulu/&quot;&gt;Zulu JVM&lt;/a&gt; on my Windows+Java deployments, basically because &lt;strong&gt;Zulu offers a zero-problems deployment of &lt;a href=&quot;http://openjdk.java.net/&quot;&gt;OpenJDK&lt;/a&gt;&lt;/strong&gt;, being at this time the only Open Source and production ready JVM available for Windows (in Linux you also have OpenJDK distro builds or IcedTea).&lt;/p&gt;&lt;p&gt;As my previous experiences in Windows and considering that Zulu is at some point a supported compilation of OpenJDK (basis for HotSpot aka OracleJDK), using Zulu &lt;strong&gt;in OSX has been so far a painless solution&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;Compared to HotSpot you have an additional security &quot;feature&quot; only available at &lt;a href=&quot;http://www.oracle.com/technetwork/java/javase/downloads/server-jre8-downloads-2133154.html&quot;&gt;Server JRE&lt;/a&gt;, the lack of the infamous web plugin, however you will lose Java Mission Control because is a closed source tool.&lt;/p&gt;&lt;p&gt;If you are interested in formal benchmarks this guide (by Zulu creators BTW) could be helpful: &lt;a href=&quot;http://www.azulsystems.com/sites/default/files/images/Azul_Zulu_Hotspot_Infographic_d2_v2.pdf&quot;&gt;http://www.azulsystems.com/sites/default/files/images/Azul_Zulu_Hotspot_Infographic_d2_v2.pdf&lt;/a&gt;&lt;/p&gt;&lt;p&gt;In a more &quot;day by day&quot; test, no matter if you are using Eclipse&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/zulufirst/eclipse.png&quot; data-lightbox=&quot;eclipse&quot; title=&quot;eclipse&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/zulufirst/eclipse.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Wildfly&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/zulufirst/wildfly.png&quot; data-lightbox=&quot;wildfly&quot; title=&quot;wildfly&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/zulufirst/wildfly.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Or maybe Vuze&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/zulufirst/vuze.png&quot; data-lightbox=&quot;vuze&quot; title=&quot;vuze&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/zulufirst/vuze.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Zulu simply works.&lt;/p&gt;&lt;h1&gt;¿Why should you consider Zulu?&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;Is based on OpenJDK Open Source project&lt;/li&gt;
+  &lt;li&gt;You obtain nearly the same performance of HotSpot&lt;/li&gt;
+  &lt;li&gt;You can bundle it on your apps (like &lt;a href=&quot;https://azure.microsoft.com/en-us/marketplace/partners/azul/zulu-enterprise-ondemand-ub1404/&quot;&gt;Microsoft in Azure&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;&lt;h1&gt;¿Why avoid Zulu?&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;If you need Java Mission Control&lt;/li&gt;
+  &lt;li&gt;If you need the Java Browser Plugin, &lt;a href=&quot;http://www.theverge.com/2016/1/28/10858250/oracle-java-plugin-deprecation-jdk-9&quot;&gt;pretty dead BTW&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+	</description>
+    </item>
     <item>
       <title>[Quicktip] Fix font size in JBoss Developer Studio and OSX</title>
       <link>http://www.vorozco.com/blog/2016/2016-02-02-Fix-font-size-JBoss-Developer-OSX.html</link>
