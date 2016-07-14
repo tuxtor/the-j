@@ -6,8 +6,8 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Thu, 14 Jul 2016 11:46:50 -0600</pubDate>
-    <lastBuildDate>Thu, 14 Jul 2016 11:46:50 -0600</lastBuildDate>
+    <pubDate>Thu, 14 Jul 2016 12:02:07 -0600</pubDate>
+    <lastBuildDate>Thu, 14 Jul 2016 12:02:07 -0600</lastBuildDate>
 
     <item>
       <title>Java Day Tour 2016 Recap</title>
@@ -15,7 +15,7 @@
       <pubDate>Thu, 14 Jul 2016 00:00:00 -0600</pubDate>
       <guid isPermaLink="false">blog/2016/2016-07-14-Java-Day-Tour-2016-Recap.html</guid>
       	<description>
-	&lt;p&gt;&lt;a href=&quot;https://vorozco.com/images/posts/guatejugtour2016/duke-futureduke.jpg&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/guatejugtour2016/duke-futureduke.jpg&quot; alt=&quot;Zulu&quot; style=&quot;width: 300px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;A year ago I talked about &lt;a href=&quot;/blog/2015/GuateJUG-Tour-2015.html&quot;&gt;GuateJUG&apos;s Java Day Tour&lt;/a&gt; in this blog, one year has passed (time flies!) and it&apos;s time to do another recap of &lt;strong&gt;GuateJUG activities&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;As a matter of fact the tour wasn&apos;t a tour in first place, we created it as a coincidence of multiple IT conferences where GuateJUG was invited where we promoted our yearly conference, however at this year we formalized the concept opening a &quot;Call for JUG&quot; in our website and social networks with a &lt;strong&gt;clear mission and vision:&lt;/strong&gt;&lt;/p&gt;
+	&lt;p&gt;&lt;a href=&quot;https://vorozco.com/images/posts/guatejugtour2016/duke-futureduke.jpg&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/guatejugtour2016/duke-futureduke.jpg&quot; alt=&quot;Java Flight&quot; style=&quot;width: 150px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;A year ago I talked about &lt;a href=&quot;/blog/2015/GuateJUG-Tour-2015.html&quot;&gt;GuateJUG&apos;s Java Day Tour&lt;/a&gt; in this blog, one year has passed (time flies!) and it&apos;s time to do another recap of &lt;strong&gt;GuateJUG activities&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;As a matter of fact the tour wasn&apos;t a tour in first place, we created it as a coincidence of multiple IT conferences where GuateJUG was invited where we promoted our yearly conference, however at this year we formalized the concept opening a &quot;Call for JUG&quot; in our website and social networks with a &lt;strong&gt;clear mission and vision:&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;gt;Mision: Help universities, high schools and IT development centers with Java-centered conferences in order to update IT knowledge in the not-so developed regions of Guatemala
 
 &amp;gt;Vision: Travel though Guatemala and have fun while promoting our conference and Java
