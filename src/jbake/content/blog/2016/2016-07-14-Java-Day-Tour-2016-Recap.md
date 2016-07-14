@@ -27,9 +27,9 @@ The tour
 To finance the tour expenses we created an **inverted call for papers**, any group, association, university, high school could choose between a bunch of speakers and a fixed set of talks, being:
 
 * Maria Castillo ([@marycoder](http://twitter.com/marycoder))
-* Jorge Cajas ([@jacmota](https://twitter.com/Jac_Mota))
+* Jorge Cajas ([@jac_mota](https://twitter.com/Jac_Mota))
 * Mario Batres ([@mariobatres7](https://twitter.com/mariobatres7))
-* Mercedes Wyss ([@tiaoisaf](https://twitter.com/itrjwyss))
+* Mercedes Wyss ([@itrjwyss](https://twitter.com/itrjwyss))
 * Me ([@tuxtor](http://twitter.com/tuxtor))
 
 GuateJUG put the time plus experience and they put the venue and accomodation. Contrary what we initially expected (and sadly with most success than our yearly conference), GuateJUG tour was a hit. We successfully participated in many talks in the following cities:
