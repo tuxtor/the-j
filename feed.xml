@@ -6,8 +6,8 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Thu, 14 Jul 2016 12:11:48 -0600</pubDate>
-    <lastBuildDate>Thu, 14 Jul 2016 12:11:48 -0600</lastBuildDate>
+    <pubDate>Thu, 14 Jul 2016 15:39:14 -0600</pubDate>
+    <lastBuildDate>Thu, 14 Jul 2016 15:39:14 -0600</lastBuildDate>
 
     <item>
       <title>Java Day Tour 2016 Recap</title>
@@ -18,7 +18,7 @@
 	&lt;p&gt;&lt;a href=&quot;https://vorozco.com/images/posts/guatejugtour2016/duke-futureduke.jpg&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/guatejugtour2016/duke-futureduke.jpg&quot; alt=&quot;Java Flight&quot; style=&quot;width: 150px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;A year ago I talked about &lt;a href=&quot;/blog/2015/GuateJUG-Tour-2015.html&quot;&gt;GuateJUG&apos;s Java Day Tour&lt;/a&gt; in this blog, one year has passed (time flies!) and it&apos;s time to do another recap of &lt;strong&gt;GuateJUG activities&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;As a matter of fact the tour wasn&apos;t a tour in first place, we created it as a coincidence of multiple IT conferences where GuateJUG was invited where we promoted our yearly conference, however at this year we formalized the concept opening a &quot;Call for JUG&quot; in our website and social networks with a &lt;strong&gt;clear mission and vision:&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;gt;Mision: Help universities, high schools and IT development centers with Java-centered conferences in order to update IT knowledge in the not-so developed regions of Guatemala
 
-&amp;gt;Vision: Travel though Guatemala and have fun while promoting our conference and Java
+&amp;gt;Vision: Travel through Guatemala and have fun while promoting our conference and Java
 &lt;/code&gt;&lt;/pre&gt;&lt;h1&gt;Why is this important?&lt;/h1&gt;&lt;p&gt;Guatemala is one of the Central American countries with less &lt;strong&gt;college graduates&lt;/strong&gt;, only 10% of the population could access to college education and only 10% of that population (hence 1%) actually gets a degree, with the addition that &lt;strong&gt;most of the people choose a non-STEM degree&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;Anyways as most of you probably know, you actually don&apos;t need a degree to be a rockstar in Software Development, and for this many people in the country is &lt;strong&gt;gaining interest in Computer Science&lt;/strong&gt; in order to get better job opportunities and GuateJUG is glad to be a part of that change.&lt;/p&gt;&lt;h1&gt;The tour&lt;/h1&gt;&lt;p&gt;To finance the tour expenses we created an &lt;strong&gt;inverted call for papers&lt;/strong&gt;, any group, association, university, high school could choose between a bunch of speakers and a fixed set of talks, being:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Maria Castillo (&lt;a href=&quot;http://twitter.com/marycoder&quot;&gt;@marycoder&lt;/a&gt;)&lt;/li&gt;
