@@ -14,7 +14,7 @@ As a matter of fact the tour wasn't a tour in first place, we created it as a co
 
 	>Mision: Help universities, high schools and IT development centers with Java-centered conferences in order to update IT knowledge in the not-so developed regions of Guatemala
 
-	>Vision: Travel though Guatemala and have fun while promoting our conference and Java
+	>Vision: Travel through Guatemala and have fun while promoting our conference and Java
 
 Why is this important?
 ======================
