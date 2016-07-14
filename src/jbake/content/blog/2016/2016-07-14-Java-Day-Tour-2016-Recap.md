@@ -5,7 +5,7 @@ tags=java
 status=published
 ~~~~~~
 <a href="https://vorozco.com/images/posts/guatejugtour2016/duke-futureduke.jpg" target="_blank">
-	<img src="https://vorozco.com/images/posts/guatejugtour2016/duke-futureduke.jpg" alt="Zulu" style="width: 300px;"/>
+	<img src="https://vorozco.com/images/posts/guatejugtour2016/duke-futureduke.jpg" alt="Java Flight" style="width: 150px;"/>
 </a>
 
 A year ago I talked about [GuateJUG's Java Day Tour](/blog/2015/GuateJUG-Tour-2015.html) in this blog, one year has passed (time flies!) and it's time to do another recap of **GuateJUG activities**.
