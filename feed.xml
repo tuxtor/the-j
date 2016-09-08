@@ -6,9 +6,18 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Thu, 14 Jul 2016 15:39:14 -0600</pubDate>
-    <lastBuildDate>Thu, 14 Jul 2016 15:39:14 -0600</lastBuildDate>
+    <pubDate>Thu, 8 Sep 2016 11:00:22 -0600</pubDate>
+    <lastBuildDate>Thu, 8 Sep 2016 11:00:22 -0600</lastBuildDate>
 
+    <item>
+      <title>See you at Java One and WITFOR 2016</title>
+      <link>http://www.vorozco.com/blog/2016/2016-09-08-See-you-at-J1-and-WITFOR-2016.html</link>
+      <pubDate>Thu, 8 Sep 2016 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2016/2016-09-08-See-you-at-J1-and-WITFOR-2016.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;https://vorozco.com/images/posts/j1witfor/j1-speaking.jpg&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/j1witfor/j1-speaking.jpg&quot; alt=&quot;Java Speaker&quot; style=&quot;width: 150px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;The last quarter of the year is maybe my favorite period of time, since 2012 &lt;strong&gt;I try to attend at least to one &quot;big&quot; conference&lt;/strong&gt; and this year won&apos;t be an exception. &lt;/p&gt;&lt;p&gt;For me &lt;strong&gt;conferences are an opportunity&lt;/strong&gt; to meet new people, have fun, and of course travel to new/favorite places, and this year I&apos;ll have the opportunity to attend two big conferences.&lt;/p&gt;&lt;p&gt;From September 12 to 15 I&apos;ll be attending &lt;a href=&quot;http://www.witfor2016.org/&quot;&gt;WITFOR 2016&lt;/a&gt; as a member of the guatemalan academic community. Since my Msc. I&apos;ve missed the serious academic environment, conferences, CFP, basically because my country(Guatemala) is still creating an academic system. Hence &lt;strong&gt;I have to help (a little bit at least)&lt;/strong&gt; in my &lt;a href=&quot;http://www.url.edu.gt/&quot;&gt;University&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Later jumping from one plane to another (literally) I&apos;ll travel to attend J1. As I previously stated, J1 was a &quot;TODO in life&quot; I had the opportunity to attend the past year and collaborate with some community activities, however this year(between other good news) &lt;a href=&quot;https://oracle.rainfocus.com/scripts/catalog/oow16.jsp?search=UGF7869&amp;search.event=javaone&quot;&gt;one of my proposals was accepted&lt;/a&gt;, so &lt;strong&gt;I&apos;m trying to be ready to chill-out with some Java community peers and share the things that we are doing in Guatemala&apos;s software industry&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;See you at J1 and WITFOR 2016.&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Java Day Tour 2016 Recap</title>
       <link>http://www.vorozco.com/blog/2016/2016-07-14-Java-Day-Tour-2016-Recap.html</link>
