@@ -36,7 +36,7 @@ And install it . . .
   <img src="/images/posts/jbossemc/emcinstall.png">
 </a>
 
-So far **I'm not pretty sure about the potential impacts** of this mix of repositories, however you'll be able to install any Eclipse Marketplace plugin, and it looks good :).
+So far **I'm not pretty sure about the potential impacts** of this mix of repositories, however you'll be able to install any Eclipse Marketplace plugin, and it looks good.
 
 <a href="/images/posts/jbossemc/emc.png" data-lightbox="image-1" title="emc" >
   <img src="/images/posts/jbossemc/emc.png">
