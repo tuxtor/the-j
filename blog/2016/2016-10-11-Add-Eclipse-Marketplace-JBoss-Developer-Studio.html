@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>[Quicktip] Fix font size in JBoss Developer Studio and OSX</title>
+    <title>[Quicktip] Add Eclipse Marketplace Client to JBoss Developer Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="The J*, a blog about Java, JVM, JavaScript and Gentoo Linux">
     <meta name="author" content="Víctor Orozco">
@@ -28,12 +28,12 @@
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
     <link rel="shortcut icon" href="../../favicon.ico">
 
-    <meta property="og:title" content="[Quicktip] Fix font size in JBoss Developer Studio and OSX">
+    <meta property="og:title" content="[Quicktip] Add Eclipse Marketplace Client to JBoss Developer Studio">
     <meta property="og:type" content="post">
-    <meta property="og:url" content="http://www.vorozco.com/blog/2016/2016-02-02-Fix-font-size-JBoss-Developer-OSX0.html">
+    <meta property="og:url" content="http://www.vorozco.com/blog/2016/2016-10-11-Add-Eclipse-Marketplace-JBoss-Developer-Studio.html">
     <meta property="og:site_name" content="The J*">
     <meta property="og:locale" content="en-US">
-    <meta property="article:published_time" content="02 February 2016">
+    <meta property="article:published_time" content="11 October 2016">
     <meta property="article:author" content="https://www.facebook.com/tuxtor">
     <meta property="fb:app_id" content="753735224749731">
     <meta property="og:image" content="http://vorozco.com/images/global/playground.png">
@@ -86,19 +86,17 @@
     </div>
     <div class="container">
 	<div class="page-header">
-		<h1>[Quicktip] Fix font size in JBoss Developer Studio and OSX</h1>
+		<h1>[Quicktip] Add Eclipse Marketplace Client to JBoss Developer Studio</h1>
 	</div>
 
-	<p><em>02 February 2016</em></p>
+	<p><em>11 October 2016</em></p>
 
 	<div class="row">
 
 		<div class="col-md-9">
-			<p><p><a href="/images/posts/jbossdeveloper/jbds9.png" target="_blank"><br/> <img src="/images/posts/jbossdeveloper/jbds9.png" alt="JBoss Developer Studio" style="width: 300px;"/><br/></a></p><p>One of the most annoying things of using JBoss Developer Studio on OSX is the <strong>default configuration</strong>, specially the font size.</p><p>By default Eclipse (and consequently Jbossdevstudio) has a startup parameter called <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=56558">"-Dorg.eclipse.swt.internal.carbon.smallFonts"</a> and as its name suggests, it enforces the usage of the smallest font at the system. </p><p>Although default settings are tolerable on retina displays:<br/><a href="/images/posts/jbossdeveloper/retinagood.png" data-lightbox="image-1" title="1080p bad fonts" ><br/> <img src="/images/posts/jbossdeveloper/retinagood.png"><br/></a></p><p>The problem gets worse on regular 1080p screens (like external non-mac displays):</p><p><a href="/images/posts/jbossdeveloper/1080pbad.png" data-lightbox="image-2" title="1080p bad fonts" ><br/> <img src="/images/posts/jbossdeveloper/1080pbad.png"><br/></a></p><p>As you probably guess the solution of this issue is to delete the parameter, but the tricky part is that <strong>JBoss Developer Studio renames the eclipse.ini file (default Eclipse configuration) to jbdevstudio.ini</strong>, making most of the how-to guides at internet "complicated".</p><p>Anyway the file is located at:</p>
-<pre><code>${JBDEVSTUDIO_HOME}/studio/jbdevstudio.app/Contents/Eclipse/jbdevstudio.ini
-</code></pre><p>Being the default location:</p>
-<pre><code>/Applications/studio/jbdevstudio.app/Contents/Eclipse/jbdevstudio.ini
-</code></pre><p>With this <strong>your eyes will be gratefull</strong> (actual 1080p screenshot):</p><p><a href="/images/posts/jbossdeveloper/1080pgood.png" data-lightbox="image-3" title="1080p good fonts" ><br/> <img src="/images/posts/jbossdeveloper/1080pgood.png"><br/></a></p></p>
+			<p><p><a href="/images/posts/jbossemc/devstudio10.png" target="_blank"><br/> <img src="/images/posts/jbossemc/devstudio10.png" alt="JBoss Developer Studio" style="width: 300px;"/><br/></a></p><p>Recently I'm in the need to do some reporting development. Although I've used iReport in the past I'm pretty <strong>comfortable with having a one stop solution</strong>, being at this time Red Hat JBoss Developer Studio (RHJDS).</p><p>Despite the fact that it contains an small marketplace, at this time it lacks a proper reporting solution like JasperSoft Studio, hence <strong>I was in the need of installing it over my current RHJDS install</strong>.</p><p>For those in the need of <strong>installing Eclipse Marketplace plugins</strong>, you can get it with two simple steps:</p><h2>Add support for Eclipse Update Sites</h2><p>Create a <strong>new repository</strong> with the following sequence<br/>Help -&gt; Install New Software -&gt; Add</p><p>The update URL for Eclipse Neon is:</p>
+<pre><code>http://download.eclipse.org/releases/neon/
+</code></pre><p>And choose a good name for the repo ("Eclipse Neon" maybe?)</p><p><a href="/images/posts/jbossemc/marketplace.png" data-lightbox="image-1" title="marketplace" ><br/> <img src="/images/posts/jbossemc/marketplace.png"><br/></a></p><h2>Search for Eclipse Marketplace Client</h2><p>And install it . . .<br/><a href="/images/posts/jbossemc/emcinstall.png" data-lightbox="image-1" title="emc" ><br/> <img src="/images/posts/jbossemc/emcinstall.png"><br/></a></p><p>So far <strong>I'm not pretty sure about the potential impacts</strong> of this mix of repositories, however you'll be able to install any Eclipse Marketplace plugin, and it looks good.</p><p><a href="/images/posts/jbossemc/emc.png" data-lightbox="image-1" title="emc" ><br/> <img src="/images/posts/jbossemc/emc.png"><br/></a></p></p>
 
 			<div id="share">
 <!-- Twitter -->

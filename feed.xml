@@ -6,9 +6,20 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Thu, 8 Sep 2016 11:00:22 -0600</pubDate>
-    <lastBuildDate>Thu, 8 Sep 2016 11:00:22 -0600</lastBuildDate>
+    <pubDate>Tue, 11 Oct 2016 17:51:31 -0600</pubDate>
+    <lastBuildDate>Tue, 11 Oct 2016 17:51:31 -0600</lastBuildDate>
 
+    <item>
+      <title>[Quicktip] Add Eclipse Marketplace Client to JBoss Developer Studio</title>
+      <link>http://www.vorozco.com/blog/2016/2016-10-11-Add-Eclipse-Marketplace-JBoss-Developer-Studio.html</link>
+      <pubDate>Tue, 11 Oct 2016 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2016/2016-10-11-Add-Eclipse-Marketplace-JBoss-Developer-Studio.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;/images/posts/jbossemc/devstudio10.png&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossemc/devstudio10.png&quot; alt=&quot;JBoss Developer Studio&quot; style=&quot;width: 300px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Recently I&apos;m in the need to do some reporting development. Although I&apos;ve used iReport in the past I&apos;m pretty &lt;strong&gt;comfortable with having a one stop solution&lt;/strong&gt;, being at this time Red Hat JBoss Developer Studio (RHJDS).&lt;/p&gt;&lt;p&gt;Despite the fact that it contains an small marketplace, at this time it lacks a proper reporting solution like JasperSoft Studio, hence &lt;strong&gt;I was in the need of installing it over my current RHJDS install&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;For those in the need of &lt;strong&gt;installing Eclipse Marketplace plugins&lt;/strong&gt;, you can get it with two simple steps:&lt;/p&gt;&lt;h2&gt;Add support for Eclipse Update Sites&lt;/h2&gt;&lt;p&gt;Create a &lt;strong&gt;new repository&lt;/strong&gt; with the following sequence&lt;br/&gt;Help -&amp;gt; Install New Software -&amp;gt; Add&lt;/p&gt;&lt;p&gt;The update URL for Eclipse Neon is:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;http://download.eclipse.org/releases/neon/
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And choose a good name for the repo (&quot;Eclipse Neon&quot; maybe?)&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/jbossemc/marketplace.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;marketplace&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossemc/marketplace.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;h2&gt;Search for Eclipse Marketplace Client&lt;/h2&gt;&lt;p&gt;And install it . . .&lt;br/&gt;&lt;a href=&quot;/images/posts/jbossemc/emcinstall.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;emc&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossemc/emcinstall.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;So far &lt;strong&gt;I&apos;m not pretty sure about the potential impacts&lt;/strong&gt; of this mix of repositories, however you&apos;ll be able to install any Eclipse Marketplace plugin, and it looks good.&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/jbossemc/emc.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;emc&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossemc/emc.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>See you at Java One and WITFOR 2016</title>
       <link>http://www.vorozco.com/blog/2016/2016-09-08-See-you-at-J1-and-WITFOR-2016.html</link>
