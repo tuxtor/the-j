@@ -6,9 +6,18 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Tue, 11 Oct 2016 17:51:31 -0600</pubDate>
-    <lastBuildDate>Tue, 11 Oct 2016 17:51:31 -0600</lastBuildDate>
+    <pubDate>Mon, 19 Dec 2016 02:04:05 -0600</pubDate>
+    <lastBuildDate>Mon, 19 Dec 2016 02:04:05 -0600</lastBuildDate>
 
+    <item>
+      <title>Join Me at @devnexus</title>
+      <link>http://www.vorozco.com/blog/2016/2016-12-20-Join-Devnexus.html</link>
+      <pubDate>Tue, 20 Dec 2016 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2016/2016-12-20-Join-Devnexus.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;https://vorozco.com/images/posts/devnexus/banner.png&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/devnexus/banner.png&quot; alt=&quot;Devnexus&quot; style=&quot;width: 300px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://devnexus.com/&quot;&gt;Devnexus&lt;/a&gt; is probably (and according to this video) &lt;strong&gt;the second biggest Java Conference in United States&lt;/strong&gt;, hence one of the top ten Java conferences in America.&lt;/p&gt;&lt;p&gt;&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/J7XpqF8rHS8&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;&lt;p&gt;Organized by the &lt;a href=&quot;http://www.ajug.org/&quot;&gt;Atlanta Java Users Group&lt;/a&gt;, you could choose between 120+ presentations, 14 tracks and 7 workshops, in order to catch-up with recent topics on Java and Enterprise development world, &lt;strong&gt;a must for any Java Developer looking for knowledge&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;Devenexus 2017 will be my first attendance and &lt;strong&gt;I&apos;m honored to share that one of my presentations was accepted :)&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;Reaching the lambda heaven - &lt;a href=&quot;https://devnexus.com/s/devnexus2017/presentations/17131&quot;&gt;https://devnexus.com/s/devnexus2017/presentations/17131&lt;/a&gt;&lt;/p&gt;&lt;p&gt;In this presentation i&apos;ll give a practical introduction to functional/reactive programing in Java for the &quot;street developer&quot; and we&apos;ll be &lt;strong&gt;reviewing a list of useful libraries&lt;/strong&gt; to make elegant and functional (as in the paradigm) web applications.&lt;/p&gt;&lt;p&gt;Why this and not other conferences?, in my opinion:&lt;br/&gt;- It&apos;s held on a cheaper city compared to California conferences&lt;br/&gt;- It&apos;s a conference from developers for developers&lt;br/&gt;- Atlanta Jug guys are awesome&lt;br/&gt;- Java still rocks&lt;/p&gt;&lt;p&gt;I hope to see you there&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>[Quicktip] Add Eclipse Marketplace Client to JBoss Developer Studio</title>
       <link>http://www.vorozco.com/blog/2016/2016-10-11-Add-Eclipse-Marketplace-JBoss-Developer-Studio.html</link>
