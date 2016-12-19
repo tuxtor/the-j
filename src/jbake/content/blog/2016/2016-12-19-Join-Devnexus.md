@@ -1,12 +1,12 @@
 title=Join Me at @devnexus
-date=2016-12-20
+date=2016-12-19
 type=post
 tags=java
 status=published
 ~~~~~~
 
 <a href="https://vorozco.com/images/posts/devnexus/banner.png" target="_blank">
-	<img src="https://vorozco.com/images/posts/devnexus/banner.png" alt="Devnexus" style="width: 300px;"/>
+	<img src="https://vorozco.com/images/posts/devnexus/banner.png" alt="Devnexus" style="width: 560px;"/>
 </a>
 
 [Devnexus](https://devnexus.com/) is probably (and according to this video) **the second biggest Java Conference in United States**, hence one of the top ten Java conferences in America.
