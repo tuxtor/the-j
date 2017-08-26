@@ -19,7 +19,7 @@ Website
 : [http://vorozco.com/](http://vorozco.com/)
 
 Age
-: 28 years old
+: 29 years old
 
 Education
 ---------
@@ -28,7 +28,7 @@ Education
 :	*Master of Science (MSc), Computer Science*  
 	Focus area: Information security  
 	Universidade Federal de Santa Maria (RS, Brazil)  
-	GPA: 3.84
+	GPA: 3.84/A-
 
 2005-2009
 :	*Bachelor of Science (BSc), Computer Science and Information Systems*  
@@ -52,6 +52,17 @@ Certifications
 	TATA Consultancy Services and India-Guatemala IT Education Centre of Excellence  
 	Universidad de San Carlos de Guatemala
 
+Awards
+------
+2016
+:	*Duke's Choice Award*  
+	[Oracle Corporation](https://blogs.oracle.com/java/2016-duke%E2%80%99s-choice-award-winners)  
+	Community award for “The Duke’s Adventures” Project
+
+2011
+:	*Grad School Scholarship*  
+	OAS-GCUB Scholarship Program  
+	First Generation - Selected between 5000 applicants
 
 Msc. Dissertation
 -----------------
@@ -66,15 +77,20 @@ Description
 
 Experience
 ----------
+2014-currently
+: 	*CTO/Founder*  
+	[Nabenik](http://www.nabenik.com/)  
+	Joint venture focused on research and development of IT solutions and innovation management.
+
 2016-currently
 :	*Assistant Professor*  
 	[Universidad Rafael Landivar de Guatemala](http://www.url.edu.gt)  
 	Computer Science Department. Covering Artificial Intelligence and Modeling and Simulation areas.
 
-2014-currently
-: 	*CTO/Founder*  
-	[Nabenik](http://www.nabenik.com/)  
-	Joint venture focused on research and development of IT solutions and innovation management.
+2016
+: 	*Instructor*  
+	[Edx.org - Galileo University](https://www.edx.org/course/java-fundamentals-android-development-galileox-caad001x)  
+	Instructor and content creator for the "Java Fundamentals for Android" course, first english Micromaster produced in Latin America for edx.org
 
 2014-2015
 :	*Associated Professor*  
@@ -123,18 +139,6 @@ Databases
 CS areas
 :	Software Engineering, Information Security, Social Network Analysis
 
-Awards
-------
-2016
-:	*Duke's Choice Award*  
-	[Oracle Corporation](https://blogs.oracle.com/java/2016-duke%E2%80%99s-choice-award-winners)  
-	Community award for “The Duke’s Adventures” Project
-
-2011
-:	*Grad School Scholarship*  
-	OEA-GCUB Scholarship Program  
-	First Generation - Selected between 5000 applicants
-
 Languages
 ---------
 Spanish
@@ -177,6 +181,7 @@ Workshop Software Livre 2012, 2012, Porto Alegre, Rs. Anais do WSL 2012. Porto A
 
 Highlighted Talks [^1]
 -----------------------------------------
+* Reaching the Java Lambda Heaven • DevNexus - Atlanta, GA, United States • Feb 2017
 * Increasing the Maturity of Our Java User Groups • Java One - San Francisco, CA, United States • Sep 2016
 * A new approach to improve accuracy in information security risk management • Eighth International Conference on Digital Society - Barcelona, Spain • Mar 2014
 * Security on WiFi Networks • CIETEC Professional Education School - Santa Maria, RS, Brazil • Dec 2013
