@@ -17,7 +17,7 @@ git init
 git config user.name "Víctor Orozco"
 git config user.email "tuxtor@shekalug.org"
 
-git remote add upstream "git@github.com:tuxtor/the-j.git"
+git remote add origin https://tuxtor:$GITHUB_TOKEN@github.com/tuxtor/the-j.git
 git fetch upstream
 git reset upstream/gh-pages
 
