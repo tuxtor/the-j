@@ -39,7 +39,7 @@ Payara is hosted at Amazon S3, please double check this link on [Payara's websit
 
 You should execute the above commands as super-user, after that **you should change permissions for the Payara directory before any domain start**. Otherwise you won't be able to use the server with `payara` user
 
-    chmod payara:payara payara41
+    chown -R payara:payara payara41
 
 systemd unit
 ============
