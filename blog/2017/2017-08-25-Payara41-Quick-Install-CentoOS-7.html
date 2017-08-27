@@ -103,7 +103,7 @@
 wget https://s3-eu-west-1.amazonaws.com/payara.fish/Payara+Downloads/Payara+4.1.2.173/payara-4.1.2.173.zip
 unzip payara-4.1.2.173.zip
 </code></pre><p>You should execute the above commands as super-user, after that <strong>you should change permissions for the Payara directory before any domain start</strong>. Otherwise you won't be able to use the server with <code>payara</code> user</p>
-<pre><code>chmod payara:payara payara41
+<pre><code>chown -R payara:payara payara41
 </code></pre><h1>systemd unit</h1><p>Centos 7 uses systemd as init system, consequently it is possible and actually quite easy to create a <strong>systemd unit to start, stop and restart Payara default domain</strong><br/>.<br/>First, create a file that represents Payara systemd unit.</p>
 <pre><code>/etc/systemd/system/payara.service
 </code></pre><p>And add the following content:</p>
