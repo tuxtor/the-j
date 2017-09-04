@@ -21,7 +21,7 @@ And the day finally came . . .
 
 Celebrated in conjunction with the 40th anniversary of the computer science program in the mythical [Universidad Nacional Autonoma de México (UNAM)](http://computacion.ingenieria.unam.mx/), **the event was a huge success**.
 
-With talks from Java Champions, Oracle Developer Champions, ACE Directors, JUG Leaders, Oracle Technology Network and "Javatars", this is the biggest IT Spanish-speaking event I've ever attended, **raising the bar for all of us in our next events.**
+With talks from Java Champions, Oracle Developer Champions, Oracle ACE, JUG Leaders, Oracle Technology Network and "Javatars", this is the biggest IT Spanish-speaking event I've ever attended, **raising the bar for all of us in our next events.**
 
 Kudos, bitcoins, stamina, japanese ki and whatever is valuable for all participants and speakers. Events like these are my favorite since (and taking a famous phrase from DevNexus) this was an **event from developers, by developers for developers**.
 
