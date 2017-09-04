@@ -7,7 +7,7 @@ rev=$(git rev-parse --short HEAD)
 cd build/jbake
 
 rm -Rf cv
-git clone https://github.com/tuxtor/resume.git cv
+git clone --depth=1 https://github.com/tuxtor/resume.git cv
 
 ls -Ra
 rm -Rf cv/.git
@@ -17,7 +17,7 @@ git init
 git config user.name "Víctor Orozco"
 git config user.email "tuxtor@shekalug.org"
 
-git remote add origin https://tuxtor:$GITHUB_TOKEN@github.com/tuxtor/the-j.git
+git remote add upstream https://tuxtor:$GITHUB_TOKEN@github.com/tuxtor/the-j.git
 git fetch upstream
 git reset upstream/gh-pages
 
