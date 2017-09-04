@@ -6,9 +6,25 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Sun, 27 Aug 2017 14:21:42 -0600</pubDate>
-    <lastBuildDate>Sun, 27 Aug 2017 14:21:42 -0600</lastBuildDate>
+    <pubDate>Sun, 3 Sep 2017 21:24:21 -0600</pubDate>
+    <lastBuildDate>Sun, 3 Sep 2017 21:24:21 -0600</lastBuildDate>
 
+    <item>
+      <title>Java Cloud Day México 2017 trip report</title>
+      <link>http://www.vorozco.com/blog/2017/2017-09-04-Java-Cloud-Day-México-2017.html</link>
+      <pubDate>Mon, 4 Sep 2017 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2017/2017-09-04-Java-Cloud-Day-México-2017.html</guid>
+      	<description>
+	&lt;p&gt;I&apos;m not accustomed to do &quot;trip reports&quot; of conferences, but I think this conference deserves the report.&lt;/p&gt;&lt;p&gt;Java Cloud Day 2017 was the &lt;strong&gt;result of a dream from the JEspañol community&lt;/strong&gt;, a simple one in phrase but very difficult to achieve &quot;unite Java Leaders from Spanish speaking countries in Latin America&quot;, dream that started three years ago. Although I&apos;m not one of the &quot;original members&quot;, last year I joined the effort after some pub-discussions in Java One.&lt;/p&gt;&lt;p&gt;Honor to whom honor is owed, one of the &lt;strong&gt;key sponsors who made this possible was &lt;a href=&quot;https://twitter.com/certificatic?lang=en&quot;&gt;CertificaTIC&lt;/a&gt;&lt;/strong&gt;, a mexican Java-Oracle certification services provider who believed in the project and put a lot of resources for the event. Adrian, Mirza and the whole team . . . you rock!&lt;/p&gt;&lt;h1&gt;The previous virtual conference&lt;/h1&gt;&lt;p&gt;The event as a whole was carried as two conferences. The first leg called &lt;strong&gt;&lt;a href=&quot;https://www.facebook.com/pg/EventosJEspanol/&quot;&gt;&quot;conferencia virtual JEspañol&quot;&lt;/a&gt; with VirtualJUG-Like conferences but in Spanish&lt;/strong&gt; with speakers from Guatemala, Mexico, Panama, Peru and Colombia, being the first of its kind.&lt;/p&gt;&lt;h1&gt;Java Cloud Day Mexico 2017&lt;/h1&gt;&lt;p&gt;And the day finally came . . .&lt;/p&gt;&lt;p&gt;Celebrated in conjunction with the 40th anniversary of the computer science program in the mythical &lt;a href=&quot;http://computacion.ingenieria.unam.mx/&quot;&gt;Universidad Nacional Autonoma de México (UNAM)&lt;/a&gt;, &lt;strong&gt;the event was a huge success&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;With talks from Java Champions, Oracle Developer Champions, Oracle ACE, JUG Leaders, Oracle Technology Network and &quot;Javatars&quot;, this is the biggest IT Spanish-speaking event I&apos;ve ever attended, &lt;strong&gt;raising the bar for all of us in our next events.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Kudos, bitcoins, stamina, japanese ki and whatever is valuable for all participants and speakers. Events like these are my favorite since (and taking a famous phrase from DevNexus) this was an &lt;strong&gt;event from developers, by developers for developers&lt;/strong&gt;.&lt;/p&gt;&lt;h1&gt;The pictures&lt;/h1&gt;&lt;p&gt;Some selected pictures from the event, dinner, and Teotihuacan.&lt;/p&gt;
+&lt;div class=&quot;fotorama&quot;&gt;
+    &lt;img src=&quot;https://vorozco.com/images/posts/javacloud17/1.jpg&quot;&gt;
+    &lt;img src=&quot;https://vorozco.com/images/posts/javacloud17/2.jpg&quot;&gt;
+    &lt;img src=&quot;https://vorozco.com/images/posts/javacloud17/3.jpg&quot;&gt;
+    &lt;img src=&quot;https://vorozco.com/images/posts/javacloud17/4.jpg&quot;&gt;
+    &lt;img src=&quot;https://vorozco.com/images/posts/javacloud17/speakers.png&quot;&gt;
+&lt;/div&gt;&lt;h1&gt;My presentation&lt;/h1&gt;&lt;p&gt;I presented some tip and tricks for the creation of Microservices with Payara Application Server, the presentation starts at minute ~45&lt;/p&gt;&lt;p&gt;&lt;iframe src=&quot;https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FCertificaTIC%2Fvideos%2F1794751094098879%2F&amp;show_text=1&amp;width=560&quot; width=&quot;560&quot; height=&quot;401&quot; style=&quot;border:none;overflow:hidden&quot; scrolling=&quot;no&quot; frameborder=&quot;0&quot; allowTransparency=&quot;true&quot; allowFullScreen=&quot;true&quot;&gt;&lt;/iframe&gt;&lt;/p&gt;&lt;p&gt;See you in the next conference . . . or tour, who knows :)?&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Payara 4.1 install guide on CentOS 7</title>
       <link>http://www.vorozco.com/blog/2017/2017-08-25-Payara41-Quick-Install-CentoOS-7.html</link>
