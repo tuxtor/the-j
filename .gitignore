@@ -1,0 +1,4 @@
+build
+src/jbake/output
+.gradle
+src/jbake/assets/cv
