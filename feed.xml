@@ -1,0 +1,315 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>The J*</title>
+    <link>http://www.vorozco.com</link>
+    <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
+    <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
+    <language>en-us</language>
+    <pubDate>Thu, 28 Sep 2017 19:51:32 -0600</pubDate>
+    <lastBuildDate>Thu, 28 Sep 2017 19:51:32 -0600</lastBuildDate>
+
+    <item>
+      <title>[Quicktip] How to install Oracle Java 9 on Fedora 26</title>
+      <link>http://www.vorozco.com/blog/2017/2017-09-28-Install-Java-9-Fedora-26.html</link>
+      <pubDate>Thu, 28 Sep 2017 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2017/2017-09-28-Install-Java-9-Fedora-26.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;/images/posts/java9fedora26/duke9.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;Java 9&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/java9fedora26/duke9.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Yey! It&apos;s time to celebrate the general availability of Java 9.&lt;/p&gt;&lt;p&gt;Since I&apos;m &lt;strong&gt;the guy in charge of breaking the things before everyone else in the company&lt;/strong&gt;, I&apos;ve been experimenting with JDK 9 and Fedora 26 Workstation, hence this quick guide about installing Oracle JDK 9 using the &quot;Fedora Way&quot;.&lt;/p&gt;&lt;h1&gt;Getting the JDK&lt;/h1&gt;&lt;p&gt;As always when a JDK reaches general availability, you could &lt;strong&gt;download a Java Developer Kit from Oracle website&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;Here &lt;a href=&quot;http://www.oracle.com/technetwork/java/javase/downloads/index.html&quot;&gt;http://www.oracle.com/technetwork/java/javase/downloads/index.html&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Conveniently &lt;strong&gt;Oracle offers a .rpm package&lt;/strong&gt; that it&apos;s supposed to work with any &quot;Hat&quot; distribution. This guide is focused on that installer.&lt;/p&gt;&lt;h1&gt;Installing the new JDK&lt;/h1&gt;&lt;p&gt;After downloading the rpm, &lt;strong&gt;you could install it as any other rpm&lt;/strong&gt;, at the time of writing this tutorial, the rpm didn&apos;t required any other dependency (or any dependency not available in Fedora)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo rpm -ivh jdk-9_linux-x64_bin.rpm
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This command was executed as super user.&lt;/p&gt;&lt;h1&gt;Configuring the JDK&lt;/h1&gt;&lt;p&gt;&quot;Hat&quot; distributions come with a handy tool called &lt;a href=&quot;https://fedoraproject.org/wiki/Packaging:Alternatives&quot;&gt;alternatives&lt;/a&gt;, as the name suggests it handles the alternatives for the system, in this case the default JVM and compiler.&lt;/p&gt;&lt;p&gt;First, set the alternative for the &lt;code&gt;java&lt;/code&gt; command&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo alternatives config --java
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It will list the &quot;Red Hat packaged&quot; JVM&apos;s installed on the system, &lt;strong&gt;for instance this is the output in my system (Oracle JDK 8, Oracle JDK 9, OpenJDK 8)&lt;/strong&gt;:&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/java9fedora26/alternativesjvm.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;Java Alternatives&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/java9fedora26/alternativesjvm.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Later, you should also pick a compiler alternative&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo alternatives config --javac
+&lt;/code&gt;&lt;/pre&gt;&lt;h1&gt;Configuring JShell REPL&lt;/h1&gt;&lt;p&gt;JShell is one of the coolest features in Java 9, &lt;strong&gt;being the first official REPL to be included&lt;/strong&gt;. However and since it&apos;s the first time that the binary is available in the system, it cannot be selected as alternative unless you create it manually.&lt;/p&gt;&lt;p&gt;First, locate the JDK install directory, Oracle JDK is regularly located at &lt;code&gt;/usr/java&lt;/code&gt;, being in my system.&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/java9fedora26/jdklist.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;JDK List&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/java9fedora26/jdklist.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;As any other JVM binary program, JShell will be located at &lt;code&gt;bin&lt;/code&gt; directory, hence to create an alternative (and consequently to be prepared for other Java 9 options . . . and to include the executable in the path):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo alternatives --install /usr/bin/jshell jshell /usr/java/jdk-9/bin/jshell
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;From now on you could use jshell on any regular shell, just &lt;strong&gt;see my first Java-9 hello world, it looks beautiful :-)&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/java9fedora26/hello9.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;Java 9 Hello World&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/java9fedora26/hello9.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;
+	</description>
+    </item>
+    <item>
+      <title>Java Cloud Day México 2017 trip report</title>
+      <link>http://www.vorozco.com/blog/2017/2017-09-04-Java-Cloud-Day-México-2017.html</link>
+      <pubDate>Mon, 4 Sep 2017 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2017/2017-09-04-Java-Cloud-Day-México-2017.html</guid>
+      	<description>
+	&lt;p&gt;I&apos;m not accustomed to do &quot;trip reports&quot; of conferences, but I think this conference deserves the report.&lt;/p&gt;&lt;p&gt;Java Cloud Day 2017 was the &lt;strong&gt;result of a dream from the JEspañol community&lt;/strong&gt;, a simple one in phrase but very difficult to achieve &quot;unite Java Leaders from Spanish speaking countries in Latin America&quot;, dream that started three years ago. Although I&apos;m not one of the &quot;original members&quot;, last year I joined the effort after some pub-discussions in Java One.&lt;/p&gt;&lt;p&gt;Honor to whom honor is owed, one of the &lt;strong&gt;key sponsors who made this possible was &lt;a href=&quot;https://twitter.com/certificatic?lang=en&quot;&gt;CertificaTIC&lt;/a&gt;&lt;/strong&gt;, a mexican Java-Oracle certification services provider who believed in the project and put a lot of resources for the event. Adrian, Mirza and the whole team . . . you rock!&lt;/p&gt;&lt;h1&gt;The previous virtual conference&lt;/h1&gt;&lt;p&gt;The event as a whole was carried as two conferences. The first leg called &lt;strong&gt;&lt;a href=&quot;https://www.facebook.com/pg/EventosJEspanol/&quot;&gt;&quot;conferencia virtual JEspañol&quot;&lt;/a&gt; with VirtualJUG-Like conferences but in Spanish&lt;/strong&gt; with speakers from Guatemala, Mexico, Panama, Peru and Colombia, being the first of its kind.&lt;/p&gt;&lt;h1&gt;Java Cloud Day Mexico 2017&lt;/h1&gt;&lt;p&gt;And the day finally came . . .&lt;/p&gt;&lt;p&gt;Celebrated in conjunction with the 40th anniversary of the computer science program in the mythical &lt;a href=&quot;http://computacion.ingenieria.unam.mx/&quot;&gt;Universidad Nacional Autonoma de México (UNAM)&lt;/a&gt;, &lt;strong&gt;the event was a huge success&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;With talks from Java Champions, Oracle Developer Champions, Oracle ACE, JUG Leaders, Oracle Technology Network and &quot;Javatars&quot;, this is the biggest IT Spanish-speaking event I&apos;ve ever attended, &lt;strong&gt;raising the bar for all of us in our next events.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Kudos, bitcoins, stamina, japanese ki and whatever is valuable for all participants and speakers. Events like these are my favorite since (and taking a famous phrase from DevNexus) this was an &lt;strong&gt;event from developers, by developers for developers&lt;/strong&gt;.&lt;/p&gt;&lt;h1&gt;The pictures&lt;/h1&gt;&lt;p&gt;Some selected pictures from the event, dinner, and Teotihuacan.&lt;/p&gt;
+&lt;div class=&quot;fotorama&quot;&gt;
+    &lt;img src=&quot;https://vorozco.com/images/posts/javacloud17/1.jpg&quot;&gt;
+    &lt;img src=&quot;https://vorozco.com/images/posts/javacloud17/2.jpg&quot;&gt;
+    &lt;img src=&quot;https://vorozco.com/images/posts/javacloud17/3.jpg&quot;&gt;
+    &lt;img src=&quot;https://vorozco.com/images/posts/javacloud17/4.jpg&quot;&gt;
+    &lt;img src=&quot;https://vorozco.com/images/posts/javacloud17/speakers.png&quot;&gt;
+&lt;/div&gt;&lt;h1&gt;My presentation&lt;/h1&gt;&lt;p&gt;I presented some tip and tricks for the creation of Microservices with Payara Application Server, the presentation starts at minute ~45&lt;/p&gt;&lt;p&gt;&lt;iframe src=&quot;https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FCertificaTIC%2Fvideos%2F1794751094098879%2F&amp;show_text=1&amp;width=560&quot; width=&quot;560&quot; height=&quot;401&quot; style=&quot;border:none;overflow:hidden&quot; scrolling=&quot;no&quot; frameborder=&quot;0&quot; allowTransparency=&quot;true&quot; allowFullScreen=&quot;true&quot;&gt;&lt;/iframe&gt;&lt;/p&gt;&lt;p&gt;See you in the next conference . . . or tour, who knows :)?&lt;/p&gt;
+	</description>
+    </item>
+    <item>
+      <title>Payara 4.1 install guide on CentOS 7</title>
+      <link>http://www.vorozco.com/blog/2017/2017-08-25-Payara41-Quick-Install-CentoOS-7.html</link>
+      <pubDate>Fri, 25 Aug 2017 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2017/2017-08-25-Payara41-Quick-Install-CentoOS-7.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;/images/posts/payara/payara.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;Payara&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/payara/payara.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;In this &quot;back to basics tutorial&quot; I&apos;ll try to explain &lt;strong&gt;how to install properly Payara 4.1 on Centos 7&lt;/strong&gt; (it should be fine for Red Hat, Oracle Unbreakable Linux and other *hat distributions).&lt;/p&gt;&lt;p&gt;Why not Docker, Ansible, Chef, Puppet, . . .?. Sometimes the best solution is the easiest :).&lt;/p&gt;&lt;h1&gt;Pre-requisites&lt;/h1&gt;&lt;p&gt;The only software requirement to run Payara is to &lt;strong&gt;have a JDK installed&lt;/strong&gt;. CentOS offers a custom OpenJDK build called &lt;a href=&quot;https://centos.pkgs.org/7/centos-x86_64/java-1.8.0-openjdk-headless-1.8.0.102-4.b14.el7.x86_64.rpm.html&quot;&gt;&quot;headless&quot;&lt;/a&gt; that doesn&apos;t offer support for audio and video, perfect for cli environments.&lt;/p&gt;&lt;p&gt;You can install it with Yum.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;yum install java-1.8.0-openjdk-headless
+&lt;/code&gt;&lt;/pre&gt;&lt;h1&gt;Create a Payara user&lt;/h1&gt;&lt;p&gt;As mentioned in the official &lt;a href=&quot;https://javaee.github.io/glassfish/documentation&quot;&gt;Glassfish documentation&lt;/a&gt;, it is convenient to &lt;strong&gt;run your application server in a dedicated user&lt;/strong&gt; for security and administrative reasons.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;adduser payara
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Although you could be tempted to create a no-login, no-shell user, Payara saves many preferences in user&apos;s home directory and &lt;strong&gt;the shell/login is actually needed to execute administrative commands like &lt;code&gt;asadmin&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;&lt;h1&gt;Download and unzip Payara&lt;/h1&gt;&lt;p&gt;Payara is hosted at Amazon S3, please double check this link on &lt;a href=&quot;https://www.payara.fish/&quot;&gt;Payara&apos;s website&lt;/a&gt;, for this guide I&apos;m installing Payara at server&apos;s &lt;code&gt;/opt&lt;/code&gt; directory.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd /opt
+wget https://s3-eu-west-1.amazonaws.com/payara.fish/Payara+Downloads/Payara+4.1.2.173/payara-4.1.2.173.zip
+unzip payara-4.1.2.173.zip
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;You should execute the above commands as super-user, after that &lt;strong&gt;you should change permissions for the Payara directory before any domain start&lt;/strong&gt;. Otherwise you won&apos;t be able to use the server with &lt;code&gt;payara&lt;/code&gt; user&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;chown -R payara:payara payara41
+&lt;/code&gt;&lt;/pre&gt;&lt;h1&gt;systemd unit&lt;/h1&gt;&lt;p&gt;Centos 7 uses systemd as init system, consequently it is possible and actually quite easy to create a &lt;strong&gt;systemd unit to start, stop and restart Payara default domain&lt;/strong&gt;&lt;br/&gt;.&lt;br/&gt;First, create a file that represents Payara systemd unit.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/etc/systemd/system/payara.service
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And add the following content:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[Unit]
+Description = Payara Server v4.1
+After = syslog.target network.target
+
+[Service]
+User=payara
+ExecStart = /usr/bin/java -jar /opt/payara41/glassfish/lib/client/appserver-cli.jar start-domain
+ExecStop = /usr/bin/java -jar /opt/payara41/glassfish/lib/client/appserver-cli.jar stop-domain
+ExecReload = /usr/bin/java -jar /opt/payara41/glassfish/lib/client/appserver-cli.jar restart-domain
+Type = forking
+
+[Install]
+WantedBy = multi-user.target
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Note that Payara administration is achieved with &lt;code&gt;payara&lt;/code&gt; user. You could personalize it to fit your needs.&lt;/p&gt;&lt;p&gt;Optionally you could enable the service to start with the server and/or after server reboots.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;systemctl enable payara
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Check if all is working properly with the systemd standard commands&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;systemctl start payara
+systemctl restart payara
+systemctl stop payara
+&lt;/code&gt;&lt;/pre&gt;&lt;h1&gt;Payara user PATH&lt;/h1&gt;&lt;p&gt;As Payara and Glassfish users already know, &lt;strong&gt;most administrative tasks in Payara application server are achieved by using cli commands&lt;/strong&gt; like &lt;code&gt;asadmin&lt;/code&gt;. Hence it is convenient to have all tools available in our administrative &lt;code&gt;payara&lt;/code&gt; user.&lt;/p&gt;&lt;p&gt;First log-in as Payara user, if you didn&apos;t assign a password for the user you could switch to this user using &lt;code&gt;su&lt;/code&gt; as root user.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;su payara
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Later you shoud create or edit the &lt;code&gt;.bashrc&lt;/code&gt; file for the Payara user, the most common location being user&apos;s home directory.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd /home/payara
+vim .bashrc
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And add the following line:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;export PATH=$PATH:/opt/payara41/glassfish/bin
+&lt;/code&gt;&lt;/pre&gt;&lt;h1&gt;Final result&lt;/h1&gt;&lt;p&gt;If your setup was done properly you should obtain an environment like in the following screenshot:&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/payara/payarafinish.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;Payara Centos 7&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/payara/payarafinish.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Note that:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;I&apos;m able to use systemd commands&lt;/li&gt;
+  &lt;li&gt;It actually restarded since PID changed after &lt;code&gt;systemd restart&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;asadmin&lt;/code&gt; works and displays properly the running domain&lt;/li&gt;
+&lt;/ul&gt;
+	</description>
+    </item>
+    <item>
+      <title>[Quicktip] Move current JVM on JBoss Developer Studio</title>
+      <link>http://www.vorozco.com/blog/2017/2017-01-28-Update-JBoss-Developer-Studio-JVM.html</link>
+      <pubDate>Sat, 28 Jan 2017 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2017/2017-01-28-Update-JBoss-Developer-Studio-JVM.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;/images/posts/jbossemc/devstudio10.png&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossemc/devstudio10.png&quot; alt=&quot;JBoss Developer Studio&quot; style=&quot;width: 300px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;After a routinary JVM update I had the idea of getting rid of old JVMs by simply removing the install directories. &lt;strong&gt;After that many of my Java tools went dark :(&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;For JBoss Developer Studio, I recevied the following &quot;welcome message&quot;.&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/jbossjvm/jvmwarn.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;devstudio-jvm-error&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossjvm/jvmwarn.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;At the time, I deleted the 1.8.111 version from my system, preserving only the 1.8.121 version as the &quot;actual&quot; version.&lt;/p&gt;&lt;h2&gt;Fixing versions&lt;/h2&gt;&lt;p&gt;Different from other tools, Eclipse-based tools tend to &quot;hardcode&quot; the JVM location with the install process inside eclipse.ini file. However and as I stated in a &lt;a href=&quot;/blog/2016/2016-02-02-Fix-font-size-JBoss-Developer-OSX.html&quot;&gt;previous entry&lt;/a&gt;, JBoss Developer Studio converts this file to &lt;strong&gt;jbdevstudio.ini, hence you should fix the JVM location in this file&lt;/strong&gt;.&lt;/p&gt;&lt;h2&gt;Finding the file in Mac OS(X?)&lt;/h2&gt;&lt;p&gt;If you got JDevStudio with the vanilla installer, the default location for the IDE would be /Applications/devstudio and the tricky part is that &lt;strong&gt;configuration is inside &quot;Devstudio&quot; OSX Package&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;If you wanna fix this file from terminal the &lt;strong&gt;complete path for the file would be:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;code&gt;/Applications/devstudio/studio/devstudio.app/Contents/Eclipse&lt;/code&gt;&lt;/p&gt;&lt;p&gt;Of course you could always open packages in Finder:&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/jbossjvm/pcontents.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;finder-package&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossjvm/pcontents.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;After opening the file the only fix that you need to do is to &lt;strong&gt;point to the installed virtual machine&lt;/strong&gt;, being in my PC (Hint: You could check the location by executing /usr/libexec/java_home):&lt;/p&gt;&lt;p&gt;&lt;code&gt;/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/&lt;/code&gt;&lt;/p&gt;&lt;p&gt;And your file should look like this:&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/jbossjvm/devstudio.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;jvm-location&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossjvm/devstudio.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;
+	</description>
+    </item>
+    <item>
+      <title>Join Me at @devnexus</title>
+      <link>http://www.vorozco.com/blog/2016/2016-12-19-Join-Devnexus.html</link>
+      <pubDate>Mon, 19 Dec 2016 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2016/2016-12-19-Join-Devnexus.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;https://vorozco.com/images/posts/devnexus/banner.png&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/devnexus/banner.png&quot; alt=&quot;Devnexus&quot; style=&quot;width: 560px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://devnexus.com/&quot;&gt;Devnexus&lt;/a&gt; is probably (and according to this video) &lt;strong&gt;the second biggest Java Conference in United States&lt;/strong&gt;, hence one of the top ten Java conferences in America.&lt;/p&gt;&lt;p&gt;&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/J7XpqF8rHS8&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;&lt;p&gt;Organized by the &lt;a href=&quot;http://www.ajug.org/&quot;&gt;Atlanta Java Users Group&lt;/a&gt;, you could choose between 120+ presentations, 14 tracks and 7 workshops, in order to catch-up with recent topics on Java and Enterprise development world, &lt;strong&gt;a must for any Java Developer looking for knowledge&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;Devenexus 2017 will be my first attendance and &lt;strong&gt;I&apos;m honored to share that one of my presentations was accepted :)&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;Reaching the lambda heaven - &lt;a href=&quot;https://devnexus.com/s/devnexus2017/presentations/17131&quot;&gt;https://devnexus.com/s/devnexus2017/presentations/17131&lt;/a&gt;&lt;/p&gt;&lt;p&gt;In this presentation i&apos;ll give a practical introduction to functional/reactive programing in Java for the &quot;street developer&quot; and we&apos;ll be &lt;strong&gt;reviewing a list of useful libraries&lt;/strong&gt; to make elegant and functional (as in the paradigm) web applications.&lt;/p&gt;&lt;p&gt;Why this and not other conferences?, in my opinion:&lt;br/&gt;- It&apos;s held on a cheaper city compared to California conferences&lt;br/&gt;- It&apos;s a conference from developers for developers&lt;br/&gt;- Atlanta Jug guys are awesome&lt;br/&gt;- Java still rocks&lt;/p&gt;&lt;p&gt;I hope to see you there&lt;/p&gt;
+	</description>
+    </item>
+    <item>
+      <title>[Quicktip] Add Eclipse Marketplace Client to JBoss Developer Studio</title>
+      <link>http://www.vorozco.com/blog/2016/2016-10-11-Add-Eclipse-Marketplace-JBoss-Developer-Studio.html</link>
+      <pubDate>Tue, 11 Oct 2016 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2016/2016-10-11-Add-Eclipse-Marketplace-JBoss-Developer-Studio.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;/images/posts/jbossemc/devstudio10.png&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossemc/devstudio10.png&quot; alt=&quot;JBoss Developer Studio&quot; style=&quot;width: 300px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Recently I&apos;m in the need to do some reporting development. Although I&apos;ve used iReport in the past I&apos;m pretty &lt;strong&gt;comfortable with having a one stop solution&lt;/strong&gt;, being at this time Red Hat JBoss Developer Studio (RHJDS).&lt;/p&gt;&lt;p&gt;Despite the fact that it contains an small marketplace, at this time it lacks a proper reporting solution like JasperSoft Studio, hence &lt;strong&gt;I was in the need of installing it over my current RHJDS install&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;For those in the need of &lt;strong&gt;installing Eclipse Marketplace plugins&lt;/strong&gt;, you can get it with two simple steps:&lt;/p&gt;&lt;h2&gt;Add support for Eclipse Update Sites&lt;/h2&gt;&lt;p&gt;Create a &lt;strong&gt;new repository&lt;/strong&gt; with the following sequence&lt;br/&gt;Help -&amp;gt; Install New Software -&amp;gt; Add&lt;/p&gt;&lt;p&gt;The update URL for Eclipse Neon is:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;http://download.eclipse.org/releases/neon/
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And choose a good name for the repo (&quot;Eclipse Neon&quot; maybe?)&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/jbossemc/marketplace.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;marketplace&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossemc/marketplace.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;h2&gt;Search for Eclipse Marketplace Client&lt;/h2&gt;&lt;p&gt;And install it . . .&lt;br/&gt;&lt;a href=&quot;/images/posts/jbossemc/emcinstall.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;emc&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossemc/emcinstall.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;So far &lt;strong&gt;I&apos;m not pretty sure about the potential impacts&lt;/strong&gt; of this mix of repositories, however you&apos;ll be able to install any Eclipse Marketplace plugin, and it looks good.&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/jbossemc/emc.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;emc&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossemc/emc.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;
+	</description>
+    </item>
+    <item>
+      <title>See you at Java One and WITFOR 2016</title>
+      <link>http://www.vorozco.com/blog/2016/2016-09-08-See-you-at-J1-and-WITFOR-2016.html</link>
+      <pubDate>Thu, 8 Sep 2016 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2016/2016-09-08-See-you-at-J1-and-WITFOR-2016.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;https://vorozco.com/images/posts/j1witfor/j1-speaking.jpg&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/j1witfor/j1-speaking.jpg&quot; alt=&quot;Java Speaker&quot; style=&quot;width: 150px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;The last quarter of the year is maybe my favorite period of time, since 2012 &lt;strong&gt;I try to attend at least to one &quot;big&quot; conference&lt;/strong&gt; and this year won&apos;t be an exception. &lt;/p&gt;&lt;p&gt;For me &lt;strong&gt;conferences are an opportunity&lt;/strong&gt; to meet new people, have fun, and of course travel to new/favorite places, and this year I&apos;ll have the opportunity to attend two big conferences.&lt;/p&gt;&lt;p&gt;From September 12 to 15 I&apos;ll be attending &lt;a href=&quot;http://www.witfor2016.org/&quot;&gt;WITFOR 2016&lt;/a&gt; as a member of the guatemalan academic community. Since my Msc. I&apos;ve missed the serious academic environment, conferences, CFP, basically because my country(Guatemala) is still creating an academic system. Hence &lt;strong&gt;I have to help (a little bit at least)&lt;/strong&gt; in my &lt;a href=&quot;http://www.url.edu.gt/&quot;&gt;University&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Later jumping from one plane to another (literally) I&apos;ll travel to attend J1. As I previously stated, J1 was a &quot;TODO in life&quot; I had the opportunity to attend the past year and collaborate with some community activities, however this year(between other good news) &lt;a href=&quot;https://oracle.rainfocus.com/scripts/catalog/oow16.jsp?search=UGF7869&amp;search.event=javaone&quot;&gt;one of my proposals was accepted&lt;/a&gt;, so &lt;strong&gt;I&apos;m trying to be ready to chill-out with some Java community peers and share the things that we are doing in Guatemala&apos;s software industry&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;See you at J1 and WITFOR 2016.&lt;/p&gt;
+	</description>
+    </item>
+    <item>
+      <title>Java Day Tour 2016 Recap</title>
+      <link>http://www.vorozco.com/blog/2016/2016-07-14-Java-Day-Tour-2016-Recap.html</link>
+      <pubDate>Thu, 14 Jul 2016 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2016/2016-07-14-Java-Day-Tour-2016-Recap.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;https://vorozco.com/images/posts/guatejugtour2016/duke-futureduke.jpg&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/guatejugtour2016/duke-futureduke.jpg&quot; alt=&quot;Java Flight&quot; style=&quot;width: 150px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;A year ago I talked about &lt;a href=&quot;/blog/2015/GuateJUG-Tour-2015.html&quot;&gt;GuateJUG&apos;s Java Day Tour&lt;/a&gt; in this blog, one year has passed (time flies!) and it&apos;s time to do another recap of &lt;strong&gt;GuateJUG activities&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;As a matter of fact the tour wasn&apos;t a tour in first place, we created it as a coincidence of multiple IT conferences where GuateJUG was invited where we promoted our yearly conference, however at this year we formalized the concept opening a &quot;Call for JUG&quot; in our website and social networks with a &lt;strong&gt;clear mission and vision:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt;Mision: Help universities, high schools and IT development centers with Java-centered conferences in order to update IT knowledge in the not-so developed regions of Guatemala
+
+&amp;gt;Vision: Travel through Guatemala and have fun while promoting our conference and Java
+&lt;/code&gt;&lt;/pre&gt;&lt;h1&gt;Why is this important?&lt;/h1&gt;&lt;p&gt;Guatemala is one of the Central American countries with less &lt;strong&gt;college graduates&lt;/strong&gt;, only 10% of the population could access to college education and only 10% of that population (hence 1%) actually gets a degree, with the addition that &lt;strong&gt;most of the people choose a non-STEM degree&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;Anyways as most of you probably know, you actually don&apos;t need a degree to be a rockstar in Software Development, and for this many people in the country is &lt;strong&gt;gaining interest in Computer Science&lt;/strong&gt; in order to get better job opportunities and GuateJUG is glad to be a part of that change.&lt;/p&gt;&lt;h1&gt;The tour&lt;/h1&gt;&lt;p&gt;To finance the tour expenses we created an &lt;strong&gt;inverted call for papers&lt;/strong&gt;, any group, association, university, high school could choose between a bunch of speakers and a fixed set of talks, being:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Maria Castillo (&lt;a href=&quot;http://twitter.com/marycoder&quot;&gt;@marycoder&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;Jorge Cajas (&lt;a href=&quot;https://twitter.com/Jac_Mota&quot;&gt;@jac_mota&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;Mario Batres (&lt;a href=&quot;https://twitter.com/mariobatres7&quot;&gt;@mariobatres7&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;Mercedes Wyss (&lt;a href=&quot;https://twitter.com/itrjwyss&quot;&gt;@itrjwyss&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;Me (&lt;a href=&quot;http://twitter.com/tuxtor&quot;&gt;@tuxtor&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;GuateJUG put the time plus experience and they put the venue and accomodation. Contrary what we initially expected (and sadly with most success than our yearly conference), GuateJUG tour was a hit. We successfully participated in many talks in the following cities:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/San_Pedro_Sacatep%C3%A9quez,_San_Marcos&quot;&gt;San Pedro Sacatepequez, San Marcos&lt;/a&gt; (sponsored by Universidad Mariano Galvez)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Totonicap%C3%A1n&quot;&gt;Totonicapan, Totonicapan&lt;/a&gt; (sponsored by Universidad Mariano Galvez)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Quetzaltenango&quot;&gt;Quetzaltenango, Quetzaltenango&lt;/a&gt; (sponsored by Universidad Mariano Galvez)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Cobán&quot;&gt;Cobán, Alta Verapaz&lt;/a&gt; (sponsored by Universidad Mariano Galvez)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Salam%C3%A1&quot;&gt;Salama, Baja Verapaz&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/San_Miguel_Petapa&quot;&gt;San Miguel Petapa&lt;/a&gt; (sponsored by Colegio Valle del Saber)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://uni.edu.gt/&quot;&gt;Universidad InterNaciones&lt;/a&gt; (sponsored by itself)&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;Some random photos from the trips&lt;br/&gt;&lt;div class=&quot;fotorama&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/guatejugtour2016/a.jpg&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/guatejugtour2016/b.jpg&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/guatejugtour2016/c.jpg&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/guatejugtour2016/d.jpg&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/guatejugtour2016/e.jpg&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/guatejugtour2016/f.jpg&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/guatejugtour2016/g.jpg&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/guatejugtour2016/h.jpg&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/guatejugtour2016/i.jpg&quot;&gt;&lt;br/&gt; &lt;img src=&quot;https://vorozco.com/images/posts/guatejugtour2016/j.jpg&quot;&gt;&lt;br/&gt;&lt;/div&gt;&lt;/p&gt;&lt;p&gt;With new dates in the following cities:&lt;br/&gt;* &lt;a href=&quot;https://en.wikipedia.org/wiki/Huehuetenango&quot;&gt;Huehuetenango, Huehuetenango&lt;/a&gt; (sponsored by Universidad da Vinci)&lt;br/&gt;* &lt;a href=&quot;https://en.wikipedia.org/wiki/Chiquimula&quot;&gt;Chiquimula, Chiquimula&lt;/a&gt; (sponsored by Universidad de San Carlos)&lt;/p&gt;&lt;p&gt;So far we&apos;ve promoted Java with more than 800 assistants between all regions, a huge success for guatemalan parameters.&lt;/p&gt;&lt;h1&gt;Lessons that we&apos;ve learnt&lt;/h1&gt;&lt;p&gt;Although GuateJUG was supposed to be a central part to teach Java, as speakers &lt;strong&gt;we&apos;ve learnt more than we expected&lt;/strong&gt; in the first trip.&lt;/p&gt;&lt;p&gt;Quality comments aside, most of the people that made this tour possible were glad with us, and &lt;strong&gt;they wish that more IT communities could have an impact&lt;/strong&gt; for all country regions.&lt;/p&gt;&lt;p&gt;You can&apos;t be sure if an informal chit-chat in a IT conference would become a great opportunity, in our case an informal chit-chat in a Java meeting finished with the &lt;strong&gt;first independent technological tour&lt;/strong&gt; in our country (AFAIK).&lt;/p&gt;&lt;p&gt;For us the Java Day Tour was an opportunity to rediscover our country, make friends in every country region, and have not only IT but &lt;strong&gt;life experiences that I&apos;m pretty sure I wouldn&apos;t have without a proper excuse&lt;/strong&gt; to take my backpack, laptop, and share a little bit of knowledge that I&apos;ve had the opportunity to acquire.&lt;/p&gt;&lt;p&gt;For the students, Java Day Tour was &lt;strong&gt;an opportunity to ask any question&lt;/strong&gt; about Software Engineering, Computer Science, Women in STEM, Android, Life outside their regions, IT careers, and or course Java, and I&apos;m glad for being part of that.&lt;/p&gt;&lt;p&gt;Long live to Java!&lt;/p&gt;
+	</description>
+    </item>
+    <item>
+      <title>First impressions of Zulu on OSX</title>
+      <link>http://www.vorozco.com/blog/2016/2016-02-11-Using-ZuluJDK-OSX.html</link>
+      <pubDate>Thu, 11 Feb 2016 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2016/2016-02-11-Using-ZuluJDK-OSX.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;/images/posts/zulufirst/zulu.jpg&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/zulufirst/zulu.jpg&quot; alt=&quot;Zulu&quot; style=&quot;width: 300px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Although my first development box at this time is an Apple PC, &lt;strong&gt;I&apos;m pretty comfortable with Open Source&lt;/strong&gt; software due &lt;a href=&quot;http://opensourceforamerica.org/learn-more/benefits-of-open-source-software/&quot;&gt;technical and security benefits&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;In this line, I&apos;ve been a user of &lt;a href=&quot;https://www.azul.com/products/zulu/&quot;&gt;Zulu JVM&lt;/a&gt; on my Windows+Java deployments, basically because &lt;strong&gt;Zulu offers a zero-problems deployment of &lt;a href=&quot;http://openjdk.java.net/&quot;&gt;OpenJDK&lt;/a&gt;&lt;/strong&gt;, being at this time the only Open Source and production ready JVM available for Windows (in Linux you also have OpenJDK distro builds or IcedTea).&lt;/p&gt;&lt;p&gt;As my previous experiences in Windows and considering that Zulu is at some point a supported compilation of OpenJDK (basis for HotSpot aka OracleJDK), using Zulu &lt;strong&gt;in OSX has been so far a painless solution&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;Compared to HotSpot you have &lt;strong&gt;an additional security &quot;feature&quot;&lt;/strong&gt; only available at &lt;a href=&quot;http://www.oracle.com/technetwork/java/javase/downloads/server-jre8-downloads-2133154.html&quot;&gt;Server JRE&lt;/a&gt;, the lack of the infamous web plugin, however you will lose Java Mission Control because is a closed source tool.&lt;/p&gt;&lt;p&gt;If you are interested in &lt;strong&gt;formal benchmarks&lt;/strong&gt; this guide (by Zulu creators BTW) could be helpful: &lt;a href=&quot;http://www.azulsystems.com/sites/default/files/images/Azul_Zulu_Hotspot_Infographic_d2_v2.pdf&quot;&gt;http://www.azulsystems.com/sites/default/files/images/Azul_Zulu_Hotspot_Infographic_d2_v2.pdf&lt;/a&gt;&lt;/p&gt;&lt;p&gt;In a more &quot;day by day&quot; test, no matter if you are using Eclipse&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/zulufirst/eclipse.png&quot; data-lightbox=&quot;eclipse&quot; title=&quot;eclipse&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/zulufirst/eclipse.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Wildfly&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/zulufirst/wildfly.png&quot; data-lightbox=&quot;wildfly&quot; title=&quot;wildfly&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/zulufirst/wildfly.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Or maybe Vuze&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/zulufirst/vuze.png&quot; data-lightbox=&quot;vuze&quot; title=&quot;vuze&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/zulufirst/vuze.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Zulu simply works.&lt;/p&gt;&lt;h1&gt;¿Why should you consider Zulu?&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;Is based on OpenJDK Open Source project&lt;/li&gt;
+  &lt;li&gt;You obtain nearly the same performance of HotSpot&lt;/li&gt;
+  &lt;li&gt;You can bundle it on your apps (like &lt;a href=&quot;https://azure.microsoft.com/en-us/marketplace/partners/azul/zulu-enterprise-ondemand-ub1404/&quot;&gt;Microsoft in Azure&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;&lt;h1&gt;¿Why avoid Zulu?&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;If you need Java Mission Control&lt;/li&gt;
+  &lt;li&gt;If you need the Java Browser Plugin, &lt;a href=&quot;http://www.theverge.com/2016/1/28/10858250/oracle-java-plugin-deprecation-jdk-9&quot;&gt;pretty dead BTW&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+	</description>
+    </item>
+    <item>
+      <title>[Quicktip] Fix font size in JBoss Developer Studio and OSX</title>
+      <link>http://www.vorozco.com/blog/2016/2016-02-02-Fix-font-size-JBoss-Developer-OSX.html</link>
+      <pubDate>Tue, 2 Feb 2016 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2016/2016-02-02-Fix-font-size-JBoss-Developer-OSX.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;/images/posts/jbossdeveloper/jbds9.png&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossdeveloper/jbds9.png&quot; alt=&quot;JBoss Developer Studio&quot; style=&quot;width: 300px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;One of the most annoying things of using JBoss Developer Studio on OSX is the &lt;strong&gt;default configuration&lt;/strong&gt;, specially the font size.&lt;/p&gt;&lt;p&gt;By default Eclipse (and consequently Jbossdevstudio) has a startup parameter called &lt;a href=&quot;https://bugs.eclipse.org/bugs/show_bug.cgi?id=56558&quot;&gt;&quot;-Dorg.eclipse.swt.internal.carbon.smallFonts&quot;&lt;/a&gt; and as its name suggests, it enforces the usage of the smallest font at the system. &lt;/p&gt;&lt;p&gt;Although default settings are tolerable on retina displays:&lt;br/&gt;&lt;a href=&quot;/images/posts/jbossdeveloper/retinagood.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;1080p bad fonts&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossdeveloper/retinagood.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;The problem gets worse on regular 1080p screens (like external non-mac displays):&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/jbossdeveloper/1080pbad.png&quot; data-lightbox=&quot;image-2&quot; title=&quot;1080p bad fonts&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossdeveloper/1080pbad.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;As you probably guess the solution of this issue is to delete the parameter, but the tricky part is that &lt;strong&gt;JBoss Developer Studio renames the eclipse.ini file (default Eclipse configuration) to jbdevstudio.ini&lt;/strong&gt;, making most of the how-to guides at internet &quot;complicated&quot;.&lt;/p&gt;&lt;p&gt;Anyway the file is located at:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;${JBDEVSTUDIO_HOME}/studio/jbdevstudio.app/Contents/Eclipse/jbdevstudio.ini
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Being the default location:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/Applications/studio/jbdevstudio.app/Contents/Eclipse/jbdevstudio.ini
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;With this &lt;strong&gt;your eyes will be gratefull&lt;/strong&gt; (actual 1080p screenshot):&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/jbossdeveloper/1080pgood.png&quot; data-lightbox=&quot;image-3&quot; title=&quot;1080p good fonts&quot; &gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/jbossdeveloper/1080pgood.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;
+	</description>
+    </item>
+    <item>
+      <title>20 years of Java in Java One and Java Day Guatemala</title>
+      <link>http://www.vorozco.com/blog/2015/2015-11-16-20-years-Java-5-years-GuateJUG.html</link>
+      <pubDate>Mon, 23 Nov 2015 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2015/2015-11-16-20-years-Java-5-years-GuateJUG.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;/images/posts/java20/java20.jpg&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/java20/java20.jpg&quot; alt=&quot;Java 20&quot; style=&quot;width: 300px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;For me &lt;strong&gt;2015 hacktivism is officially closed&lt;/strong&gt;, this year I had the opportunity to attend my first Java One and met some of my development heroes, folks from another JUGs, being trapped at Patricia&apos;s hurricane (no kidding), and bring a huge amount of Java t-shirts to Guatemala. I must say thanks to the people that made this trip possible, special acknowledgments to Nichole Scott from Oracle, my peers at &lt;a href=&quot;http://www.nabenik.com&quot;&gt;Nabenik&lt;/a&gt; that gratefully sponsored my trip and the Guatemala Java User Group for allowing me to take advantage of the Java One ticket :-D.&lt;/p&gt;&lt;p&gt;I think that every techie has a list of conferences to attend before die, as 2015 my top five is:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;JavaOne (2015 finally)&lt;/li&gt;
+  &lt;li&gt;Gentoo Miniconf&lt;/li&gt;
+  &lt;li&gt;OSCON&lt;/li&gt;
+  &lt;li&gt;Forum Internacional de Sofware Livre - FISL (2013 as a speaker yey!)&lt;/li&gt;
+  &lt;li&gt;Convención de Informatica Guatemala (2005 - now dead, but it made the list for nostalgia)&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;Although I had some health issues due stress, Java One and San Francisco were lifetime experiences. As each conference I&apos;ve attended, it has its goods and bads but in general &lt;strong&gt;you can feel a strong sense of community between attendants&lt;/strong&gt;, from Pivotal to Red Hat (and Microsoft), from the peer that shares a beer with you and turns out to be a Java Champion to the people that speaks another languages with you, Java One is about community making awesome things in IT. Programming languages aren&apos;t eternal but I can state that the differential factor that raised 20-year languages like Java and JavaScript among the others is the community.&lt;/p&gt;&lt;p&gt;Random photos:&lt;/p&gt;
+&lt;div class=&quot;fotorama&quot;&gt;
+    &lt;img src=&quot;/images/posts/java20/IMG_20151023_151334.jpg&quot;&gt;
+    &lt;img src=&quot;/images/posts/java20/IMG_20151023_185726.jpg&quot;&gt;
+    &lt;img src=&quot;/images/posts/java20/IMG_20151024_104546.jpg&quot;&gt;
+    &lt;img src=&quot;/images/posts/java20/IMG_20151024_122253.jpg&quot;&gt;
+    &lt;img src=&quot;/images/posts/java20/IMG_20151025_133147.jpg&quot;&gt;
+    &lt;img src=&quot;/images/posts/java20/IMG_20151025_152920.jpg&quot;&gt;
+    &lt;img src=&quot;/images/posts/java20/IMG_20151026_194945.jpg&quot;&gt;
+&lt;/div&gt;&lt;p&gt;In a different scale but in the same sense of community, the Guatemala Java User Group held its yearly conference &lt;strong&gt;Java Day Guatemala&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;I&apos;ve been involved directly in the organization of 2 Java Days and spoken in three. As I said in our keynote, for me &lt;strong&gt;GuateJUG has been the most successful user group&lt;/strong&gt; where I&apos;ve participated. Characterized by pragmatism, openness and community structure since its inception, GuateJUG became one of the strongest user groups in Central America, the integration between industry, academia, Open Source communities, Free Software communities and HR people looking for the next generation of developers is unique.&lt;/p&gt;&lt;p&gt;As a special occasion &lt;strong&gt;we held a traditional birthday celebration&lt;/strong&gt;, including birthday cake and mexican piñatas. It was great to share words with some old friends and meet new IT enthusiasts, as a matter of fact we also sang &quot;Happy birthday Java and happy birthday GuateJUG&quot;.&lt;/p&gt;&lt;p&gt;Video and some more random photos:&lt;/p&gt;&lt;p&gt;&lt;iframe width=&quot;420&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/u7o0XShv79E&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;div class=&quot;fotorama&quot;&gt;
+    &lt;img src=&quot;/images/posts/java20/11226069_1060642347287731_5812305256213579668_o.jpg&quot;&gt;
+    &lt;img src=&quot;/images/posts/java20/12238470_1060643013954331_2349556758532275784_o.jpg&quot;&gt;
+    &lt;img src=&quot;/images/posts/java20/12244626_1060641943954438_3151222273500737324_o.jpg&quot;&gt;
+    &lt;img src=&quot;/images/posts/java20/12265953_1060642613954371_2213430104867139963_o.jpg&quot;&gt;
+    &lt;img src=&quot;/images/posts/java20/_DSC0452.jpg&quot;&gt;
+&lt;/div&gt;&lt;p&gt;I hope to see you the next year in Java One and Java Day :-).&lt;/p&gt;
+	</description>
+    </item>
+    <item>
+      <title>[Book Review] Java EE 7 Essentials, O’Reilly</title>
+      <link>http://www.vorozco.com/blog/2015/2015-11-12-Java-Essentials-Book-Review.html</link>
+      <pubDate>Thu, 12 Nov 2015 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2015/2015-11-12-Java-Essentials-Book-Review.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;/images/posts/gf-essentials.gif&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/gf-essentials.gif&quot; alt=&quot;JavaEE 7 Essentials Cover&quot; style=&quot;width: 150px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;h1&gt;About the book&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;Pages: 362
+Publisher: O’Reilly Media
+Release: Aug 2013
+ISBN-10: 978-1-4493-7016-9
+ISBN-13: 1-4493-7016-0
+&lt;/code&gt;&lt;/pre&gt;&lt;h1&gt;Book details&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;I received this book as a part of the now dead O&apos;Reilly users group program&lt;/strong&gt;. When I asked for this book I was specially interested due comments from my development peers . . . and most importantly because I was in the middle of a Software Architecture definition.&lt;/p&gt;&lt;p&gt;I&apos;m writing this review after 7 months of using it on daily basis, basically because our development stack is composed by AngularJS on the front-end and JavaEE 7 on the back-end (with a huge bias to the Hat company). At the office we have a small books collection (because IT books are pretty dead after five years), and &lt;strong&gt;Aurun&apos;s book is our prefered book&lt;/strong&gt; for the &quot;Java EE 7 rescue kit&quot;.&lt;/p&gt;&lt;p&gt;If I have to choose &lt;strong&gt;two adjectives for this book I must say &quot;quick and versatile&quot;&lt;/strong&gt;, this book deserves all of its fame because it has the balance between a good reference book and a user friendly introductory book, most of the IT books don&apos;t achieve it.&lt;/p&gt;&lt;p&gt;I don&apos;t wanna copy the index page but I have the following &lt;strong&gt;favorite chapters&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Servlets&lt;/li&gt;
+  &lt;li&gt;RESTFul Web Services&lt;/li&gt;
+  &lt;li&gt;SOAP Web Services&lt;/li&gt;
+  &lt;li&gt;JSON Processing&lt;/li&gt;
+  &lt;li&gt;Enterprise Java Beans&lt;/li&gt;
+  &lt;li&gt;Context and Dependency Injection&lt;/li&gt;
+  &lt;li&gt;Bean Validation&lt;/li&gt;
+  &lt;li&gt;Java Transactions&lt;/li&gt;
+  &lt;li&gt;Java Persistence&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;Most of the book samples are based on Glassfish, and is easy to guess why looking at the publication date. However, talking from my true-heavy-metal-monkey-developer-architect experience, &lt;strong&gt;this book uses only pure JavaEE 7 apis&lt;/strong&gt; and I&apos;ve been able to run/use the samples on Wildfly without issues.&lt;/p&gt;&lt;p&gt;For those that are looking a good book for JavaEE 7 development, on any of the &lt;a href=&quot;http://www.oracle.com/technetwork/java/javaee/overview/compatibility-jsp-136984.html&quot;&gt;certified Java EE 7 servers&lt;/a&gt; &lt;strong&gt;this is a must&lt;/strong&gt;.&lt;/p&gt;&lt;h1&gt;Highlights&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;Good balance between tutorial and reference.&lt;/li&gt;
+  &lt;li&gt;Few content compared to the Java EE Tutorial but still in the point.&lt;/li&gt;
+  &lt;li&gt;The samples should work on any Java EE 7 server.&lt;/li&gt;
+&lt;/ul&gt;&lt;h1&gt;Could be better&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;WebSockets section is small in relation to the other chapters, it feels incomplete.&lt;/li&gt;
+  &lt;li&gt;The cover brings to my mind the good old days when Glassfish was that application server that everybody is talking.&lt;/li&gt;
+&lt;/ul&gt;
+	</description>
+    </item>
+    <item>
+      <title>GuateJUG Tour 2015 First Leg</title>
+      <link>http://www.vorozco.com/blog/2015/GuateJUG-Tour-2015-First-Leg.html</link>
+      <pubDate>Thu, 22 Oct 2015 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2015/GuateJUG-Tour-2015-First-Leg.html</guid>
+      	<description>
+	&lt;p&gt;As I described &lt;a href=&quot;/blog/2015/GuateJUG-Tour-2015.html&quot;&gt;previously&lt;/a&gt;, GuateJUG held a conference circuit promoting its yearly conference &lt;strong&gt;&lt;a href=&quot;http://www.guate-jug.net/javaday2015&quot;&gt;Java Day Guatemala 2015&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;This activity was motivated by &lt;a href=&quot;https://community.oracle.com/community/java/javas-20th-anniversary&quot;&gt;Java&apos;s 20th anniversary&lt;/a&gt; and specially due &lt;strong&gt;GuateJUG&apos;s 5th anniversary&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;So... how do you achieve a tour that traverses Guatemala?. Easy, with the right sponsors and contacts :).&lt;/p&gt;&lt;p&gt;&lt;strong&gt;An special acknowledgment&lt;/strong&gt; for the people that made this first leg possible:&lt;br/&gt;- Jorge Cajas (Universidad de San Carlos de Guatemala)&lt;br/&gt;- Dhaby Xiloj (Universidad Rafael Landivar - Quetzaltenango)&lt;br/&gt;- Rene Alvarado (Universidad de San Carlos de Guatemala - Chiquimula)&lt;/p&gt;&lt;p&gt;In this first leg (not the only one . . . I hope) GuateJUG team went &lt;strong&gt;from the center of the country to the east and later to the west&lt;/strong&gt;, like in this ugly map:&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/guatejugtour2015/map.png&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/guatejugtour2015/map.png&quot; alt=&quot;GuateJUG Tour&quot; style=&quot;width: 300px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Covering the following topics&lt;/p&gt;&lt;h2&gt;First conference&lt;/h2&gt;&lt;p&gt;Place: Universidad de San Carlos de Guatemala - Guatemala City&lt;br/&gt;* Java 8: Functional programming principles (me)&lt;br/&gt;* 20 years of Java (Wences Arana - DebianGt)&lt;/p&gt;&lt;h2&gt;Second conference&lt;/h2&gt;&lt;p&gt;Place: Universidad Rafael Landivar - Quetzaltenango&lt;br/&gt;* Source code control with Git - (me)&lt;/p&gt;&lt;h2&gt;Third conference&lt;/h2&gt;&lt;p&gt;Place: Universidad de San Carlos de Guatemala - Chiquimula&lt;br/&gt;* HTML5 applications with Java EE 7 and AngularJS - (me)&lt;br/&gt;* Android 101 - (Mercedes Wyss - GuateJUG)&lt;/p&gt;&lt;p&gt;Random photos:&lt;/p&gt;
+&lt;div class=&quot;fotorama&quot;&gt;
+    &lt;img src=&quot;/images/posts/guatejugtour2015/1.jpg&quot;&gt;
+    &lt;img src=&quot;/images/posts/guatejugtour2015/2.jpg&quot;&gt;
+    &lt;img src=&quot;/images/posts/guatejugtour2015/3.jpg&quot;&gt;
+    &lt;img src=&quot;/images/posts/guatejugtour2015/4.jpg&quot;&gt;
+    &lt;img src=&quot;/images/posts/guatejugtour2015/5.jpg&quot;&gt;
+    &lt;img src=&quot;/images/posts/guatejugtour2015/6.jpg&quot;&gt;
+    &lt;img src=&quot;/images/posts/guatejugtour2015/7.jpg&quot;&gt;
+&lt;/div&gt;&lt;p&gt;Some years ago &lt;strong&gt;I did a similar tour with the FLOSS community in my college years&lt;/strong&gt;. The sensation of going back to the same cities, hanging out with good old friends and other new friends is always pleasant.&lt;/p&gt;&lt;p&gt;Every time anyone asks me why I do this, &lt;strong&gt;I have the same answer&lt;/strong&gt; &quot;why not? At least each time I know the country a little bit more :)&quot;. &lt;/p&gt;&lt;p&gt;With this I&apos;m in the best mood for Java Day Guatemala and most importantly to attend &lt;a href=&quot;https://www.oracle.com/javaone/index.html&quot;&gt;Java One 2015&lt;/a&gt; willing to collaborate with some User Groups activities, I hope to see many of you in both conferences.&lt;/p&gt;
+	</description>
+    </item>
+    <item>
+      <title>GuateJUG Tour 2015</title>
+      <link>http://www.vorozco.com/blog/2015/GuateJUG-Tour-2015.html</link>
+      <pubDate>Sat, 26 Sep 2015 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2015/GuateJUG-Tour-2015.html</guid>
+      	<description>
+	&lt;p&gt;In &lt;a href=&quot;http://www.guate-jug.net&quot;&gt;GuateJUG&lt;/a&gt; &lt;strong&gt;we arrived to our fifth year&lt;/strong&gt;, consequently I must start this post with a &quot;thanks to everybody that made this possible (developers, advocates, supporters, sponsors, friends, family, and other-UG)&quot;.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;This year has been a special year for GuateJUG&lt;/strong&gt; and Java in general, in February we were very excited about being featured at &lt;a href=&quot;http://gtts.ehu.es/WDW/biblio/JavaMagazine/javamagazine20150102-dl.pdf&quot;&gt;Java Magazine&lt;/a&gt; (a little step for .gt developers, a great step for our user group), and as every inch of the web knows 2015 is the year of the 20 years of Java, another anniversary that came in hand to believe that 2015 is the year of Java reborn.&lt;/p&gt;&lt;p&gt;Hence, at GuateJUG we added to our regular activities a conference circuit called &lt;strong&gt;GuateJUG Tour&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/gtour2015.png&quot; target=&quot;_blank&quot;&gt;&lt;br/&gt; &lt;img src=&quot;/images/posts/gtour2015.png&quot; alt=&quot;GuateJUG Tour&quot; style=&quot;width: 300px;&quot;/&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;As many of our activities, this is some kind of spontaneous tour, hence &lt;strong&gt;we&apos;ll be adding dates as new cities are confirmed&lt;/strong&gt; (Guatemala is a small country so it&apos;s possible to confirm in very short notice).&lt;/p&gt;&lt;p&gt;The tour started on September 26 and I&apos;m confirmed as a speaker in three cities, so &lt;strong&gt;I&apos;ll be collecting my slides in this post for quick reference&lt;/strong&gt; :).&lt;/p&gt;&lt;h1&gt;Java 8: Más funcional que nunca&lt;/h1&gt;&lt;p&gt;&lt;iframe src=&quot;//www.slideshare.net/slideshow/embed_code/key/30AXtCu2ARI9hD&quot; width=&quot;425&quot; height=&quot;355&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot; style=&quot;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&quot; allowfullscreen&gt; &lt;/iframe&gt; &lt;div style=&quot;margin-bottom:5px&quot;&gt; &lt;strong&gt; &lt;a href=&quot;//www.slideshare.net/tuxtor/java-8-ms-funcional-que-nunca&quot; title=&quot;Java 8: Más funcional que nunca&quot; target=&quot;_blank&quot;&gt;Java 8: Más funcional que nunca&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href=&quot;//www.slideshare.net/tuxtor&quot; target=&quot;_blank&quot;&gt;Víctor Orozco&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;/p&gt;&lt;h1&gt;Git 101 (with Java)&lt;/h1&gt;&lt;p&gt;&lt;iframe src=&quot;//www.slideshare.net/slideshow/embed_code/key/H4g9lRHrc63bzj&quot; width=&quot;425&quot; height=&quot;355&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot; style=&quot;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&quot; allowfullscreen&gt; &lt;/iframe&gt; &lt;div style=&quot;margin-bottom:5px&quot;&gt; &lt;strong&gt; &lt;a href=&quot;//www.slideshare.net/tuxtor/introduccin-a-git-git-101&quot; title=&quot;Introducción a Git (Git 101)&quot; target=&quot;_blank&quot;&gt;Introducción a Git (Git 101)&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href=&quot;//www.slideshare.net/tuxtor&quot; target=&quot;_blank&quot;&gt;Víctor Orozco&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;/p&gt;&lt;h1&gt;Aplicaciones HTML5 con AngularJS y JavaEE&lt;/h1&gt;&lt;p&gt;&lt;iframe src=&quot;//www.slideshare.net/slideshow/embed_code/key/EVtupsoyepJrX3&quot; width=&quot;425&quot; height=&quot;355&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot; style=&quot;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&quot; allowfullscreen&gt; &lt;/iframe&gt; &lt;div style=&quot;margin-bottom:5px&quot;&gt; &lt;strong&gt; &lt;a href=&quot;//www.slideshare.net/tuxtor/inciando-con-angularjs-y-javaee-7&quot; title=&quot;Inciando con AngularJS y JavaEE 7&quot; target=&quot;_blank&quot;&gt;Inciando con AngularJS y JavaEE 7&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href=&quot;//www.slideshare.net/tuxtor&quot; target=&quot;_blank&quot;&gt;Víctor Orozco&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;/p&gt;
+	</description>
+    </item>
+    <item>
+      <title>Welcome</title>
+      <link>http://www.vorozco.com/blog/2015/Welcome.html</link>
+      <pubDate>Sat, 8 Aug 2015 00:00:00 -0600</pubDate>
+      <guid isPermaLink="false">blog/2015/Welcome.html</guid>
+      	<description>
+	&lt;p&gt;Hi, If you&apos;re reading this probably you are one of my few twitter followers, so thanks for your visit. For those that don&apos;t know me I wanna share a little story with you :).&lt;/p&gt;&lt;p&gt;As an IT guy, I started my main website/blog &lt;a href=&quot;http://tuxtor.shekalug.org/&quot;&gt;El abismo de tux (in spanish)&lt;/a&gt; in 2006 during my college years, mostly as an experiment that grew as the blog phenoma exploded, gaining great experiences like:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Being featured in a nation-wide newspaper;&lt;/li&gt;
+  &lt;li&gt;Being invited to morning talk shows due my tech/politics rants;&lt;/li&gt;
+  &lt;li&gt;Getting opportunities like my first job using my tech blog as a &quot;certification&quot; of my expertise in Unix and Java.&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;So . . . what&apos;s the point of starting a new website in 2015?&lt;/p&gt;&lt;p&gt;I consider my old blog as a chronological reflection of my life experiences, like my stupidity at college, my involvement in FLOSS communities, my musical taste, EVERYTHING that I could talk about technology, politics, society, academia, the life in the countries where I&apos;ve lived (Guatemala, Brazil), and in recent years using it as an scratchpad of my day to day coding.&lt;/p&gt;&lt;p&gt;During this year at &lt;a href=&quot;http://www.nabenik.com&quot;&gt;Nabenik&lt;/a&gt;, while I was struggling to improve my coding skills I noticed that most if not all the times I search for tech content exclusively in English, and I&apos;ve noticed also a debacle on my readers due the change of focus at my old blog. because I simply killed some topics that I don&apos;t care anymore (politics, Free Software as a social movement, the country where I live), so I&apos;ve decided that is time to put the &quot;Tux Abyss&quot; in mantainance mode.&lt;/p&gt;&lt;p&gt;Killing a website is more difficult than it looks, specially a website that has been online since 2006, however at this point of my life/carreer I&apos;d like to share deeper facts and knowlege about fewer topics, specially:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Gentoo Linux and Unix in General&lt;/li&gt;
+  &lt;li&gt;JVM Languages (Java, JavaScript)&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;That&apos;s why I&apos;m welcoming you to &quot;The J*&quot;, the name is inspired in three facts&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;I write code in JVM Languages (specially Java) and JavaScript on daily basis&lt;/li&gt;
+  &lt;li&gt;I was born in June&lt;/li&gt;
+  &lt;li&gt;The second name of a child that means a lot to me starts with J&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;For this site and considering my past experiences with Wordpress and Jekyll . . . I decided to try &lt;a href=&quot;http://jbake.org/&quot;&gt;JBake&lt;/a&gt;, mainly because I&apos;m familiar with Gradle, and for me is easier to write posts in markdown. Also because I fell in love with the results at &lt;a href=&quot;http://vertx.io&quot;&gt;Vert.x&lt;/a&gt; and &lt;a href=&quot;http://www.hawkular.org/&quot;&gt;Hawkular&lt;/a&gt; to name a few.&lt;/p&gt;&lt;p&gt;At this time this blog is hosted at GitHub pages being built by &lt;a href=&quot;https://travis-ci.org/tuxtor/the-j&quot;&gt;Travis-CI&lt;/a&gt; with gradle, saving me hosting costs.&lt;/p&gt;&lt;p&gt;I think that starting a web site in the &lt;a href=&quot;http://jacquesmattheij.com/aol-20&quot;&gt;AOL 2.0&lt;/a&gt; era is some kind of digital rebellion, so please grab a seat and feel free to drop comments :).&lt;/p&gt;
+	</description>
+    </item>
+
+  </channel> 
+</rss>
