@@ -6,8 +6,8 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Thu, 15 Mar 2018 07:57:02 +0000</pubDate>
-    <lastBuildDate>Thu, 15 Mar 2018 07:57:02 +0000</lastBuildDate>
+    <pubDate>Thu, 15 Mar 2018 08:02:00 +0000</pubDate>
+    <lastBuildDate>Thu, 15 Mar 2018 08:02:00 +0000</lastBuildDate>
 
     <item>
       <title>Fixing missing data on Jasper Reports with community Linux distros</title>
@@ -17,7 +17,7 @@
       	<description>
 	&lt;p&gt;. . . or why my report is half empty in Centos 7.&lt;/p&gt;&lt;p&gt;One of the most common and least emotional tasks in any enterprise software is to produce reports. However after many years today I got &lt;strong&gt;my first &quot;serious bug&quot; in Jasper Reports.&lt;/strong&gt;&lt;/p&gt;&lt;h1&gt;The problem&lt;/h1&gt;&lt;p&gt;My development team is composed by a mix of Ubuntu and Mac OS workstations, hence we could consider that we use user-friendly environments. Between many applications, we have in maintenance mode a not-so small accounting module which produces a considerable amount of reports. This applications is running (most of the times) on Openshift (Red Hat) platforms or on-premise (also Red Hat).&lt;/p&gt;&lt;p&gt;A recent deployment was carried over a headless(pure cli) CentOS 7 fresh install and after deploying application on the app server, all reports presented the following issue:&lt;/p&gt;&lt;p&gt;Good report, Red Hat, Mac Os, Ubuntu&lt;br/&gt;&lt;a href=&quot;/images/posts/jasper/goodreport.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;Good Report&quot; &gt;&lt;br/&gt; &lt;img class=&quot;img-fluid&quot; src=&quot;/images/posts/jasper/goodreport.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Bad report, Centos 7&lt;br/&gt;&lt;a href=&quot;/images/posts/jasper/badreport.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;Bad Report&quot; &gt;&lt;br/&gt; &lt;img class=&quot;img-fluid&quot; src=&quot;/images/posts/jasper/badreport.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;At first sight both reports are working and equal, however &lt;strong&gt;in the Centos 7 version, all quantities disappeared&lt;/strong&gt; and the only &quot;meaningful&quot; log message related to fonts was:&lt;/p&gt;
 &lt;blockquote&gt;&lt;p&gt;[org.springframework.beans.factory.xml.XmlBeanDefinitionReader] (default task-1) Loading XML bean definitions from URL [vfs:/content/erp-ear.ear/core-web.war/WEB-INF/lib/DynamicJasper-core-fonts-1.0.jar/fonts&lt;br/&gt;/fonts1334623843090.xml]&lt;/p&gt;
-&lt;/blockquote&gt;&lt;h1&gt;Fons in Java&lt;/h1&gt;&lt;p&gt;After many unsuccessful tests like deploying a new application server version, I learnt a little bit about fonts in the Java virtual machine and Jasper Reports.&lt;/p&gt;&lt;p&gt;According to &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/technotes/guides/intl/font.html&quot;&gt;Oracle official&lt;/a&gt; documentation, you basically have four rules while using fonts in Java, being:&lt;/p&gt;
+&lt;/blockquote&gt;&lt;h1&gt;Fonts in Java&lt;/h1&gt;&lt;p&gt;After many unsuccessful tests like deploying a new application server version, I learnt a little bit about fonts in the Java virtual machine and Jasper Reports.&lt;/p&gt;&lt;p&gt;According to &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/technotes/guides/intl/font.html&quot;&gt;Oracle official&lt;/a&gt; documentation, you basically have four rules while using fonts in Java, being:&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;Java supports only TTF and Postscript type 1 fonts&lt;/li&gt;
   &lt;li&gt;The only font family included in JDK is Lucida&lt;/li&gt;
