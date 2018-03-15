@@ -28,7 +28,7 @@ At first sight both reports are working and equal, however **in the Centos 7 ver
 > [org.springframework.beans.factory.xml.XmlBeanDefinitionReader] (default task-1) Loading XML bean definitions from URL [vfs:/content/erp-ear.ear/core-web.war/WEB-INF/lib/DynamicJasper-core-fonts-1.0.jar/fonts
 /fonts1334623843090.xml]
 
-# Fons in Java
+# Fonts in Java
 
 After many unsuccessful tests like deploying a new application server version, I learnt a little bit about fonts in the Java virtual machine and Jasper Reports.
 
