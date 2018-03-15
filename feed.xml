@@ -6,9 +6,32 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Sun, 31 Dec 2017 22:41:08 +0000</pubDate>
-    <lastBuildDate>Sun, 31 Dec 2017 22:41:08 +0000</lastBuildDate>
+    <pubDate>Thu, 15 Mar 2018 07:57:02 +0000</pubDate>
+    <lastBuildDate>Thu, 15 Mar 2018 07:57:02 +0000</lastBuildDate>
 
+    <item>
+      <title>Fixing missing data on Jasper Reports with community Linux distros</title>
+      <link>http://www.vorozco.com/blog/2018/2018-03-14-Empty-Reports-Jasper-Reports.html</link>
+      <pubDate>Wed, 14 Mar 2018 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2018/2018-03-14-Empty-Reports-Jasper-Reports.html</guid>
+      	<description>
+	&lt;p&gt;. . . or why my report is half empty in Centos 7.&lt;/p&gt;&lt;p&gt;One of the most common and least emotional tasks in any enterprise software is to produce reports. However after many years today I got &lt;strong&gt;my first &quot;serious bug&quot; in Jasper Reports.&lt;/strong&gt;&lt;/p&gt;&lt;h1&gt;The problem&lt;/h1&gt;&lt;p&gt;My development team is composed by a mix of Ubuntu and Mac OS workstations, hence we could consider that we use user-friendly environments. Between many applications, we have in maintenance mode a not-so small accounting module which produces a considerable amount of reports. This applications is running (most of the times) on Openshift (Red Hat) platforms or on-premise (also Red Hat).&lt;/p&gt;&lt;p&gt;A recent deployment was carried over a headless(pure cli) CentOS 7 fresh install and after deploying application on the app server, all reports presented the following issue:&lt;/p&gt;&lt;p&gt;Good report, Red Hat, Mac Os, Ubuntu&lt;br/&gt;&lt;a href=&quot;/images/posts/jasper/goodreport.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;Good Report&quot; &gt;&lt;br/&gt; &lt;img class=&quot;img-fluid&quot; src=&quot;/images/posts/jasper/goodreport.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Bad report, Centos 7&lt;br/&gt;&lt;a href=&quot;/images/posts/jasper/badreport.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;Bad Report&quot; &gt;&lt;br/&gt; &lt;img class=&quot;img-fluid&quot; src=&quot;/images/posts/jasper/badreport.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;At first sight both reports are working and equal, however &lt;strong&gt;in the Centos 7 version, all quantities disappeared&lt;/strong&gt; and the only &quot;meaningful&quot; log message related to fonts was:&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;[org.springframework.beans.factory.xml.XmlBeanDefinitionReader] (default task-1) Loading XML bean definitions from URL [vfs:/content/erp-ear.ear/core-web.war/WEB-INF/lib/DynamicJasper-core-fonts-1.0.jar/fonts&lt;br/&gt;/fonts1334623843090.xml]&lt;/p&gt;
+&lt;/blockquote&gt;&lt;h1&gt;Fons in Java&lt;/h1&gt;&lt;p&gt;After many unsuccessful tests like deploying a new application server version, I learnt a little bit about fonts in the Java virtual machine and Jasper Reports.&lt;/p&gt;&lt;p&gt;According to &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/technotes/guides/intl/font.html&quot;&gt;Oracle official&lt;/a&gt; documentation, you basically have four rules while using fonts in Java, being:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Java supports only TTF and Postscript type 1 fonts&lt;/li&gt;
+  &lt;li&gt;The only font family included in JDK is Lucida&lt;/li&gt;
+  &lt;li&gt;If not Lucida JDK will depend on operating system fonts&lt;/li&gt;
+  &lt;li&gt;Java applications will fallback to the sans/serif default font if the required font is not present on the system&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;And if you are a Jaspersoft Studio, it makes easy for you to pick Microsoft&apos;s True Type fonts&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;/images/posts/jasper/pickfont.png&quot; data-lightbox=&quot;image-1&quot; title=&quot;Pick font&quot; &gt;&lt;br/&gt; &lt;img class=&quot;img-fluid&quot; src=&quot;/images/posts/jasper/pickfont.png&quot;&gt;&lt;br/&gt;&lt;/a&gt;&lt;/p&gt;&lt;h1&gt;My CentOS 7 solution&lt;/h1&gt;&lt;p&gt;Of course Jasper Reports has &lt;a href=&quot;https://community.jaspersoft.com/wiki/custom-font-font-extension&quot;&gt;support for embedding fonts&lt;/a&gt;, however report&apos;s font was not Lato, Roboto or Sage, &lt;strong&gt;it was the omnipresent Verdana&lt;/strong&gt; part of the &lt;a href=&quot;https://en.wikipedia.org/wiki/Core_fonts_for_the_Web&quot;&gt;&quot;Core fonts for the web&quot;&lt;/a&gt; from Microsoft, not included in most Unix variant &lt;a href=&quot;https://blogs.oracle.com/solaris/truetype-fonts-v2&quot;&gt;due license restrictions&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Let&apos;s assume that nowadays MS Core Fonts are a gray area and you are actually able to install these by using repackaged versions, like mscorefonts2 at sourceforge.&lt;/p&gt;&lt;p&gt;In CentOS is easy as 1) install dependencies,&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;yum install curl cabextract xorg-x11-font-utils fontconfig
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2) download the &lt;a href=&quot;http://mscorefonts2.sourceforge.net/&quot;&gt;repackaged fonts&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wget https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-2.1-1.noarch.rpm
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3) and install the already available rpm file&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;yum install msttcore-fonts-2.1-1.noarch.rpm
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;With this, all reports were fixed. I really hope that you were able to found this post before trying anything else.&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>2017 My Java Community Year</title>
       <link>http://www.vorozco.com/blog/2017/2017-12-30-2017-My-Java-Year.html</link>

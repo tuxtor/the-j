@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Fixing missing data on Jasper Reports with community Linux distros</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The J*, a blog about Java, JVM, JavaScript and Gentoo Linux">
+    <meta name="author" content="Víctor Orozco">
+    <meta name="keywords" content="java,jvm,javascript,gentoo,linux">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <!--link href="../../css/bootstrap.min.css" rel="stylesheet"-->
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <meta property="og:title" content="Fixing missing data on Jasper Reports with community Linux distros">
+    <meta property="og:type" content="post">
+    <meta property="og:url" content="http://www.vorozco.com/blog/2018/2018-03-14-Empty-Reports-Jasper-Reports.html">
+    <meta property="og:site_name" content="The J*">
+    <meta property="og:locale" content="en-US">
+    <meta property="article:published_time" content="14 March 2018">
+    <meta property="article:author" content="https://www.facebook.com/tuxtor">
+    <meta property="fb:app_id" content="753735224749731">
+    <meta property="og:image" content="http://vorozco.com/images/global/playground.png">
+
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-41004409-2', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=290416645177";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+        <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">The J*</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../blog">Blog</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <li><a href="../../contact.html">Contact</a></li>
+            <li><a href="https://feeds.feedburner.com/the-j">Subscribe</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	<div class="page-header">
+		<h1>Fixing missing data on Jasper Reports with community Linux distros</h1>
+	</div>
+
+	<p><em>14 March 2018</em></p>
+
+	<div class="row">
+
+		<div class="col-md-9">
+			<p><p>. . . or why my report is half empty in Centos 7.</p><p>One of the most common and least emotional tasks in any enterprise software is to produce reports. However after many years today I got <strong>my first "serious bug" in Jasper Reports.</strong></p><h1>The problem</h1><p>My development team is composed by a mix of Ubuntu and Mac OS workstations, hence we could consider that we use user-friendly environments. Between many applications, we have in maintenance mode a not-so small accounting module which produces a considerable amount of reports. This applications is running (most of the times) on Openshift (Red Hat) platforms or on-premise (also Red Hat).</p><p>A recent deployment was carried over a headless(pure cli) CentOS 7 fresh install and after deploying application on the app server, all reports presented the following issue:</p><p>Good report, Red Hat, Mac Os, Ubuntu<br/><a href="/images/posts/jasper/goodreport.png" data-lightbox="image-1" title="Good Report" ><br/> <img class="img-fluid" src="/images/posts/jasper/goodreport.png"><br/></a></p><p>Bad report, Centos 7<br/><a href="/images/posts/jasper/badreport.png" data-lightbox="image-1" title="Bad Report" ><br/> <img class="img-fluid" src="/images/posts/jasper/badreport.png"><br/></a></p><p>At first sight both reports are working and equal, however <strong>in the Centos 7 version, all quantities disappeared</strong> and the only "meaningful" log message related to fonts was:</p>
+<blockquote><p>[org.springframework.beans.factory.xml.XmlBeanDefinitionReader] (default task-1) Loading XML bean definitions from URL [vfs:/content/erp-ear.ear/core-web.war/WEB-INF/lib/DynamicJasper-core-fonts-1.0.jar/fonts<br/>/fonts1334623843090.xml]</p>
+</blockquote><h1>Fons in Java</h1><p>After many unsuccessful tests like deploying a new application server version, I learnt a little bit about fonts in the Java virtual machine and Jasper Reports.</p><p>According to <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/intl/font.html">Oracle official</a> documentation, you basically have four rules while using fonts in Java, being:</p>
+<ol>
+  <li>Java supports only TTF and Postscript type 1 fonts</li>
+  <li>The only font family included in JDK is Lucida</li>
+  <li>If not Lucida JDK will depend on operating system fonts</li>
+  <li>Java applications will fallback to the sans/serif default font if the required font is not present on the system</li>
+</ol><p>And if you are a Jaspersoft Studio, it makes easy for you to pick Microsoft's True Type fonts</p><p><a href="/images/posts/jasper/pickfont.png" data-lightbox="image-1" title="Pick font" ><br/> <img class="img-fluid" src="/images/posts/jasper/pickfont.png"><br/></a></p><h1>My CentOS 7 solution</h1><p>Of course Jasper Reports has <a href="https://community.jaspersoft.com/wiki/custom-font-font-extension">support for embedding fonts</a>, however report's font was not Lato, Roboto or Sage, <strong>it was the omnipresent Verdana</strong> part of the <a href="https://en.wikipedia.org/wiki/Core_fonts_for_the_Web">"Core fonts for the web"</a> from Microsoft, not included in most Unix variant <a href="https://blogs.oracle.com/solaris/truetype-fonts-v2">due license restrictions</a>.</p><p>Let's assume that nowadays MS Core Fonts are a gray area and you are actually able to install these by using repackaged versions, like mscorefonts2 at sourceforge.</p><p>In CentOS is easy as 1) install dependencies,</p>
+<pre><code>yum install curl cabextract xorg-x11-font-utils fontconfig
+</code></pre><p>2) download the <a href="http://mscorefonts2.sourceforge.net/">repackaged fonts</a></p>
+<pre><code>wget https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-2.1-1.noarch.rpm
+</code></pre><p>3) and install the already available rpm file</p>
+<pre><code>yum install msttcore-fonts-2.1-1.noarch.rpm
+</code></pre><p>With this, all reports were fixed. I really hope that you were able to found this post before trying anything else.</p></p>
+
+			<div id="share">
+<!-- Twitter -->
+<a href="https://twitter.com/share" class="twitter-share-button" data-dnt="true">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+<!-- Google Plus -->
+<div class="g-plusone" data-size="medium"></div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'en-GB'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<!-- Facebook -->
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="false">
+</div></div>
+			
+			<hr />
+
+			<div id="disqus_thread"></div>
+			<script type="text/javascript">
+			    /* * * CONFIGURATION VARIABLES * * */
+			    var disqus_shortname = 'opinguimacademicoq';
+
+			    /* * * DON'T EDIT BELOW THIS LINE * * */
+			    (function() {
+			        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			    })();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+		</div>
+			<div class="col-md-3">
+			<form style="border:1px solid #ccc;padding:3px;text-align:center;" action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri=the-j', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true"><p>Enter your email address:</p><p><input type="text" style="width:140px" name="email"/></p><input type="hidden" value="the-j" name="uri"/><input type="hidden" name="loc" value="en_US"/><input type="submit" value="Subscribe" /><p>Delivered by <a href="https://feedburner.google.com" target="_blank">FeedBurner</a></p></form>
+			<hr/>
+			
+			<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"><img src="/images/global/getjavasesdk-120x30.png" alt="Get Java SE SDK" border="0" width="120" height="30" /></a>
+
+			<br/>
+
+			<a href="http://www.gentoo.org/"><img src="//www.gentoo.org/assets/img/badges/gentoo-badge.png" alt="Gentoo" style="border:0" /></a>
+
+			<hr/>
+
+		    <a class="twitter-timeline"  href="https://twitter.com/tuxtor" data-widget-id="633158537896722432">Tweets by @tuxtor</a>
+	            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</div>
+	</div>
+
+	
+
+	
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2015-2016 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    <link  href="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+    </body>
+</html>
