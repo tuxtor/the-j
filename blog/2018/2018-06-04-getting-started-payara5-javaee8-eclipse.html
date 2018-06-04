@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Getting started with Java EE 8, Payara 5 and Eclipse Oxygen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The J*, a blog about Java, JVM, JavaScript and Gentoo Linux">
+    <meta name="author" content="Víctor Orozco">
+    <meta name="keywords" content="java,jvm,javascript,gentoo,linux">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <!--link href="../../css/bootstrap.min.css" rel="stylesheet"-->
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <meta property="og:title" content="Getting started with Java EE 8, Payara 5 and Eclipse Oxygen">
+    <meta property="og:type" content="post">
+    <meta property="og:url" content="http://www.vorozco.com/blog/2018/2018-06-04-getting-started-payara5-javaee8-eclipse.html">
+    <meta property="og:site_name" content="The J*">
+    <meta property="og:locale" content="en-US">
+    <meta property="article:published_time" content="04 June 2018">
+    <meta property="article:author" content="https://www.facebook.com/tuxtor">
+    <meta property="fb:app_id" content="753735224749731">
+    <meta property="og:image" content="http://vorozco.com/images/global/playground.png">
+
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-41004409-2', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=290416645177";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+        <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">The J*</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../blog">Blog</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <li><a href="../../contact.html">Contact</a></li>
+            <li><a href="https://feeds.feedburner.com/the-j">Subscribe</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	<div class="page-header">
+		<h1>Getting started with Java EE 8, Payara 5 and Eclipse Oxygen</h1>
+	</div>
+
+	<p><em>04 June 2018</em></p>
+
+	<div class="row">
+
+		<div class="col-md-9">
+			<p><p>Some days ago I had the opportunity/obligation to setup a brand new Linux(Gentoo) development box, hence to make it "enjoyable" <strong>I prepared a back to basics tutorial on how to setup a working environment</strong>.</p><h1>Requirements</h1><p>In order to setup a complete Java EE development box, you need at least:</p><p>1- Working JDK installation and environment<br/>2- IDE/text editor<br/>3- Standalone application server if your focus is "monolithic"</p><p>Due personal preferences I choose</p><p>1- OpenJDK on Gentoo Linux (Icedtea bin build)<br/>2- Eclipse for Java EE developers<br/>3- Payara 5</p><h1>Installing OpenJDK</h1><p>Since this is a distribution dependent step, you could follow tutorials on <a href="http://openjdk.java.net/install/">Ubuntu, CentOS, Debian</a> and many more distributions if you need to. At this time, <strong>most application servers have Java 8 as target due new Java-LTS version scheme</strong>, as in the case of Payara.</p><p><a href="/images/posts/payara5/00.png" data-lightbox="Gentoo" title="Gentoo" ><br/> <img class="img-fluid" src="/images/posts/payara5/00.png"><br/></a></p><p>For Gentoo Linux you could get a new OpenJDK setup by installing <a href="https://packages.gentoo.org/packages/dev-java/icedtea">dev-java/icedtea</a> for the source code version and <a href="https://packages.gentoo.org/packages/dev-java/icedtea-bin">dev-java/icedtea-bin</a> for the precompiled version.</p>
+<pre><code>emerge dev-java/icedtea-bin
+</code></pre><h2>Is OpenJDK a good choice for my need?</h2><p>Currently <a href="https://blogs.oracle.com/java-platform-group/update-and-faq-on-the-java-se-release-cadence">Oracle has plans to free up all enterprise-commercial JDK features</a>. In a near future the differences between OracleJDK and OpenJDK should be zero.</p><p>In this line, Red Hat and other big players have been offering OpenJDK as the standard JDK in Linux distributions, <strong>working flawlessly for many enterprise grade applications</strong>.</p><h1>Eclipse for Java EE Developers</h1><p>After a complete revamp of websites GUI, you could go directly to <a href="https://eclipse.org">eclipse.org</a> website and download Eclipse IDE. </p><p>Eclipse offers collections of plugins denominated <em>Packages</em>, <strong>each package is a collection of common plugins aimed for a particular development need</strong>. Hence to simplify the process you could download directly Eclipse IDE for Java EE Developers.</p><p><a href="/images/posts/payara5/01.png" data-lightbox="Eclipse" title="Eclipse" ><br/> <img class="img-fluid" src="/images/posts/payara5/01.png"><br/></a></p><p>On Linux, you will download a .tar.gz file, hence you should uncompress it on your preferred directory.</p>
+<pre><code>tar xzvf eclipse-jee-oxygen-3a-linux-gtk-x86_64.tar.gz
+</code></pre><p>Finally, you could execute the IDE by entering the <em>bin</em> directory and launching <code>eclipse</code> binary.</p>
+<pre><code>cd eclipse/bin
+./eclipse
+</code></pre><p>The result should be a brand new Eclipse IDE.</p><p><a href="/images/posts/payara5/03.png" data-lightbox="image-1" title="Pick font" ><br/> <img class="img-fluid" src="/images/posts/payara5/03.png"><br/></a></p><h1>Payara</h1><p>You could grab a fresh copy of Payara by visiting <a href="https://payara.fish">payara.fish</a> website. </p><p><a href="/images/posts/payara5/02.png" data-lightbox="Payara" title="Payara" ><br/> <img class="img-fluid" src="/images/posts/payara5/02.png"><br/></a></p><p>From Payara's you will receive a zipfile that again you should uncompress in your preferred directory.</p>
+<pre><code>unzip payara-5.181.zip
+</code></pre><p>Finally, you could add Payara's bin directory to PATH variable in order to use <code>asadmin</code> command from any CLI. You could achieve this by using ~/.bashrc file. For example if you installed Payara at ~/opt/ the complete instruction is:</p>
+<pre><code>echo &quot;PATH=$PATH:~/opt/payara5/bin&quot; &gt;&gt; ~/.bashrc
+</code></pre><h1>Integration between Eclipse and Payara</h1><p>After unzipping Payara you are ready to integrate the app server in your Eclipse IDE.</p><p>Recently and due Java/Jakarta EE transition, <a href="https://blog.payara.fish/payara-tools-unlocks-eclipse-for-payara-5">Payara Team has prepared a new integration plugin compatible with Payara 5</a>. In the past you would also use Glassfish Developer Tools with Payara, but <strong>this is not possible anymore</strong>.</p><p>To install it, simply grab the following button on your Eclipse Window, and follow wizard steps.</p><p>[![Drag to your running Eclipse* workspace. <em>Requires Eclipse Marketplace Client](<a href="https://marketplace.eclipse.org/sites/all/themes/solstice/public/images/marketplace/btn-install.png)](http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=4014208">https://marketplace.eclipse.org/sites/all/themes/solstice/public/images/marketplace/btn-install.png)](http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=4014208</a> "Drag to your running Eclipse</em> workspace. *Requires Eclipse Marketplace Client")</p><p><a href="/images/posts/payara5/w1.png" data-lightbox="pwizard" title="pwizard" ><br/> <img class="img-fluid" src="/images/posts/payara5/w1.png"><br/></a></p><p><a href="/images/posts/payara5/w2.png" data-lightbox="pwizard2" title="pwizard" ><br/> <img class="img-fluid" src="/images/posts/payara5/w2.png"><br/></a></p><p>In the final step you will be required to restart Eclipse, after that you still need to add the application server. <strong>Go to the Servers tab and click create a new server</strong>:</p><p><a href="/images/posts/payara5/ns0.png" data-lightbox="ns0" title="ns0" ><br/> <img class="img-fluid" src="/images/posts/payara5/ns0.png"><br/></a></p><p>Select Payara application server:</p><p><a href="/images/posts/payara5/ns1.png" data-lightbox="ns1" title="ns1" ><br/> <img class="img-fluid" src="/images/posts/payara5/ns1.png"><br/></a></p><p>Find Payara's install location and JDK location (corresponding to ~/opt/payara5 and /opt/icedtea-bin on my system):</p><p><a href="/images/posts/payara5/ns2.png" data-lightbox="ns2" title="ns2" ><br/> <img class="img-fluid" src="/images/posts/payara5/ns2.png"><br/></a></p><p>Configure Payara's domain, user and password.</p><p><a href="/images/posts/payara5/ns3.png" data-lightbox="ns3" title="ns3" ><br/> <img class="img-fluid" src="/images/posts/payara5/ns3.png"><br/></a></p><p>In the end, you will have Payara server available for deployment:</p><p><a href="/images/posts/payara5/ns4.png" data-lightbox="ns4" title="ns4" ><br/> <img class="img-fluid" src="/images/posts/payara5/ns4.png"><br/></a></p><h1>Test the demo environment</h1><p>It's time to give it a try. <strong>We could start a new application with a Java EE 8 archetype</strong>, one of my favorites is Adam Bien's <a href="https://mvnrepository.com/artifact/com.airhacks/javaee8-essentials-archetype">javaee8-essentials-archetype</a>, with provides you an opinionated essentials setup.</p><p>First, create a new project and select a new Maven Project:</p><p><a href="/images/posts/payara5/arch0.png" data-lightbox="arch0" title="arch0" ><br/> <img class="img-fluid" src="/images/posts/payara5/arch0.png"><br/></a></p><p>In Maven's window you could search by name any archetype in Maven central, however you should wait a little bit for synchronization between Eclipse and Maven.</p><p><a href="/images/posts/payara5/arch1.png" data-lightbox="arch1" title="arch1" ><br/> <img class="img-fluid" src="/images/posts/payara5/arch1.png"><br/></a></p><p>If waiting is not your thing. You could also add the archetype directly:</p><p><a href="/images/posts/payara5/arch2.png" data-lightbox="arch2" title="arch2" ><br/> <img class="img-fluid" src="/images/posts/payara5/arch2.png"><br/></a></p><p>This archetype also creates a new JAX-RS application and endpoint, after some minor modifications just deploy it to Payara 5 and see the results:</p><p><a href="/images/posts/payara5/arch3.png" data-lightbox="arch3" title="arch3" ><br/> <img class="img-fluid" src="/images/posts/payara5/arch3.png"><br/></a></p><p><a href="/images/posts/payara5/arch4.png" data-lightbox="arch4" title="arch4" ><br/> <img class="img-fluid" src="/images/posts/payara5/arch4.png"><br/></a></p></p>
+
+			<div id="share">
+<!-- Twitter -->
+<a href="https://twitter.com/share" class="twitter-share-button" data-dnt="true">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+<!-- Google Plus -->
+<div class="g-plusone" data-size="medium"></div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'en-GB'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<!-- Facebook -->
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="false">
+</div></div>
+			
+			<hr />
+
+			<div id="disqus_thread"></div>
+			<script type="text/javascript">
+			    /* * * CONFIGURATION VARIABLES * * */
+			    var disqus_shortname = 'opinguimacademicoq';
+
+			    /* * * DON'T EDIT BELOW THIS LINE * * */
+			    (function() {
+			        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			    })();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+		</div>
+			<div class="col-md-3">
+			<form style="border:1px solid #ccc;padding:3px;text-align:center;" action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri=the-j', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true"><p>Enter your email address:</p><p><input type="text" style="width:140px" name="email"/></p><input type="hidden" value="the-j" name="uri"/><input type="hidden" name="loc" value="en_US"/><input type="submit" value="Subscribe" /><p>Delivered by <a href="https://feedburner.google.com" target="_blank">FeedBurner</a></p></form>
+			<hr/>
+			
+			<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"><img src="/images/global/getjavasesdk-120x30.png" alt="Get Java SE SDK" border="0" width="120" height="30" /></a>
+
+			<br/>
+
+			<a href="http://www.gentoo.org/"><img src="//www.gentoo.org/assets/img/badges/gentoo-badge.png" alt="Gentoo" style="border:0" /></a>
+
+			<hr/>
+
+		    <a class="twitter-timeline"  href="https://twitter.com/tuxtor" data-widget-id="633158537896722432">Tweets by @tuxtor</a>
+	            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</div>
+	</div>
+
+	
+
+	
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2015-2016 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    <link  href="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.7.1/lazyload.min.js"></script>
+    </body>
+</html>
