@@ -91,7 +91,7 @@ Recently and due Java/Jakarta EE transition, [Payara Team has prepared a new int
 
 To install it, simply grab the following button on your Eclipse Window, and follow wizard steps.
 
-[![Drag to your running Eclipse* workspace. *Requires Eclipse Marketplace Client](https://marketplace.eclipse.org/sites/all/themes/solstice/public/images/marketplace/btn-install.png)](http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=4014208 "Drag to your running Eclipse* workspace. *Requires Eclipse Marketplace Client")
+<a href="http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=4014208" class="drag" title="Drag to your running Eclipse* workspace. *Requires Eclipse Marketplace Client"><img typeof="foaf:Image" class="img-responsive" src="https://marketplace.eclipse.org/sites/all/themes/solstice/public/images/marketplace/btn-install.png" alt="Drag to your running Eclipse* workspace. *Requires Eclipse Marketplace Client" /></a>
 
 
 <a href="/images/posts/payara5/w1.png" data-lightbox="pwizard" title="pwizard" >
