@@ -133,7 +133,7 @@ In the end, you will have Payara server available for deployment:
 </a>
 
 # Test the demo environment 
-It's time to give it a try. **We could start a new application with a Java EE 8 archetype**, one of my favorites is Adam Bien's [javaee8-essentials-archetype](https://mvnrepository.com/artifact/com.airhacks/javaee8-essentials-archetype), with provides you an opinionated essentials setup.
+It's time to give it a try. **We could start a new application with a Java EE 8 archetype**, one of my favorites is Adam Bien's [javaee8-essentials-archetype](https://mvnrepository.com/artifact/com.airhacks/javaee8-essentials-archetype), wich provides you an opinionated essentials setup.
 
 First, create a new project and select a new Maven Project:
 
