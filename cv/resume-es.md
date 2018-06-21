@@ -20,7 +20,7 @@ Website
 : [http://vorozco.com/](http://vorozco.com/)
 
 Edad
-: 29 años
+: 30 años
 
 Educación
 ---------
@@ -77,11 +77,16 @@ Descripción
 
 Experiencia
 -----------
+2018-actualmente
+:	*Vicepresidente comisión de informatica*
+	[Senacyt](http://comisiones.concyt.gob.gt/portal/index.php/comisiones/d-informatica/77-jd-informatica)
+	Vicepresidente de la comisión nacional de informatica en el sistema nacional de ciencia y tecnologia.  
+
 2014-actualmente
 :	*Arquitecto de Software*  
 	[Nabenik](http://www.nabenik.com/)  
 	Estudio de software dedicado a investigación y desarrollo de soluciones de TI y gestión de la innovación.
-	Desarrollo de aplicaciones de alto desempeño, software empresarial y movil.
+	Desarrollo de aplicaciones de alto desempeño, software empresarial y movíl.
 
 2016-actualmente
 :	*Profesor asociado, Facultad de Ingenieria*  
