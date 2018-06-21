@@ -21,7 +21,7 @@ One of the most pervasive rules in IT is "if ain't broke, don't fix it", however
 
 Commonly, **security vunlerabilities and regular bugs are patched through vendor specific updates in Java EE**, retaining the feature compatibility through EE API level, hence this kind of updates are considered safer and should be applied proactively.
 
-However, once a new EE versión is on the streets, **each vendor publish and release it's product calendar**, being responsable of the future updates and it's expected that any Java EE user will update his stack (or perish :) ).
+However, once a new EE versión is on the streets, **each vendor publish it's product calendar**, being responsable of the future updates and it's expected that any Java EE user will update his stack (or perish :) ).
 
 In this line Java EE has a complete set of [requrimentes and backward compatibility instructions, for vendors, spec leads and contributors](https://javaee.github.io/javaee-spec/CompatibilityRequirements), this is specially important considering that we receive on every version of Java EE:
 
