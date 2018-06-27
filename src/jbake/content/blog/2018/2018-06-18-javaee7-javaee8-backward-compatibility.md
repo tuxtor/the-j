@@ -1,4 +1,4 @@
-title=Testing JavaEE backward and forward compatibility with Servlet, JAX-RS, Batch and Microprofile
+title=Testing JavaEE backward and forward compatibility with Servlet, JAX-RS, Batch and Eclipse MicroProfile
 date=2018-06-18
 type=post
 tags=java
@@ -7,11 +7,11 @@ status=published
 
 One of the most interesting concepts that made Java EE (and Java) appealing for the enterprise is its **great backward compatibility**, ensuring that years of investment in R&D could be reused in future developments.
 
-Neverthless one of the least understood facts is that **Java EE in the end is a set of curated APIs that could be extendend and improved** with additional EE-based APIs -e.g Microprofile, DeltaSpike- and vendor-specific improvements -e.g. Hazelcast on Payara, Infinispan on Wildfly-.
+Neverthless one of the least understood facts is that **Java EE in the end is a set of curated APIs that could be extendend and improved** with additional EE-based APIs -e.g Eclipse MicroProfile, DeltaSpike- and vendor-specific improvements -e.g. Hazelcast on Payara, Infinispan on Wildfly-.
 
 In this article I'll try to elaborate a reponse for a recent question in my development team:
 
-> Is it possible to implement a new artifact that uses Microprofile API within Java EE 7? May I use this artifact also in a Java EE 8 Server?
+> Is it possible to implement a new artifact that uses MicroProfile API within Java EE 7? May I use this artifact also in a Java EE 8 Server?
 
 To answer this question, I prepared a **POC to demonstrate Java EE capabilities**.
 
@@ -40,7 +40,7 @@ To test this assumption I've prepared a POC that implements
 * JAX-RS (updated in EE 8)
 * JPA (minor update in EE 8)
 * Batch (does not change in EE 8)
-* Microprofile Config (extension)
+* MicroProfile Config (extension)
 * DeltaSpike Data (extension)
 
 ![Batch Structure](/images/posts/batch/batchee-diagram.png "Components Structure")
@@ -53,7 +53,7 @@ For referece, the complete Maven project of this POC is available [at GitHub](ht
 
 ### Part 1: File upload
 
-The POC a) implements a multipart servlet that receives files from a plain HTML form,  b) saves the file using Microprofile config to retreive the final destination URL and  c) Calls a Batch Job named `csvJob`:
+The POC a) implements a multipart servlet that receives files from a plain HTML form,  b) saves the file using MicroProfile config to retreive the final destination URL and  c) Calls a Batch Job named `csvJob`:
 
 ```prettyprint
 @WebServlet(name = "FileUploadServlet", urlPatterns = "/upload")
