@@ -6,17 +6,17 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Thu, 21 Jun 2018 20:22:23 +0000</pubDate>
-    <lastBuildDate>Thu, 21 Jun 2018 20:22:23 +0000</lastBuildDate>
+    <pubDate>Wed, 27 Jun 2018 04:12:29 +0000</pubDate>
+    <lastBuildDate>Wed, 27 Jun 2018 04:12:29 +0000</lastBuildDate>
 
     <item>
-      <title>Testing JavaEE backward and forward compatibility with Servlet, JAX-RS, Batch and Microprofile</title>
+      <title>Testing JavaEE backward and forward compatibility with Servlet, JAX-RS, Batch and Eclipse MicroProfile</title>
       <link>http://www.vorozco.com/blog/2018/2018-06-18-javaee7-javaee8-backward-compatibility.html</link>
       <pubDate>Mon, 18 Jun 2018 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2018/2018-06-18-javaee7-javaee8-backward-compatibility.html</guid>
       	<description>
-	&lt;p&gt;One of the most interesting concepts that made Java EE (and Java) appealing for the enterprise is its &lt;strong&gt;great backward compatibility&lt;/strong&gt;, ensuring that years of investment in R&amp;amp;D could be reused in future developments.&lt;/p&gt;&lt;p&gt;Neverthless one of the least understood facts is that &lt;strong&gt;Java EE in the end is a set of curated APIs that could be extendend and improved&lt;/strong&gt; with additional EE-based APIs -e.g Microprofile, DeltaSpike- and vendor-specific improvements -e.g. Hazelcast on Payara, Infinispan on Wildfly-.&lt;/p&gt;&lt;p&gt;In this article I&apos;ll try to elaborate a reponse for a recent question in my development team:&lt;/p&gt;
-&lt;blockquote&gt;&lt;p&gt;Is it possible to implement a new artifact that uses Microprofile API within Java EE 7? May I use this artifact also in a Java EE 8 Server?&lt;/p&gt;
+	&lt;p&gt;One of the most interesting concepts that made Java EE (and Java) appealing for the enterprise is its &lt;strong&gt;great backward compatibility&lt;/strong&gt;, ensuring that years of investment in R&amp;amp;D could be reused in future developments.&lt;/p&gt;&lt;p&gt;Neverthless one of the least understood facts is that &lt;strong&gt;Java EE in the end is a set of curated APIs that could be extendend and improved&lt;/strong&gt; with additional EE-based APIs -e.g Eclipse MicroProfile, DeltaSpike- and vendor-specific improvements -e.g. Hazelcast on Payara, Infinispan on Wildfly-.&lt;/p&gt;&lt;p&gt;In this article I&apos;ll try to elaborate a reponse for a recent question in my development team:&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;Is it possible to implement a new artifact that uses MicroProfile API within Java EE 7? May I use this artifact also in a Java EE 8 Server?&lt;/p&gt;
 &lt;/blockquote&gt;&lt;p&gt;To answer this question, I prepared a &lt;strong&gt;POC to demonstrate Java EE capabilities&lt;/strong&gt;.&lt;/p&gt;&lt;h2&gt;Is Java EE backward compatible? Is it safe to assume a clean migration from EE 7 to EE 8?&lt;/h2&gt;&lt;p&gt;One of the most pervasive rules in IT is &quot;if ain&apos;t broke, don&apos;t fix it&quot;, however the &lt;strong&gt;broke is pretty relative in regards of security, bugs and features&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;Commonly, &lt;strong&gt;security vunlerabilities and regular bugs are patched through vendor specific updates in Java EE&lt;/strong&gt;, retaining the feature compatibility through EE API level, hence this kind of updates are considered safer and should be applied proactively.&lt;/p&gt;&lt;p&gt;However, once a new EE versión is on the streets, &lt;strong&gt;each vendor publish it&apos;s product calendar&lt;/strong&gt;, being responsable of the future updates and it&apos;s expected that any Java EE user will update his stack (or perish :) ).&lt;/p&gt;&lt;p&gt;In this line Java EE has a complete set of &lt;a href=&quot;https://javaee.github.io/javaee-spec/CompatibilityRequirements&quot;&gt;requrimentes and backward compatibility instructions, for vendors, spec leads and contributors&lt;/a&gt;, this is specially important considering that we receive on every version of Java EE:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;New APIs (like Batch in EE 7 or JSON-B in EE 8)&lt;/li&gt;
@@ -29,9 +29,9 @@
   &lt;li&gt;JAX-RS (updated in EE 8)&lt;/li&gt;
   &lt;li&gt;JPA (minor update in EE 8)&lt;/li&gt;
   &lt;li&gt;Batch (does not change in EE 8)&lt;/li&gt;
-  &lt;li&gt;Microprofile Config (extension)&lt;/li&gt;
+  &lt;li&gt;MicroProfile Config (extension)&lt;/li&gt;
   &lt;li&gt;DeltaSpike Data (extension)&lt;/li&gt;
-&lt;/ul&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/batch/batchee-diagram.png&quot; alt=&quot;Batch Structure&quot; title=&quot;Components Structure&quot; /&gt;&lt;/p&gt;&lt;p&gt;This application just &lt;strong&gt;loads a bunch of IMDB records &lt;a href=&quot;https://raw.githubusercontent.com/KarthikMaharajan/Data-Mining-on-IMDB-Dataset/master/imdb.csv&quot;&gt;from a csv file&lt;/a&gt; in background to save the records in Derby(Payara 4) and H2(Payara 5)&lt;/strong&gt; using the &lt;code&gt;jdbc/__default&lt;/code&gt; JTA Datasource.&lt;/p&gt;&lt;p&gt;For referece, the complete Maven project of this POC is available &lt;a href=&quot;https://github.com/tuxtor/batchee-demo&quot;&gt;at GitHub&lt;/a&gt;.&lt;/p&gt;&lt;h3&gt;Part 1: File upload&lt;/h3&gt;&lt;p&gt;The POC a) implements a multipart servlet that receives files from a plain HTML form, b) saves the file using Microprofile config to retreive the final destination URL and c) Calls a Batch Job named &lt;code&gt;csvJob&lt;/code&gt;:&lt;/p&gt;
+&lt;/ul&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/batch/batchee-diagram.png&quot; alt=&quot;Batch Structure&quot; title=&quot;Components Structure&quot; /&gt;&lt;/p&gt;&lt;p&gt;This application just &lt;strong&gt;loads a bunch of IMDB records &lt;a href=&quot;https://raw.githubusercontent.com/KarthikMaharajan/Data-Mining-on-IMDB-Dataset/master/imdb.csv&quot;&gt;from a csv file&lt;/a&gt; in background to save the records in Derby(Payara 4) and H2(Payara 5)&lt;/strong&gt; using the &lt;code&gt;jdbc/__default&lt;/code&gt; JTA Datasource.&lt;/p&gt;&lt;p&gt;For referece, the complete Maven project of this POC is available &lt;a href=&quot;https://github.com/tuxtor/batchee-demo&quot;&gt;at GitHub&lt;/a&gt;.&lt;/p&gt;&lt;h3&gt;Part 1: File upload&lt;/h3&gt;&lt;p&gt;The POC a) implements a multipart servlet that receives files from a plain HTML form, b) saves the file using MicroProfile config to retreive the final destination URL and c) Calls a Batch Job named &lt;code&gt;csvJob&lt;/code&gt;:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;@WebServlet(name = &amp;quot;FileUploadServlet&amp;quot;, urlPatterns = &amp;quot;/upload&amp;quot;)
 @MultipartConfig
 public class FileUploadServlet extends HttpServlet {
