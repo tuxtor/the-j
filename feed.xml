@@ -6,8 +6,8 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Wed, 11 Jul 2018 11:06:35 +0000</pubDate>
-    <lastBuildDate>Wed, 11 Jul 2018 11:06:35 +0000</lastBuildDate>
+    <pubDate>Wed, 11 Jul 2018 11:09:53 +0000</pubDate>
+    <lastBuildDate>Wed, 11 Jul 2018 11:09:53 +0000</lastBuildDate>
 
     <item>
       <title>Testing JavaEE backward and forward compatibility with Servlet, JAX-RS, Batch and Eclipse MicroProfile</title>
