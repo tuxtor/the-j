@@ -1,5 +1,5 @@
-title=Notes on JavaEE support for NetBeans 9
-date=2018-07-30
+title=Notes on Java EE support for NetBeans 9
+date=2018-07-31
 type=post
 tags=java
 status=published
@@ -13,7 +13,7 @@ Today one of my favourite open source projects got a major release, now under Ap
 
 In this line, I think that the most frequent question since beta release is:
 
-> What about JavaEE/C++/PHP/JavaME . . .? You name it
+> What about Java EE/C++/PHP/JavaME . . .? You name it
 
 **Quick response:**
 
@@ -23,7 +23,7 @@ In this line, I think that the most frequent question since beta release is:
 
 [Please see Apache Foundation official statement](https://blogs.apache.org/netbeans/entry/announce-apache-netbeans-incubating-92).
 
-# Does it mean that I won't be able to develop my JavaEE application on NetBeans 9
+# Does it mean that I won't be able to develop my Java EE application on NetBeans 9
 
 **Short answer:** No
 
@@ -31,7 +31,7 @@ In this line, I think that the most frequent question since beta release is:
 
 # Is it possible to enable Java EE support in NetBeans 9?
 
-Considering that NetBeans has been modular since . . . ever, we could expect support for old modules in the new NetBeans version. As a matter of fact, **this is the official approach to enable JavaEE support on NetBeans 9**, [by using kits](https://blogs.apache.org/netbeans/entry/what-s-happened-to-my).
+Considering that NetBeans has been modular since . . . ever, we could expect support for old modules in the new NetBeans version. As a matter of fact, **this is the official approach to enable Java EE support on NetBeans 9**, [by using kits](https://blogs.apache.org/netbeans/entry/what-s-happened-to-my).
 
 Hence I've prepared a small tutorial to achieve this. This tutorial is focused on MacOS but steps should be exactly the same for Linux and Windows. To show some caveats, I've tested two app server over Java 8 and Java 10.
 
@@ -95,7 +95,7 @@ You have to select WildFly Application Server
 
 ![WildFly 13](/images/posts/nb9/wf1.png "WildFly 13")
 
-As [WildFly release notes](http://wildfly.org/news/2018/05/30/WildFly13-Final-Released/) suggests if you wanna JavaEE 8 support, you should choose `standalone-ee8.xml` as domain configuration.
+As [WildFly release notes](http://wildfly.org/news/2018/05/30/WildFly13-Final-Released/) suggests if you wanna Java EE 8 support, you should choose `standalone-ee8.xml` as domain configuration.
 ![WildFly 13](/images/posts/nb9/wf2.png "WildFly 13")
 
 Domain configuration will be detected by NetBeans 9
@@ -136,7 +136,7 @@ At this time, it seem that NetBeans should be running on Java 8 too, otherwhise 
 
 # Test 3: Glassfish 5 and Payara 5 on Java 8 (NetBeans) and Java 8 (App server platform)
 
-Finally, I configured NetBeans to use JDK 8 as NetBeans JDK, for this, you sould edit `etc/netbeans.conf` file and point the `netbeans_jdkhome` variable to JDK 8, since I'm using jenv to manage JVM environments the right value is `netbeans_jdkhome="/Users/tuxtor/.jenv/versions/1.8"
+Finally, I configured NetBeans to use JDK 8 as NetBeans JDK, for this, you sould edit `etc/netbeans.conf` file and point the `netbeans_jdkhome` variable to JDK 8, since I'm using jenv to manage JVM environments the right value is `netbeans_jdkhome="/Users/tuxtor/.jenv/versions/1.8"`
 
 With this NetBeans 9 is able to run Payara 5 and Glassfish 5 as expected:
 
@@ -144,4 +144,4 @@ With this NetBeans 9 is able to run Payara 5 and Glassfish 5 as expected:
 
 I'm Still not sure about TomEE, OpenLiberty, WebSphere and WebLogic, but it seems like it would be a matter of hacking a litle bit on JDK versions.
 
-Long live to NetBeans and JakartaEE!
+Long live to NetBeans and Jakarta EE!
