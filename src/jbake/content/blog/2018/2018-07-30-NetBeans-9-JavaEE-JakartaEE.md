@@ -1,5 +1,5 @@
 title=Notes on Java EE support for NetBeans 9
-date=2018-07-31
+date=2018-07-30
 type=post
 tags=java
 status=published
@@ -23,19 +23,19 @@ In this line, I think that the most frequent question since beta release is:
 
 [Please see Apache Foundation official statement](https://blogs.apache.org/netbeans/entry/announce-apache-netbeans-incubating-92).
 
-# Does it mean that I won't be able to develop my Java EE application on NetBeans 9
+## Does it mean that I won't be able to develop my Java EE application on NetBeans 9
 
 **Short answer:** No
 
 **Long answer:** Currently Oracle already did a second donation, where most of NetBeans modules considered as external are included, as Apache statement suggests we could expect these modules on future NetBeans releases.
 
-# Is it possible to enable Java EE support in NetBeans 9?
+## Is it possible to enable Java EE support in NetBeans 9?
 
 Considering that NetBeans has been modular since . . . ever, we could expect support for old modules in the new NetBeans version. As a matter of fact, **this is the official approach to enable Java EE support on NetBeans 9**, [by using kits](https://blogs.apache.org/netbeans/entry/what-s-happened-to-my).
 
 Hence I've prepared a small tutorial to achieve this. This tutorial is focused on MacOS but steps should be exactly the same for Linux and Windows. To show some caveats, I've tested two app server over Java 8 and Java 10.
 
-## Downloading NetBeans 9.0
+### Downloading NetBeans 9.0
 
 First, you should download NetBeans package from official Apache Mirrors, at this time distributions are only available as .zip files.
 
@@ -58,7 +58,7 @@ Whit this you would be able to run NetBeans 9. **By default, NetBeans will run o
 
 ![NetBeans 9](/images/posts/nb9/nb9.png "NetBeans 9")
 
-## Enabling Java EE support
+### Enabling Java EE support
 
 To install Java EE support you should enable also NetBeans 8.2 update center repository.
 
@@ -87,7 +87,7 @@ From experience I do recommend the following plugins:
 
 Restart the IDE and you're ready to develop apps with Java EE :).
 
-# Test 1: Wildfly 13
+## Test 1: Wildfly 13
 
 To test NetBeans setup, I added a new application server and ran a recent Java EE 8 REST-CRUD application, [from recent jEspañol presentation](https://github.com/comunidad-hispana-jugs/workshop-03-JEE8_-_JSE10/blob/master/JEE_8/README.md) (in Spanish).
 
@@ -106,7 +106,7 @@ WildFly team has been working on Java 9 and 10 compatibility, hence application 
 
 ![WildFly 13](/images/posts/nb9/wf4.png "WildFly 13")
 
-# Test 2: Glassfish 5 and Payara 5 on Java 10 (NetBeans) and Java 8 (App server platform)
+## Test 2: Glassfish 5 and Payara 5 on Java 10 (NetBeans) and Java 8 (App server platform)
 
 To test vanilla experience, I tried to connect Payara and Glassfish 5 app server, as in the case of WildFly, configuration is pretty straight forward:
 
@@ -134,7 +134,7 @@ At this time, it seem that NetBeans should be running on Java 8 too, otherwhise 
 
 ![Payara 5](/images/posts/nb9/py8.png "Payara 5")
 
-# Test 3: Glassfish 5 and Payara 5 on Java 8 (NetBeans) and Java 8 (App server platform)
+## Test 3: Glassfish 5 and Payara 5 on Java 8 (NetBeans) and Java 8 (App server platform)
 
 Finally, I configured NetBeans to use JDK 8 as NetBeans JDK, for this, you sould edit `etc/netbeans.conf` file and point the `netbeans_jdkhome` variable to JDK 8, since I'm using jenv to manage JVM environments the right value is `netbeans_jdkhome="/Users/tuxtor/.jenv/versions/1.8"`
 
