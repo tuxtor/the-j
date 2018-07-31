@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Notes on JavaEE support for NetBeans 9</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The J*, a blog about Java, JVM, JavaScript and Gentoo Linux">
+    <meta name="author" content="Víctor Orozco">
+    <meta name="keywords" content="java,jvm,javascript,gentoo,linux">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <!--link href="../../css/bootstrap.min.css" rel="stylesheet"-->
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <meta property="og:title" content="Notes on JavaEE support for NetBeans 9">
+    <meta property="og:type" content="post">
+    <meta property="og:url" content="http://www.vorozco.com/blog/2018/2018-07-30-NetBeans-9-JavaEE-JakartaEE.html">
+    <meta property="og:site_name" content="The J*">
+    <meta property="og:locale" content="en-US">
+    <meta property="article:published_time" content="30 July 2018">
+    <meta property="article:author" content="https://www.facebook.com/tuxtor">
+    <meta property="fb:app_id" content="753735224749731">
+    <meta property="og:image" content="http://vorozco.com/images/global/playground.png">
+
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-41004409-2', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=290416645177";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+        <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">The J*</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../blog">Blog</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <li><a href="../../contact.html">Contact</a></li>
+            <li><a href="https://feeds.feedburner.com/the-j">Subscribe</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	<div class="page-header">
+		<h1>Notes on JavaEE support for NetBeans 9</h1>
+	</div>
+
+	<p><em>30 July 2018</em></p>
+
+	<div class="row">
+
+		<div class="col-md-9">
+			<p><p>Today one of my favourite open source projects got a major release, now under Apache Foundation, welcome back NetBeans!.</p>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">The <a href="https://twitter.com/TheASF?ref_src=twsrc%5Etfw">@TheASF</a> <a href="https://twitter.com/netbeans?ref_src=twsrc%5Etfw">@NetBeans</a> community is proud to announce the 1st official release of <a href="https://twitter.com/TheASF?ref_src=twsrc%5Etfw">@TheASF</a> <a href="https://twitter.com/netbeans?ref_src=twsrc%5Etfw">@NetBeans</a> (incubating): <a href="https://t.co/GJLsExeWXO">https://t.co/GJLsExeWXO</a> Especially for devs, users, and students of JDK 8, 9, and 10. 100% free and open source and we welcome pull requests: <a href="https://t.co/AT39k8NCnO">https://t.co/AT39k8NCnO</a> <a href="https://t.co/Ae70AyqiGp">pic.twitter.com/Ae70AyqiGp</a></p>&mdash; Apache NetBeans (incubating) (@netbeans) <a href="https://twitter.com/netbeans/status/1023647803116015616?ref_src=twsrc%5Etfw">July 29, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><p>In this line, I think that the most frequent question since beta release is:</p>
+<blockquote><p>What about JavaEE/C++/PHP/JavaME . . .? You name it</p>
+</blockquote><p><strong>Quick response:</strong></p><p><strong>First source code donation to Apache includes only base NetBeans platform</strong> modules plus Java SE support</p><p><strong>Long response:</strong></p><p><a href="https://blogs.apache.org/netbeans/entry/announce-apache-netbeans-incubating-92">Please see Apache Foundation official statement</a>.</p><h1>Does it mean that I won't be able to develop my JavaEE application on NetBeans 9</h1><p><strong>Short answer:</strong> No</p><p><strong>Long answer:</strong> Currently Oracle already did a second donation, where most of NetBeans modules considered as external are included, as Apache statement suggests we could expect these modules on future NetBeans releases.</p><h1>Is it possible to enable Java EE support in NetBeans 9?</h1><p>Considering that NetBeans has been modular since . . . ever, we could expect support for old modules in the new NetBeans version. As a matter of fact, <strong>this is the official approach to enable JavaEE support on NetBeans 9</strong>, <a href="https://blogs.apache.org/netbeans/entry/what-s-happened-to-my">by using kits</a>.</p><p>Hence I've prepared a small tutorial to achieve this. This tutorial is focused on MacOS but steps should be exactly the same for Linux and Windows. To show some caveats, I've tested two app server over Java 8 and Java 10.</p><h2>Downloading NetBeans 9.0</h2><p>First, you should download NetBeans package from official Apache Mirrors, at this time distributions are only available as .zip files.</p><p><img src="/images/posts/nb9/nb9-download.png" alt="NetBeans 9 Download" title="NetBeans 9 download" /></p><p>After download, just uncompress the .zip file</p>
+<pre><code class="bash">unzip incubating-netbeans-java-9.0-bin.zip
+</code></pre><p>You should find a netbeans executable at <code>bin/</code> directory, for Unix:</p>
+<pre><code class="bash">cd netbeans
+bin/netbeans
+</code></pre><p>Whit this you would be able to run NetBeans 9. <strong>By default, NetBeans will run on the most up-to date JVM available at system.</strong></p><p><img src="/images/posts/nb9/nb9.png" alt="NetBeans 9" title="NetBeans 9" /></p><h2>Enabling Java EE support</h2><p>To install Java EE support you should enable also NetBeans 8.2 update center repository.</p><p>First go to <code>Tools &gt; Plugins &gt; Settings</code>.</p><p>Second, add a new update repository:</p>
+<blockquote><p><a href="http://updates.netbeans.org/netbeans/updates/8.2/uc/final/distribution/catalog.xml.gz">http://updates.netbeans.org/netbeans/updates/8.2/uc/final/distribution/catalog.xml.gz</a></p>
+</blockquote><p><img src="/images/posts/nb9/nb82update.png" alt="NetBeans 8.2 update center" title="NetBeans 8.2 update center" /></p><p><img src="/images/posts/nb9/nb82update2.png" alt="NetBeans 8.2 update center" title="NetBeans 8.2 update center" /></p><p>Third, search for new plugins with the keyword "Kit", as the name suggests, <strong>these are plugins collections for specific purposes</strong></p><p><img src="/images/posts/nb9/nb82update3.png" alt="NetBeans 8.2 update center" title="NetBeans 8.2 update center" /></p><p>From experience I do recommend the following plugins:</p>
+<ul>
+  <li>HTML5 Kit</li>
+  <li>JSF</li>
+  <li>SOAP Web Services</li>
+  <li>EJB and EAR</li>
+  <li>RESTful Web Services</li>
+  <li>Java EE Base</li>
+</ul><p>Restart the IDE and you're ready to develop apps with Java EE :).</p><h1>Test 1: Wildfly 13</h1><p>To test NetBeans setup, I added a new application server and ran a recent Java EE 8 REST-CRUD application, <a href="https://github.com/comunidad-hispana-jugs/workshop-03-JEE8_-_JSE10/blob/master/JEE_8/README.md">from recent jEspañol presentation</a> (in Spanish).</p><p>You have to select WildFly Application Server</p><p><img src="/images/posts/nb9/wf1.png" alt="WildFly 13" title="WildFly 13" /></p><p>As <a href="http://wildfly.org/news/2018/05/30/WildFly13-Final-Released/">WildFly release notes</a> suggests if you wanna JavaEE 8 support, you should choose <code>standalone-ee8.xml</code> as domain configuration.<br/><img src="/images/posts/nb9/wf2.png" alt="WildFly 13" title="WildFly 13" /></p><p>Domain configuration will be detected by NetBeans 9</p><p><img src="/images/posts/nb9/wf3.png" alt="WildFly 13" title="WildFly 13" /></p><p>WildFly team has been working on Java 9 and 10 compatibility, hence application ran as expected delivering new records from in-memory database.</p><p><img src="/images/posts/nb9/wf4.png" alt="WildFly 13" title="WildFly 13" /></p><h1>Test 2: Glassfish 5 and Payara 5 on Java 10 (NetBeans) and Java 8 (App server platform)</h1><p>To test vanilla experience, I tried to connect Payara and Glassfish 5 app server, as in the case of WildFly, configuration is pretty straight forward:</p><p>You have to select Payara Application Server<br/><img src="/images/posts/nb9/py1.png" alt="Payara 5" title="Payara 5" /></p><p>Domain 1 default configuration should be ok<br/><img src="/images/posts/nb9/py2.png" alt="Payara 5" title="Payara 5" /></p><p>Since Payara and Glassfish only support Java 8 (<a href="https://blog.payara.fish/payara-server-and-payara-micro-in-2018">Java 11 support is on the roadmap</a>) you have to create a new platform with Java 8. Go to <code>Tools -&gt; Java Platforms</code> and click on <code>Add Platform</code><br/><img src="/images/posts/nb9/py3.png" alt="Payara 5" title="Payara 5" /></p><p>Select a new Java SE Platform</p><p><img src="/images/posts/nb9/py4.png" alt="Payara 5" title="Payara 5" /></p><p>Pick the home directory for Java 8</p><p><img src="/images/posts/nb9/py6.png" alt="Payara 5" title="Payara 5" /></p><p>Finally, go to server properties and change Java Platform<br/><img src="/images/posts/nb9/py7.png" alt="Payara 5" title="Payara 5" /></p><p>At this time, it seem that NetBeans should be running on Java 8 too, otherwhise you won't be able to retrieve server's configuration and logs, <a href="https://marketplace.eclipse.org/comment/4948#comment-4948">there is a similar report on Eclipse Plugin</a>.</p><p><img src="/images/posts/nb9/py8.png" alt="Payara 5" title="Payara 5" /></p><h1>Test 3: Glassfish 5 and Payara 5 on Java 8 (NetBeans) and Java 8 (App server platform)</h1><p>Finally, I configured NetBeans to use JDK 8 as NetBeans JDK, for this, you sould edit <code>etc/netbeans.conf</code> file and point the <code>netbeans_jdkhome</code> variable to JDK 8, since I'm using jenv to manage JVM environments the right value is `netbeans_jdkhome="/Users/tuxtor/.jenv/versions/1.8"</p><p>With this NetBeans 9 is able to run Payara 5 and Glassfish 5 as expected:</p><p><img src="/images/posts/nb9/py9.png" alt="Payara 5" title="Payara 5" /></p><p>I'm Still not sure about TomEE, OpenLiberty, WebSphere and WebLogic, but it seems like it would be a matter of hacking a litle bit on JDK versions.</p><p>Long live to NetBeans and JakartaEE!</p></p>
+
+			<div id="share">
+<!-- Twitter -->
+<a href="https://twitter.com/share" class="twitter-share-button" data-dnt="true">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+<!-- Google Plus -->
+<div class="g-plusone" data-size="medium"></div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'en-GB'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<!-- Facebook -->
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="false">
+</div></div>
+			
+			<hr />
+
+			<div id="disqus_thread"></div>
+			<script type="text/javascript">
+			    /* * * CONFIGURATION VARIABLES * * */
+			    var disqus_shortname = 'opinguimacademicoq';
+
+			    /* * * DON'T EDIT BELOW THIS LINE * * */
+			    (function() {
+			        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			    })();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+		</div>
+			<div class="col-md-3">
+			<form style="border:1px solid #ccc;padding:3px;text-align:center;" action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri=the-j', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true"><p>Enter your email address:</p><p><input type="text" style="width:140px" name="email"/></p><input type="hidden" value="the-j" name="uri"/><input type="hidden" name="loc" value="en_US"/><input type="submit" value="Subscribe" /><p>Delivered by <a href="https://feedburner.google.com" target="_blank">FeedBurner</a></p></form>
+			<hr/>
+			
+			<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"><img src="/images/global/getjavasesdk-120x30.png" alt="Get Java SE SDK" border="0" width="120" height="30" /></a>
+
+			<br/>
+
+			<a href="http://www.gentoo.org/"><img src="//www.gentoo.org/assets/img/badges/gentoo-badge.png" alt="Gentoo" style="border:0" /></a>
+
+			<hr/>
+
+		    <a class="twitter-timeline"  href="https://twitter.com/tuxtor" data-widget-id="633158537896722432">Tweets by @tuxtor</a>
+	            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</div>
+	</div>
+
+	
+
+	
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2015-2016 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    <link  href="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.7.1/lazyload.min.js"></script>
+    </body>
+</html>
