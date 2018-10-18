@@ -34,7 +34,7 @@ If traditional architectures are considered, monolithic applications hold common
 
 **Without considering any Java framework, the deployment structure will be simmilar to the figure**. In here we observe that applications are distributed with .war or .jar files, being collected in .ear files for management purposes. In these architectures applications are created and separated considering its business objective.
 
-![Monolith deployment](images/metrics/monolith.png)
+![Monolith deployment](images/posts/metrics/monolith.png)
 
 If a need to scale appears, there are basically two options -i.e. to scale server resources (vertical) and to add more servers with an application copy to distribute clients using a load balancer-. It is worth to notice that new nodes tend to be also **long running** processes, since any application server reboot implies a considerable amount of time that is directly proportional to the quantity of applications that have been deployed.
 
@@ -57,7 +57,7 @@ The *rule of thumb* for this scenarios is often to choose telemetric/own APIs to
 En línea con la búsqueda de generación de valor para el usuario, **uno de los abordajes recientes para mejorar la experiencia es el uso e implementación de sistemas reactivos**, definiendo sus principios en el [Reactive Manifesto](https://www.reactivemanifesto.org/).
 
 
-![Reactive manifesto](images/metrics/reactive-traits.png)
+![Reactive manifesto](images/posts/metrics/reactive-traits.png)
 
 En esencia un sistema reactivo es una sistema que:
 
@@ -73,7 +73,7 @@ Nuevamente sin importar el framework o incluso el lenguaje de programación. El 
 
 La figura a continuación describe una arquitectura tradicional basada en Microservicios:
 
-![Despliegue microservicios](images/metrics/microservices.png)
+![Despliegue microservicios](images/posts/metrics/microservices.png)
 
 Observamos que cada uno de los Microservicios no sera más que un "trabajador" sin estado que publica su disponibilidad hacia el registro de servicios. En relación a las métricas, el registro sera el origen de la configuración de un recolector de métricas que posteriormente verifica uno a uno los microservicios activos para un tiempo T y almacena los datos tanto del entorno de ejecución como de la aplicación para proveer visualizaciones en tiempo real.
 
@@ -90,7 +90,7 @@ Healtcheck básicamente se encarga de responder si el servicio esta o no en ejec
 
 Para probar la funcionalidad de cada una de las métricas utilizaremos como base una aplicación con dependencia en dos orígenes de datos, descrita en el siguiente diagrama:
 
-![Arquitectura tests](images/metrics/demomicro.png)
+![Arquitectura tests](images/posts/metrics/demomicro.png)
 
 **Nuestro escenario de pruebas incluye dos micro servicios, un microservicio denominado OmdbService cuyo único objetivo es conectarse hacia OMDB para obtener información de películas y MovieService cuyo objetivo es obtener la información general de una película desde una base de datos relacional y combinarla con la descripción de OMDB**. El código de ambos proyectos está disponible en GitHub, (MovieService), (OmdbService).
 
@@ -139,7 +139,7 @@ Plantearemos entonces algunos casos y dejaremos el resto para Oracle Code One ([
 Uno de los puntos más interesantes de Eclipse MicroProfile es que en si misma son extensiones de Java EE, por lo que es posible utilizar las métricas proveídas en entornos tradicionales. Por ejemplo si desplegamos unicamente el servicio de OMDB sobre Payara 5, este sera el resultado al consultar las métricas Base en el servidor de aplicaciones (`http://localhost:8080/metrics`).
 
 
-![Base metrics](images/metrics/base-metrics.png)
+![Base metrics](images/posts/metrics/base-metrics.png)
 
 Para probar la funcionalidad Base de MicroProfile, ejecutaremos peticiones http hacia
 
@@ -147,7 +147,7 @@ Para probar la funcionalidad Base de MicroProfile, ejecutaremos peticiones http 
 
 Mediante la cual obtendremos la información de Matrix, esta API ha sido programada con un cliente JAX-RS de tipo blocking para forzar la creación de nuevos threads al momento de realizar la consulta.
 
-![Matrix](images/metrics/matrix.png)
+![Matrix](images/posts/metrics/matrix.png)
 
 
 Simulando una carga hacia la aplicación mediante JMeter durante 15 minutos de prueba podemos observar que las métricas presentadas vía JMX son bastante cercanas a las presentadas por Metrics. Con lo cual consideraremos que Metrics sera una alternativa viable para casos que no involucren profiling a bajo nivel. **El único inconveniente "real" al utilizar Prometheus es la necesidad de crear nuestras propias consultas**.
