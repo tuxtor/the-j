@@ -79,7 +79,7 @@ In a traditional Microservices architecture we observe that services are basical
 
 Despite the early efforts on the EE space like [an administrative API with metrics](https://jcp.org/en/jsr/detail?id=77), the need of a formal standard for metrics became mandatory due Microservices popularization. Being **[Dropwizard Metrics](https://metrics.dropwizard.io/3.1.0/) one of the pioneers to cover the need of a telemetric toolkit with [specific CDI extensions](https://github.com/astefanutti/metrics-cdi)**.
 
-In this line, the MicroProfile project has included among its recent versions(1.4 and 2.0) support for Healthcheck and state Metrics. **Many of the actual DropWizard users would notice that annotations are similar if not the same. In fact Microprofile annotations are based directly on DropWizard's [API 3.2.3](https://microprofile.io/project/eclipse/microprofile-metrics/spec/src/main/asciidoc/app-programming-model.adoc)**.
+In this line, the MicroProfile project has included among its recent versions(1.4 and 2.0) support for Healthcheck and state Metrics. **Many of the current DropWizard users would notice that annotations are similar if not the same. In fact MicroProfile annotations are based directly on DropWizard's [API 3.2.3](https://microprofile.io/project/eclipse/microprofile-metrics/spec/src/main/asciidoc/app-programming-model.adoc)**.
 
 To differentiate between concepts, Healtheck API is in charge of answering a simple question "Is the service running and how well is it doing it?" and are targeted for orchestrations. On the other side Metrics present instant or periodical metrics on how services are reacting over consumers requests.
 
