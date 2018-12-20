@@ -13,6 +13,8 @@ status=published
 * Published by: Manning
 * Release date: nov 2018
 
+> Disclaimer: I received this book as a collaboration with Manning and the author.
+
 ## Some context on learning Microservices
 
 Let's clarify one thing, switching from Monoliths to Microservices is not like switching from traditional JavaEE to Spring (and viceversa), **is more like learning to develop software again** because you have to learn:
