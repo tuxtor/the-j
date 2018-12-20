@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Book Review: Enterprise Java Microservices by Ken Finnigan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The J*, a blog about Java, JVM, JavaScript and Gentoo Linux">
+    <meta name="author" content="Víctor Orozco">
+    <meta name="keywords" content="java,jvm,javascript,gentoo,linux">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <!--link href="../../css/bootstrap.min.css" rel="stylesheet"-->
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <meta property="og:title" content="Book Review: Enterprise Java Microservices by Ken Finnigan">
+    <meta property="og:type" content="post">
+    <meta property="og:url" content="http://www.vorozco.com/blog/2018/2018-12-19-Book-review-Enterprise-Java-Microservices.html">
+    <meta property="og:site_name" content="The J*">
+    <meta property="og:locale" content="en-US">
+    <meta property="article:published_time" content="19 December 2018">
+    <meta property="article:author" content="https://www.facebook.com/tuxtor">
+    <meta property="fb:app_id" content="753735224749731">
+    <meta property="og:image" content="http://vorozco.com/images/global/playground.png">
+
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-41004409-2', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=290416645177";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+        <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">The J*</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../blog">Blog</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <li><a href="../../contact.html">Contact</a></li>
+            <li><a href="https://feeds.feedburner.com/the-j">Subscribe</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	<div class="page-header">
+		<h1>Book Review: Enterprise Java Microservices by Ken Finnigan</h1>
+	</div>
+
+	<p><em>19 December 2018</em></p>
+
+	<div class="row">
+
+		<div class="col-md-9">
+			<p><p><img src="/images/posts/ejmicro/cover.png" alt="Enterprise Java Microservices cover" title="Enterprise Java Microservices" /></p><h2>General information</h2>
+<ul>
+  <li>Pages: 245</li>
+  <li>Published by: Manning</li>
+  <li>Release date: nov 2018</li>
+</ul>
+<blockquote><p>Disclaimer: I received this book as a collaboration with Manning and the author.</p>
+</blockquote><h2>Some context on learning Microservices</h2><p>Let's clarify one thing, switching from Monoliths to Microservices is not like switching from traditional JavaEE to Spring (and viceversa), <strong>is more like learning to develop software again</strong> because you have to learn:</p>
+<ul>
+  <li>New architectural patterns</li>
+  <li>How to work with distributed transactions</li>
+  <li>How to guarantee consistency in distributed data (or not)</li>
+  <li>New plumbing/management tools like Docker, Kubernets, Pipelines</li>
+  <li>New frameworks and/or old frameworks with new Cloud Native capabilities</li>
+</ul><p>Despite really good publications like the <a href="https://12factor.net/">12 factors for web native applications</a>. <strong>From my perspective the real challenge on learning Microservices is the lack of a central documentation/tutorial/from 0 to wow guide.</strong></p><p>In the old days, if you wanted to learn enterprise software development on Java, you simply took the Java EE tutorial from 0 to 100, maybe a second tutorial like <a href="https://developers.redhat.com/ticket-monster/">Ticket Monster</a>, a couple of reference books and that's it. However, learning Microservices is more like:</p>
+<ul>
+  <li>Learning new cloud native capabilities of old frameworks in documentations that take for granted your knowledge of previous versions of the framework</li>
+  <li>Or learning new frameworks with words like reactive, functional, non-blocking, bazinga</li>
+  <li>Learning new design patterns without knowing the real motivation of each pattern</li>
+  <li>Surfing in a lot of reddit and StackOverflow discussions on not-so clear explanations</li>
+  <li>Learning Docker and Kubernets because every body is doing it</li>
+  <li>Hitting end roads because you are accustomed to things like JNDI, JTA, Stateful sessions</li>
+</ul><h2>About the book</h2><p>Do you see the problem? The lack of a cohesive guide that explains who, how and why you need the zillion of new tools makes the path of learning Microservices an uphill battle, and that's where <strong>Enterprise Java Microservices</strong> shines.</p><p>Enterprise Java Microservices is one of the <strong>first attempts to create a cohesive guide with special focus on Java EE developers and MicroProfile</strong>. The book is divided in two main sections, the first one focused on Microservice basics (my favorite) and the second one focused on Microservices implementations with specific libraries (being a little bit biased for Red Hat Solutions).</p><h3>First section</h3><p><strong>For those that already have some Enterprise Java knowledge but don't have too much idea about the new challenges in the Microservice world this will be the most useful section</strong>, with your actual knowledge you should be able to understand:</p>
+<ul>
+  <li>The main differences between monoliths and microservices architectural styles and patterns, this is by far the most important section for me and gave me a couple of new ideas debunking some misconceptions that I had</li>
+  <li>Just Enough and Micro application servers/frameworks</li>
+  <li>New jargon on the cloud native world (yup you have to learn a lot of new acronyms)</li>
+  <li>General knowledge on testing Microservices</li>
+  <li>Why do you need new tools like service discovery, service registry, gateways, etc.</li>
+  <li>Principles of reactive applications</li>
+</ul><p>This section also includes a brief introduction to API/Rest Web Services creation with Java EE and Spring, however I'm not sure about the feeling of this section for a newcomer.</p><h3>Second section</h3><p>Once you took the basis from the first section (or from bad implementations and end roads in the real life like me), this section will cover three of the most complex and important topics in Microservices, being:</p>
+<ol>
+  <li>Service discovery and load balancing</li>
+  <li>Fault tolerance (circuit breakers, bulkheads, etc.)</li>
+  <li>Strategies for management and monitoring microservices</li>
+</ol><p><strong>The chapters of the second section are structured in a way that makes easier to understand why do you need the "topic" that you are about to learn</strong>, however and despite being early focused on MicroProfile, it will use specific libraries like Hystrix, Ribbon and Feing (yes, like in Spring Boot) for the implementation of these patterns, adding also some specific integrations with Thorntail.</p><p>Later on, the book evolves over a sample application, covering topics like security, architectures with Docker/Kubernets and data streams processing, where as I said a particular bias is present, implementing the solutions by using Minishift, Keycloack and other Red Hat specifics.</p><p>To clarify, <strong>I don't think that this bias is bad, considering that there are (as I said) a zillion of alternatives for <a href="https://www.eclipsecon.org/europe2018/sessions/build-12-factor-microservice-using-microprofile">those factors not covered by Java</a></strong>, I think it was the right decision.</p><h2>Things that could be better</h2><p>As any review this is the most difficult section to write, but I think that a second edition should include:</p>
+<ul>
+  <li>MicroProfile fault tolerance</li>
+  <li>MicroProfile type safe clients</li>
+</ul><p>Since Ken is one of the guys behind MicroProfile implementation in Red Hat, I'm guessing that the main motivation for not including it is simple, MicroProfile is evolving so fast that these standards were presented after book printing.</p><p>People looking for data consistency patterns (CQRS, Event Sourcing, eventual consistency, etc.) could find the streaming processing section a little smaller than it should be.</p><h2>Who should read this book?</h2>
+<ul>
+  <li>Java developers with strong foundations, or experience in Spring or Java EE</li>
+</ul><p>Yes, despite their coverage of basic APIs, I think that you need foundations like those covered in OCP certification, otherwise you will be confused in the implementation of annotations, callbacks, declarative and imperative code.</p></p>
+
+			<div id="share">
+<!-- Twitter -->
+<a href="https://twitter.com/share" class="twitter-share-button" data-dnt="true">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+<!-- Google Plus -->
+<div class="g-plusone" data-size="medium"></div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'en-GB'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<!-- Facebook -->
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="false">
+</div></div>
+			
+			<hr />
+
+			<div id="disqus_thread"></div>
+			<script type="text/javascript">
+			    /* * * CONFIGURATION VARIABLES * * */
+			    var disqus_shortname = 'opinguimacademicoq';
+
+			    /* * * DON'T EDIT BELOW THIS LINE * * */
+			    (function() {
+			        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			    })();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+		</div>
+			<div class="col-md-3">
+			<form style="border:1px solid #ccc;padding:3px;text-align:center;" action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri=the-j', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true"><p>Enter your email address:</p><p><input type="text" style="width:140px" name="email"/></p><input type="hidden" value="the-j" name="uri"/><input type="hidden" name="loc" value="en_US"/><input type="submit" value="Subscribe" /><p>Delivered by <a href="https://feedburner.google.com" target="_blank">FeedBurner</a></p></form>
+			<hr/>
+			
+			<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"><img src="/images/global/getjavasesdk-120x30.png" alt="Get Java SE SDK" border="0" width="120" height="30" /></a>
+
+			<br/>
+
+			<a href="http://www.gentoo.org/"><img src="//www.gentoo.org/assets/img/badges/gentoo-badge.png" alt="Gentoo" style="border:0" /></a>
+
+			<br/>
+
+			<a href="https://community.oracle.com/community/technology_network_community/java/java-champions">
+			<img src="/images/global/jc.png" alt="Java Champions" style="border:0" />
+			</a>
+
+			<hr/>
+
+		    <a class="twitter-timeline"  href="https://twitter.com/tuxtor" data-widget-id="633158537896722432">Tweets by @tuxtor</a>
+	            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</div>
+	</div>
+
+	
+
+	
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2015-2018 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    <link  href="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.7.1/lazyload.min.js"></script>
+    </body>
+</html>
