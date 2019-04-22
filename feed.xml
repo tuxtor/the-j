@@ -6,9 +6,343 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Thu, 20 Dec 2018 22:34:51 +0000</pubDate>
-    <lastBuildDate>Thu, 20 Dec 2018 22:34:51 +0000</lastBuildDate>
+    <pubDate>Mon, 22 Apr 2019 23:58:56 +0000</pubDate>
+    <lastBuildDate>Mon, 22 Apr 2019 23:58:56 +0000</lastBuildDate>
 
+    <item>
+      <title>The state of Kotlin for Jakarta EE/MicroProfile traditional applications</title>
+      <link>http://www.vorozco.com/blog/2019/2019-04-17-Evaluating-Kotlin-caveats-JavaEE.html</link>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2019/2019-04-17-Evaluating-Kotlin-caveats-JavaEE.html</guid>
+      	<description>
+	&lt;p&gt;![Kotlin EE](/images/posts/kotlinee/Kotlin EE.jpg &quot;Kotlin EE Logo&quot;)&lt;/p&gt;&lt;p&gt;This easter I had the opportunity to catch up with some R&amp;amp;D tasks in my main Job, in short I had to evaluate the feasibility of using Kotlin in regular Jakarta EE/MicroProfile projects including:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Language benefits&lt;/li&gt;
+  &lt;li&gt;Jakarta EE/MicroProfile API support, specifically CDI, JPA, JAX-RS&lt;/li&gt;
+  &lt;li&gt;Maven support&lt;/li&gt;
+  &lt;li&gt;Compatibility with my regular libraries (Flyway, SL4J, Arquillian)&lt;/li&gt;
+  &lt;li&gt;Regular application server support -e.g Payara-&lt;/li&gt;
+  &lt;li&gt;Tooling support (deployment, debugging, project import)&lt;/li&gt;
+  &lt;li&gt;Cloud deployment by Docker&lt;/li&gt;
+&lt;/ul&gt;&lt;h2&gt;TL;DR version&lt;/h2&gt;&lt;p&gt;Kotlin works as language and plays well with Maven, I&apos;m able to use many of the EE API for &quot;services&quot;, however the roadblock is not the language or libraries, is the tooling support.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;The experience is superb on IntelliJ IDEA and all works as expected, however the IDE is a barrier if you&apos;re not an IntelliJ user&lt;/strong&gt;, Kotlin doesn&apos;t play well with WTP on Eclipse (hence it doesn&apos;t deploy to app servers) and Kotlin support for Netbeans is mostly dead.&lt;/p&gt;&lt;h2&gt;About language&lt;/h2&gt;&lt;p&gt;If you have a couple of years in the JVM space you probably remember that &lt;strong&gt;Scala, Ceylon and Kotlin have been considered as better Javas&lt;/strong&gt;. I do a lot of development in different languages including Java for backends, Kotlin for mobile, JavaScript on front-ends, Bash for almost every automation task so I knew the streghts of Kotlin from the mobile space where is specially important, basically most of the Java development on Android is currently a Java 7+Lambdas experience.&lt;/p&gt;&lt;p&gt;My top three features that could help you in your EE tasks are&lt;br/&gt;* One line functions&lt;br/&gt;* Public by default&lt;br/&gt;* Multiline Strings&lt;br/&gt;* Companion objects&lt;br/&gt;* Type inference&lt;/p&gt;&lt;p&gt;I&apos;ll try to exemplify these in a regular application&lt;/p&gt;&lt;h2&gt;The Jakarta EE/MicroProfile application&lt;/h2&gt;&lt;p&gt;The demo application follows a simple structure, it includes MicroProfile Config, CDI, EJB, JPA, and JAX-RS, focused on a simple phrase collector/retrieval service. Interesting Kotlin features are highlighted.&lt;/p&gt;&lt;p&gt;Source code is available at GitHub repo &lt;a href=&quot;https://github.com/tuxtor/integrum-ee&quot;&gt;https://github.com/tuxtor/integrum-ee&lt;/a&gt;.&lt;/p&gt;&lt;h3&gt;Project configuration&lt;/h3&gt;&lt;p&gt;To enable Kotlin support I basically followed &lt;a href=&quot;https://kotlinlang.org/docs/reference/using-maven.html&quot;&gt;Kotlin&apos;s Maven guide&lt;/a&gt;, is not so explanatory but if you have a litle bit of experience in maven this won&apos;t be a problem.&lt;/p&gt;&lt;p&gt;Besides adding Kotlin dependencies to a regular EE &lt;code&gt;pom.xml&lt;/code&gt;a special configuration is needed for the &lt;code&gt;all-open&lt;/code&gt; plugin, Jakarta EE works with proxy entities that inherit from your original code. To make it simple all CDI, EJB and JAX-RS important annotations were included as &quot;open activators&quot;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;&amp;lt;plugin&amp;gt;
+    &amp;lt;groupId&amp;gt;org.jetbrains.kotlin&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;kotlin-maven-plugin&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;${kotlin.version}&amp;lt;/version&amp;gt;
+    &amp;lt;executions&amp;gt;
+        &amp;lt;execution&amp;gt;
+            &amp;lt;id&amp;gt;compile&amp;lt;/id&amp;gt;
+            &amp;lt;goals&amp;gt; &amp;lt;goal&amp;gt;compile&amp;lt;/goal&amp;gt; &amp;lt;/goals&amp;gt;
+            &amp;lt;configuration&amp;gt;
+                &amp;lt;sourceDirs&amp;gt;
+                    &amp;lt;sourceDir&amp;gt;${project.basedir}/src/main/kotlin&amp;lt;/sourceDir&amp;gt;
+                    &amp;lt;sourceDir&amp;gt;${project.basedir}/src/main/java&amp;lt;/sourceDir&amp;gt;
+                &amp;lt;/sourceDirs&amp;gt;
+            &amp;lt;/configuration&amp;gt;
+        &amp;lt;/execution&amp;gt;
+        &amp;lt;execution&amp;gt;
+            &amp;lt;id&amp;gt;test-compile&amp;lt;/id&amp;gt;
+            &amp;lt;goals&amp;gt; &amp;lt;goal&amp;gt;test-compile&amp;lt;/goal&amp;gt; &amp;lt;/goals&amp;gt;
+            &amp;lt;configuration&amp;gt;
+                &amp;lt;sourceDirs&amp;gt;
+                    &amp;lt;sourceDir&amp;gt;${project.basedir}/src/test/kotlin&amp;lt;/sourceDir&amp;gt;
+                    &amp;lt;sourceDir&amp;gt;${project.basedir}/src/test/java&amp;lt;/sourceDir&amp;gt;
+                &amp;lt;/sourceDirs&amp;gt;
+            &amp;lt;/configuration&amp;gt;
+        &amp;lt;/execution&amp;gt;
+    &amp;lt;/executions&amp;gt;
+    &amp;lt;configuration&amp;gt;
+        &amp;lt;compilerPlugins&amp;gt;
+            &amp;lt;plugin&amp;gt;all-open&amp;lt;/plugin&amp;gt;
+        &amp;lt;/compilerPlugins&amp;gt;
+
+        &amp;lt;pluginOptions&amp;gt;
+            &amp;lt;option&amp;gt;all-open:annotation=javax.ws.rs.Path&amp;lt;/option&amp;gt;
+            &amp;lt;option&amp;gt;all-open:annotation=javax.enterprise.context.RequestScoped&amp;lt;/option&amp;gt;
+            &amp;lt;option&amp;gt;all-open:annotation=javax.enterprise.context.SessionScoped&amp;lt;/option&amp;gt;
+            &amp;lt;option&amp;gt;all-open:annotation=javax.enterprise.context.ApplicationScoped&amp;lt;/option&amp;gt;
+            &amp;lt;option&amp;gt;all-open:annotation=javax.enterprise.context.Dependent&amp;lt;/option&amp;gt;
+            &amp;lt;option&amp;gt;all-open:annotation=javax.ejb.Singleton&amp;lt;/option&amp;gt;
+            &amp;lt;option&amp;gt;all-open:annotation=javax.ejb.Stateful&amp;lt;/option&amp;gt;
+            &amp;lt;option&amp;gt;all-open:annotation=javax.ejb.Stateless&amp;lt;/option&amp;gt;
+        &amp;lt;/pluginOptions&amp;gt;
+    &amp;lt;/configuration&amp;gt;
+
+    &amp;lt;dependencies&amp;gt;
+        &amp;lt;dependency&amp;gt;
+            &amp;lt;groupId&amp;gt;org.jetbrains.kotlin&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;kotlin-maven-allopen&amp;lt;/artifactId&amp;gt;
+            &amp;lt;version&amp;gt;${kotlin.version}&amp;lt;/version&amp;gt;
+        &amp;lt;/dependency&amp;gt;
+    &amp;lt;/dependencies&amp;gt;
+&amp;lt;/plugin&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;Model&lt;/h3&gt;&lt;p&gt;Table models are easily created by using Kotlin&apos;s Data Classes, note the default values on parameters and nullable types for autogenerated values, using an incrementable value on a table.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;@Entity
+@Table(name = &amp;quot;adm_phrase&amp;quot;)
+@TableGenerator(name = &amp;quot;admPhraseIdGenerator&amp;quot;, table = &amp;quot;adm_sequence_generator&amp;quot;, pkColumnName = &amp;quot;id_sequence&amp;quot;, valueColumnName = &amp;quot;sequence_value&amp;quot;, pkColumnValue = &amp;quot;adm_phrase&amp;quot;, allocationSize = 1)
+data class AdmPhrase(
+        @Id
+        @GeneratedValue(strategy = GenerationType.TABLE, generator = &amp;quot;admPhraseIdGenerator&amp;quot;)
+        @Column(name = &amp;quot;phrase_id&amp;quot;)
+        var phraseId:Long? = null,
+        var author:String = &amp;quot;&amp;quot;,
+        var phrase:String = &amp;quot;&amp;quot;
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;After that, I need to provide also a repository, the repository is a classic CRUD component injectable with CDI, one line methods are created to make the repository concise. The interesting part however is that Kotlin&apos;s nullability system plays well with CDI by using &lt;code&gt;lateinit&lt;/code&gt;.&lt;/p&gt;&lt;p&gt;The most pleasant part is to create JPQL querys with multiline declarations, In general I dislike the + signs polluting my query in Java :).&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;@RequestScoped
+class AdmPhraseRepository @Inject constructor() {
+
+    @Inject
+    private lateinit var em:EntityManager
+
+    @PostConstruct
+    fun init() {
+        println (&amp;quot;Booting repository&amp;quot;)
+    }
+
+    fun create(admPhrase:AdmPhrase) = em.persist(admPhrase)
+
+    fun update(admPhrase:AdmPhrase) = em.merge(admPhrase)
+
+    fun findById(phraseId: Long) = em.find(AdmPhrase::class.java, phraseId)
+
+    fun delete(admPhrase: AdmPhrase) = em.remove(admPhrase)
+
+    fun listAll(author: String, phrase: String): List&amp;lt;AdmPhrase&amp;gt; {
+
+        val query = &amp;quot;&amp;quot;&amp;quot;SELECT p FROM AdmPhrase p
+            where p.author LIKE :author
+            and p.phrase LIKE :phrase
+        &amp;quot;&amp;quot;&amp;quot;
+
+        return em.createQuery(query, AdmPhrase::class.java)
+                .setParameter(&amp;quot;author&amp;quot;, &amp;quot;%$author%&amp;quot;)
+                .setParameter(&amp;quot;phrase&amp;quot;, &amp;quot;%$phrase%&amp;quot;)
+                .resultList
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;Controller&lt;/h3&gt;&lt;p&gt;The model needs to by exposed by using a controller, hence a JAX-RS activator is needed&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;@ApplicationPath(&amp;quot;/rest&amp;quot;)
+class RestApplication : Application()
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;That&apos;s all the code.&lt;/p&gt;&lt;p&gt;On the other side, implementing the controller looks a lot more like Java, specially if the right HTTP codes are needed. In this line to express the Java class to the builders the special Kotlin syntax &lt;code&gt;this::class.java&lt;/code&gt; is mandatory.&lt;/p&gt;&lt;p&gt;Is also observed the elvis operator in action (in DELETE), if the entity is not found the alternative return is fired immediately, a nice idiomatic resource.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;@Path(&amp;quot;/phrases&amp;quot;)
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+class AdmPhraseController{
+
+    @Inject
+    private lateinit var admPhraseRepository: AdmPhraseRepository
+
+    @Inject
+    private lateinit var logger: Logger
+
+    @GET
+    fun findAll(@QueryParam(&amp;quot;author&amp;quot;) @DefaultValue(&amp;quot;%&amp;quot;) author: String,
+                @QueryParam(&amp;quot;phrase&amp;quot;) @DefaultValue(&amp;quot;%&amp;quot;) phrase: String) =
+                admPhraseRepository.listAll(author, phrase)
+
+    @GET
+    @Path(&amp;quot;/{id:[0-9][0-9]*}&amp;quot;)
+    fun findById(@PathParam(&amp;quot;id&amp;quot;) id:Long) = admPhraseRepository.findById(id)
+
+    @PUT
+    fun create(phrase: AdmPhrase): Response {
+        admPhraseRepository.create(phrase)
+        return Response.created(UriBuilder.fromResource(this::class.java)
+                .path(phrase.phraseId.toString()).build()).build()
+    }
+
+    @POST
+    @Path(&amp;quot;/{id:[0-9][0-9]*}&amp;quot;)
+    fun update(@PathParam(&amp;quot;id&amp;quot;) id: Long?, phrase: AdmPhrase): Response {
+        if(id != phrase.phraseId) return Response.status(Response.Status.NOT_FOUND).build()
+
+        val updatedEntity = admPhraseRepository.update(phrase)
+        return Response.ok(updatedEntity).build()
+    }
+
+    @DELETE
+    @Path(&amp;quot;/{id:[0-9][0-9]*}&amp;quot;)
+    fun delete(@PathParam(&amp;quot;id&amp;quot;) id: Long): Response {
+        val updatedEntity = admPhraseRepository.findById(id) ?:
+            return Response.status(Response.Status.NOT_FOUND).build()
+        admPhraseRepository.delete(updatedEntity)
+        return Response.ok().build()
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To try MicroProfile a second controller is created that tries to read JAVA_HOME&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;@Path(&amp;quot;/hello&amp;quot;)
+class HelloController{
+
+    @Inject
+    @ConfigProperty(name =&amp;quot;JAVA_HOME&amp;quot;, defaultValue = &amp;quot;JAVA_HOME&amp;quot;)
+    lateinit var javaHome:String
+
+    @GET
+    fun doHello() = &amp;quot;There is no place like $javaHome&amp;quot;
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;Utilities&lt;/h3&gt;&lt;p&gt;To create a real test, four &quot;advanced components&quot; were included, being an entity manager producer for CDI components, a Flyway bootstrapper with &lt;code&gt;@Startup&lt;/code&gt; EJB, a Log producer for SL4J, and a &quot;simple&quot; test with Arquillian.&lt;/p&gt;&lt;p&gt;The producer itself is pretty similar to its Java equivalent, it only takes advantage of one line methods.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;@ApplicationScoped
+class EntityManagerProducer {
+
+    @PersistenceUnit
+    private lateinit var entityManagerFactory: EntityManagerFactory
+
+    @Produces
+    @Default
+    @RequestScoped
+    fun create(): EntityManager = this.entityManagerFactory.createEntityManager()
+
+    fun dispose(@Disposes @Default entityManager: EntityManager) {
+        if (entityManager.isOpen) {
+            entityManager.close()
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The Flyway migration is implemented with EJB to fire it every time that this application is deployed (and of course to test EJB). Since Kotlin doesn&apos;t have a try-with-resources structure the resource management is implemented with a &lt;code&gt;let&lt;/code&gt; block, making it really readable. Besides this if there is a problem the data source it will be null and &lt;code&gt;let&lt;/code&gt; block won&apos;t be executed.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;@ApplicationScoped
+@Singleton
+@Startup
+class FlywayBootstrapper{
+
+    @Inject
+    private lateinit var logger:Logger
+
+    @Throws(EJBException::class)
+    @PostConstruct
+    fun init() {
+
+        val ctx = InitialContext()
+        val dataSource = ctx.lookup(&amp;quot;java:app/jdbc/integrumdb&amp;quot;) as? DataSource
+
+        dataSource.let {
+            val flywayConfig = Flyway.configure()
+                    .dataSource(it)
+                    .locations(&amp;quot;db/postgresql&amp;quot;)
+
+            val flyway = flywayConfig.load()
+            val migrationInfo = flyway.info().current()
+
+            if (migrationInfo == null) {
+                logger.info(&amp;quot;No existing database at the actual datasource&amp;quot;)
+            }
+            else {
+                logger.info(&amp;quot;Found a database with the version: ${migrationInfo.version} : ${migrationInfo.description}&amp;quot;)
+            }
+
+            flyway.migrate()
+            logger.info(&amp;quot;Successfully migrated to database version: {}&amp;quot;, flyway.info().current().version)
+            it?.connection?.close()
+        }
+        ctx.close()
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To create a non empty-database a PostgreSQL migration was created at &lt;code&gt;db/postgresql&lt;/code&gt; in project resources.&lt;br/&gt;```prettyprint&lt;/p&gt;&lt;p&gt;CREATE TABLE IF NOT EXISTS public.adm_sequence_generator (&lt;br/&gt; id_sequence VARCHAR(75) DEFAULT &apos;&apos; NOT NULL,&lt;br/&gt; sequence_value BIGINT DEFAULT 0 NOT NULL,&lt;br/&gt; CONSTRAINT adm_sequence_generator_pk PRIMARY KEY (id_sequence)&lt;br/&gt;);&lt;br/&gt;COMMENT ON COLUMN public.adm_sequence_generator.id_sequence IS &apos;normal_text - people name, items short name&apos;;&lt;br/&gt;COMMENT ON COLUMN public.adm_sequence_generator.sequence_value IS &apos;integuer_qty - sequences, big integer qty&apos;;&lt;/p&gt;&lt;p&gt;CREATE TABLE IF NOT EXISTS public.adm_phrase&lt;br/&gt;(&lt;br/&gt; phrase_id BIGINT DEFAULT 0 NOT NULL,&lt;br/&gt; author varchar(25) DEFAULT &apos;&apos; NOT NULL,&lt;br/&gt; phrase varchar(25) DEFAULT &apos;&apos; NOT NULL,&lt;br/&gt; CONSTRAINT adm_phrase_pk PRIMARY KEY (phrase_id)&lt;br/&gt;);&lt;/p&gt;&lt;p&gt;insert into adm_phrase values (1, &apos;Twitter&apos;,&apos;Kotlin is cool&apos;);&lt;br/&gt;insert into adm_phrase values (2, &apos;TIOBE&apos;,&apos;Java is the king&apos;);&lt;br/&gt;```&lt;/p&gt;&lt;p&gt;Log producer also gets benefits from one line methods&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;open class LogProducer{
+
+    @Produces
+    fun produceLog(injectionPoint: InjectionPoint): Logger =
+            LoggerFactory.getLogger(injectionPoint.member.declaringClass.name)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Finally a test class is also implemented, since Kotlin doesn&apos;t have static methods a companion object with @JvmStatic annotation is created on the class, otherwise test won&apos;t be executed. This is probably one of the examples where Kotlin&apos;s program get bigger if compared to Java equivalent.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;@RunWith(Arquillian::class)
+class AdmPhraseRepositoryIT {
+
+    @Inject
+    private lateinit var admPhraseRepository: AdmPhraseRepository
+
+
+    companion object ArquillianTester{
+
+        @JvmStatic
+        @Deployment
+        fun bootstrapTest(): WebArchive {
+            val war = createBasePersistenceWar()
+                    .addClass(AdmPhraseRepository::class.java)
+                    .addAsWebInfResource(&amp;quot;test-beans.xml&amp;quot;, &amp;quot;beans.xml&amp;quot;)
+            println(war.toString(true))
+
+            return war
+        }
+    }
+
+    @Test
+    fun testPersistance(){
+        val phrase = AdmPhrase( author = &amp;quot;Torvalds&amp;quot;, phrase = &amp;quot;Fck you Nvidia&amp;quot;)
+        admPhraseRepository.create(phrase)
+        assertNotNull(phrase.phraseId)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;Testing the application with IntelliJ IDEA and Payara 5&lt;/h2&gt;&lt;p&gt;If the application is executed/debugged on IntelliJ IDEA all works as expected, sincerely I wasn&apos;t expecting an easy road but this worked really well. For instance a debugging session is initiated with Payara 5:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/kotlinee/intellijdebug.png&quot; alt=&quot;Debugging as expected&quot; title=&quot;Debugging as expected&quot; /&gt;&lt;/p&gt;&lt;p&gt;I could also retrieve the results from RDMBS&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/kotlinee/phrases.png&quot; alt=&quot;Json Phrases&quot; title=&quot;Json Phrases&quot; /&gt;&lt;/p&gt;&lt;p&gt;And my hello world with MicroProfile works too&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/kotlinee/hellomicroprofie.png&quot; alt=&quot;Hello Microprofile&quot; title=&quot;Hello Microprofile&quot; /&gt;.&lt;/p&gt;&lt;h2&gt;Testing the application on Oracle Cloud&lt;/h2&gt;&lt;p&gt;As &lt;a href=&quot;https://developer.oracle.com/ambassador&quot;&gt;Oracle Groundbreaker Ambassador&lt;/a&gt; I have access to instances on Oracle Cloud, hence I created and deployed the same application just to check if there are any other caveats.&lt;/p&gt;&lt;p&gt;Packing applications in Payara Micro is very easy, basically you copy your application to a predefined location:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;FROM payara/micro
+COPY target/integrum-ee.war $DEPLOY_DIR
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A scalable Docker Compose descriptor is needed to provide a simple load balancer and RDBMS, this step is also applicable with Kubernetes, Docker Swarm, Rancher, etc.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;version: &amp;#39;3.1&amp;#39;
+services:
+  db:
+    image: postgres:9.6.1
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: informatica
+      POSTGRES_DB: integrum
+    networks:
+      - webnet
+  web:
+    image: &amp;quot;integrum-ee:latest&amp;quot;
+    restart: always
+    environment:
+      JDBC_URL: &amp;#39;jdbc:postgresql://db:5432/integrum&amp;#39;
+      JAVA_TOOL_OPTIONS: &amp;#39;-Xmx64m&amp;#39;
+      POSTGRES_PASSWORD: informatica
+      POSTGRES_DB: integrum
+    ports:
+      - 8080
+    networks:
+      - webnet
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - web
+    ports:
+      - &amp;quot;4000:4000&amp;quot;
+    networks:
+      - webnet
+networks:
+  webnet:
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A simple nginx.conf file is created just to balance the access to Payara (eventual and scalable) Workers:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;user  nginx;
+
+events {
+    worker_connections   1000;
+}
+http {
+        server {
+              listen 4000;
+              location / {
+                proxy_pass http://web:8080;
+              }
+        }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The JTA resource is created via &lt;code&gt;glassfish-resources.xml&lt;/code&gt; expressing RDBMS credentials with env variables:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;!DOCTYPE resources PUBLIC &amp;quot;-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN&amp;quot; &amp;quot;http://glassfish.org/dtds/glassfish-resources_1_5.dtd&amp;quot;&amp;gt;
+&amp;lt;resources&amp;gt;
+    &amp;lt;jdbc-connection-pool name=&amp;quot;postgres_appPool&amp;quot; allow-non-component-callers=&amp;quot;false&amp;quot; associate-with-thread=&amp;quot;false&amp;quot; connection-creation-retry-attempts=&amp;quot;0&amp;quot; connection-creation-retry-interval-in-seconds=&amp;quot;10&amp;quot; connection-leak-reclaim=&amp;quot;false&amp;quot; connection-leak-timeout-in-seconds=&amp;quot;0&amp;quot; connection-validation-method=&amp;quot;table&amp;quot; datasource-classname=&amp;quot;org.postgresql.ds.PGSimpleDataSource&amp;quot; fail-all-connections=&amp;quot;false&amp;quot; idle-timeout-in-seconds=&amp;quot;300&amp;quot; is-connection-validation-required=&amp;quot;false&amp;quot; is-isolation-level-guaranteed=&amp;quot;true&amp;quot; lazy-connection-association=&amp;quot;false&amp;quot; lazy-connection-enlistment=&amp;quot;false&amp;quot; match-connections=&amp;quot;false&amp;quot; max-connection-usage-count=&amp;quot;0&amp;quot; max-pool-size=&amp;quot;200&amp;quot; max-wait-time-in-millis=&amp;quot;60000&amp;quot; non-transactional-connections=&amp;quot;false&amp;quot; ping=&amp;quot;false&amp;quot; pool-resize-quantity=&amp;quot;2&amp;quot; pooling=&amp;quot;true&amp;quot; res-type=&amp;quot;javax.sql.DataSource&amp;quot; statement-cache-size=&amp;quot;0&amp;quot; statement-leak-reclaim=&amp;quot;false&amp;quot; statement-leak-timeout-in-seconds=&amp;quot;0&amp;quot; statement-timeout-in-seconds=&amp;quot;-1&amp;quot; steady-pool-size=&amp;quot;8&amp;quot; validate-atmost-once-period-in-seconds=&amp;quot;0&amp;quot; wrap-jdbc-objects=&amp;quot;true&amp;quot;&amp;gt;
+        &amp;lt;property name=&amp;quot;URL&amp;quot; value=&amp;quot;${ENV=JDBC_URL}&amp;quot;/&amp;gt;
+        &amp;lt;property name=&amp;quot;User&amp;quot; value=&amp;quot;postgres&amp;quot;/&amp;gt;
+        &amp;lt;property name=&amp;quot;Password&amp;quot; value=&amp;quot;${ENV=POSTGRES_PASSWORD}&amp;quot;/&amp;gt;
+        &amp;lt;property name=&amp;quot;DatabaseName&amp;quot; value=&amp;quot;${ENV=POSTGRES_DB}&amp;quot;/&amp;gt;
+        &amp;lt;property name=&amp;quot;driverClass&amp;quot; value=&amp;quot;org.postgresql.Driver&amp;quot;/&amp;gt;
+    &amp;lt;/jdbc-connection-pool&amp;gt;
+    &amp;lt;jdbc-resource enabled=&amp;quot;true&amp;quot; jndi-name=&amp;quot;java:app/jdbc/integrumdb&amp;quot; object-type=&amp;quot;user&amp;quot; pool-name=&amp;quot;postgres_appPool&amp;quot;/&amp;gt;
+&amp;lt;/resources&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;After that, Invoking the compose file will bring the application+infrastructure to life. Now it&apos;s time to test it on a real cloud. First the image is published to Oracle&apos;s Container Registry&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/kotlinee/ocs.png&quot; alt=&quot;Oracle Container Registry&quot; title=&quot;Oracle Container Registry&quot; /&gt;&lt;/p&gt;&lt;p&gt;Once the container is available at Oracle Cloud the image become usable for any kind of orchestation, for simplicity I&apos;m running directly the compose file over a bare CentOS VM image (the Wercker+Docker+Kubernetes is an entirely different tutorial).&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/kotlinee/registry.png&quot; alt=&quot;Oracle Container Registry&quot; title=&quot;Oracle Container Registry&quot; /&gt;&lt;/p&gt;&lt;p&gt;To use it on Oracle&apos;s infrasctructure, the image ID should be switched to the full name &lt;code&gt;image: iad.ocir.io/tuxtor/microprofile/integrum-ee:1&lt;/code&gt;, in the end the image is pulled, and the final result is our Kotlin EE application running over Oracle Cloud.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/kotlinee/oracle-cloud.png&quot; alt=&quot;Oracle Cloud&quot; title=&quot;Oracle Cloud&quot; /&gt;&lt;/p&gt;&lt;h2&gt;Testing the application with NetBeans&lt;/h2&gt;&lt;p&gt;JetBrains &lt;a href=&quot;https://github.com/JetBrains/kotlin-netbeans&quot;&gt;dropped Kotlin support for NetBeans in 2017&lt;/a&gt;, I tried the plugin just for fun on NetBeans 11 but it hangs Netbeans startup while loading Kotlin support, so NetBeans tests were not possible.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/kotlinee/kotlinnetbeans.png&quot; alt=&quot;Kotlin NetBeans&quot; title=&quot;Kotlin NetBeans&quot; /&gt;&lt;/p&gt;&lt;h2&gt;Testing the application with Eclipse for Java EE&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/JetBrains/kotlin-eclipse&quot;&gt;JetBeans currently develops a Kotlin complement&lt;/a&gt; for Eclipse and seems to work fine with pure Kotlin projects, however the history is very different for Jakarta EE.&lt;/p&gt;&lt;p&gt;After importing the Maven project (previously created in IntelliJ IDEA) many default &lt;a href=&quot;http://help.eclipse.org/oxygen/topic/org.eclipse.jst.j2ee.doc.user/topics/cfacets.html&quot;&gt;facets&lt;/a&gt; are included in the project, being CDI the most problematic, it takes a lot of time to build the project in the CDI builder step.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/kotlinee/cdisleep.png&quot; alt=&quot;CDI slow&quot; title=&quot;CDI slow&quot; /&gt;&lt;/p&gt;&lt;p&gt;Besides that, Jakarta EE complements/parsers work over the code and not the class files, hence the &quot;advanced&quot; menus don&apos;t show content, a very cosmetic detail anyway. If Kotlin sources are located under &lt;code&gt;src/main/kotlin&lt;/code&gt; as suggested by JetBrains Maven guide, these are ignored by default. Hence, I took the easy road and moved all the code to &lt;code&gt;src/main/java&lt;/code&gt;.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/kotlinee/facets.png&quot; alt=&quot;Eclipse facets&quot; title=&quot;Eclipse facets&quot; /&gt;&lt;/p&gt;&lt;p&gt;Kotlin syntax highlighting works fine, as expected from any language on Eclipse.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/kotlinee/kotlineclipse.png&quot; alt=&quot;Kotlin syntax&quot; title=&quot;Kotlin syntax&quot; /&gt;&lt;/p&gt;&lt;p&gt;However if you try to deploy the application it simply doesn&apos;t work because Eclipse compiler does not produce the class file for Kotlin source files, &lt;a href=&quot;https://youtrack.jetbrains.com/issue/KE-57?p=KT-14838&quot;&gt;a bug was raised in 2017&lt;/a&gt; and many &lt;a href=&quot;https://discuss.kotlinlang.org/t/eclipse-maven-m2e-wtp-with-kotlin/2604&quot;&gt;other users report issues with Tomcat and Wildfly&lt;/a&gt;. Basically &lt;a href=&quot;https://www.eclipse.org/webtools/&quot;&gt;Eclipse WTP&lt;/a&gt; is not compatible with Kotlin and deployment/debugging Kotlin code won&apos;t work over an application server.&lt;/p&gt;&lt;h2&gt;Final considerations&lt;/h2&gt;&lt;p&gt;At the end I was a little dissapointed, &lt;strong&gt;Kotlin has great potential for Jakarta EE but it works only if you use IntelliJ IDEA&lt;/strong&gt;. I&apos;m not sure about IntelliJ CE but as stated in JetBrains website, &lt;a href=&quot;https://www.jetbrains.com/idea/buy/&quot;&gt;EE support is only included on Ultimate Edition&lt;/a&gt;, maybe this could be changed with more community involvemente but I&apos;m not sure if this is the right direction considering &lt;a href=&quot;https://openjdk.java.net/projects/amber/&quot;&gt;project Amber&lt;/a&gt;.&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Book Review: Enterprise Java Microservices by Ken Finnigan</title>
       <link>http://www.vorozco.com/blog/2018/2018-12-19-Book-review-Enterprise-Java-Microservices.html</link>
