@@ -5,7 +5,7 @@ tags=java
 status=published
 ~~~~~~
 
-![Kotlin EE](/images/posts/kotlinee/Kotlin EE.jpg "Kotlin EE Logo")
+![Kotlin EE](/images/posts/kotlinee/kotlinee.png "Kotlin EE Logo")
 
 This easter I had the opportunity to catch up with some R&D tasks in my main Job, in short I had to evaluate the feasibility of using Kotlin in regular Jakarta EE/MicroProfile projects including:
 
