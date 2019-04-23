@@ -366,7 +366,7 @@ class AdmPhraseRepositoryIT {
 
     @Test
     fun testPersistance(){
-        val phrase = AdmPhrase( author = "Torvalds", phrase = "Fck you Nvidia")
+        val phrase = AdmPhrase( author = "Torvalds", phrase = "Intelligence is the ability to avoid doing work, yet getting the work done")
         admPhraseRepository.create(phrase)
         assertNotNull(phrase.phraseId)
     }
