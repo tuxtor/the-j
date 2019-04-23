@@ -6,8 +6,8 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Tue, 23 Apr 2019 00:13:27 +0000</pubDate>
-    <lastBuildDate>Tue, 23 Apr 2019 00:13:27 +0000</lastBuildDate>
+    <pubDate>Tue, 23 Apr 2019 00:16:18 +0000</pubDate>
+    <lastBuildDate>Tue, 23 Apr 2019 00:16:18 +0000</lastBuildDate>
 
     <item>
       <title>The state of Kotlin for Jakarta EE/MicroProfile traditional applications</title>
@@ -290,7 +290,7 @@ class AdmPhraseRepositoryIT {
 
     @Test
     fun testPersistance(){
-        val phrase = AdmPhrase( author = &amp;quot;Torvalds&amp;quot;, phrase = &amp;quot;Fck you Nvidia&amp;quot;)
+        val phrase = AdmPhrase( author = &amp;quot;Torvalds&amp;quot;, phrase = &amp;quot;Intelligence is the ability to avoid doing work, yet getting the work done&amp;quot;)
         admPhraseRepository.create(phrase)
         assertNotNull(phrase.phraseId)
     }
