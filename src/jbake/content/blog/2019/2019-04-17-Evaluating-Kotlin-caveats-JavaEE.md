@@ -27,7 +27,7 @@ Kotlin works as language and plays well with Maven, I'm able to use many of the 
 
 If you have a couple of years in the JVM space you probably remember that **Scala, Ceylon and Kotlin have been considered as better Javas**. I do a lot of development in different languages including Java for backends, Kotlin for mobile, JavaScript on front-ends, Bash for almost every automation task so I knew the streghts of Kotlin from the mobile space where is specially important, basically most of the Java development on Android is currently a Java 7+Lambdas experience.
 
-My top three features that could help you in your EE tasks are
+My top five features that could help you in your EE tasks are
 * One line functions
 * Public by default
 * Multiline Strings
