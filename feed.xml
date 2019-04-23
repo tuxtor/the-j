@@ -6,8 +6,8 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Tue, 23 Apr 2019 00:02:58 +0000</pubDate>
-    <lastBuildDate>Tue, 23 Apr 2019 00:02:58 +0000</lastBuildDate>
+    <pubDate>Tue, 23 Apr 2019 00:13:27 +0000</pubDate>
+    <lastBuildDate>Tue, 23 Apr 2019 00:13:27 +0000</lastBuildDate>
 
     <item>
       <title>The state of Kotlin for Jakarta EE/MicroProfile traditional applications</title>
@@ -239,7 +239,27 @@ class FlywayBootstrapper{
         ctx.close()
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To create a non empty-database a PostgreSQL migration was created at &lt;code&gt;db/postgresql&lt;/code&gt; in project resources.&lt;br/&gt;```prettyprint&lt;/p&gt;&lt;p&gt;CREATE TABLE IF NOT EXISTS public.adm_sequence_generator (&lt;br/&gt; id_sequence VARCHAR(75) DEFAULT &apos;&apos; NOT NULL,&lt;br/&gt; sequence_value BIGINT DEFAULT 0 NOT NULL,&lt;br/&gt; CONSTRAINT adm_sequence_generator_pk PRIMARY KEY (id_sequence)&lt;br/&gt;);&lt;br/&gt;COMMENT ON COLUMN public.adm_sequence_generator.id_sequence IS &apos;normal_text - people name, items short name&apos;;&lt;br/&gt;COMMENT ON COLUMN public.adm_sequence_generator.sequence_value IS &apos;integuer_qty - sequences, big integer qty&apos;;&lt;/p&gt;&lt;p&gt;CREATE TABLE IF NOT EXISTS public.adm_phrase&lt;br/&gt;(&lt;br/&gt; phrase_id BIGINT DEFAULT 0 NOT NULL,&lt;br/&gt; author varchar(25) DEFAULT &apos;&apos; NOT NULL,&lt;br/&gt; phrase varchar(25) DEFAULT &apos;&apos; NOT NULL,&lt;br/&gt; CONSTRAINT adm_phrase_pk PRIMARY KEY (phrase_id)&lt;br/&gt;);&lt;/p&gt;&lt;p&gt;insert into adm_phrase values (1, &apos;Twitter&apos;,&apos;Kotlin is cool&apos;);&lt;br/&gt;insert into adm_phrase values (2, &apos;TIOBE&apos;,&apos;Java is the king&apos;);&lt;br/&gt;```&lt;/p&gt;&lt;p&gt;Log producer also gets benefits from one line methods&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To create a non empty-database a PostgreSQL migration was created at &lt;code&gt;db/postgresql&lt;/code&gt; in project resources.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;CREATE TABLE IF NOT EXISTS public.adm_sequence_generator (
+    id_sequence VARCHAR(75) DEFAULT &amp;#39;&amp;#39; NOT NULL,
+    sequence_value BIGINT DEFAULT 0 NOT NULL,
+    CONSTRAINT adm_sequence_generator_pk PRIMARY KEY (id_sequence)
+);
+COMMENT ON COLUMN public.adm_sequence_generator.id_sequence IS &amp;#39;normal_text - people name, items short name&amp;#39;;
+COMMENT ON COLUMN public.adm_sequence_generator.sequence_value IS &amp;#39;integuer_qty - sequences, big integer qty&amp;#39;;
+
+
+CREATE TABLE IF NOT EXISTS public.adm_phrase
+(
+    phrase_id BIGINT DEFAULT 0 NOT NULL,
+    author varchar(25) DEFAULT &amp;#39;&amp;#39; NOT NULL,
+    phrase varchar(25) DEFAULT &amp;#39;&amp;#39; NOT NULL,
+    CONSTRAINT adm_phrase_pk PRIMARY KEY (phrase_id)
+);
+
+insert into adm_phrase values (1, &amp;#39;Twitter&amp;#39;,&amp;#39;Kotlin is cool&amp;#39;);
+insert into adm_phrase values (2, &amp;#39;TIOBE&amp;#39;,&amp;#39;Java is the king&amp;#39;);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Log producer also gets benefits from one line methods&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;open class LogProducer{
 
     @Produces

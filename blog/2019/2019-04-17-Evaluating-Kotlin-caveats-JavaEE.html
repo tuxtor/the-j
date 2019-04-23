@@ -318,7 +318,27 @@ class FlywayBootstrapper{
         ctx.close()
     }
 }
-</code></pre><p>To create a non empty-database a PostgreSQL migration was created at <code>db/postgresql</code> in project resources.<br/>```prettyprint</p><p>CREATE TABLE IF NOT EXISTS public.adm_sequence_generator (<br/> id_sequence VARCHAR(75) DEFAULT '' NOT NULL,<br/> sequence_value BIGINT DEFAULT 0 NOT NULL,<br/> CONSTRAINT adm_sequence_generator_pk PRIMARY KEY (id_sequence)<br/>);<br/>COMMENT ON COLUMN public.adm_sequence_generator.id_sequence IS 'normal_text - people name, items short name';<br/>COMMENT ON COLUMN public.adm_sequence_generator.sequence_value IS 'integuer_qty - sequences, big integer qty';</p><p>CREATE TABLE IF NOT EXISTS public.adm_phrase<br/>(<br/> phrase_id BIGINT DEFAULT 0 NOT NULL,<br/> author varchar(25) DEFAULT '' NOT NULL,<br/> phrase varchar(25) DEFAULT '' NOT NULL,<br/> CONSTRAINT adm_phrase_pk PRIMARY KEY (phrase_id)<br/>);</p><p>insert into adm_phrase values (1, 'Twitter','Kotlin is cool');<br/>insert into adm_phrase values (2, 'TIOBE','Java is the king');<br/>```</p><p>Log producer also gets benefits from one line methods</p>
+</code></pre><p>To create a non empty-database a PostgreSQL migration was created at <code>db/postgresql</code> in project resources.</p>
+<pre><code class="prettyprint">CREATE TABLE IF NOT EXISTS public.adm_sequence_generator (
+    id_sequence VARCHAR(75) DEFAULT &#39;&#39; NOT NULL,
+    sequence_value BIGINT DEFAULT 0 NOT NULL,
+    CONSTRAINT adm_sequence_generator_pk PRIMARY KEY (id_sequence)
+);
+COMMENT ON COLUMN public.adm_sequence_generator.id_sequence IS &#39;normal_text - people name, items short name&#39;;
+COMMENT ON COLUMN public.adm_sequence_generator.sequence_value IS &#39;integuer_qty - sequences, big integer qty&#39;;
+
+
+CREATE TABLE IF NOT EXISTS public.adm_phrase
+(
+    phrase_id BIGINT DEFAULT 0 NOT NULL,
+    author varchar(25) DEFAULT &#39;&#39; NOT NULL,
+    phrase varchar(25) DEFAULT &#39;&#39; NOT NULL,
+    CONSTRAINT adm_phrase_pk PRIMARY KEY (phrase_id)
+);
+
+insert into adm_phrase values (1, &#39;Twitter&#39;,&#39;Kotlin is cool&#39;);
+insert into adm_phrase values (2, &#39;TIOBE&#39;,&#39;Java is the king&#39;);
+</code></pre><p>Log producer also gets benefits from one line methods</p>
 <pre><code class="prettyprint">open class LogProducer{
 
     @Produces
