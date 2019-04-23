@@ -6,8 +6,8 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Mon, 22 Apr 2019 23:58:56 +0000</pubDate>
-    <lastBuildDate>Mon, 22 Apr 2019 23:58:56 +0000</lastBuildDate>
+    <pubDate>Tue, 23 Apr 2019 00:02:58 +0000</pubDate>
+    <lastBuildDate>Tue, 23 Apr 2019 00:02:58 +0000</lastBuildDate>
 
     <item>
       <title>The state of Kotlin for Jakarta EE/MicroProfile traditional applications</title>
@@ -15,7 +15,7 @@
       <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2019/2019-04-17-Evaluating-Kotlin-caveats-JavaEE.html</guid>
       	<description>
-	&lt;p&gt;![Kotlin EE](/images/posts/kotlinee/Kotlin EE.jpg &quot;Kotlin EE Logo&quot;)&lt;/p&gt;&lt;p&gt;This easter I had the opportunity to catch up with some R&amp;amp;D tasks in my main Job, in short I had to evaluate the feasibility of using Kotlin in regular Jakarta EE/MicroProfile projects including:&lt;/p&gt;
+	&lt;p&gt;&lt;img src=&quot;/images/posts/kotlinee/kotlinee.png&quot; alt=&quot;Kotlin EE&quot; title=&quot;Kotlin EE Logo&quot; /&gt;&lt;/p&gt;&lt;p&gt;This easter I had the opportunity to catch up with some R&amp;amp;D tasks in my main Job, in short I had to evaluate the feasibility of using Kotlin in regular Jakarta EE/MicroProfile projects including:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Language benefits&lt;/li&gt;
   &lt;li&gt;Jakarta EE/MicroProfile API support, specifically CDI, JPA, JAX-RS&lt;/li&gt;
