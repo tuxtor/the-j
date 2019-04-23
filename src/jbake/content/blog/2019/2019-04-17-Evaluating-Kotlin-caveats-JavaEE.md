@@ -306,8 +306,8 @@ class FlywayBootstrapper{
 ```
 
 To create a non empty-database a PostgreSQL migration was created at `db/postgresql` in project resources.
-```prettyprint
 
+```prettyprint
 CREATE TABLE IF NOT EXISTS public.adm_sequence_generator (
     id_sequence VARCHAR(75) DEFAULT '' NOT NULL,
     sequence_value BIGINT DEFAULT 0 NOT NULL,
