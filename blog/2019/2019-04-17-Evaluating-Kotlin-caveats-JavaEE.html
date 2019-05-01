@@ -201,7 +201,7 @@ class AdmPhraseRepository @Inject constructor() {
     }
 
 }
-</code></pre><h3>Controller</h3><p>The model needs to by exposed by using a controller, hence a JAX-RS activator is needed</p>
+</code></pre><h3>Controller</h3><p>The model needs to be exposed by using a controller, hence a JAX-RS activator is needed</p>
 <pre><code class="prettyprint">@ApplicationPath(&quot;/rest&quot;)
 class RestApplication : Application()
 </code></pre><p>That's all the code.</p><p>On the other side, implementing the controller looks a lot more like Java, specially if the right HTTP codes are needed. In this line to express the Java class to the builders the special Kotlin syntax <code>this::class.java</code> is mandatory.</p><p>Is also observed the elvis operator in action (in DELETE), if the entity is not found the alternative return is fired immediately, a nice idiomatic resource.</p>
