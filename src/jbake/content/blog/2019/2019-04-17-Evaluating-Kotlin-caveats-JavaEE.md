@@ -161,7 +161,7 @@ class AdmPhraseRepository @Inject constructor() {
 
 ### Controller
 
-The model needs to by exposed by using a controller, hence a JAX-RS activator is needed
+The model needs to be exposed by using a controller, hence a JAX-RS activator is needed
 
 ```prettyprint
 @ApplicationPath("/rest")

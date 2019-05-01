@@ -12,7 +12,7 @@ status=published
 
 After a routinary JVM update I had the idea of getting rid of old JVMs by simply removing the install directories. **After that many of my Java tools went dark :(**.
 
-For JBoss Developer Studio, I recevied the following "welcome message".
+For JBoss Developer Studio, I received the following "welcome message".
 
 <a href="/images/posts/jbossjvm/jvmwarn.png" data-lightbox="image-1" title="devstudio-jvm-error" >
   <img src="/images/posts/jbossjvm/jvmwarn.png">
