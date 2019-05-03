@@ -1,4 +1,3 @@
-
 title=How to install Payara 5 with NGINX and Let's Encrypt over Oracle Linux 7.x
 date=2019-05-02
 type=post
