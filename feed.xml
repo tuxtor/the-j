@@ -6,9 +6,122 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Fri, 3 May 2019 04:09:14 +0000</pubDate>
-    <lastBuildDate>Fri, 3 May 2019 04:09:14 +0000</lastBuildDate>
+    <pubDate>Fri, 3 May 2019 04:22:53 +0000</pubDate>
+    <lastBuildDate>Fri, 3 May 2019 04:22:53 +0000</lastBuildDate>
 
+    <item>
+      <title>How to install Payara 5 with NGINX and Let&apos;s Encrypt over Oracle Linux 7.x</title>
+      <link>http://www.vorozco.com/blog/2019/2019-05-02-Payara-Nginx-LetsEncrypt.html</link>
+      <pubDate>Thu, 2 May 2019 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2019/2019-05-02-Payara-Nginx-LetsEncrypt.html</guid>
+      	<description>
+	&lt;p&gt;&lt;img src=&quot;/images/posts/reversepayara/payarassl.png&quot; alt=&quot;Payara SSL&quot; title=&quot;Payara SSl&quot; /&gt;&lt;/p&gt;&lt;p&gt;From field experiences I must affirm that one of the greatest and stable combinations is Java Application Servers + Reverse Proxies, although some of the functionality is a clear overlap, I tend to put reverse proxies in front of application servers for the following reasons (&lt;a href=&quot;https://www.nginx.com/resources/glossary/reverse-proxy-server/&quot;&gt;please see NGINX page for more details&lt;/a&gt;):&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Load balancing:&lt;/strong&gt; The reverse proxy acts as traffic cop and could be used as API gateway for clustered instances/backing services&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Web acceleration:&lt;/strong&gt; Most of our applications nowadays use SPA frameworks, hence it is worth to cache all the js/css/html files and free the application server from this responsibility&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Security:&lt;/strong&gt; Most of the HTTP requests could be intercepted by the reverse proxy &lt;strong&gt;before&lt;/strong&gt; any attempt against the application server, increasing the opportunity to define rules&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;SSL Management:&lt;/strong&gt; It is easier to install/manage/deploy OpenSSL certificates in Apache/NGINX if compared to &lt;a href=&quot;https://en.wikipedia.org/wiki/Java_KeyStore&quot;&gt;Java KeyStores&lt;/a&gt;. Besides this, &lt;a href=&quot;https://letsencrypt.org/&quot;&gt;Let&apos;s Encrypt&lt;/a&gt; officially support NGINX with plugins.&lt;/li&gt;
+&lt;/ul&gt;&lt;h2&gt;Requirements&lt;/h2&gt;&lt;p&gt;To demonstrate this functionality, this tutorial combines the following stack in a classic (non-docker) way, however most of the concepts could be useful for Docker deployments:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Payara 5 as application server&lt;/li&gt;
+  &lt;li&gt;NGINX as reverse proxy&lt;/li&gt;
+  &lt;li&gt;Let&apos;s encrypt SSL certificates&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;It is assumed that a clean Oracle Linux 7.x (7.6) box will be used during this tutorial and tests will be executed over Oracle Cloud with &lt;code&gt;root&lt;/code&gt; user.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/reversepayara/oraclelinux.png&quot; alt=&quot;Oracle Linux&quot; title=&quot;Oracle Linux&quot; /&gt;&lt;/p&gt;&lt;h2&gt;Preparing the OS&lt;/h2&gt;&lt;p&gt;Since Oracle Linux is binary compatible with RHEL, &lt;a href=&quot;https://fedoraproject.org/wiki/EPEL&quot;&gt;EPEL&lt;/a&gt; repository will be added to get access to Let&apos;s Encrypt. It is also useful to update the OS as a previous step:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;yum -y update
+yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;Setting up Payara 5&lt;/h2&gt;&lt;p&gt;In order to install Payara application server a couple of dependencies will be needed, specially a Java Developer Kit. For instance OpenJDK is included at Oracle Linux repositories.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;yum -y install java-1.8.0-openjdk-headless
+yum -y install wget
+yum -y install unzip
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Once all dependencies are installed, it is time to download, unzip and install Payara. It will be located at &lt;code&gt;/opt&lt;/code&gt; following standard Linux conventions for external packages:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;cd /opt
+wget -O payara-5.191.zip https://search.maven.org/remotecontent?filepath=fish/payara/distributions/payara/5.191/payara-5.191.zip
+unzip payara-5.191.zip
+rm payara-5.191.zip
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It is also useful to create a &lt;code&gt;payara&lt;/code&gt; user for administrative purposes, to administrate the domain(s) or to run Payara as Linux service with systemd:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;adduser payara
+chown -R payara:payara payara5
+echo &amp;#39;export PATH=$PATH:/opt/payara5/glassfish/bin&amp;#39; &amp;gt;&amp;gt; /home/payara/.bashrc
+chown payara:payara /home/payara/.bashrc
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A systemd unit is also needed:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;echo &amp;#39;[Unit]
+Description = Payara Server v5
+After = syslog.target network.target
+
+[Service]
+User=payara
+ExecStart = /usr/bin/java -jar /opt/payara5/glassfish/lib/client/appserver-cli.jar start-domain
+ExecStop = /usr/bin/java -jar /opt/payara5/glassfish/lib/client/appserver-cli.jar stop-domain
+ExecReload = /usr/bin/java -jar /opt/payara5/glassfish/lib/client/appserver-cli.jar restart-domain
+Type = forking
+
+[Install]
+WantedBy = multi-user.target&amp;#39; &amp;gt; /etc/systemd/system/payara.service
+systemctl enable payara
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Additionally if remote administration is needed, secure admin should be enabled:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;sudo -u payara /opt/payara5/bin/asadmin --host localhost --port 4848 change-admin-password
+systemctl start payara
+sudo -u payara /opt/payara5/bin/asadmin --host localhost --port 4848 enable-secure-admin
+systemctl restart payara
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/reversepayara/payaraboot.png&quot; alt=&quot;Payara Boot&quot; title=&quot;Payara Boot&quot; /&gt;&lt;/p&gt;&lt;p&gt;Oracle Cloud default configuration will create a VNIC attached to your instance, hence you should check the rules in order to allow access to ports.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/reversepayara/ingresrules.png&quot; alt=&quot;Ingres Rules&quot; title=&quot;Ingres Rules&quot; /&gt;&lt;/p&gt;&lt;p&gt;By default, Oracle Linux instances have a restricted set of rules in iptables and SELinux, hence ports should be opened with firewalld and SELinux should be configured to allow reverse proxy traffic:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;firewall-cmd --zone=public --permanent --add-service=http
+firewall-cmd --zone=public --permanent --add-service=https
+firewall-cmd --zone=public --permanent --add-port=4848/tcp
+setsebool -P httpd_can_network_connect 1
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;With this, the access is guaranteed to http+https+payara admin port.&lt;/p&gt;&lt;h2&gt;Setting up NGINX reverse proxy&lt;/h2&gt;&lt;p&gt;NGINX is available at EPEL:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;yum -y install nginx
+systemctl enable nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;At this time your will need a FQDN pointing to your server, otherwhise Let&apos;s encrypt validation won&apos;t work. For this tutorial the &lt;code&gt;ocl.nabenik.com&lt;/code&gt; domain will be used. If your domain propagated properly you should see a page like this:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/reversepayara/nginxproxy.png&quot; alt=&quot;NGINX Proxy&quot; title=&quot;NGINX Proxy&quot; /&gt;&lt;/p&gt;&lt;p&gt;Don&apos;t worry the Fedora logo is due EPEL usage, but you&apos;re running Oracle Linux :).&lt;/p&gt;&lt;p&gt;Now it&apos;s time to setup NGINX as reverse proxy, an opinionated deployment option is to create a &lt;code&gt;/etc/nginx/sites-available&lt;/code&gt; and &lt;code&gt;/etc/nginx/sites-enabled&lt;/code&gt; structure inside NGINX configuration, to isolate/manage multiple domains with the same instance (aka virtual hosts).&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;mkdir -p /etc/nginx/sites-available
+mkdir -p /etc/nginx/sites-enabled
+mkdir -p /var/www/ocl.nabenik.com/
+chown -R nginx:nginx /var/www/ocl.nabenik.com
+
+echo &amp;#39;server {
+    server_name ocl.nabenik.com;
+
+    gzip on;
+    gzip_types      text/css text/javascript text/plain application/xml;
+    gzip_min_length 1000;
+
+    location ^~ /.well-known/acme-challenge/ {
+        allow all;
+        root /var/www/ocl.nabenik.com/;
+        default_type &amp;quot;text/plain&amp;quot;;
+        try_files $uri =404;
+    }
+
+    location / {
+        proxy_pass             http://localhost:8080;
+        proxy_connect_timeout       300;
+        proxy_send_timeout          300;
+        proxy_read_timeout          300;
+        send_timeout                300;
+    }
+
+    error_page  500 502 503 504  /50x.html;
+    location = /50x.html {
+        root  /usr/share/nginx/html;
+    }
+
+    listen 80;
+}&amp;#39; &amp;gt; /etc/nginx/sites-available/ocl.nabenik.com.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To enable the new host, a symlink is created on &lt;code&gt;sites-enabled&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;ln -s /etc/nginx/sites-available/ocl.nabenik.com.conf /etc/nginx/sites-enabled/ocl.nabenik.com.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;After that you should include the following line inside &lt;code&gt;/etc/nginx/nginx.conf&lt;/code&gt;, just before config file ending.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;include /etc/nginx/sites-enabled/*.conf;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It is also useful to check your configuration with &lt;code&gt;nginx -t&lt;/code&gt;, if all works property you should reach payara after NGINX reload.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/reversepayara/reversepayara.png&quot; alt=&quot;Reverse Payara&quot; title=&quot;Reverse Payara&quot; /&gt;&lt;/p&gt;&lt;h2&gt;Setting up Let&apos;s Encrypt&lt;/h2&gt;&lt;p&gt;Once the reverse proxy is working, certbot should be enough to add an SSL certificate, the plugin itself will create a challenge at &lt;code&gt;^~ /.well-known/acme-challenge/&lt;/code&gt;, hence the proxy exclusion is mandatory (as reflected in the previous configuration step).&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;yum install -y certbot-nginx
+certbot --nginx -d ocl.nabenik.com
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;One of the caveats of using certbot is the dependency of python version. Another alternative if you find any issues is to install it with &lt;code&gt;pip&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;yum install -y python-pip
+pip install certbot-nginx
+certbot --nginx -d ocl.nabenik.com
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If everything works as expected, you should see the Payara page under SSL.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/reversepayara/payarassl.png&quot; alt=&quot;Payara SSL&quot; title=&quot;Payara SSL&quot; /&gt;&lt;/p&gt;&lt;p&gt;Finally and most importantly, Let&apos;s Encrypt certificates are valid just for 90 days, hence you could add certification renewal (&lt;code&gt;crontab -e&lt;/code&gt;) as a cron task&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;15 3 * * * /usr/bin/certbot renew --quiet
+&lt;/code&gt;&lt;/pre&gt;
+	</description>
+    </item>
     <item>
       <title>Getting started with Java EE 8, Java 11, Eclipse for Java Enterprise and Wildfly 16</title>
       <link>http://www.vorozco.com/blog/2019/2019-04-29-Boostraping-Eclipse-Jboss-Tools.html</link>

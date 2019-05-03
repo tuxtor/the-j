@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>How to install Payara 5 with NGINX and Let&apos;s Encrypt over Oracle Linux 7.x</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The J*, a blog about Java, JVM, JavaScript and Gentoo Linux">
+    <meta name="author" content="Víctor Orozco">
+    <meta name="keywords" content="java,jvm,javascript,gentoo,linux">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <!--link href="../../css/bootstrap.min.css" rel="stylesheet"-->
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <meta property="og:title" content="How to install Payara 5 with NGINX and Let&apos;s Encrypt over Oracle Linux 7.x">
+    <meta property="og:type" content="post">
+    <meta property="og:url" content="http://www.vorozco.com/blog/2019/2019-05-02-Payara-Nginx-LetsEncrypt.html">
+    <meta property="og:site_name" content="The J*">
+    <meta property="og:locale" content="en-US">
+    <meta property="article:published_time" content="02 May 2019">
+    <meta property="article:author" content="https://www.facebook.com/tuxtor">
+    <meta property="fb:app_id" content="753735224749731">
+    <meta property="og:image" content="http://vorozco.com/images/global/playground.png">
+
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-41004409-2', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=290416645177";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+        <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">The J*</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../blog">Blog</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <li><a href="../../contact.html">Contact</a></li>
+            <li><a href="https://feeds.feedburner.com/the-j">Subscribe</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	<div class="page-header">
+		<h1>How to install Payara 5 with NGINX and Let&apos;s Encrypt over Oracle Linux 7.x</h1>
+	</div>
+
+	<p><em>02 May 2019</em></p>
+
+	<div class="row">
+
+		<div class="col-md-9">
+			<p><p><img src="/images/posts/reversepayara/payarassl.png" alt="Payara SSL" title="Payara SSl" /></p><p>From field experiences I must affirm that one of the greatest and stable combinations is Java Application Servers + Reverse Proxies, although some of the functionality is a clear overlap, I tend to put reverse proxies in front of application servers for the following reasons (<a href="https://www.nginx.com/resources/glossary/reverse-proxy-server/">please see NGINX page for more details</a>):</p>
+<ul>
+  <li><strong>Load balancing:</strong> The reverse proxy acts as traffic cop and could be used as API gateway for clustered instances/backing services</li>
+  <li><strong>Web acceleration:</strong> Most of our applications nowadays use SPA frameworks, hence it is worth to cache all the js/css/html files and free the application server from this responsibility</li>
+  <li><strong>Security:</strong> Most of the HTTP requests could be intercepted by the reverse proxy <strong>before</strong> any attempt against the application server, increasing the opportunity to define rules</li>
+  <li><strong>SSL Management:</strong> It is easier to install/manage/deploy OpenSSL certificates in Apache/NGINX if compared to <a href="https://en.wikipedia.org/wiki/Java_KeyStore">Java KeyStores</a>. Besides this, <a href="https://letsencrypt.org/">Let's Encrypt</a> officially support NGINX with plugins.</li>
+</ul><h2>Requirements</h2><p>To demonstrate this functionality, this tutorial combines the following stack in a classic (non-docker) way, however most of the concepts could be useful for Docker deployments:</p>
+<ul>
+  <li>Payara 5 as application server</li>
+  <li>NGINX as reverse proxy</li>
+  <li>Let's encrypt SSL certificates</li>
+</ul><p>It is assumed that a clean Oracle Linux 7.x (7.6) box will be used during this tutorial and tests will be executed over Oracle Cloud with <code>root</code> user.</p><p><img src="/images/posts/reversepayara/oraclelinux.png" alt="Oracle Linux" title="Oracle Linux" /></p><h2>Preparing the OS</h2><p>Since Oracle Linux is binary compatible with RHEL, <a href="https://fedoraproject.org/wiki/EPEL">EPEL</a> repository will be added to get access to Let's Encrypt. It is also useful to update the OS as a previous step:</p>
+<pre><code class="prettyprint">yum -y update
+yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+</code></pre><h2>Setting up Payara 5</h2><p>In order to install Payara application server a couple of dependencies will be needed, specially a Java Developer Kit. For instance OpenJDK is included at Oracle Linux repositories.</p>
+<pre><code class="prettyprint">yum -y install java-1.8.0-openjdk-headless
+yum -y install wget
+yum -y install unzip
+</code></pre><p>Once all dependencies are installed, it is time to download, unzip and install Payara. It will be located at <code>/opt</code> following standard Linux conventions for external packages:</p>
+<pre><code class="prettyprint">cd /opt
+wget -O payara-5.191.zip https://search.maven.org/remotecontent?filepath=fish/payara/distributions/payara/5.191/payara-5.191.zip
+unzip payara-5.191.zip
+rm payara-5.191.zip
+</code></pre><p>It is also useful to create a <code>payara</code> user for administrative purposes, to administrate the domain(s) or to run Payara as Linux service with systemd:</p>
+<pre><code class="prettyprint">adduser payara
+chown -R payara:payara payara5
+echo &#39;export PATH=$PATH:/opt/payara5/glassfish/bin&#39; &gt;&gt; /home/payara/.bashrc
+chown payara:payara /home/payara/.bashrc
+</code></pre><p>A systemd unit is also needed:</p>
+<pre><code class="prettyprint">echo &#39;[Unit]
+Description = Payara Server v5
+After = syslog.target network.target
+
+[Service]
+User=payara
+ExecStart = /usr/bin/java -jar /opt/payara5/glassfish/lib/client/appserver-cli.jar start-domain
+ExecStop = /usr/bin/java -jar /opt/payara5/glassfish/lib/client/appserver-cli.jar stop-domain
+ExecReload = /usr/bin/java -jar /opt/payara5/glassfish/lib/client/appserver-cli.jar restart-domain
+Type = forking
+
+[Install]
+WantedBy = multi-user.target&#39; &gt; /etc/systemd/system/payara.service
+systemctl enable payara
+</code></pre><p>Additionally if remote administration is needed, secure admin should be enabled:</p>
+<pre><code class="prettyprint">sudo -u payara /opt/payara5/bin/asadmin --host localhost --port 4848 change-admin-password
+systemctl start payara
+sudo -u payara /opt/payara5/bin/asadmin --host localhost --port 4848 enable-secure-admin
+systemctl restart payara
+</code></pre><p><img src="/images/posts/reversepayara/payaraboot.png" alt="Payara Boot" title="Payara Boot" /></p><p>Oracle Cloud default configuration will create a VNIC attached to your instance, hence you should check the rules in order to allow access to ports.</p><p><img src="/images/posts/reversepayara/ingresrules.png" alt="Ingres Rules" title="Ingres Rules" /></p><p>By default, Oracle Linux instances have a restricted set of rules in iptables and SELinux, hence ports should be opened with firewalld and SELinux should be configured to allow reverse proxy traffic:</p>
+<pre><code class="prettyprint">firewall-cmd --zone=public --permanent --add-service=http
+firewall-cmd --zone=public --permanent --add-service=https
+firewall-cmd --zone=public --permanent --add-port=4848/tcp
+setsebool -P httpd_can_network_connect 1
+</code></pre><p>With this, the access is guaranteed to http+https+payara admin port.</p><h2>Setting up NGINX reverse proxy</h2><p>NGINX is available at EPEL:</p>
+<pre><code class="prettyprint">yum -y install nginx
+systemctl enable nginx
+</code></pre><p>At this time your will need a FQDN pointing to your server, otherwhise Let's encrypt validation won't work. For this tutorial the <code>ocl.nabenik.com</code> domain will be used. If your domain propagated properly you should see a page like this:</p><p><img src="/images/posts/reversepayara/nginxproxy.png" alt="NGINX Proxy" title="NGINX Proxy" /></p><p>Don't worry the Fedora logo is due EPEL usage, but you're running Oracle Linux :).</p><p>Now it's time to setup NGINX as reverse proxy, an opinionated deployment option is to create a <code>/etc/nginx/sites-available</code> and <code>/etc/nginx/sites-enabled</code> structure inside NGINX configuration, to isolate/manage multiple domains with the same instance (aka virtual hosts).</p>
+<pre><code class="prettyprint">mkdir -p /etc/nginx/sites-available
+mkdir -p /etc/nginx/sites-enabled
+mkdir -p /var/www/ocl.nabenik.com/
+chown -R nginx:nginx /var/www/ocl.nabenik.com
+
+echo &#39;server {
+    server_name ocl.nabenik.com;
+
+    gzip on;
+    gzip_types      text/css text/javascript text/plain application/xml;
+    gzip_min_length 1000;
+
+    location ^~ /.well-known/acme-challenge/ {
+        allow all;
+        root /var/www/ocl.nabenik.com/;
+        default_type &quot;text/plain&quot;;
+        try_files $uri =404;
+    }
+
+    location / {
+        proxy_pass             http://localhost:8080;
+        proxy_connect_timeout       300;
+        proxy_send_timeout          300;
+        proxy_read_timeout          300;
+        send_timeout                300;
+    }
+
+    error_page  500 502 503 504  /50x.html;
+    location = /50x.html {
+        root  /usr/share/nginx/html;
+    }
+
+    listen 80;
+}&#39; &gt; /etc/nginx/sites-available/ocl.nabenik.com.conf
+</code></pre><p>To enable the new host, a symlink is created on <code>sites-enabled</code>:</p>
+<pre><code class="prettyprint">ln -s /etc/nginx/sites-available/ocl.nabenik.com.conf /etc/nginx/sites-enabled/ocl.nabenik.com.conf
+</code></pre><p>After that you should include the following line inside <code>/etc/nginx/nginx.conf</code>, just before config file ending.</p>
+<pre><code>include /etc/nginx/sites-enabled/*.conf;
+</code></pre><p>It is also useful to check your configuration with <code>nginx -t</code>, if all works property you should reach payara after NGINX reload.</p><p><img src="/images/posts/reversepayara/reversepayara.png" alt="Reverse Payara" title="Reverse Payara" /></p><h2>Setting up Let's Encrypt</h2><p>Once the reverse proxy is working, certbot should be enough to add an SSL certificate, the plugin itself will create a challenge at <code>^~ /.well-known/acme-challenge/</code>, hence the proxy exclusion is mandatory (as reflected in the previous configuration step).</p>
+<pre><code class="prettyprint">yum install -y certbot-nginx
+certbot --nginx -d ocl.nabenik.com
+</code></pre><p>One of the caveats of using certbot is the dependency of python version. Another alternative if you find any issues is to install it with <code>pip</code></p>
+<pre><code class="prettyprint">yum install -y python-pip
+pip install certbot-nginx
+certbot --nginx -d ocl.nabenik.com
+</code></pre><p>If everything works as expected, you should see the Payara page under SSL.</p><p><img src="/images/posts/reversepayara/payarassl.png" alt="Payara SSL" title="Payara SSL" /></p><p>Finally and most importantly, Let's Encrypt certificates are valid just for 90 days, hence you could add certification renewal (<code>crontab -e</code>) as a cron task</p>
+<pre><code>15 3 * * * /usr/bin/certbot renew --quiet
+</code></pre></p>
+
+			<div id="share">
+<!-- Twitter -->
+<a href="https://twitter.com/share" class="twitter-share-button" data-dnt="true">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+<!-- Google Plus -->
+<div class="g-plusone" data-size="medium"></div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'en-GB'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<!-- Facebook -->
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="false">
+</div></div>
+			
+			<hr />
+
+			<div id="disqus_thread"></div>
+			<script type="text/javascript">
+			    /* * * CONFIGURATION VARIABLES * * */
+			    var disqus_shortname = 'opinguimacademicoq';
+
+			    /* * * DON'T EDIT BELOW THIS LINE * * */
+			    (function() {
+			        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			    })();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+		</div>
+			<div class="col-md-3">
+			<form style="border:1px solid #ccc;padding:3px;text-align:center;" action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri=the-j', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true"><p>Enter your email address:</p><p><input type="text" style="width:140px" name="email"/></p><input type="hidden" value="the-j" name="uri"/><input type="hidden" name="loc" value="en_US"/><input type="submit" value="Subscribe" /><p>Delivered by <a href="https://feedburner.google.com" target="_blank">FeedBurner</a></p></form>
+			<hr/>
+			
+			<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"><img src="/images/global/getjavasesdk-120x30.png" alt="Get Java SE SDK" border="0" width="120" height="30" /></a>
+
+			<br/>
+
+			<a href="http://www.gentoo.org/"><img src="//www.gentoo.org/assets/img/badges/gentoo-badge.png" alt="Gentoo" style="border:0" /></a>
+
+			<br/>
+
+			<a href="https://community.oracle.com/community/technology_network_community/java/java-champions">
+			<img src="/images/global/jc.png" alt="Java Champions" style="border:0" />
+			</a>
+
+			<hr/>
+
+		    <a class="twitter-timeline"  href="https://twitter.com/tuxtor" data-widget-id="633158537896722432">Tweets by @tuxtor</a>
+	            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</div>
+	</div>
+
+	
+
+	
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2015-2019 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    <link  href="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.7.1/lazyload.min.js"></script>
+    </body>
+</html>
