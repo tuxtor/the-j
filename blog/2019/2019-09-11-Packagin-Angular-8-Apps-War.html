@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>How to pack Angular 8 applications on regular war files</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The J*, a blog about Java, JVM, JavaScript and Gentoo Linux">
+    <meta name="author" content="Víctor Orozco">
+    <meta name="keywords" content="java,jvm,javascript,gentoo,linux">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <!--link href="../../css/bootstrap.min.css" rel="stylesheet"-->
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <meta property="og:title" content="How to pack Angular 8 applications on regular war files">
+    <meta property="og:type" content="post">
+    <meta property="og:url" content="http://www.vorozco.com/blog/2019/2019-09-11-Packagin-Angular-8-Apps-War.html">
+    <meta property="og:site_name" content="The J*">
+    <meta property="og:locale" content="en-US">
+    <meta property="article:published_time" content="11 September 2019">
+    <meta property="article:author" content="https://www.facebook.com/tuxtor">
+    <meta property="fb:app_id" content="753735224749731">
+    <meta property="og:image" content="http://vorozco.com/images/global/playground.png">
+
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-41004409-2', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=290416645177";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+        <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">The J*</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../blog">Blog</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <li><a href="../../contact.html">Contact</a></li>
+            <li><a href="https://feeds.feedburner.com/the-j">Subscribe</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	<div class="page-header">
+		<h1>How to pack Angular 8 applications on regular war files</h1>
+	</div>
+
+	<p><em>11 September 2019</em></p>
+
+	<div class="row">
+
+		<div class="col-md-9">
+			<p><p><img src="/images/posts/angularmaven/maven.png" alt="Maven" title="Maven" /></p><p>From time to time it is necessary to distribute SPA applications using war files as containers, in my experience this is necessary when:</p>
+<ul>
+  <li>You don't have control over deployment infrastructure</li>
+  <li>You're dealing with rigid deployment standards</li>
+  <li>IT people is reluctant to publish a plain old web server</li>
+</ul><p>Anyway, and as described in <a href="https://docs.oracle.com/javaee/5/tutorial/doc/bnadx.html">Oracle's documentation</a> one of the benefits of using war files is the possibility to include static (HTML/JS/CSS) files in the deployment, hence is safe to assume that you could distribute any SPA application using a war file as wrapper (with special considerations).</p><h2>Creating a POC with Angular 8 and Java War</h2><p>To demonstrate this I will create a project that:</p>
+<ol>
+  <li>Is compatible with the big three Java IDEs (NetBeans, IntelliJ, Eclipse) and VSCode</li>
+  <li>Allows you to use the IDEs as JavaScript development IDEs</li>
+  <li>Allows you to create a SPA modern application (With all npm, ng, cli stuff)</li>
+  <li>Allows you to combine Java(Maven) and JavaScript(Webpack) build systems</li>
+  <li>Allows you to distribute a minified and ready for production project</li>
+</ol><h2>Bootstrapping a simple Java web project</h2><p>To bootstrap the Java project, you could use the plain old <a href="https://maven.apache.org/archetypes/maven-archetype-webapp/">maven-archetype-webapp</a> as basis:</p>
+<pre><code class="prettyprint">mvn archetype:generate -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-webapp -DarchetypeVersion=1.4
+</code></pre><p>The interactive shell will ask you for you project characteristics including groupId, artifactId (project name) and base package.</p><p><img src="/images/posts/angularmaven/javabootstrap.png" alt="Java Bootstrap" title="Java Bootstrap" /></p><p>In the end you should have the following structure as result:</p>
+<pre><code class="prettyprint">demo-angular-8$ tree
+.
+├── pom.xml
+└── src
+    └── main
+        └── webapp
+            ├── WEB-INF
+            │   └── web.xml
+            └── index.jsp
+
+4 directories, 3 files
+</code></pre><p>Now you should be able to open your project in any IDE. By default the 'pom.xml' will include locked down versions for maven plugins, you could safely get rid of those since we won't personalize the entire Maven lifecycle, just a couple of hooks.</p>
+<pre><code class="prettyprint">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+  &lt;groupId&gt;com.nabenik&lt;/groupId&gt;
+  &lt;artifactId&gt;demo-angular-8&lt;/artifactId&gt;
+  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;packaging&gt;war&lt;/packaging&gt;
+
+  &lt;name&gt;demo-angular-8 Maven Webapp&lt;/name&gt;
+
+  &lt;properties&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt;
+  &lt;/properties&gt;
+&lt;/project&gt;
+</code></pre><p>Besides that <code>index.jsp</code> is not necessary, just delete it.</p><h2>Bootstrapping a simple Angular JS project</h2><p>As an opinionated approach I suggest to isolate the Angular project at its own directory (<code>src/main/frontend</code>), on the past and with simple frameworks (AngularJS, Knockout, Ember) it was possible to bootstrap the entire project with a couple of includes in the index.html file, however nowadays most of the modern front end projects use some kind of bundler/linter in order to enable modern (&gt;=ES6) features like modules, and in the case of Angular, it uses Webpack under the hood for this.</p><p>For this guide I assume that you already have installed all <a href="https://angular.io/guide/setup-local">Angular CLI tools</a>, hence we could go inside our source code structure and bootstrap the Angular project.</p>
+<pre><code class="prettyprint">demo-angular-8$ cd src/main/
+demo-angular-8/src/main$ ng new frontend
+</code></pre><p>This will bootstrap a vanilla Angular project, and in fact you could consider the <code>src/main/frontend</code> folder as a separate root (and also you could open this directly from VSCode), the final structure will be like this:</p><p><img src="/images/posts/angularmaven/structure.png" alt="JS Structure" title="JS Structure" /></p><p>As a first POC I started the application directly from CLI using IntelliJ IDEA and <code>ng serve --open</code>, all worked as expected.</p><p><img src="/images/posts/angularmaven/run.png" alt="Angular run" title="Angular run" /></p><h2>Invoking Webpack from Maven</h2><p>One of the useful plugins for this task is <a href="https://github.com/eirslett/frontend-maven-plugin">frontend-maven-plugin</a> which allows you to:</p>
+<ol>
+  <li>Download common JS package managers (npm, cnpm, bower, yarn)</li>
+  <li>Invoke JS build systems and tests (grunt, gulp, webpack or npm itself, karma)</li>
+</ol><p>By default Angular project come with hooks from <code>npm</code> to <code>ng</code> but we need to add a hook in package.json to create a production quality build (<code>buildProduction</code>), please double check the base-href parameter since I'm using the default root from Java conventions (same as project name)</p>
+<pre><code class="prettyprint">...
+&quot;scripts&quot;: {
+    &quot;ng&quot;: &quot;ng&quot;,
+    &quot;start&quot;: &quot;ng serve&quot;,
+    &quot;build&quot;: &quot;ng build&quot;,
+    &quot;buildProduction&quot;: &quot;ng build --prod --base-href /demo-angular-8/&quot;,
+    &quot;test&quot;: &quot;ng test&quot;,
+    &quot;lint&quot;: &quot;ng lint&quot;,
+    &quot;e2e&quot;: &quot;ng e2e&quot;
+  }
+...
+</code></pre><p>To test this build we could execute npm run buildProduction at webproject's root (<code>src/main/frontend</code>), the output should be like this:</p><p><img src="/images/posts/angularmaven/npmhook.png" alt="NPM Hook" title="NPM Hook" /></p><p>Finally It is necessary to invoke or new target with maven, hence our configuration should:</p>
+<ol>
+  <li>Install NodeJS (and NPM)</li>
+  <li>Install JS dependencies</li>
+  <li>Invoke our new hook</li>
+  <li>Copy the result to our final distributable war</li>
+</ol><p>To achieve this, the following configuration should be enough:</p>
+<pre><code class="prettyprint">&lt;build&gt;
+&lt;finalName&gt;demo-angular-8&lt;/finalName&gt;
+    &lt;plugins&gt;
+    &lt;plugin&gt;
+            &lt;groupId&gt;com.github.eirslett&lt;/groupId&gt;
+            &lt;artifactId&gt;frontend-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;1.6&lt;/version&gt;
+
+            &lt;configuration&gt;
+                &lt;workingDirectory&gt;src/main/frontend&lt;/workingDirectory&gt;
+            &lt;/configuration&gt;
+
+            &lt;executions&gt;
+
+                &lt;execution&gt;
+                    &lt;id&gt;install-node-and-npm&lt;/id&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;install-node-and-npm&lt;/goal&gt;
+                    &lt;/goals&gt;
+                    &lt;configuration&gt;
+                        &lt;nodeVersion&gt;v10.16.1&lt;/nodeVersion&gt;
+                    &lt;/configuration&gt;
+                &lt;/execution&gt;
+
+                &lt;execution&gt;
+                    &lt;id&gt;npm install&lt;/id&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;npm&lt;/goal&gt;
+                    &lt;/goals&gt;
+                    &lt;configuration&gt;
+                        &lt;arguments&gt;install&lt;/arguments&gt;
+                    &lt;/configuration&gt;
+                &lt;/execution&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;npm build&lt;/id&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;npm&lt;/goal&gt;
+                    &lt;/goals&gt;
+                    &lt;configuration&gt;
+                        &lt;arguments&gt;run buildProduction&lt;/arguments&gt;
+                    &lt;/configuration&gt;
+                    &lt;phase&gt;generate-resources&lt;/phase&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+    &lt;/plugin&gt;
+    &lt;plugin&gt;
+        &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.2.2&lt;/version&gt;
+        &lt;configuration&gt;
+            &lt;failOnMissingWebXml&gt;false&lt;/failOnMissingWebXml&gt;
+
+            &lt;!-- Add frontend folder to war package --&gt;
+            &lt;webResources&gt;
+                &lt;resource&gt;
+                    &lt;directory&gt;src/main/frontend/dist/frontend&lt;/directory&gt;
+                &lt;/resource&gt;
+            &lt;/webResources&gt;
+
+        &lt;/configuration&gt;
+    &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre><p>And that's it!. Once you execute <code>mvn clean package</code> you will obtain as result a portable war file that will run over any Servlet container runtime. For Instance I tested it with Payara Full 5, working as expected.</p><p><img src="/images/posts/angularmaven/payara.png" alt="Payara" title="Payara" /></p></p>
+
+			<div id="share">
+<!-- Twitter -->
+<a href="https://twitter.com/share" class="twitter-share-button" data-dnt="true">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+<!-- Google Plus -->
+<div class="g-plusone" data-size="medium"></div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'en-GB'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<!-- Facebook -->
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="false">
+</div></div>
+			
+			<hr />
+
+			<div id="disqus_thread"></div>
+			<script type="text/javascript">
+			    /* * * CONFIGURATION VARIABLES * * */
+			    var disqus_shortname = 'opinguimacademicoq';
+
+			    /* * * DON'T EDIT BELOW THIS LINE * * */
+			    (function() {
+			        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			    })();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+		</div>
+			<div class="col-md-3">
+			<form style="border:1px solid #ccc;padding:3px;text-align:center;" action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri=the-j', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true"><p>Enter your email address:</p><p><input type="text" style="width:140px" name="email"/></p><input type="hidden" value="the-j" name="uri"/><input type="hidden" name="loc" value="en_US"/><input type="submit" value="Subscribe" /><p>Delivered by <a href="https://feedburner.google.com" target="_blank">FeedBurner</a></p></form>
+			<hr/>
+			
+			<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"><img src="/images/global/getjavasesdk-120x30.png" alt="Get Java SE SDK" border="0" width="120" height="30" /></a>
+
+			<br/>
+
+			<a href="http://www.gentoo.org/"><img src="//www.gentoo.org/assets/img/badges/gentoo-badge.png" alt="Gentoo" style="border:0" /></a>
+
+			<br/>
+
+			<a href="https://community.oracle.com/community/technology_network_community/java/java-champions">
+			<img src="/images/global/jc.png" alt="Java Champions" style="border:0" />
+			</a>
+
+			<hr/>
+
+		    <a class="twitter-timeline"  href="https://twitter.com/tuxtor" data-widget-id="633158537896722432">Tweets by @tuxtor</a>
+	            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</div>
+	</div>
+
+	
+
+	
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2015-2019 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    <link  href="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.7.1/lazyload.min.js"></script>
+    </body>
+</html>

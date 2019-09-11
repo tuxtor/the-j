@@ -6,9 +6,152 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Fri, 3 May 2019 04:22:53 +0000</pubDate>
-    <lastBuildDate>Fri, 3 May 2019 04:22:53 +0000</lastBuildDate>
+    <pubDate>Wed, 11 Sep 2019 23:00:33 +0000</pubDate>
+    <lastBuildDate>Wed, 11 Sep 2019 23:00:33 +0000</lastBuildDate>
 
+    <item>
+      <title>How to pack Angular 8 applications on regular war files</title>
+      <link>http://www.vorozco.com/blog/2019/2019-09-11-Packagin-Angular-8-Apps-War.html</link>
+      <pubDate>Wed, 11 Sep 2019 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2019/2019-09-11-Packagin-Angular-8-Apps-War.html</guid>
+      	<description>
+	&lt;p&gt;&lt;img src=&quot;/images/posts/angularmaven/maven.png&quot; alt=&quot;Maven&quot; title=&quot;Maven&quot; /&gt;&lt;/p&gt;&lt;p&gt;From time to time it is necessary to distribute SPA applications using war files as containers, in my experience this is necessary when:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;You don&apos;t have control over deployment infrastructure&lt;/li&gt;
+  &lt;li&gt;You&apos;re dealing with rigid deployment standards&lt;/li&gt;
+  &lt;li&gt;IT people is reluctant to publish a plain old web server&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;Anyway, and as described in &lt;a href=&quot;https://docs.oracle.com/javaee/5/tutorial/doc/bnadx.html&quot;&gt;Oracle&apos;s documentation&lt;/a&gt; one of the benefits of using war files is the possibility to include static (HTML/JS/CSS) files in the deployment, hence is safe to assume that you could distribute any SPA application using a war file as wrapper (with special considerations).&lt;/p&gt;&lt;h2&gt;Creating a POC with Angular 8 and Java War&lt;/h2&gt;&lt;p&gt;To demonstrate this I will create a project that:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Is compatible with the big three Java IDEs (NetBeans, IntelliJ, Eclipse) and VSCode&lt;/li&gt;
+  &lt;li&gt;Allows you to use the IDEs as JavaScript development IDEs&lt;/li&gt;
+  &lt;li&gt;Allows you to create a SPA modern application (With all npm, ng, cli stuff)&lt;/li&gt;
+  &lt;li&gt;Allows you to combine Java(Maven) and JavaScript(Webpack) build systems&lt;/li&gt;
+  &lt;li&gt;Allows you to distribute a minified and ready for production project&lt;/li&gt;
+&lt;/ol&gt;&lt;h2&gt;Bootstrapping a simple Java web project&lt;/h2&gt;&lt;p&gt;To bootstrap the Java project, you could use the plain old &lt;a href=&quot;https://maven.apache.org/archetypes/maven-archetype-webapp/&quot;&gt;maven-archetype-webapp&lt;/a&gt; as basis:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;mvn archetype:generate -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-webapp -DarchetypeVersion=1.4
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The interactive shell will ask you for you project characteristics including groupId, artifactId (project name) and base package.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/angularmaven/javabootstrap.png&quot; alt=&quot;Java Bootstrap&quot; title=&quot;Java Bootstrap&quot; /&gt;&lt;/p&gt;&lt;p&gt;In the end you should have the following structure as result:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;demo-angular-8$ tree
+.
+├── pom.xml
+└── src
+    └── main
+        └── webapp
+            ├── WEB-INF
+            │   └── web.xml
+            └── index.jsp
+
+4 directories, 3 files
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now you should be able to open your project in any IDE. By default the &apos;pom.xml&apos; will include locked down versions for maven plugins, you could safely get rid of those since we won&apos;t personalize the entire Maven lifecycle, just a couple of hooks.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+
+&amp;lt;project xmlns=&amp;quot;http://maven.apache.org/POM/4.0.0&amp;quot; xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+  xsi:schemaLocation=&amp;quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&amp;quot;&amp;gt;
+  &amp;lt;modelVersion&amp;gt;4.0.0&amp;lt;/modelVersion&amp;gt;
+
+  &amp;lt;groupId&amp;gt;com.nabenik&amp;lt;/groupId&amp;gt;
+  &amp;lt;artifactId&amp;gt;demo-angular-8&amp;lt;/artifactId&amp;gt;
+  &amp;lt;version&amp;gt;1.0-SNAPSHOT&amp;lt;/version&amp;gt;
+  &amp;lt;packaging&amp;gt;war&amp;lt;/packaging&amp;gt;
+
+  &amp;lt;name&amp;gt;demo-angular-8 Maven Webapp&amp;lt;/name&amp;gt;
+
+  &amp;lt;properties&amp;gt;
+    &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt;
+    &amp;lt;maven.compiler.source&amp;gt;1.7&amp;lt;/maven.compiler.source&amp;gt;
+    &amp;lt;maven.compiler.target&amp;gt;1.7&amp;lt;/maven.compiler.target&amp;gt;
+  &amp;lt;/properties&amp;gt;
+&amp;lt;/project&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Besides that &lt;code&gt;index.jsp&lt;/code&gt; is not necessary, just delete it.&lt;/p&gt;&lt;h2&gt;Bootstrapping a simple Angular JS project&lt;/h2&gt;&lt;p&gt;As an opinionated approach I suggest to isolate the Angular project at its own directory (&lt;code&gt;src/main/frontend&lt;/code&gt;), on the past and with simple frameworks (AngularJS, Knockout, Ember) it was possible to bootstrap the entire project with a couple of includes in the index.html file, however nowadays most of the modern front end projects use some kind of bundler/linter in order to enable modern (&amp;gt;=ES6) features like modules, and in the case of Angular, it uses Webpack under the hood for this.&lt;/p&gt;&lt;p&gt;For this guide I assume that you already have installed all &lt;a href=&quot;https://angular.io/guide/setup-local&quot;&gt;Angular CLI tools&lt;/a&gt;, hence we could go inside our source code structure and bootstrap the Angular project.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;demo-angular-8$ cd src/main/
+demo-angular-8/src/main$ ng new frontend
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This will bootstrap a vanilla Angular project, and in fact you could consider the &lt;code&gt;src/main/frontend&lt;/code&gt; folder as a separate root (and also you could open this directly from VSCode), the final structure will be like this:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/angularmaven/structure.png&quot; alt=&quot;JS Structure&quot; title=&quot;JS Structure&quot; /&gt;&lt;/p&gt;&lt;p&gt;As a first POC I started the application directly from CLI using IntelliJ IDEA and &lt;code&gt;ng serve --open&lt;/code&gt;, all worked as expected.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/angularmaven/run.png&quot; alt=&quot;Angular run&quot; title=&quot;Angular run&quot; /&gt;&lt;/p&gt;&lt;h2&gt;Invoking Webpack from Maven&lt;/h2&gt;&lt;p&gt;One of the useful plugins for this task is &lt;a href=&quot;https://github.com/eirslett/frontend-maven-plugin&quot;&gt;frontend-maven-plugin&lt;/a&gt; which allows you to:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Download common JS package managers (npm, cnpm, bower, yarn)&lt;/li&gt;
+  &lt;li&gt;Invoke JS build systems and tests (grunt, gulp, webpack or npm itself, karma)&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;By default Angular project come with hooks from &lt;code&gt;npm&lt;/code&gt; to &lt;code&gt;ng&lt;/code&gt; but we need to add a hook in package.json to create a production quality build (&lt;code&gt;buildProduction&lt;/code&gt;), please double check the base-href parameter since I&apos;m using the default root from Java conventions (same as project name)&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;...
+&amp;quot;scripts&amp;quot;: {
+    &amp;quot;ng&amp;quot;: &amp;quot;ng&amp;quot;,
+    &amp;quot;start&amp;quot;: &amp;quot;ng serve&amp;quot;,
+    &amp;quot;build&amp;quot;: &amp;quot;ng build&amp;quot;,
+    &amp;quot;buildProduction&amp;quot;: &amp;quot;ng build --prod --base-href /demo-angular-8/&amp;quot;,
+    &amp;quot;test&amp;quot;: &amp;quot;ng test&amp;quot;,
+    &amp;quot;lint&amp;quot;: &amp;quot;ng lint&amp;quot;,
+    &amp;quot;e2e&amp;quot;: &amp;quot;ng e2e&amp;quot;
+  }
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To test this build we could execute npm run buildProduction at webproject&apos;s root (&lt;code&gt;src/main/frontend&lt;/code&gt;), the output should be like this:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/angularmaven/npmhook.png&quot; alt=&quot;NPM Hook&quot; title=&quot;NPM Hook&quot; /&gt;&lt;/p&gt;&lt;p&gt;Finally It is necessary to invoke or new target with maven, hence our configuration should:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Install NodeJS (and NPM)&lt;/li&gt;
+  &lt;li&gt;Install JS dependencies&lt;/li&gt;
+  &lt;li&gt;Invoke our new hook&lt;/li&gt;
+  &lt;li&gt;Copy the result to our final distributable war&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;To achieve this, the following configuration should be enough:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;&amp;lt;build&amp;gt;
+&amp;lt;finalName&amp;gt;demo-angular-8&amp;lt;/finalName&amp;gt;
+    &amp;lt;plugins&amp;gt;
+    &amp;lt;plugin&amp;gt;
+            &amp;lt;groupId&amp;gt;com.github.eirslett&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;frontend-maven-plugin&amp;lt;/artifactId&amp;gt;
+            &amp;lt;version&amp;gt;1.6&amp;lt;/version&amp;gt;
+
+            &amp;lt;configuration&amp;gt;
+                &amp;lt;workingDirectory&amp;gt;src/main/frontend&amp;lt;/workingDirectory&amp;gt;
+            &amp;lt;/configuration&amp;gt;
+
+            &amp;lt;executions&amp;gt;
+
+                &amp;lt;execution&amp;gt;
+                    &amp;lt;id&amp;gt;install-node-and-npm&amp;lt;/id&amp;gt;
+                    &amp;lt;goals&amp;gt;
+                        &amp;lt;goal&amp;gt;install-node-and-npm&amp;lt;/goal&amp;gt;
+                    &amp;lt;/goals&amp;gt;
+                    &amp;lt;configuration&amp;gt;
+                        &amp;lt;nodeVersion&amp;gt;v10.16.1&amp;lt;/nodeVersion&amp;gt;
+                    &amp;lt;/configuration&amp;gt;
+                &amp;lt;/execution&amp;gt;
+
+                &amp;lt;execution&amp;gt;
+                    &amp;lt;id&amp;gt;npm install&amp;lt;/id&amp;gt;
+                    &amp;lt;goals&amp;gt;
+                        &amp;lt;goal&amp;gt;npm&amp;lt;/goal&amp;gt;
+                    &amp;lt;/goals&amp;gt;
+                    &amp;lt;configuration&amp;gt;
+                        &amp;lt;arguments&amp;gt;install&amp;lt;/arguments&amp;gt;
+                    &amp;lt;/configuration&amp;gt;
+                &amp;lt;/execution&amp;gt;
+                &amp;lt;execution&amp;gt;
+                    &amp;lt;id&amp;gt;npm build&amp;lt;/id&amp;gt;
+                    &amp;lt;goals&amp;gt;
+                        &amp;lt;goal&amp;gt;npm&amp;lt;/goal&amp;gt;
+                    &amp;lt;/goals&amp;gt;
+                    &amp;lt;configuration&amp;gt;
+                        &amp;lt;arguments&amp;gt;run buildProduction&amp;lt;/arguments&amp;gt;
+                    &amp;lt;/configuration&amp;gt;
+                    &amp;lt;phase&amp;gt;generate-resources&amp;lt;/phase&amp;gt;
+                &amp;lt;/execution&amp;gt;
+            &amp;lt;/executions&amp;gt;
+    &amp;lt;/plugin&amp;gt;
+    &amp;lt;plugin&amp;gt;
+        &amp;lt;artifactId&amp;gt;maven-war-plugin&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;3.2.2&amp;lt;/version&amp;gt;
+        &amp;lt;configuration&amp;gt;
+            &amp;lt;failOnMissingWebXml&amp;gt;false&amp;lt;/failOnMissingWebXml&amp;gt;
+
+            &amp;lt;!-- Add frontend folder to war package --&amp;gt;
+            &amp;lt;webResources&amp;gt;
+                &amp;lt;resource&amp;gt;
+                    &amp;lt;directory&amp;gt;src/main/frontend/dist/frontend&amp;lt;/directory&amp;gt;
+                &amp;lt;/resource&amp;gt;
+            &amp;lt;/webResources&amp;gt;
+
+        &amp;lt;/configuration&amp;gt;
+    &amp;lt;/plugin&amp;gt;
+    &amp;lt;/plugins&amp;gt;
+&amp;lt;/build&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And that&apos;s it!. Once you execute &lt;code&gt;mvn clean package&lt;/code&gt; you will obtain as result a portable war file that will run over any Servlet container runtime. For Instance I tested it with Payara Full 5, working as expected.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/angularmaven/payara.png&quot; alt=&quot;Payara&quot; title=&quot;Payara&quot; /&gt;&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>How to install Payara 5 with NGINX and Let&apos;s Encrypt over Oracle Linux 7.x</title>
       <link>http://www.vorozco.com/blog/2019/2019-05-02-Payara-Nginx-LetsEncrypt.html</link>
