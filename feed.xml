@@ -6,8 +6,8 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Wed, 2 Oct 2019 23:43:51 +0000</pubDate>
-    <lastBuildDate>Wed, 2 Oct 2019 23:43:51 +0000</lastBuildDate>
+    <pubDate>Wed, 2 Oct 2019 23:49:58 +0000</pubDate>
+    <lastBuildDate>Wed, 2 Oct 2019 23:49:58 +0000</lastBuildDate>
 
     <item>
       <title>A simple MicroProfile JWT token provider with Payara realms and JAX-RS</title>
@@ -270,8 +270,8 @@ public class TokenProviderResource {
 &amp;lt;!DOCTYPE glassfish-web-app PUBLIC &amp;quot;-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN&amp;quot; &amp;quot;http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd&amp;quot;&amp;gt;
 &amp;lt;glassfish-web-app error-url=&amp;quot;&amp;quot;&amp;gt;
     &amp;lt;security-role-mapping&amp;gt;
-        &amp;lt;role-name&amp;gt;pos&amp;lt;/role-name&amp;gt;
-        &amp;lt;group-name&amp;gt;pos&amp;lt;/group-name&amp;gt;
+        &amp;lt;role-name&amp;gt;mobile&amp;lt;/role-name&amp;gt;
+        &amp;lt;group-name&amp;gt;mobile&amp;lt;/group-name&amp;gt;
     &amp;lt;/security-role-mapping&amp;gt;
     &amp;lt;security-role-mapping&amp;gt;
         &amp;lt;role-name&amp;gt;web&amp;lt;/role-name&amp;gt;
