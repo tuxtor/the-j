@@ -361,8 +361,8 @@ Payara groups and Java web application roles are not the same concepts, but thes
 <!DOCTYPE glassfish-web-app PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN" "http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
 <glassfish-web-app error-url="">
     <security-role-mapping>
-        <role-name>pos</role-name>
-        <group-name>pos</group-name>
+        <role-name>mobile</role-name>
+        <group-name>mobile</group-name>
     </security-role-mapping>
     <security-role-mapping>
         <role-name>web</role-name>
