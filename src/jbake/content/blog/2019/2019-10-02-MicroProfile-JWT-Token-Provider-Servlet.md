@@ -78,7 +78,7 @@ Once the realm is ready we can add two users/password with different roles (`web
 
 ## Create a vanilla JakartaEE project
 
-In order to generate the Tokens, we need to create a greenfield application, this could be achieved by using [microprofile-essentials-archetype](https://github.com/AdamBien/microprofile-essentials-archetype) with the following command:
+In order to generate the Tokens, we need to create a greenfield application, this could be achieved by using [javaee8-essentials-archetype](https://github.com/AdamBien/javaee8-essentials-archetype) with the following command:
 
 ```prettyprint
 mvn archetype:generate -Dfilter=com.airhacks:javaee8-essentials-archetype -Dversion=0.0.4
