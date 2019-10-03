@@ -6,8 +6,8 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Wed, 2 Oct 2019 23:49:58 +0000</pubDate>
-    <lastBuildDate>Wed, 2 Oct 2019 23:49:58 +0000</lastBuildDate>
+    <pubDate>Thu, 3 Oct 2019 17:06:19 +0000</pubDate>
+    <lastBuildDate>Thu, 3 Oct 2019 17:06:19 +0000</lastBuildDate>
 
     <item>
       <title>A simple MicroProfile JWT token provider with Payara realms and JAX-RS</title>
@@ -43,7 +43,7 @@
   &lt;li&gt;Class name: com.sun.enterprise.security.auth.realm.file.FileRealm&lt;/li&gt;
   &lt;li&gt;JAAS Context: fileRealm&lt;/li&gt;
   &lt;li&gt;Key file: ${com.sun.aas.instanceRoot}/config/burgerlandkeyfile&lt;/li&gt;
-&lt;/ul&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/jwtrealm/realmcreation.png&quot; alt=&quot;Realm Creation&quot; title=&quot;Realm Creation&quot; /&gt;&lt;/p&gt;&lt;p&gt;Once the realm is ready we can add two users/password with different roles (&lt;code&gt;web&lt;/code&gt;, &lt;code&gt;mobile&lt;/code&gt;), being &lt;code&gt;ronald&lt;/code&gt; and &lt;code&gt;king&lt;/code&gt;, final result should look like this:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/jwtrealm/users.png&quot; alt=&quot;Users Creation&quot; title=&quot;Users Creation&quot; /&gt;&lt;/p&gt;&lt;h2&gt;Create a vanilla JakartaEE project&lt;/h2&gt;&lt;p&gt;In order to generate the Tokens, we need to create a greenfield application, this could be achieved by using &lt;a href=&quot;https://github.com/AdamBien/microprofile-essentials-archetype&quot;&gt;microprofile-essentials-archetype&lt;/a&gt; with the following command:&lt;/p&gt;
+&lt;/ul&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/jwtrealm/realmcreation.png&quot; alt=&quot;Realm Creation&quot; title=&quot;Realm Creation&quot; /&gt;&lt;/p&gt;&lt;p&gt;Once the realm is ready we can add two users/password with different roles (&lt;code&gt;web&lt;/code&gt;, &lt;code&gt;mobile&lt;/code&gt;), being &lt;code&gt;ronald&lt;/code&gt; and &lt;code&gt;king&lt;/code&gt;, final result should look like this:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/jwtrealm/users.png&quot; alt=&quot;Users Creation&quot; title=&quot;Users Creation&quot; /&gt;&lt;/p&gt;&lt;h2&gt;Create a vanilla JakartaEE project&lt;/h2&gt;&lt;p&gt;In order to generate the Tokens, we need to create a greenfield application, this could be achieved by using &lt;a href=&quot;https://github.com/AdamBien/javaee8-essentials-archetype&quot;&gt;javaee8-essentials-archetype&lt;/a&gt; with the following command:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;mvn archetype:generate -Dfilter=com.airhacks:javaee8-essentials-archetype -Dversion=0.0.4
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;As usual archetype assistant will ask for project details, project will be named &lt;code&gt;microjwt-provider&lt;/code&gt;:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/jwtrealm/archetype.png&quot; alt=&quot;Project Creation&quot; title=&quot;Project Creation&quot; /&gt;&lt;/p&gt;&lt;p&gt;Now, it is necessary to copy the &lt;code&gt;myprivateKey.pem&lt;/code&gt; file generated at section 1 to project&apos;s classpath using Maven structure, specifically to &lt;code&gt;src/main/resources&lt;/code&gt;, &lt;strong&gt;to avoid any confussion I also renamed this file to &lt;code&gt;privateKey.pem&lt;/code&gt;&lt;/strong&gt;, the final structure will look like this:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;prettyprint&quot;&gt;microjwt-provider$ tree
