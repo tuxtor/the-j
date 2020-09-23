@@ -6,8 +6,8 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Wed, 23 Sep 2020 18:35:02 +0000</pubDate>
-    <lastBuildDate>Wed, 23 Sep 2020 18:35:02 +0000</lastBuildDate>
+    <pubDate>Wed, 23 Sep 2020 18:35:40 +0000</pubDate>
+    <lastBuildDate>Wed, 23 Sep 2020 18:35:40 +0000</lastBuildDate>
 
     <item>
       <title>General considerations on updating Enterprise Java projects from Java 8 to Java 11</title>
@@ -15,7 +15,7 @@
       <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2020/2020-08-21-considerations-bumping-javaee.html</guid>
       	<description>
-	&lt;p&gt;&lt;img src=&quot;/images/posts/java8java11/shell11.png&quot; alt=&quot;shell11&quot; title=&quot;shell11&quot; /&gt;&lt;/p&gt;&lt;p&gt;The purpose of this article is to &lt;strong&gt;consolidate all difficulties and solutions that I&apos;ve encountered while updating Java EE projects from Java 8 to Java 11 (and beyond)&lt;/strong&gt;. It&apos;s a known fact that Java 11 has a lot of new characteristics that are revolutionizing how Java is used to create applications, despite being problematic under certain conditions.&lt;/p&gt;&lt;p&gt;This article is focused on Java/Jakarta EE but it could be used as basis for other Java frameworks and libraries migrations.&lt;/p&gt;&lt;h2&gt;Is it possible to update Java EE/MicroProfile projects from Java 8 to Java 11?&lt;/h2&gt;&lt;p&gt;Yes, absolutely. &lt;a href=&quot;https://nabenik.com&quot;&gt;My team&lt;/a&gt; has been able to bump at least two mature enterprise applications with more than three years in development, being:&lt;/p&gt;&lt;h3&gt;A Management Information System (MIS)&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/java8java11/erp-1024x508.png&quot; alt=&quot;Nabenik MIS&quot; title=&quot;Nabenik MIS&quot; /&gt;&lt;/p&gt;
+	&lt;p&gt;&lt;img src=&quot;/images/posts/java8java11/shell11.png&quot; alt=&quot;shell11&quot; title=&quot;shell11&quot; /&gt;&lt;/p&gt;&lt;p&gt;The purpose of this article is to &lt;strong&gt;consolidate all difficulties and solutions that I&apos;ve encountered while updating Java EE projects from Java 8 to Java 11 (and beyond)&lt;/strong&gt;. It&apos;s a known fact that Java 11 has a lot of new characteristics that are revolutionizing how Java is used to create applications, despite being problematic under certain conditions.&lt;/p&gt;&lt;p&gt;This article is focused on Java/Jakarta EE but it could be used as basis for other enterprise Java frameworks and libraries migrations.&lt;/p&gt;&lt;h2&gt;Is it possible to update Java EE/MicroProfile projects from Java 8 to Java 11?&lt;/h2&gt;&lt;p&gt;Yes, absolutely. &lt;a href=&quot;https://nabenik.com&quot;&gt;My team&lt;/a&gt; has been able to bump at least two mature enterprise applications with more than three years in development, being:&lt;/p&gt;&lt;h3&gt;A Management Information System (MIS)&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/java8java11/erp-1024x508.png&quot; alt=&quot;Nabenik MIS&quot; title=&quot;Nabenik MIS&quot; /&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Time for migration: 1 week&lt;/li&gt;
   &lt;li&gt;Modules: 9 EJB, 1 WAR, 1 EAR&lt;/li&gt;
