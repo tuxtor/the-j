@@ -1,5 +1,5 @@
 title=General considerations on updating Enterprise Java projects from Java 8 to Java 11
-date=2020-09-22
+date=2020-09-23
 type=post
 tags=java
 status=published
@@ -50,8 +50,7 @@ As everything in IT the answer is "It depends . . .". However there are a couple
 1. Reduce [attack surface](https://securitytrails.com/blog/attack-surface) by updating project dependencies proactively
 2. Reduce [technical debt](https://dzone.com/articles/dealing-technical-debt) and most importantly, prepare your project for the new and dynamic Java world
 3. Take advantage of [performance improvements](https://optaweb.org/blog/2019/01/17/HowMuchFasterIsJava11.html) on new JVM versions
-4. Take advantage from improvements of [Java as programming language](
-https://www.forbes.com/sites/oracle/2020/04/02/java-14-makes-code-super-expressive-say-top-developers/#425580f21bc9)
+4. Take advantage from improvements of [Java as programming language](https://www.forbes.com/sites/oracle/2020/04/02/java-14-makes-code-super-expressive-say-top-developers/)
 5. Sleep better by having a more secure, efficient and quality product
 
 ## Why Java updates from Java 8 to Java 11 are considered difficult?
@@ -147,7 +146,7 @@ The good news is that most of the popular servers in enterprise Java world are a
 * [Apache Tomcat](http://tomcat.apache.org/whichversion.html)
 * [Apache Maven](https://winterbe.com/posts/2018/08/29/migrate-maven-projects-to-java-11-jigsaw/)
 * [Spring](https://spring.io/blog/2020/03/11/spring-tips-java-14-or-can-your-java-do-this)
-* [Oracle WebLogic](https://docs.oracle.com/en/middleware/standalone/weblogic-server/14.1.1.0/notes/whatsnew.html#GUID-DF8CFD1C-9DD1-423E-ACA6-9717D5738385)
+* [Oracle WebLogic](https://docs.oracle.com/en/middleware/standalone/weblogic-server/14.1.1.0/notes/whatsnew.html)
 * [Payara](https://blog.payara.fish/jdk-11-support-available-in-payara-platform-194)
 * [Apache TomEE](http://tomee-openejb.979440.n4.nabble.com/Does-TomEE-8-0-0-run-on-Java-11-td4690633.html)
 ... among others
