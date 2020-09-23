@@ -10,16 +10,13 @@
 Personal Details
 ---------
 E-mail
-:	me@vorozco.com
-
-Phone number
-: +502 58783901
+: me@vorozco.com
 
 Website
 : [http://vorozco.com/](http://vorozco.com/)
 
 Age
-: 30 years old
+: 32 years old
 
 Education
 ---------
@@ -57,6 +54,12 @@ Certifications
 
 Awards
 ------
+2015
+:	*Oracle Groundbreakers Ambassadors*  
+	[Oracle Corporation](https://github.com/aalmiray/java-champions)  
+        Oracle Groundbreakers Ambassador are professionals with experience in modern software developmen, in areas like Cloud, Microservices, Containers, Java, Devops and Open Source technologies. Frecuent speakers in top developer conferences like DeveloperWeek, DevNexus, Devoxx, Oracle Code One and QCon.
+
+
 2018
 :	*Java Champion*  
 	[Oracle Corporation](https://github.com/aalmiray/java-champions)  
@@ -85,7 +88,7 @@ Description
 
 Experience
 ----------
-2018-currently
+2018-2019
 :	*Vicepresident of the information sciences comission*  
 	[Senacyt](http://comisiones.concyt.gob.gt/portal/index.php/comisiones/d-informatica/77-jd-informatica)  
 	Vicepresident on the national information science commission on the nacional science an technology system.  
@@ -95,7 +98,7 @@ Experience
 	[Nabenik](http://www.nabenik.com/)  
 	Joint venture focused on research and development of IT solutions and innovation management.
 
-2016-2018  
+2016-currently  
 :	*Assistant Professor*  
 	[Universidad Rafael Landivar de Guatemala](http://www.url.edu.gt)  
 	Computer Science Department. Covering Artificial Intelligence and Modeling and Simulation areas.
@@ -139,10 +142,10 @@ Experience
 IT Strengths
 ------------
 Languages
-:	Java, Scala, Python, C, C++, HTML, CSS, TeX
+:	Java, JavaScript, Kotlin, Scala, Python, C, C++, HTML, CSS, TeX
 
 Platforms
-:	Java EE, Java SE, Java ME, AngularJS, Java FX, Android, iOS, Spring, QT
+:	Java EE, Java SE, Java ME, Angular, Java FX, Android, iOS, Spring, QT
 
 Databases
 :	Oracle, MySQL, PostreSQL, MongoDB
@@ -192,6 +195,12 @@ Workshop Software Livre 2012, 2012, Porto Alegre, Rs. Anais do WSL 2012. Porto A
 
 Highlighted Talks [^1]
 -----------------------------------------
+* Take advantage of MicroProfile benefits in your monolithic applications • The Developer Conference - Porto Alegre, RS, Brasil • Nov 2019
+* Take advantage of MicroProfile benefits in your monolithic applications • Oracle Code One - San Francisco, United States • Sept 2019
+* Kotlin+MicroProfile: Teaching 20 year old tricks to a new language • Oracle Groundbreakers Tour - Panama City, Panama • Aug 2019
+* Kotlin+MicroProfile: Teaching 20 year old tricks to a new language • The Developer Conference - São Paulo, Brazil • Jul 2019
+* MicroProfile for the busy developer • Es-Conference CDMX - CDMX, México • Mar 2019
+* MicroProfile for the busy developer • The Developer Conference - Porto Alegre, RS, Brasil • Dic 2018
 * Introduction to Java EE 8 with Payara 5 • Comunidad Hipana JUGs - jEspañol • Jul 2018
 * Functional Microservices with Java 8 and Java EE • JavaUp - Instituto Politecnico Nacional, CDMX, México • Abr 2018
 * Functional Microservices with Java 8 and Java EE • DevNexus - Atlanta, GA, United States • Feb 2018

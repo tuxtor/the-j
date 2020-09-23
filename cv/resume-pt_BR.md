@@ -12,14 +12,11 @@ Dados de contato
 E-mail
 :	me@vorozco.com
 
-Telefone
-: +502 58783901
-
 Sitio Web
 : [http://vorozco.com/](http://vorozco.com/)
 
 Idade
-: 29 anos
+: 32 anos
 
 Educação
 --------
