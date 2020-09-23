@@ -10,7 +10,7 @@ status=published
 
 The purpose of this article is to **consolidate all difficulties and solutions that I've encountered while updating Java EE projects from Java 8 to Java 11 (and beyond)**. It's a known fact that Java 11 has a lot of new characteristics that are revolutionizing how Java is used to create applications, despite being problematic under certain conditions.
 
-This article is focused on Java/Jakarta EE but it could be used as basis for other Java frameworks and libraries migrations.
+This article is focused on Java/Jakarta EE but it could be used as basis for other enterprise Java frameworks and libraries migrations.
 
 ## Is it possible to update Java EE/MicroProfile projects from Java 8 to Java 11?
 
