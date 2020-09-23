@@ -6,13 +6,13 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Wed, 23 Sep 2020 18:35:40 +0000</pubDate>
-    <lastBuildDate>Wed, 23 Sep 2020 18:35:40 +0000</lastBuildDate>
+    <pubDate>Wed, 23 Sep 2020 18:48:37 +0000</pubDate>
+    <lastBuildDate>Wed, 23 Sep 2020 18:48:37 +0000</lastBuildDate>
 
     <item>
       <title>General considerations on updating Enterprise Java projects from Java 8 to Java 11</title>
       <link>http://www.vorozco.com/blog/2020/2020-08-21-considerations-bumping-javaee.html</link>
-      <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2020/2020-08-21-considerations-bumping-javaee.html</guid>
       	<description>
 	&lt;p&gt;&lt;img src=&quot;/images/posts/java8java11/shell11.png&quot; alt=&quot;shell11&quot; title=&quot;shell11&quot; /&gt;&lt;/p&gt;&lt;p&gt;The purpose of this article is to &lt;strong&gt;consolidate all difficulties and solutions that I&apos;ve encountered while updating Java EE projects from Java 8 to Java 11 (and beyond)&lt;/strong&gt;. It&apos;s a known fact that Java 11 has a lot of new characteristics that are revolutionizing how Java is used to create applications, despite being problematic under certain conditions.&lt;/p&gt;&lt;p&gt;This article is focused on Java/Jakarta EE but it could be used as basis for other enterprise Java frameworks and libraries migrations.&lt;/p&gt;&lt;h2&gt;Is it possible to update Java EE/MicroProfile projects from Java 8 to Java 11?&lt;/h2&gt;&lt;p&gt;Yes, absolutely. &lt;a href=&quot;https://nabenik.com&quot;&gt;My team&lt;/a&gt; has been able to bump at least two mature enterprise applications with more than three years in development, being:&lt;/p&gt;&lt;h3&gt;A Management Information System (MIS)&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/java8java11/erp-1024x508.png&quot; alt=&quot;Nabenik MIS&quot; title=&quot;Nabenik MIS&quot; /&gt;&lt;/p&gt;
@@ -40,7 +40,7 @@
   &lt;li&gt;Reduce &lt;a href=&quot;https://securitytrails.com/blog/attack-surface&quot;&gt;attack surface&lt;/a&gt; by updating project dependencies proactively&lt;/li&gt;
   &lt;li&gt;Reduce &lt;a href=&quot;https://dzone.com/articles/dealing-technical-debt&quot;&gt;technical debt&lt;/a&gt; and most importantly, prepare your project for the new and dynamic Java world&lt;/li&gt;
   &lt;li&gt;Take advantage of &lt;a href=&quot;https://optaweb.org/blog/2019/01/17/HowMuchFasterIsJava11.html&quot;&gt;performance improvements&lt;/a&gt; on new JVM versions&lt;/li&gt;
-  &lt;li&gt;Take advantage from improvements of [Java as programming language](&lt;br/&gt;&lt;a href=&quot;https://www.forbes.com/sites/oracle/2020/04/02/java-14-makes-code-super-expressive-say-top-developers/#425580f21bc9&quot;&gt;https://www.forbes.com/sites/oracle/2020/04/02/java-14-makes-code-super-expressive-say-top-developers/#425580f21bc9&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;Take advantage from improvements of &lt;a href=&quot;https://www.forbes.com/sites/oracle/2020/04/02/java-14-makes-code-super-expressive-say-top-developers/&quot;&gt;Java as programming language&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Sleep better by having a more secure, efficient and quality product&lt;/li&gt;
 &lt;/ol&gt;&lt;h2&gt;Why Java updates from Java 8 to Java 11 are considered difficult?&lt;/h2&gt;&lt;p&gt;From my experience with many teams, because of this:&lt;/p&gt;&lt;h3&gt;Changes in Java release cadence&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/java8java11/javareleasecadence.png&quot; alt=&quot;Java Release Cadence&quot; title=&quot;Java Release Cadence&quot; /&gt;&lt;/p&gt;&lt;p&gt;Currently, there are &lt;a href=&quot;https://www.oracle.com/java/technologies/java-se-support-roadmap.html&quot;&gt;two big branches in JVMs release model&lt;/a&gt;:&lt;/p&gt;
 &lt;ul&gt;
@@ -82,7 +82,7 @@
   &lt;li&gt;&lt;a href=&quot;http://tomcat.apache.org/whichversion.html&quot;&gt;Apache Tomcat&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://winterbe.com/posts/2018/08/29/migrate-maven-projects-to-java-11-jigsaw/&quot;&gt;Apache Maven&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://spring.io/blog/2020/03/11/spring-tips-java-14-or-can-your-java-do-this&quot;&gt;Spring&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/en/middleware/standalone/weblogic-server/14.1.1.0/notes/whatsnew.html#GUID-DF8CFD1C-9DD1-423E-ACA6-9717D5738385&quot;&gt;Oracle WebLogic&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/en/middleware/standalone/weblogic-server/14.1.1.0/notes/whatsnew.html&quot;&gt;Oracle WebLogic&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://blog.payara.fish/jdk-11-support-available-in-payara-platform-194&quot;&gt;Payara&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://tomee-openejb.979440.n4.nabble.com/Does-TomEE-8-0-0-run-on-Java-11-td4690633.html&quot;&gt;Apache TomEE&lt;/a&gt;&lt;br/&gt;... among others&lt;/li&gt;
 &lt;/ul&gt;&lt;p&gt;If you happen to depend on non compatible runtimes, &lt;strong&gt;this is where the road ends unless you support the maintainer to update it&lt;/strong&gt;.&lt;/p&gt;&lt;h3&gt;Verify if you need an specific JVM&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/images/posts/java8java11/fixes.png&quot; alt=&quot;FixesJDK15&quot; title=&quot;FixesJDK15&quot; /&gt;&lt;/p&gt;&lt;p&gt;On a non-technical side, under support contract conditions you could be obligated to use an specific JVM version.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;OpenJDK by itself is an open source project receiving contributions from many companies (being Oracle the most active contributor)&lt;/strong&gt;, but nothing prevents any other company to compile, pack and TCK other JVM distribution as demonstrated by &lt;a href=&quot;https://aws.amazon.com/corretto/&quot;&gt;Amazon Correto&lt;/a&gt;, &lt;a href=&quot;https://www.azul.com/downloads/zulu-community/&quot;&gt;Azul Zulu&lt;/a&gt;, &lt;a href=&quot;https://bell-sw.com/&quot;&gt;Liberica JDK&lt;/a&gt;, etc.&lt;/p&gt;&lt;p&gt;In short, there is software that technically could run over any JVM distribution and version, but the support contract will ask you for a particular version. For instance:&lt;/p&gt;
