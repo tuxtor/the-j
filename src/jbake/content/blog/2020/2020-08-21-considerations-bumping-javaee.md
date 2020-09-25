@@ -70,25 +70,19 @@ The rationale behind this decision is that **Java needed dynamism in providing n
 
 Nevertheless, **it is a know fact that most enterprise frameworks seek and use Java for stability**. Consequently, most of these frameworks target Java 11 as "certified" Java Virtual Machine for deployments.
 
-### Java Modules System in Java 9 and internal APIs
-
-Errata: I [fixed this section following an interesting discussion on reddit :)](https://www.reddit.com/r/java/comments/iyknaa/general_considerations_on_updating_enterprise/)
+### Usage of internal APIs
 
 ![Java 9](/images/posts/java8java11/versiones-1024x516.png "Java 9")
 
-**One of the critics over JVMs in the early days of containers was the monolithic distribution format**. Historically, Java Developer Kits were needed to deploy applications over servlet containers and application servers, but standard JDKs also included packages for AWT, Swing and Applets Execution (among others) which aren't mandatory for backend deployments.
+Errata: I [fixed and simplified this section following an interesting discussion on reddit :)](https://www.reddit.com/r/java/comments/iyknaa/general_considerations_on_updating_enterprise/)
 
-Despite having alternatives like [Server JRE](https://www.oracle.com/java/technologies/javase-server-jre8-downloads.html) and [headless OpenJDK packages](https://pkgs.org/download/java-headless) in Linux distributions, Java was in need for a better way to create tailored JVM distributions with the minimal modules and smaller containers. **As consequence, we received Java 9 in 2017 with [Java Platform Modules System (JPMS)](https://en.wikipedia.org/wiki/Java_Platform_Module_System)** as flagship feature.
+**Java 9 introduced changes in internal classes that weren't meant for usage outside JVM**, preventing/breaking the functionality of popular libraries that made use of these internals -e.g. Hibernate, ASM, Hazelcast- to gain performance.
 
-With JPMS, Java became modular to enable the creation of custom runtime JVM images with [JLink](https://docs.oracle.com/javase/9/tools/jlink.htm#JSWOR-GUID-CECAC52B-CFEE-46CB-8166-F17A8E9280E9), with proposed [restrictions over internal JVM packages by encapsulation of APIs](http://openjdk.java.net/jeps/260).
-
-Turns out, during the proposal for encapsulation of internal modules some of these were found as critical with widespread usage, and **many popular libraries -e.g. Hibernate, ASM, Hazelcast- used these internals to gain performance, specially [sun.misc.unsafe](https://docs.google.com/document/d/1GDm_cAxYInmoHMor-AkStzWvwE9pw6tnz_CebJQxuUE/edit#heading=h.brct71tr6e13)**.
+Hence to prevent it, internal APIs in JDK 9 are inaccessible at compile time (but accesible with --add-exports), remaining accessible if they were in JDK 8 but in a future release they will become inaccessible, **in the long run this change will reduce the costs borne by the maintainers of the JDK itself and by the maintainers of libraries and applications that, knowingly or not, make use of these internal APIs**.
 
 In the end, during the introduction of JEP-260 internal APIs were classified as critical and non-critical, consequently critical internal APIs for which replacements are introduced in JDK 9 are deprecated in JDK 9 and will be either encapsulated or removed in a future release.
 
-Given that many of these modules like sun.misc.unsafe were proprietary and not meant for external usage, some of the implementation details changed and most of the runtimes had to wait/contribute to update these libraries for Java 9.
-
-You are inside the danger zone if:
+However, you are inside the danger zone if:
 
 1. Your project compiles against dependencies pre-Java 9 depending on critical internals
 2. You bundle dependencies pre-Java 9 depending on critical internals
