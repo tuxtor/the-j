@@ -72,6 +72,8 @@ Nevertheless, **it is a know fact that most enterprise frameworks seek and use J
 
 ### Java Modules System in Java 9
 
+Errata: I [fixed this section following an interesting discussion on reddit :)](https://www.reddit.com/r/java/comments/iyknaa/general_considerations_on_updating_enterprise/)
+
 ![Java 9](/images/posts/java8java11/versiones-1024x516.png "Java 9")
 
 **One of the critics over JVMs in the early days of containers was the monolithic distribution format**. Historically, Java Developer Kits were needed to deploy applications over servlet containers and application servers, but standard JDKs also included packages for AWT, Swing and Applets Execution (among others) which aren't mandatory for backend deployments.
@@ -80,12 +82,14 @@ Despite having alternatives like [Server JRE](https://www.oracle.com/java/techno
 
 With JPMS, Java became modular to enable the creation of custom runtime JVM images with [JLink](https://docs.oracle.com/javase/9/tools/jlink.htm#JSWOR-GUID-CECAC52B-CFEE-46CB-8166-F17A8E9280E9), however we paid a price: Enforced [restrictions over internal JVM packages by encapsulation of APIs](http://openjdk.java.net/jeps/260).
 
-Turns out, **many popular libraries -e.g. Hibernate, ASM, Hazelcast- used these internals to gain performance, specially [sun.misc.unsafe that created a domino effect](https://docs.google.com/document/d/1GDm_cAxYInmoHMor-AkStzWvwE9pw6tnz_CebJQxuUE/edit#heading=h.brct71tr6e13)** over Java ecosystem. Since many of these libraries are considered foundational for the Java ecosystem, most of the runtimes had to wait/contribute to update these libraries for Java 9 modules.
+Turns out, during the encapsulation of internal modules, some of these were found as critical with widespread usage, and **many popular libraries -e.g. Hibernate, ASM, Hazelcast- used these internals to gain performance, specially [sun.misc.unsafe that created a domino effect](https://docs.google.com/document/d/1GDm_cAxYInmoHMor-AkStzWvwE9pw6tnz_CebJQxuUE/edit#heading=h.brct71tr6e13)** over Java ecosystem.
+
+Given that many of these libraries are considered foundational for the Java ecosystem, most of the runtimes had to wait/contribute to update these libraries for Java 9, considering that some of these internals were proprietary non-public APIs (hence details changed), and some non-critical modules were encapsulated.
 
 You are inside the danger zone if:
 
-1. Your project compiles against dependencies pre-Java 9 without JPMS support and JVM internals usage
-2. You bundle dependencies pre-Java 9 without JPMS support and JVM internals usage
+1. Your project compiles against dependencies pre-Java 9 depending on internals
+2. You bundle dependencies pre-Java 9 depending on internals
 3. You run your applications over a runtime -e.g. Application Servers- that include pre Java 9 transitive dependencies
 
 Any of these situations means that you probably cannot run your application with any JVM above Java 8. At least not without updating your dependencies, which also could uncover breaking changes in library APIs creating mandatory refactors.
