@@ -82,17 +82,19 @@ Despite having alternatives like [Server JRE](https://www.oracle.com/java/techno
 
 With JPMS, Java became modular to enable the creation of custom runtime JVM images with [JLink](https://docs.oracle.com/javase/9/tools/jlink.htm#JSWOR-GUID-CECAC52B-CFEE-46CB-8166-F17A8E9280E9), however we paid a price: Enforced [restrictions over internal JVM packages by encapsulation of APIs](http://openjdk.java.net/jeps/260).
 
-Turns out, during the encapsulation of internal modules, some of these were found as critical with widespread usage, and **many popular libraries -e.g. Hibernate, ASM, Hazelcast- used these internals to gain performance, specially [sun.misc.unsafe that created a domino effect](https://docs.google.com/document/d/1GDm_cAxYInmoHMor-AkStzWvwE9pw6tnz_CebJQxuUE/edit#heading=h.brct71tr6e13)** over Java ecosystem.
+Turns out, during the encapsulation of internal modules some of these were found as critical with widespread usage, and **many popular libraries -e.g. Hibernate, ASM, Hazelcast- used these internals to gain performance, specially [sun.misc.unsafe that created a domino effect](https://docs.google.com/document/d/1GDm_cAxYInmoHMor-AkStzWvwE9pw6tnz_CebJQxuUE/edit#heading=h.brct71tr6e13)** over Java ecosystem.
 
-Given that many of these libraries are considered foundational for the Java ecosystem, most of the runtimes had to wait/contribute to update these libraries for Java 9, considering that some of these internals were proprietary non-public APIs (hence details changed), and some non-critical modules were encapsulated.
+In the end, during the introduction of JEP-260 internal APIs were classified as critical and non-critical, consequently the non-critical ones were encapsulated and the critical ones with replacement marked as deprecated.
+
+Given that many of these modules like sun.misc.unsafe were proprietary and not meant for external usage, some of the implementation details changed and most of the runtimes had to wait/contribute to update these libraries for Java 9.
 
 You are inside the danger zone if:
 
-1. Your project compiles against dependencies pre-Java 9 depending on internals
-2. You bundle dependencies pre-Java 9 depending on internals
+1. Your project compiles against dependencies pre-Java 9 depending on critical internals
+2. You bundle dependencies pre-Java 9 depending on critical internals
 3. You run your applications over a runtime -e.g. Application Servers- that include pre Java 9 transitive dependencies
 
-Any of these situations means that you probably cannot run your application with any JVM above Java 8. At least not without updating your dependencies, which also could uncover breaking changes in library APIs creating mandatory refactors.
+Any of these situations means that your application has a probability of not being compatible with JVMs above Java 8. At least not without updating your dependencies, which also could uncover breaking changes in library APIs creating mandatory refactors.
 
 ### Removal of CORBA and Java EE modules from OpenJDK
 
