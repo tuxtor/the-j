@@ -78,9 +78,9 @@ Errata: I [fixed and simplified this section following an interesting discussion
 
 **Java 9 introduced changes in internal classes that weren't meant for usage outside JVM**, preventing/breaking the functionality of popular libraries that made use of these internals -e.g. Hibernate, ASM, Hazelcast- to gain performance.
 
-Hence to prevent it, internal APIs in JDK 9 are inaccessible at compile time (but accesible with --add-exports), remaining accessible if they were in JDK 8 but in a future release they will become inaccessible, **in the long run this change will reduce the costs borne by the maintainers of the JDK itself and by the maintainers of libraries and applications that, knowingly or not, make use of these internal APIs**.
+Hence to avoid it, internal APIs in JDK 9 are inaccessible at compile time (but accesible with --add-exports), remaining accessible if they were in JDK 8 but in a future release they will become inaccessible, **in the long run this change will reduce the costs borne by the maintainers of the JDK itself and by the maintainers of libraries and applications that, knowingly or not, make use of these internal APIs**.
 
-In the end, during the introduction of JEP-260 internal APIs were classified as critical and non-critical, consequently critical internal APIs for which replacements are introduced in JDK 9 are deprecated in JDK 9 and will be either encapsulated or removed in a future release.
+Finally, during the introduction of JEP-260 internal APIs were classified as critical and non-critical, consequently critical internal APIs for which replacements are introduced in JDK 9 are deprecated in JDK 9 and will be either encapsulated or removed in a future release.
 
 However, you are inside the danger zone if:
 
