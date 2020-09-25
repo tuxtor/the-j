@@ -86,8 +86,6 @@ Turns out, during the proposal for encapsulation of internal modules some of the
 
 In the end, during the introduction of JEP-260 internal APIs were classified as critical and non-critical, consequently critical internal APIs for which replacements are introduced in JDK 9 are deprecated in JDK 9 and will be either encapsulated or removed in a future release.
 
-**Internal APIs that are encapsulated in JDK 9 are inaccessible at compile time. They can be made accessible at compile time via the --add-exports command-line option. At run time they remain accessible if they were in JDK 8 but in a future release they will become inaccessible**, at which point the --add-exports or --add-opens options can be used to make them accessible at run time as well.
-
 Given that many of these modules like sun.misc.unsafe were proprietary and not meant for external usage, some of the implementation details changed and most of the runtimes had to wait/contribute to update these libraries for Java 9.
 
 You are inside the danger zone if:
