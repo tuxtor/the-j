@@ -6,8 +6,8 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Fri, 25 Sep 2020 09:23:53 +0000</pubDate>
-    <lastBuildDate>Fri, 25 Sep 2020 09:23:53 +0000</lastBuildDate>
+    <pubDate>Fri, 9 Oct 2020 18:51:03 +0000</pubDate>
+    <lastBuildDate>Fri, 9 Oct 2020 18:51:03 +0000</lastBuildDate>
 
     <item>
       <title>General considerations on updating Enterprise Java projects from Java 8 to Java 11</title>
