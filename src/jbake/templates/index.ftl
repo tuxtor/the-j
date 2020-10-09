@@ -17,11 +17,12 @@
 	    	<div class="row">
 	    		<h1>Me @ interwebz</h1>
 	    		<ul>
+				  <li><a href="https://twitter.com/tuxtor" target="_blank">Twitter</a></li>
 				  <li><a href="https://gt.linkedin.com/in/victororozco" target="_blank">Linkedin</a></li>
-				  <li><a href="http://twitter.com/tuxtor" target="_blank">Twitter</a></li>
-				  <li><a href="http://facebook.com/tuxtor" target="_blank">Facebook</a></li>
-				  <li><a href="http://github.com/tuxtor" target="_blank">GitHub</a></li>
-				  <li><a href="http://last.fm/user/cdmgt" target="_blank">Last.fm</a></li>
+				  <li><a href="https://www.youtube.com/VictorOrozcoTuxtor" target="_blank">Youtube</a></li>
+				  <li><a href="https://github.com/tuxtor" target="_blank">GitHub</a></li>
+				  <li><a href="https://last.fm/user/cdmgt" target="_blank">Last.fm</a></li>
+				  <li><a href="https://www.facebook.com/elabismodetux" target="_blank">Facebook</a></li>
 				  <li><a href="/cv/index.html" target="_blank">CV</a></li>
 				  <li><a href="http://tuxtor.shekalug.org" target="_blank">Old spanish blog</a></li>
 				</ul> 
