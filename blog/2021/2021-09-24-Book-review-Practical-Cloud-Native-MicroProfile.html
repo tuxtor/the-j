@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Book Review: Practical Cloud-Native Java Development with MicroProfile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The J*, a blog about Java, JVM, JavaScript and Gentoo Linux">
+    <meta name="author" content="Víctor Orozco">
+    <meta name="keywords" content="java,jvm,javascript,gentoo,linux">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <!--link href="../../css/bootstrap.min.css" rel="stylesheet"-->
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <meta property="og:title" content="Book Review: Practical Cloud-Native Java Development with MicroProfile">
+    <meta property="og:type" content="post">
+    <meta property="og:url" content="http://www.vorozco.com/blog/2021/2021-09-24-Book-review-Practical-Cloud-Native-MicroProfile.html">
+    <meta property="og:site_name" content="The J*">
+    <meta property="og:locale" content="en-US">
+    <meta property="article:published_time" content="24 September 2021">
+    <meta property="article:author" content="https://www.facebook.com/tuxtor">
+    <meta property="fb:app_id" content="753735224749731">
+    <meta property="og:image" content="http://vorozco.com/images/global/playground.png">
+
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-41004409-2', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=290416645177";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+        <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">The J*</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../blog">Blog</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <li><a href="../../contact.html">Contact</a></li>
+            <li><a href="https://feeds.feedburner.com/the-j">Subscribe</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	<div class="page-header">
+		<h1>Book Review: Practical Cloud-Native Java Development with MicroProfile</h1>
+	</div>
+
+	<p><em>24 September 2021</em></p>
+
+	<div class="row">
+
+		<div class="col-md-9">
+			<p><p><img src="/images/posts/practicalcn/cover.png" alt="Practical Cloud-Native Java Development with MicroProfile cover" title="Practical Cloud-Native Java Development with MicroProfile" /></p><h2>General information</h2>
+<ul>
+  <li>Pages: 403</li>
+  <li>Published by: Packt</li>
+  <li>Release date: Aug 2021</li>
+</ul>
+<blockquote><p>Disclaimer: I received this book as a collaboration with Packt and one of the authors (Thanks Emily!)</p>
+</blockquote><h2>A book about Microservices for the Java Enterprise-shops</h2><p>Year after year many enterprise companies are struggling to embrace Cloud Native practices that we tend to denominate as Microservices, however <a href="https://microservices.io/patterns/microservices.html">Microservices is a metapattern</a> that needs to follow a well defined approach, like:</p>
+<ul>
+  <li>(We aim for) reactive systems</li>
+  <li>(Hence we need a methodology like) 12 Cloud Native factors</li>
+  <li>(Implementing) well-known design patterns</li>
+  <li>(Dividing the system by using) Domain Driven Design</li>
+  <li>(Implementing microservices via) Microservices chassis and/or service mesh</li>
+  <li>(Achieving deployments by) Containers orchestration</li>
+</ul><p>Many of these concepts require a considerable amount of context, but some books, tutorials, conferences and YouTube videos tend to focus on specific niche information, making difficult to have a "cold start" in the microservices space if you have been developing regular/monolithic software. For me, <strong>that's the best thing about this book, it provides a holistic view to understand microservices with Java and MicroProfile for "cold starter developers"</strong>.</p><h2>About the book</h2><p>Using a software architect perspective, <strong>MicroProfile could be defined as a set of specifications (APIs) that many microservices chassis implement in order to solve common microservices problems through patterns, lessons learned from well known Java libraries</strong>, and proposals for collaboration between Java Enterprise vendors. </p><p>Subsequently if you think that it sounds a lot like Java EE, that's right, <strong>it's the same spirit but on the microservices space with participation for many vendors</strong>, including vendors from the Java EE space -e.g. Red Hat, IBM, Apache, Payara-.</p><p>The main value of this book is <strong>the willingness to go beyond the APIs</strong>, providing four structured sections that have different writing styles, for instance:</p>
+<ol>
+  <li>Section 1: Cloud Native Applications - Written as a didactical resource to learn fundamentals of distributed systems with Cloud Native approach</li>
+  <li>Section 2: MicroProfile Deep Dive - Written as a reference book with code snippets to understand the motivation, functionality and specific details in MicroProfile APIs and the relation between this APIs and common Microservices patterns -e.g. Remote procedure invocation, Health Check APIs, Externalized configuration-</li>
+  <li>Section 3: End-to-End Project Using MicroProfile - Written as a narrative workshop with source code already available, to understand the development and deployment process of Cloud Native applications with MicroProfile</li>
+  <li>Section 4: The standalone specifications - Written as a reference book with code snippets, it describes the development of newer specs that could be included in future under MicroProfile's umbrella</li>
+</ol><h3>First section</h3><p>This was by far my favorite section. <strong>This section presents a well-balanced overview about Cloud Native practices</strong> like:</p>
+<ul>
+  <li>Cloud Native definition</li>
+  <li>The role of microservices and the differences with monoliths and FaaS</li>
+  <li>Data consistency with event sourcing</li>
+  <li>Best practices</li>
+  <li>The role of MicroProfile</li>
+</ul><p>I enjoyed this section because my current role is to coach or act as a software architect at different companies, hence <strong>this is good material to explain the whole panorama to my coworkers and/or use this book as a quick reference</strong>.</p><p>My only concern with this section is about the final chapter, this chapter presents an application called IBM Stock Trader that (as you probably guess) IBM uses to demonstrate these concepts using MicroProfile with OpenLiberty. The chapter by itself presents an application that combines data sources, front/ends, Kubernetes; however the application would be useful only on Section 3 (at least that was my perception). Hence you will be going back to this section once you're executing the workshop.</p><h3>Second section</h3><p>This section divides the MicroProfile APIs in three levels, the division actually makes a lot of sense but was evident to me only during this review:</p>
+<ol>
+  <li>The base APIs to create microservices (JAX-RS, CDI, JSON-P, JSON-B, Rest Client)</li>
+  <li>Enhancing microservices (Config, Fault Tolerance, OpenAPI, JWT)</li>
+  <li>Observing microservices (Health, Metrics, Tracing)</li>
+</ol><p>Additionally, <strong>section also describes the need for Docker and Kubernetes and how other common approaches -e.g. Service mesh- overlap with Microservice Chassis functionality</strong>.</p><p>Currently I'm a MicroProfile user, hence I knew most of the APIs, however I liked the actual description of the pattern/need that motivated the inclusion of the APIs, and the description could be useful for newcomers, along with the code snippets also available on GitHub.</p><p>If you're a Java/Jakarta EE developer you will find the CDI section a little bit superficial, <strong>indeed CDI by itself deserves a whole book/fascicle</strong> but this chapter gives the basics to start the development process.</p><h3>Third section</h3><p>This section switches the writing style to a workshop style. <strong>The first chapter is entirely focused on how to compile the sample microservices</strong>, how to fulfill the technical requirements and which MicroProfile APIs are used on every microservice. </p><p>You must notice that this is not a Java programming workshop, it's a Cloud Native workshop with ready to deploy microservices, hence the step by step guide is about compilation with Maven, Docker containers, scaling with Kubernetes, operators in Openshift, etc.</p><p>You could explore and change the source code if you wish, but the section is written in a "descriptive" way assuming the samples existence.</p><h3>Fourth section</h3><p>This section is pretty similar to the second section in the reference book style, hence it also describes the pattern/need that motivated the discussion of the API and code snippets. <strong>The main focus of this section is GraphQL, Reactive Approaches and distributed transactions with LRA</strong>. </p><p>This section will probably change in future editions of the book because at the time of publishing the Cloud Native Container Foundation revealed that some initiatives about observability will be integrated in the OpenTelemetry project and MicroProfile it's discussing their future approach.</p><h2>Things that could be improved</h2><p>As any review this is the most difficult section to write, but I think that a second edition should:</p>
+<ul>
+  <li>Extend the CDI section due its foundational status</li>
+  <li>Switch the order of the Stock Tracer presentation</li>
+  <li>Extend the data consistency discussión -e.g. CQRS, Event Sourcing-, hopefully with advances from LRA</li>
+</ul><p>The last item is mostly a wish since I'm always in the need for better ways to integrate this common practices with buses like Kafka or Camel using MicroProfile. I know that some implementations -e.g. Helidon, Quarkus- already have extensions for Kafka or Camel, but <strong>the data consistency is an entire discussion about patterns, tools and best practices</strong>.</p><h2>Who should read this book?</h2>
+<ul>
+  <li>Java developers with strong SE foundations and familiarity with the enterprise space (Spring/Java EE)</li>
+</ul></p>
+
+			<div id="share">
+<!-- Twitter -->
+<a href="https://twitter.com/share" class="twitter-share-button" data-dnt="true">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+<!-- Google Plus -->
+<div class="g-plusone" data-size="medium"></div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'en-GB'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<!-- Facebook -->
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="false">
+</div></div>
+			
+			<hr />
+
+			<div id="disqus_thread"></div>
+			<script type="text/javascript">
+			    /* * * CONFIGURATION VARIABLES * * */
+			    var disqus_shortname = 'opinguimacademicoq';
+
+			    /* * * DON'T EDIT BELOW THIS LINE * * */
+			    (function() {
+			        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			    })();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+		</div>
+			<div class="col-md-3">
+			<form style="border:1px solid #ccc;padding:3px;text-align:center;" action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri=the-j', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true"><p>Enter your email address:</p><p><input type="text" style="width:140px" name="email"/></p><input type="hidden" value="the-j" name="uri"/><input type="hidden" name="loc" value="en_US"/><input type="submit" value="Subscribe" /><p>Delivered by <a href="https://feedburner.google.com" target="_blank">FeedBurner</a></p></form>
+			<hr/>
+			
+			<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"><img src="/images/global/getjavasesdk-120x30.png" alt="Get Java SE SDK" border="0" width="120" height="30" /></a>
+
+			<br/>
+
+			<a href="http://www.gentoo.org/"><img src="//www.gentoo.org/assets/img/badges/gentoo-badge.png" alt="Gentoo" style="border:0" /></a>
+
+			<br/>
+
+			<a href="https://community.oracle.com/community/technology_network_community/java/java-champions">
+			<img src="/images/global/jc.png" alt="Java Champions" style="border:0" />
+			</a>
+
+			<hr/>
+
+		    <a class="twitter-timeline"  href="https://twitter.com/tuxtor" data-widget-id="633158537896722432">Tweets by @tuxtor</a>
+	            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</div>
+	</div>
+
+	
+
+	
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    <link  href="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.7.1/lazyload.min.js"></script>
+    </body>
+</html>

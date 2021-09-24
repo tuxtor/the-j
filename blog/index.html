@@ -111,6 +111,50 @@
   <div class="page-header">
     <h1>Blog</h1>
   </div>
+        <a href="../blog/2021/2021-09-24-Book-review-Practical-Cloud-Native-MicroProfile.html"><h1>Book Review: Practical Cloud-Native Java Development with MicroProfile</h1></a>
+        <p>24 September 2021</p>
+        <p><p><img src="/images/posts/practicalcn/cover.png" alt="Practical Cloud-Native Java Development with MicroProfile cover" title="Practical Cloud-Native Java Development with MicroProfile" /></p><h2>General information</h2>
+<ul>
+  <li>Pages: 403</li>
+  <li>Published by: Packt</li>
+  <li>Release date: Aug 2021</li>
+</ul>
+<blockquote><p>Disclaimer: I received this book as a collaboration with Packt and one of the authors (Thanks Emily!)</p>
+</blockquote><h2>A book about Microservices for the Java Enterprise-shops</h2><p>Year after year many enterprise companies are struggling to embrace Cloud Native practices that we tend to denominate as Microservices, however <a href="https://microservices.io/patterns/microservices.html">Microservices is a metapattern</a> that needs to follow a well defined approach, like:</p>
+<ul>
+  <li>(We aim for) reactive systems</li>
+  <li>(Hence we need a methodology like) 12 Cloud Native factors</li>
+  <li>(Implementing) well-known design patterns</li>
+  <li>(Dividing the system by using) Domain Driven Design</li>
+  <li>(Implementing microservices via) Microservices chassis and/or service mesh</li>
+  <li>(Achieving deployments by) Containers orchestration</li>
+</ul><p>Many of these concepts require a considerable amount of context, but some books, tutorials, conferences and YouTube videos tend to focus on specific niche information, making difficult to have a "cold start" in the microservices space if you have been developing regular/monolithic software. For me, <strong>that's the best thing about this book, it provides a holistic view to understand microservices with Java and MicroProfile for "cold starter developers"</strong>.</p><h2>About the book</h2><p>Using a software architect perspective, <strong>MicroProfile could be defined as a set of specifications (APIs) that many microservices chassis implement in order to solve common microservices problems through patterns, lessons learned from well known Java libraries</strong>, and proposals for collaboration between Java Enterprise vendors. </p><p>Subsequently if you think that it sounds a lot like Java EE, that's right, <strong>it's the same spirit but on the microservices space with participation for many vendors</strong>, including vendors from the Java EE space -e.g. Red Hat, IBM, Apache, Payara-.</p><p>The main value of this book is <strong>the willingness to go beyond the APIs</strong>, providing four structured sections that have different writing styles, for instance:</p>
+<ol>
+  <li>Section 1: Cloud Native Applications - Written as a didactical resource to learn fundamentals of distributed systems with Cloud Native approach</li>
+  <li>Section 2: MicroProfile Deep Dive - Written as a reference book with code snippets to understand the motivation, functionality and specific details in MicroProfile APIs and the relation between this APIs and common Microservices patterns -e.g. Remote procedure invocation, Health Check APIs, Externalized configuration-</li>
+  <li>Section 3: End-to-End Project Using MicroProfile - Written as a narrative workshop with source code already available, to understand the development and deployment process of Cloud Native applications with MicroProfile</li>
+  <li>Section 4: The standalone specifications - Written as a reference book with code snippets, it describes the development of newer specs that could be included in future under MicroProfile's umbrella</li>
+</ol><h3>First section</h3><p>This was by far my favorite section. <strong>This section presents a well-balanced overview about Cloud Native practices</strong> like:</p>
+<ul>
+  <li>Cloud Native definition</li>
+  <li>The role of microservices and the differences with monoliths and FaaS</li>
+  <li>Data consistency with event sourcing</li>
+  <li>Best practices</li>
+  <li>The role of MicroProfile</li>
+</ul><p>I enjoyed this section because my current role is to coach or act as a software architect at different companies, hence <strong>this is good material to explain the whole panorama to my coworkers and/or use this book as a quick reference</strong>.</p><p>My only concern with this section is about the final chapter, this chapter presents an application called IBM Stock Trader that (as you probably guess) IBM uses to demonstrate these concepts using MicroProfile with OpenLiberty. The chapter by itself presents an application that combines data sources, front/ends, Kubernetes; however the application would be useful only on Section 3 (at least that was my perception). Hence you will be going back to this section once you're executing the workshop.</p><h3>Second section</h3><p>This section divides the MicroProfile APIs in three levels, the division actually makes a lot of sense but was evident to me only during this review:</p>
+<ol>
+  <li>The base APIs to create microservices (JAX-RS, CDI, JSON-P, JSON-B, Rest Client)</li>
+  <li>Enhancing microservices (Config, Fault Tolerance, OpenAPI, JWT)</li>
+  <li>Observing microservices (Health, Metrics, Tracing)</li>
+</ol><p>Additionally, <strong>section also describes the need for Docker and Kubernetes and how other common approaches -e.g. Service mesh- overlap with Microservice Chassis functionality</strong>.</p><p>Currently I'm a MicroProfile user, hence I knew most of the APIs, however I liked the actual description of the pattern/need that motivated the inclusion of the APIs, and the description could be useful for newcomers, along with the code snippets also available on GitHub.</p><p>If you're a Java/Jakarta EE developer you will find the CDI section a little bit superficial, <strong>indeed CDI by itself deserves a whole book/fascicle</strong> but this chapter gives the basics to start the development process.</p><h3>Third section</h3><p>This section switches the writing style to a workshop style. <strong>The first chapter is entirely focused on how to compile the sample microservices</strong>, how to fulfill the technical requirements and which MicroProfile APIs are used on every microservice. </p><p>You must notice that this is not a Java programming workshop, it's a Cloud Native workshop with ready to deploy microservices, hence the step by step guide is about compilation with Maven, Docker containers, scaling with Kubernetes, operators in Openshift, etc.</p><p>You could explore and change the source code if you wish, but the section is written in a "descriptive" way assuming the samples existence.</p><h3>Fourth section</h3><p>This section is pretty similar to the second section in the reference book style, hence it also describes the pattern/need that motivated the discussion of the API and code snippets. <strong>The main focus of this section is GraphQL, Reactive Approaches and distributed transactions with LRA</strong>. </p><p>This section will probably change in future editions of the book because at the time of publishing the Cloud Native Container Foundation revealed that some initiatives about observability will be integrated in the OpenTelemetry project and MicroProfile it's discussing their future approach.</p><h2>Things that could be improved</h2><p>As any review this is the most difficult section to write, but I think that a second edition should:</p>
+<ul>
+  <li>Extend the CDI section due its foundational status</li>
+  <li>Switch the order of the Stock Tracer presentation</li>
+  <li>Extend the data consistency discussión -e.g. CQRS, Event Sourcing-, hopefully with advances from LRA</li>
+</ul><p>The last item is mostly a wish since I'm always in the need for better ways to integrate this common practices with buses like Kafka or Camel using MicroProfile. I know that some implementations -e.g. Helidon, Quarkus- already have extensions for Kafka or Camel, but <strong>the data consistency is an entire discussion about patterns, tools and best practices</strong>.</p><h2>Who should read this book?</h2>
+<ul>
+  <li>Java developers with strong SE foundations and familiarity with the enterprise space (Spring/Java EE)</li>
+</ul></p>
         <a href="../blog/2020/2020-08-21-considerations-bumping-javaee.html"><h1>General considerations on updating Enterprise Java projects from Java 8 to Java 11</h1></a>
         <p>23 September 2020</p>
         <p><p><img src="/images/posts/java8java11/shell11.png" alt="shell11" title="shell11" /></p><p>The purpose of this article is to <strong>consolidate all difficulties and solutions that I've encountered while updating Java EE projects from Java 8 to Java 11 (and beyond)</strong>. It's a known fact that Java 11 has a lot of new characteristics that are revolutionizing how Java is used to create applications, despite being problematic under certain conditions.</p><p>This article is focused on Java/Jakarta EE but it could be used as basis for other enterprise Java frameworks and libraries migrations.</p><h2>Is it possible to update Java EE/MicroProfile projects from Java 8 to Java 11?</h2><p>Yes, absolutely. <a href="https://nabenik.com">My team</a> has been able to bump at least two mature enterprise applications with more than three years in development, being:</p><h3>A Management Information System (MIS)</h3><p><img src="/images/posts/java8java11/erp-1024x508.png" alt="Nabenik MIS" title="Nabenik MIS" /></p>
@@ -2061,7 +2105,7 @@ ISBN-13: 1-4493-7016-0
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit">&copy; 2015-2020 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
       </div>
     </div>
 
