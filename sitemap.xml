@@ -1,135 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     <url>
-        <loc>http://www.vorozco.com/about.html</loc>
+        <loc>https://www.vorozco.com/about.html</loc>
         <lastmod>2015-08-08</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2021/2021-09-24-Book-review-Practical-Cloud-Native-MicroProfile.html</loc>
+        <loc>https://www.vorozco.com/blog/2021/2021-09-24-Book-review-Practical-Cloud-Native-MicroProfile.html</loc>
         <lastmod>2021-09-24</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2020/2020-08-21-considerations-bumping-javaee.html</loc>
+        <loc>https://www.vorozco.com/blog/2020/2020-08-21-considerations-bumping-javaee.html</loc>
         <lastmod>2020-09-23</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2019/2019-10-02-MicroProfile-JWT-Token-Provider-Servlet.html</loc>
+        <loc>https://www.vorozco.com/blog/2019/2019-10-02-MicroProfile-JWT-Token-Provider-Servlet.html</loc>
         <lastmod>2019-10-02</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2019/2019-09-11-Packagin-Angular-8-Apps-War.html</loc>
+        <loc>https://www.vorozco.com/blog/2019/2019-09-11-Packagin-Angular-8-Apps-War.html</loc>
         <lastmod>2019-09-11</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2019/2019-05-02-Payara-Nginx-LetsEncrypt.html</loc>
+        <loc>https://www.vorozco.com/blog/2019/2019-05-02-Payara-Nginx-LetsEncrypt.html</loc>
         <lastmod>2019-05-02</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2019/2019-04-29-Boostraping-Eclipse-Jboss-Tools.html</loc>
+        <loc>https://www.vorozco.com/blog/2019/2019-04-29-Boostraping-Eclipse-Jboss-Tools.html</loc>
         <lastmod>2019-04-30</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2019/2019-04-17-Evaluating-Kotlin-caveats-JavaEE.html</loc>
+        <loc>https://www.vorozco.com/blog/2019/2019-04-17-Evaluating-Kotlin-caveats-JavaEE.html</loc>
         <lastmod>2019-04-22</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2018/2018-12-19-Book-review-Enterprise-Java-Microservices.html</loc>
+        <loc>https://www.vorozco.com/blog/2018/2018-12-19-Book-review-Enterprise-Java-Microservices.html</loc>
         <lastmod>2018-12-19</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2018/2018-10-31-Eclipse-Metrics-Usecases.html</loc>
+        <loc>https://www.vorozco.com/blog/2018/2018-10-31-Eclipse-Metrics-Usecases.html</loc>
         <lastmod>2018-10-31</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2018/2018-08-22-Book-review-best-developer-job.html</loc>
+        <loc>https://www.vorozco.com/blog/2018/2018-08-22-Book-review-best-developer-job.html</loc>
         <lastmod>2018-08-22</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2018/2018-07-30-NetBeans-9-JavaEE-JakartaEE.html</loc>
+        <loc>https://www.vorozco.com/blog/2018/2018-07-30-NetBeans-9-JavaEE-JakartaEE.html</loc>
         <lastmod>2018-07-30</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2018/2018-06-18-javaee7-javaee8-backward-compatibility.html</loc>
+        <loc>https://www.vorozco.com/blog/2018/2018-06-18-javaee7-javaee8-backward-compatibility.html</loc>
         <lastmod>2018-06-18</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2018/2018-06-04-getting-started-payara5-javaee8-eclipse.html</loc>
+        <loc>https://www.vorozco.com/blog/2018/2018-06-04-getting-started-payara5-javaee8-eclipse.html</loc>
         <lastmod>2018-06-04</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2018/2018-03-14-Empty-Reports-Jasper-Reports.html</loc>
+        <loc>https://www.vorozco.com/blog/2018/2018-03-14-Empty-Reports-Jasper-Reports.html</loc>
         <lastmod>2018-03-14</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2017/2017-12-30-2017-My-Java-Year.html</loc>
+        <loc>https://www.vorozco.com/blog/2017/2017-12-30-2017-My-Java-Year.html</loc>
         <lastmod>2017-12-30</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2017/2017-09-28-Install-Java-9-Fedora-26.html</loc>
+        <loc>https://www.vorozco.com/blog/2017/2017-09-28-Install-Java-9-Fedora-26.html</loc>
         <lastmod>2017-09-28</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2017/2017-09-04-Java-Cloud-Day-M%C3%A9xico-2017.html</loc>
+        <loc>https://www.vorozco.com/blog/2017/2017-09-04-Java-Cloud-Day-M%C3%A9xico-2017.html</loc>
         <lastmod>2017-09-04</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2017/2017-08-25-Payara41-Quick-Install-CentoOS-7.html</loc>
+        <loc>https://www.vorozco.com/blog/2017/2017-08-25-Payara41-Quick-Install-CentoOS-7.html</loc>
         <lastmod>2017-08-25</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2017/2017-01-28-Update-JBoss-Developer-Studio-JVM.html</loc>
+        <loc>https://www.vorozco.com/blog/2017/2017-01-28-Update-JBoss-Developer-Studio-JVM.html</loc>
         <lastmod>2017-01-28</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2016/2016-12-19-Join-Devnexus.html</loc>
+        <loc>https://www.vorozco.com/blog/2016/2016-12-19-Join-Devnexus.html</loc>
         <lastmod>2016-12-19</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2016/2016-10-11-Add-Eclipse-Marketplace-JBoss-Developer-Studio.html</loc>
+        <loc>https://www.vorozco.com/blog/2016/2016-10-11-Add-Eclipse-Marketplace-JBoss-Developer-Studio.html</loc>
         <lastmod>2016-10-11</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2016/2016-09-08-See-you-at-J1-and-WITFOR-2016.html</loc>
+        <loc>https://www.vorozco.com/blog/2016/2016-09-08-See-you-at-J1-and-WITFOR-2016.html</loc>
         <lastmod>2016-09-08</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2016/2016-07-14-Java-Day-Tour-2016-Recap.html</loc>
+        <loc>https://www.vorozco.com/blog/2016/2016-07-14-Java-Day-Tour-2016-Recap.html</loc>
         <lastmod>2016-07-14</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2016/2016-02-11-Using-ZuluJDK-OSX.html</loc>
+        <loc>https://www.vorozco.com/blog/2016/2016-02-11-Using-ZuluJDK-OSX.html</loc>
         <lastmod>2016-02-11</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2016/2016-02-02-Fix-font-size-JBoss-Developer-OSX.html</loc>
+        <loc>https://www.vorozco.com/blog/2016/2016-02-02-Fix-font-size-JBoss-Developer-OSX.html</loc>
         <lastmod>2016-02-02</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2015/2015-11-16-20-years-Java-5-years-GuateJUG.html</loc>
+        <loc>https://www.vorozco.com/blog/2015/2015-11-16-20-years-Java-5-years-GuateJUG.html</loc>
         <lastmod>2015-11-23</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2015/2015-11-12-Java-Essentials-Book-Review.html</loc>
+        <loc>https://www.vorozco.com/blog/2015/2015-11-12-Java-Essentials-Book-Review.html</loc>
         <lastmod>2015-11-12</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2015/GuateJUG-Tour-2015-First-Leg.html</loc>
+        <loc>https://www.vorozco.com/blog/2015/GuateJUG-Tour-2015-First-Leg.html</loc>
         <lastmod>2015-10-22</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2015/GuateJUG-Tour-2015.html</loc>
+        <loc>https://www.vorozco.com/blog/2015/GuateJUG-Tour-2015.html</loc>
         <lastmod>2015-09-26</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/2015/Welcome.html</loc>
+        <loc>https://www.vorozco.com/blog/2015/Welcome.html</loc>
         <lastmod>2015-08-08</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/blog/index.html</loc>
+        <loc>https://www.vorozco.com/blog/index.html</loc>
         <lastmod>2015-08-08</lastmod>
     </url>
     <url>
-        <loc>http://www.vorozco.com/contact.html</loc>
+        <loc>https://www.vorozco.com/contact.html</loc>
         <lastmod>2016-01-05</lastmod>
     </url>
 </urlset>

@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>The J*</title>
-    <link>http://www.vorozco.com</link>
-    <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
+    <link>https://www.vorozco.com</link>
+    <atom:link href="https://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Sun, 26 Sep 2021 05:07:08 +0000</pubDate>
-    <lastBuildDate>Sun, 26 Sep 2021 05:07:08 +0000</lastBuildDate>
+    <pubDate>Sun, 26 Sep 2021 05:45:56 +0000</pubDate>
+    <lastBuildDate>Sun, 26 Sep 2021 05:45:56 +0000</lastBuildDate>
 
     <item>
       <title>Book Review: Practical Cloud-Native Java Development with MicroProfile</title>
-      <link>http://www.vorozco.com/blog/2021/2021-09-24-Book-review-Practical-Cloud-Native-MicroProfile.html</link>
+      <link>https://www.vorozco.com/blog/2021/2021-09-24-Book-review-Practical-Cloud-Native-MicroProfile.html</link>
       <pubDate>Fri, 24 Sep 2021 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2021/2021-09-24-Book-review-Practical-Cloud-Native-MicroProfile.html</guid>
       	<description>
@@ -91,7 +91,7 @@
     </item>
     <item>
       <title>General considerations on updating Enterprise Java projects from Java 8 to Java 11</title>
-      <link>http://www.vorozco.com/blog/2020/2020-08-21-considerations-bumping-javaee.html</link>
+      <link>https://www.vorozco.com/blog/2020/2020-08-21-considerations-bumping-javaee.html</link>
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2020/2020-08-21-considerations-bumping-javaee.html</guid>
       	<description>
@@ -439,7 +439,7 @@
     </item>
     <item>
       <title>A simple MicroProfile JWT token provider with Payara realms and JAX-RS</title>
-      <link>http://www.vorozco.com/blog/2019/2019-10-02-MicroProfile-JWT-Token-Provider-Servlet.html</link>
+      <link>https://www.vorozco.com/blog/2019/2019-10-02-MicroProfile-JWT-Token-Provider-Servlet.html</link>
       <pubDate>Wed, 2 Oct 2019 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2019/2019-10-02-MicroProfile-JWT-Token-Provider-Servlet.html</guid>
       	<description>
@@ -758,7 +758,7 @@ public class TokenProviderResource {
     </item>
     <item>
       <title>How to pack Angular 8 applications on regular war files</title>
-      <link>http://www.vorozco.com/blog/2019/2019-09-11-Packagin-Angular-8-Apps-War.html</link>
+      <link>https://www.vorozco.com/blog/2019/2019-09-11-Packagin-Angular-8-Apps-War.html</link>
       <pubDate>Wed, 11 Sep 2019 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2019/2019-09-11-Packagin-Angular-8-Apps-War.html</guid>
       	<description>
@@ -929,7 +929,7 @@ demo-angular-8/src/main$ ng new frontend
     </item>
     <item>
       <title>How to install Payara 5 with NGINX and Let&apos;s Encrypt over Oracle Linux 7.x</title>
-      <link>http://www.vorozco.com/blog/2019/2019-05-02-Payara-Nginx-LetsEncrypt.html</link>
+      <link>https://www.vorozco.com/blog/2019/2019-05-02-Payara-Nginx-LetsEncrypt.html</link>
       <pubDate>Thu, 2 May 2019 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2019/2019-05-02-Payara-Nginx-LetsEncrypt.html</guid>
       	<description>
@@ -1077,7 +1077,7 @@ certbot --nginx -d ocl.nabenik.com
     </item>
     <item>
       <title>Getting started with Java EE 8, Java 11, Eclipse for Java Enterprise and Wildfly 16</title>
-      <link>http://www.vorozco.com/blog/2019/2019-04-29-Boostraping-Eclipse-Jboss-Tools.html</link>
+      <link>https://www.vorozco.com/blog/2019/2019-04-29-Boostraping-Eclipse-Jboss-Tools.html</link>
       <pubDate>Tue, 30 Apr 2019 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2019/2019-04-29-Boostraping-Eclipse-Jboss-Tools.html</guid>
       	<description>
@@ -1160,7 +1160,7 @@ unzip wildfly-16.0.0.Final.zip
     </item>
     <item>
       <title>The state of Kotlin for Jakarta EE/MicroProfile traditional applications</title>
-      <link>http://www.vorozco.com/blog/2019/2019-04-17-Evaluating-Kotlin-caveats-JavaEE.html</link>
+      <link>https://www.vorozco.com/blog/2019/2019-04-17-Evaluating-Kotlin-caveats-JavaEE.html</link>
       <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2019/2019-04-17-Evaluating-Kotlin-caveats-JavaEE.html</guid>
       	<description>
@@ -1584,7 +1584,7 @@ http {
     </item>
     <item>
       <title>Book Review: Enterprise Java Microservices by Ken Finnigan</title>
-      <link>http://www.vorozco.com/blog/2018/2018-12-19-Book-review-Enterprise-Java-Microservices.html</link>
+      <link>https://www.vorozco.com/blog/2018/2018-12-19-Book-review-Enterprise-Java-Microservices.html</link>
       <pubDate>Wed, 19 Dec 2018 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2018/2018-12-19-Book-review-Enterprise-Java-Microservices.html</guid>
       	<description>
@@ -1659,7 +1659,7 @@ http {
     </item>
     <item>
       <title>Eclipse MicroProfile Metrics, practical use cases</title>
-      <link>http://www.vorozco.com/blog/2018/2018-10-31-Eclipse-Metrics-Usecases.html</link>
+      <link>https://www.vorozco.com/blog/2018/2018-10-31-Eclipse-Metrics-Usecases.html</link>
       <pubDate>Wed, 31 Oct 2018 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2018/2018-10-31-Eclipse-Metrics-Usecases.html</guid>
       	<description>
@@ -1873,7 +1873,7 @@ public Response addAttendees(@PathParam(&amp;quot;attendees&amp;quot;) Long atte
     </item>
     <item>
       <title>Book Review: Best Developer Job Ever! by Bruno Souza</title>
-      <link>http://www.vorozco.com/blog/2018/2018-08-22-Book-review-best-developer-job.html</link>
+      <link>https://www.vorozco.com/blog/2018/2018-08-22-Book-review-best-developer-job.html</link>
       <pubDate>Wed, 22 Aug 2018 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2018/2018-08-22-Book-review-best-developer-job.html</guid>
       	<description>
@@ -1923,7 +1923,7 @@ public Response addAttendees(@PathParam(&amp;quot;attendees&amp;quot;) Long atte
     </item>
     <item>
       <title>Notes on Java EE support for NetBeans 9</title>
-      <link>http://www.vorozco.com/blog/2018/2018-07-30-NetBeans-9-JavaEE-JakartaEE.html</link>
+      <link>https://www.vorozco.com/blog/2018/2018-07-30-NetBeans-9-JavaEE-JakartaEE.html</link>
       <pubDate>Mon, 30 Jul 2018 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2018/2018-07-30-NetBeans-9-JavaEE-JakartaEE.html</guid>
       	<description>
@@ -2014,7 +2014,7 @@ bin/netbeans
     </item>
     <item>
       <title>Testing JavaEE backward and forward compatibility with Servlet, JAX-RS, Batch and Eclipse MicroProfile</title>
-      <link>http://www.vorozco.com/blog/2018/2018-06-18-javaee7-javaee8-backward-compatibility.html</link>
+      <link>https://www.vorozco.com/blog/2018/2018-06-18-javaee7-javaee8-backward-compatibility.html</link>
       <pubDate>Mon, 18 Jun 2018 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2018/2018-06-18-javaee7-javaee8-backward-compatibility.html</guid>
       	<description>
@@ -2384,7 +2384,7 @@ public abstract class MovieRepository extends AbstractEntityRepository&amp;lt;Mo
     </item>
     <item>
       <title>Getting started with Java EE 8, Payara 5 and Eclipse Oxygen</title>
-      <link>http://www.vorozco.com/blog/2018/2018-06-04-getting-started-payara5-javaee8-eclipse.html</link>
+      <link>https://www.vorozco.com/blog/2018/2018-06-04-getting-started-payara5-javaee8-eclipse.html</link>
       <pubDate>Mon, 4 Jun 2018 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2018/2018-06-04-getting-started-payara5-javaee8-eclipse.html</guid>
       	<description>
@@ -2494,7 +2494,7 @@ public abstract class MovieRepository extends AbstractEntityRepository&amp;lt;Mo
     </item>
     <item>
       <title>Fixing missing data on Jasper Reports with community Linux distros</title>
-      <link>http://www.vorozco.com/blog/2018/2018-03-14-Empty-Reports-Jasper-Reports.html</link>
+      <link>https://www.vorozco.com/blog/2018/2018-03-14-Empty-Reports-Jasper-Reports.html</link>
       <pubDate>Wed, 14 Mar 2018 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2018/2018-03-14-Empty-Reports-Jasper-Reports.html</guid>
       	<description>
@@ -2547,7 +2547,7 @@ public abstract class MovieRepository extends AbstractEntityRepository&amp;lt;Mo
     </item>
     <item>
       <title>2017 My Java Community Year</title>
-      <link>http://www.vorozco.com/blog/2017/2017-12-30-2017-My-Java-Year.html</link>
+      <link>https://www.vorozco.com/blog/2017/2017-12-30-2017-My-Java-Year.html</link>
       <pubDate>Sat, 30 Dec 2017 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2017/2017-12-30-2017-My-Java-Year.html</guid>
       	<description>
@@ -2676,7 +2676,7 @@ public abstract class MovieRepository extends AbstractEntityRepository&amp;lt;Mo
     </item>
     <item>
       <title>[Quicktip] How to install Oracle Java 9 on Fedora 26</title>
-      <link>http://www.vorozco.com/blog/2017/2017-09-28-Install-Java-9-Fedora-26.html</link>
+      <link>https://www.vorozco.com/blog/2017/2017-09-28-Install-Java-9-Fedora-26.html</link>
       <pubDate>Thu, 28 Sep 2017 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2017/2017-09-28-Install-Java-9-Fedora-26.html</guid>
       	<description>
@@ -2724,7 +2724,7 @@ public abstract class MovieRepository extends AbstractEntityRepository&amp;lt;Mo
     </item>
     <item>
       <title>Java Cloud Day México 2017 trip report</title>
-      <link>http://www.vorozco.com/blog/2017/2017-09-04-Java-Cloud-Day-M%C3%A9xico-2017.html</link>
+      <link>https://www.vorozco.com/blog/2017/2017-09-04-Java-Cloud-Day-M%C3%A9xico-2017.html</link>
       <pubDate>Mon, 4 Sep 2017 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2017/2017-09-04-Java-Cloud-Day-M%C3%A9xico-2017.html</guid>
       	<description>
@@ -2756,7 +2756,7 @@ public abstract class MovieRepository extends AbstractEntityRepository&amp;lt;Mo
     </item>
     <item>
       <title>Payara 4.1 install guide on CentOS 7</title>
-      <link>http://www.vorozco.com/blog/2017/2017-08-25-Payara41-Quick-Install-CentoOS-7.html</link>
+      <link>https://www.vorozco.com/blog/2017/2017-08-25-Payara41-Quick-Install-CentoOS-7.html</link>
       <pubDate>Fri, 25 Aug 2017 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2017/2017-08-25-Payara41-Quick-Install-CentoOS-7.html</guid>
       	<description>
@@ -2842,7 +2842,7 @@ vim .bashrc
     </item>
     <item>
       <title>[Quicktip] Move current JVM on JBoss Developer Studio</title>
-      <link>http://www.vorozco.com/blog/2017/2017-01-28-Update-JBoss-Developer-Studio-JVM.html</link>
+      <link>https://www.vorozco.com/blog/2017/2017-01-28-Update-JBoss-Developer-Studio-JVM.html</link>
       <pubDate>Sat, 28 Jan 2017 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2017/2017-01-28-Update-JBoss-Developer-Studio-JVM.html</guid>
       	<description>
@@ -2876,7 +2876,7 @@ vim .bashrc
     </item>
     <item>
       <title>Join Me at @devnexus</title>
-      <link>http://www.vorozco.com/blog/2016/2016-12-19-Join-Devnexus.html</link>
+      <link>https://www.vorozco.com/blog/2016/2016-12-19-Join-Devnexus.html</link>
       <pubDate>Mon, 19 Dec 2016 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2016/2016-12-19-Join-Devnexus.html</guid>
       	<description>
@@ -2900,7 +2900,7 @@ vim .bashrc
     </item>
     <item>
       <title>[Quicktip] Add Eclipse Marketplace Client to JBoss Developer Studio</title>
-      <link>http://www.vorozco.com/blog/2016/2016-10-11-Add-Eclipse-Marketplace-JBoss-Developer-Studio.html</link>
+      <link>https://www.vorozco.com/blog/2016/2016-10-11-Add-Eclipse-Marketplace-JBoss-Developer-Studio.html</link>
       <pubDate>Tue, 11 Oct 2016 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2016/2016-10-11-Add-Eclipse-Marketplace-JBoss-Developer-Studio.html</guid>
       	<description>
@@ -2934,7 +2934,7 @@ Help -&amp;gt; Install New Software -&amp;gt; Add&lt;/p&gt;
     </item>
     <item>
       <title>See you at Java One and WITFOR 2016</title>
-      <link>http://www.vorozco.com/blog/2016/2016-09-08-See-you-at-J1-and-WITFOR-2016.html</link>
+      <link>https://www.vorozco.com/blog/2016/2016-09-08-See-you-at-J1-and-WITFOR-2016.html</link>
       <pubDate>Thu, 8 Sep 2016 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2016/2016-09-08-See-you-at-J1-and-WITFOR-2016.html</guid>
       	<description>
@@ -2951,7 +2951,7 @@ Help -&amp;gt; Install New Software -&amp;gt; Add&lt;/p&gt;
     </item>
     <item>
       <title>Java Day Tour 2016 Recap</title>
-      <link>http://www.vorozco.com/blog/2016/2016-07-14-Java-Day-Tour-2016-Recap.html</link>
+      <link>https://www.vorozco.com/blog/2016/2016-07-14-Java-Day-Tour-2016-Recap.html</link>
       <pubDate>Thu, 14 Jul 2016 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2016/2016-07-14-Java-Day-Tour-2016-Recap.html</guid>
       	<description>
@@ -3015,7 +3015,7 @@ Help -&amp;gt; Install New Software -&amp;gt; Add&lt;/p&gt;
     </item>
     <item>
       <title>First impressions of Zulu on OSX</title>
-      <link>http://www.vorozco.com/blog/2016/2016-02-11-Using-ZuluJDK-OSX.html</link>
+      <link>https://www.vorozco.com/blog/2016/2016-02-11-Using-ZuluJDK-OSX.html</link>
       <pubDate>Thu, 11 Feb 2016 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2016/2016-02-11-Using-ZuluJDK-OSX.html</guid>
       	<description>
@@ -3056,7 +3056,7 @@ Help -&amp;gt; Install New Software -&amp;gt; Add&lt;/p&gt;
     </item>
     <item>
       <title>[Quicktip] Fix font size in JBoss Developer Studio and OSX</title>
-      <link>http://www.vorozco.com/blog/2016/2016-02-02-Fix-font-size-JBoss-Developer-OSX.html</link>
+      <link>https://www.vorozco.com/blog/2016/2016-02-02-Fix-font-size-JBoss-Developer-OSX.html</link>
       <pubDate>Tue, 2 Feb 2016 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2016/2016-02-02-Fix-font-size-JBoss-Developer-OSX.html</guid>
       	<description>
@@ -3089,7 +3089,7 @@ Help -&amp;gt; Install New Software -&amp;gt; Add&lt;/p&gt;
     </item>
     <item>
       <title>20 years of Java in Java One and Java Day Guatemala</title>
-      <link>http://www.vorozco.com/blog/2015/2015-11-16-20-years-Java-5-years-GuateJUG.html</link>
+      <link>https://www.vorozco.com/blog/2015/2015-11-16-20-years-Java-5-years-GuateJUG.html</link>
       <pubDate>Mon, 23 Nov 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/2015-11-16-20-years-Java-5-years-GuateJUG.html</guid>
       	<description>
@@ -3135,7 +3135,7 @@ Help -&amp;gt; Install New Software -&amp;gt; Add&lt;/p&gt;
     </item>
     <item>
       <title>[Book Review] Java EE 7 Essentials, O’Reilly</title>
-      <link>http://www.vorozco.com/blog/2015/2015-11-12-Java-Essentials-Book-Review.html</link>
+      <link>https://www.vorozco.com/blog/2015/2015-11-12-Java-Essentials-Book-Review.html</link>
       <pubDate>Thu, 12 Nov 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/2015-11-12-Java-Essentials-Book-Review.html</guid>
       	<description>
@@ -3183,7 +3183,7 @@ ISBN-13: 1-4493-7016-0
     </item>
     <item>
       <title>GuateJUG Tour 2015 First Leg</title>
-      <link>http://www.vorozco.com/blog/2015/GuateJUG-Tour-2015-First-Leg.html</link>
+      <link>https://www.vorozco.com/blog/2015/GuateJUG-Tour-2015-First-Leg.html</link>
       <pubDate>Thu, 22 Oct 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/GuateJUG-Tour-2015-First-Leg.html</guid>
       	<description>
@@ -3228,7 +3228,7 @@ ISBN-13: 1-4493-7016-0
     </item>
     <item>
       <title>GuateJUG Tour 2015</title>
-      <link>http://www.vorozco.com/blog/2015/GuateJUG-Tour-2015.html</link>
+      <link>https://www.vorozco.com/blog/2015/GuateJUG-Tour-2015.html</link>
       <pubDate>Sat, 26 Sep 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/GuateJUG-Tour-2015.html</guid>
       	<description>
@@ -3251,7 +3251,7 @@ ISBN-13: 1-4493-7016-0
     </item>
     <item>
       <title>Welcome</title>
-      <link>http://www.vorozco.com/blog/2015/Welcome.html</link>
+      <link>https://www.vorozco.com/blog/2015/Welcome.html</link>
       <pubDate>Sat, 8 Aug 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/Welcome.html</guid>
       	<description>
