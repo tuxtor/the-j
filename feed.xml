@@ -6,8 +6,8 @@
     <atom:link href="http://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Sun, 26 Sep 2021 04:56:01 +0000</pubDate>
-    <lastBuildDate>Sun, 26 Sep 2021 04:56:01 +0000</lastBuildDate>
+    <pubDate>Sun, 26 Sep 2021 05:07:08 +0000</pubDate>
+    <lastBuildDate>Sun, 26 Sep 2021 05:07:08 +0000</lastBuildDate>
 
     <item>
       <title>Book Review: Practical Cloud-Native Java Development with MicroProfile</title>
@@ -42,9 +42,9 @@
 &lt;p&gt;The main value of this book is &lt;strong&gt;the willingness to go beyond the APIs&lt;/strong&gt;, providing four structured sections that have different writing styles, for instance:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Section 1: Cloud Native Applications - Written as a didactical resource to learn fundamentals of distributed systems with Cloud Native approach&lt;/li&gt;
-&lt;li&gt;Section 2: MicroProfile Deep Dive - Written as a reference book with code snippets to understand the motivation, functionality and specific details in MicroProfile APIs and the relation between this APIs and common Microservices patterns -e.g. Remote procedure invocation, Health Check APIs, Externalized configuration-&lt;/li&gt;
+&lt;li&gt;Section 2: MicroProfile Deep Dive - Written as a reference book with code snippets to understand the motivation, functionality and specific details in MicroProfile APIs and the relation between these APIs and common Microservices patterns -e.g. Remote procedure invocation, Health Check APIs, Externalized configuration-&lt;/li&gt;
 &lt;li&gt;Section 3: End-to-End Project Using MicroProfile - Written as a narrative workshop with source code already available, to understand the development and deployment process of Cloud Native applications with MicroProfile&lt;/li&gt;
-&lt;li&gt;Section 4: The standalone specifications - Written as a reference book with code snippets, it describes the development of newer specs that could be included in future under MicroProfile&apos;s umbrella&lt;/li&gt;
+&lt;li&gt;Section 4: The standalone specifications - Written as a reference book with code snippets, it describes the development of newer specs that could be included in the future under MicroProfile&apos;s umbrella&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3&gt;First section&lt;/h3&gt;
 &lt;p&gt;This was by far my favorite section. &lt;strong&gt;This section presents a well-balanced overview about Cloud Native practices&lt;/strong&gt; like:&lt;/p&gt;
