@@ -94,38 +94,60 @@
 	<div class="row">
 
 		<div class="col-md-9">
-			<p><p><img src="/images/posts/jwtrealm/armor.png" alt="Armor" title="Armor" /></p><p>In this tutorial I will demonstrate <strong>how to create a "simple" (yet practical) token provider using Payara realms as users/groups store</strong>, with a couple of tweaks it's applicable to any MicroProfile implementation (since all implementations support JAX-RS).</p><p>In short this guide will:</p>
+			<p><p><img src="/images/posts/jwtrealm/armor.png" alt="Armor" title="Armor" /></p>
+<p>In this tutorial I will demonstrate <strong>how to create a &quot;simple&quot; (yet practical) token provider using Payara realms as users/groups store</strong>, with a couple of tweaks it's applicable to any MicroProfile implementation (since all implementations support JAX-RS).</p>
+<p>In short this guide will:</p>
 <ul>
-  <li>Create a public/private key in <a href="https://en.wikipedia.org/wiki/PKCS_1">RSASSA-PKCS-v1_5</a> format to sign tokens</li>
-  <li>Create user, password and fixed groups on Payara file realm (groups will be web and mobile)</li>
-  <li>Create a vanilla JakartaEE + MicroProfile project</li>
-  <li>Generate tokens that are compatible with MicroProfile JWT specification using <a href="https://connect2id.com/products/nimbus-jose-jwt">Nimbus JOSE</a></li>
-</ul><h2>Create a public/private pair</h2><p><a href="https://www.eclipse.org/community/eclipse_newsletter/2017/september/article2.php">MicroProfile JWT</a> establishes that <strong>tokens should be signed by using RSASSA-PKCS-v1_5 signature with SHA-256 hash algorithm</strong>.</p><p>The general idea behind this is to generate a private key that will be used on token provider, subsequently the clients only need the public key to verify the signature. One of the "simple" ways to do this is by generating an SSH keypair using OpenSSL.</p><p>First it is necessary to generate a base key to be signed:</p>
-<pre><code class="prettyprint">openssl genrsa -out baseKey.pem
-</code></pre><p>From the base key generate the PKCS#8 private key: </p>
-<pre><code class="prettyprint">openssl pkcs8 -topk8 -inform PEM -in baseKey.pem -out privateKey.pem -nocrypt
-</code></pre><p>Using the private key you could generate a public (and distributable) key</p>
-<pre><code class="prettyprint">openssl rsa -in baseKey.pem -pubout -outform PEM -out publicKey.pem
-</code></pre><p>Finally some crypto libraries like <a href="https://github.com/SAMLRaider/SAMLRaider/issues/37">bouncy castle only accept traditional RSA keys</a>, hence it is safe to convert it using also openssl:</p>
-<pre><code class="prettyprint">openssl rsa -in privateKey.pem -out myprivateKey.pem
-</code></pre><p>At the end <code>myprivateKey.pem</code> could be used to sign the tokens and <code>publicKey.pem</code> could be distributed to any potential consumer.</p><h2>Create user, password and groups on Payara realm</h2><p>According to <a href="https://docs.oracle.com/cd/E19798-01/821-1751/gkbiy/index.html">Glassfish documentation</a>, the general idea of realms is to <strong>provide a security policy for domains, being able to contain users and groups and consequently assign users to groups</strong>, these realms could be created using:</p>
+<li>Create a public/private key in <a href="https://en.wikipedia.org/wiki/PKCS_1">RSASSA-PKCS-v1_5</a> format to sign tokens</li>
+<li>Create user, password and fixed groups on Payara file realm (groups will be web and mobile)</li>
+<li>Create a vanilla JakartaEE + MicroProfile project</li>
+<li>Generate tokens that are compatible with MicroProfile JWT specification using <a href="https://connect2id.com/products/nimbus-jose-jwt">Nimbus JOSE</a></li>
+</ul>
+<h2>Create a public/private pair</h2>
+<p><a href="https://www.eclipse.org/community/eclipse_newsletter/2017/september/article2.php">MicroProfile JWT</a> establishes that <strong>tokens should be signed by using RSASSA-PKCS-v1_5 signature with SHA-256 hash algorithm</strong>.</p>
+<p>The general idea behind this is to generate a private key that will be used on token provider, subsequently the clients only need the public key to verify the signature. One of the &quot;simple&quot; ways to do this is by generating an SSH keypair using OpenSSL.</p>
+<p>First it is necessary to generate a base key to be signed:</p>
+<pre><code class="language-prettyprint">openssl genrsa -out baseKey.pem
+</code></pre>
+<p>From the base key generate the PKCS#8 private key:</p>
+<pre><code class="language-prettyprint">openssl pkcs8 -topk8 -inform PEM -in baseKey.pem -out privateKey.pem -nocrypt
+</code></pre>
+<p>Using the private key you could generate a public (and distributable) key</p>
+<pre><code class="language-prettyprint">openssl rsa -in baseKey.pem -pubout -outform PEM -out publicKey.pem
+</code></pre>
+<p>Finally some crypto libraries like <a href="https://github.com/SAMLRaider/SAMLRaider/issues/37">bouncy castle only accept traditional RSA keys</a>, hence it is safe to convert it using also openssl:</p>
+<pre><code class="language-prettyprint">openssl rsa -in privateKey.pem -out myprivateKey.pem
+</code></pre>
+<p>At the end <code>myprivateKey.pem</code> could be used to sign the tokens and <code>publicKey.pem</code> could be distributed to any potential consumer.</p>
+<h2>Create user, password and groups on Payara realm</h2>
+<p>According to <a href="https://docs.oracle.com/cd/E19798-01/821-1751/gkbiy/index.html">Glassfish documentation</a>, the general idea of realms is to <strong>provide a security policy for domains, being able to contain users and groups and consequently assign users to groups</strong>, these realms could be created using:</p>
 <ul>
-  <li>File containers</li>
-  <li>Certificates databases</li>
-  <li>LDAP directories</li>
-  <li>Plain old JDBC</li>
-  <li>Solaris</li>
-  <li>Custom realms</li>
-</ul><p>For tutorial purposes a file realm will be used but any properly configured Realm should work.</p><p>On vanilla Glassfish installations <code>domain 1</code> uses <code>server-config</code> configuration, thus to create the realm you need to go to <code>server-config -&gt; Security -&gt; Realms</code> and add a new realm, in this tutorial <code>burgerland</code> will be created with the following configuration:</p>
+<li>File containers</li>
+<li>Certificates databases</li>
+<li>LDAP directories</li>
+<li>Plain old JDBC</li>
+<li>Solaris</li>
+<li>Custom realms</li>
+</ul>
+<p>For tutorial purposes a file realm will be used but any properly configured Realm should work.</p>
+<p>On vanilla Glassfish installations <code>domain 1</code> uses <code>server-config</code> configuration, thus to create the realm you need to go to <code>server-config -&gt; Security -&gt; Realms</code> and add a new realm, in this tutorial <code>burgerland</code> will be created with the following configuration:</p>
 <ul>
-  <li>Name: burgerland</li>
-  <li>Class name: com.sun.enterprise.security.auth.realm.file.FileRealm</li>
-  <li>JAAS Context: fileRealm</li>
-  <li>Key file: ${com.sun.aas.instanceRoot}/config/burgerlandkeyfile</li>
-</ul><p><img src="/images/posts/jwtrealm/realmcreation.png" alt="Realm Creation" title="Realm Creation" /></p><p>Once the realm is ready we can add two users/password with different roles (<code>web</code>, <code>mobile</code>), being <code>ronald</code> and <code>king</code>, final result should look like this:</p><p><img src="/images/posts/jwtrealm/users.png" alt="Users Creation" title="Users Creation" /></p><h2>Create a vanilla JakartaEE project</h2><p>In order to generate the Tokens, we need to create a greenfield application, this could be achieved by using <a href="https://github.com/AdamBien/javaee8-essentials-archetype">javaee8-essentials-archetype</a> with the following command:</p>
-<pre><code class="prettyprint">mvn archetype:generate -Dfilter=com.airhacks:javaee8-essentials-archetype -Dversion=0.0.4
-</code></pre><p>As usual archetype assistant will ask for project details, project will be named <code>microjwt-provider</code>:</p><p><img src="/images/posts/jwtrealm/archetype.png" alt="Project Creation" title="Project Creation" /></p><p>Now, it is necessary to copy the <code>myprivateKey.pem</code> file generated at section 1 to project's classpath using Maven structure, specifically to <code>src/main/resources</code>, <strong>to avoid any confussion I also renamed this file to <code>privateKey.pem</code></strong>, the final structure will look like this:</p>
-<pre><code class="prettyprint">microjwt-provider$ tree
+<li>Name: burgerland</li>
+<li>Class name: com.sun.enterprise.security.auth.realm.file.FileRealm</li>
+<li>JAAS Context: fileRealm</li>
+<li>Key file: ${com.sun.aas.instanceRoot}/config/burgerlandkeyfile</li>
+</ul>
+<p><img src="/images/posts/jwtrealm/realmcreation.png" alt="Realm Creation" title="Realm Creation" /></p>
+<p>Once the realm is ready we can add two users/password with different roles (<code>web</code>, <code>mobile</code>), being <code>ronald</code> and <code>king</code>, final result should look like this:</p>
+<p><img src="/images/posts/jwtrealm/users.png" alt="Users Creation" title="Users Creation" /></p>
+<h2>Create a vanilla JakartaEE project</h2>
+<p>In order to generate the Tokens, we need to create a greenfield application, this could be achieved by using <a href="https://github.com/AdamBien/javaee8-essentials-archetype">javaee8-essentials-archetype</a> with the following command:</p>
+<pre><code class="language-prettyprint">mvn archetype:generate -Dfilter=com.airhacks:javaee8-essentials-archetype -Dversion=0.0.4
+</code></pre>
+<p>As usual archetype assistant will ask for project details, project will be named <code>microjwt-provider</code>:</p>
+<p><img src="/images/posts/jwtrealm/archetype.png" alt="Project Creation" title="Project Creation" /></p>
+<p>Now, it is necessary to copy the <code>myprivateKey.pem</code> file generated at section 1 to project's classpath using Maven structure, specifically to <code>src/main/resources</code>, <strong>to avoid any confussion I also renamed this file to <code>privateKey.pem</code></strong>, the final structure will look like this:</p>
+<pre><code class="language-prettyprint">microjwt-provider$ tree
 .
 ├── buildAndRun.sh
 ├── Dockerfile
@@ -147,16 +169,20 @@
         └── webapp
             └── WEB-INF
                 └── beans.xml
-</code></pre><p>You could get rid of source code since application will be bootstrapped using a different package structure :-).</p><h2>Generating MP compliant tokens from Payara realm</h2><p>In order to create a provider, <strong>we will create a project with a central JAX-RS resource named TokenProviderResource</strong> with the following characteristics:</p>
+</code></pre>
+<p>You could get rid of source code since application will be bootstrapped using a different package structure :-).</p>
+<h2>Generating MP compliant tokens from Payara realm</h2>
+<p>In order to create a provider, <strong>we will create a project with a central JAX-RS resource named TokenProviderResource</strong> with the following characteristics:</p>
 <ul>
-  <li>Receives a POST+Form params petition over <code>/auth</code></li>
-  <li>Resource creates and signs a token using privateKey.pem certificate</li>
-  <li>Returns token in response body</li>
-  <li>Roles will be established using <code>web.xml</code> file</li>
-  <li>Roles will be mapped to Payara realm using <code>glassfish-web.xml</code> file</li>
-  <li>User, password and roles will be checked using Servlet 3+ API</li>
-</ul><p>Nimbus JOSE and Bouncy Castle should be added as dependencies in order to read and sign tokens, these should be added at <code>pom.xml</code> file.</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+<li>Receives a POST+Form params petition over <code>/auth</code></li>
+<li>Resource creates and signs a token using privateKey.pem certificate</li>
+<li>Returns token in response body</li>
+<li>Roles will be established using <code>web.xml</code> file</li>
+<li>Roles will be mapped to Payara realm using <code>glassfish-web.xml</code> file</li>
+<li>User, password and roles will be checked using Servlet 3+ API</li>
+</ul>
+<p>Nimbus JOSE and Bouncy Castle should be added as dependencies in order to read and sign tokens, these should be added at <code>pom.xml</code> file.</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;com.nimbusds&lt;/groupId&gt;
     &lt;artifactId&gt;nimbus-jose-jwt&lt;/artifactId&gt;
     &lt;version&gt;5.7&lt;/version&gt;
@@ -167,8 +193,9 @@
     &lt;version&gt;1.53&lt;/version&gt;
 &lt;/dependency&gt;
 
-</code></pre><p>Later, a enum will be used to describe the fixed roles in a type safe way:</p>
-<pre><code class="prettyprint">public enum RolesEnum {
+</code></pre>
+<p>Later, a enum will be used to describe the fixed roles in a type safe way:</p>
+<pre><code class="language-prettyprint">public enum RolesEnum {
 	WEB(&quot;web&quot;),
 	MOBILE(&quot;mobile&quot;);
 
@@ -182,8 +209,9 @@
 		this.role = role;
 	}
 }
-</code></pre><p>Once dependencies and roles are into project, we will implement a plain old Java bean in chage of token creation. First <strong>to be compliant with MicroProfile token structure a MPJWTToken bean is created</strong>, this will also contain a fast objet to JSON string converter but you could use any other marshaller implementation.</p>
-<pre><code class="prettyprint">public class MPJWTToken {
+</code></pre>
+<p>Once dependencies and roles are into project, we will implement a plain old Java bean in chage of token creation. First <strong>to be compliant with MicroProfile token structure a MPJWTToken bean is created</strong>, this will also contain a fast objet to JSON string converter but you could use any other marshaller implementation.</p>
+<pre><code class="language-prettyprint">public class MPJWTToken {
 	private String iss; 
     private String aud;
     private String jti;
@@ -225,8 +253,9 @@
         return jsonObject.toJSONString();
     }
 
-</code></pre><p>Once JWT structure is complete, a CypherService is implemented to create and sign the token. This service will implement the JWT generator and also a key "loader" that reads privateKey file from classpath using Bouncy Castle.</p>
-<pre><code class="prettyprint">public class CypherService {
+</code></pre>
+<p>Once JWT structure is complete, a CypherService is implemented to create and sign the token. This service will implement the JWT generator and also a key &quot;loader&quot; that reads privateKey file from classpath using Bouncy Castle.</p>
+<pre><code class="language-prettyprint">public class CypherService {
 
 	public static String generateJWT(PrivateKey key, String subject, List&lt;String&gt; groups) {
         JWSHeader header = new JWSHeader.Builder(JWSAlgorithm.RS256)
@@ -272,8 +301,10 @@
         return kp.getPrivate();
     }	
 }
-</code></pre><p><strong>CypherService will be used from TokenProviderResource as injectable CDI bean</strong>. One of my motivations to separate key reading from signing process is that key reading should be implemented respecting resource lifecycle, hence the key will be loaded at CDI <code>@PostConstruct</code> callback.</p><p>Here, full resource code:</p>
-<pre><code class="prettyprint">@Singleton
+</code></pre>
+<p><strong>CypherService will be used from TokenProviderResource as injectable CDI bean</strong>. One of my motivations to separate key reading from signing process is that key reading should be implemented respecting resource lifecycle, hence the key will be loaded at CDI <code>@PostConstruct</code> callback.</p>
+<p>Here, full resource code:</p>
+<pre><code class="language-prettyprint">@Singleton
 @Path(&quot;/auth&quot;)
 public class TokenProviderResource {
 
@@ -323,12 +354,19 @@ public class TokenProviderResource {
     }
 
 }
-</code></pre><p><strong>JAX-RS endpoints in the end are abstractions over Servlet API</strong>, consequently you could inject the <code>HttpServletRequest</code> or <code>HttpServletResponse</code> object on any method (<code>doTokenLogin</code>). In this case it is usefull since I'm triggering a manual login using Servlet 3+ <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#login-java.lang.String-java.lang.String-">login method</a>.</p><p><a href="https://stackoverflow.com/questions/344117/how-to-get-user-roles-in-a-jsp-servlet">As noticed by many users</a>, <strong>Servlet API does not allow to read user roles in a portable way</strong>, hence I'm just checking if a given user is included in fixed roles using the previously defined enum and adding these roles to the target ArrayList.</p><p>In this code the parameters were declared as <code>@FormParam</code> consuming <code>x-www-form-urlencoded</code> data making it usefull for plain HTML forms, but this configuration is completely optional.</p><h2>Mapping project to Payara realm</h2><p><strong>The main motivation to use Servlet's login method is basically because it is already integrated with Java EE security schemes</strong>, hence using the realm will be a simple two-step configuration:</p>
+</code></pre>
+<p><strong>JAX-RS endpoints in the end are abstractions over Servlet API</strong>, consequently you could inject the <code>HttpServletRequest</code> or <code>HttpServletResponse</code> object on any method (<code>doTokenLogin</code>). In this case it is usefull since I'm triggering a manual login using Servlet 3+ <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html#login-java.lang.String-java.lang.String-">login method</a>.</p>
+<p><a href="https://stackoverflow.com/questions/344117/how-to-get-user-roles-in-a-jsp-servlet">As noticed by many users</a>, <strong>Servlet API does not allow to read user roles in a portable way</strong>, hence I'm just checking if a given user is included in fixed roles using the previously defined enum and adding these roles to the target ArrayList.</p>
+<p>In this code the parameters were declared as <code>@FormParam</code> consuming <code>x-www-form-urlencoded</code> data making it usefull for plain HTML forms, but this configuration is completely optional.</p>
+<h2>Mapping project to Payara realm</h2>
+<p><strong>The main motivation to use Servlet's login method is basically because it is already integrated with Java EE security schemes</strong>, hence using the realm will be a simple two-step configuration:</p>
 <ul>
-  <li>Add the realm/roles configuration at <code>web.xml</code> file in the project</li>
-  <li>Map Payara groups to application roles using <code>glassfish-web.xml</code> file</li>
-</ul><p>If you wanna know the full description of this mapping I found a useful post <a href="http://randomthoughtsonjavaprogramming.blogspot.com/2016/04/security-realms-in-glassfish.html">here</a>.</p><p>First, I need to map the application to <code>burgerland</code> realm and declare the two roles. Since I'm not selecting an auth method, project will fallback to BASIC method, however I'm not protecting any resource so, credentials won't be explicitly required on any HTTP request:</p>
-<pre><code class="prettyprint">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<li>Add the realm/roles configuration at <code>web.xml</code> file in the project</li>
+<li>Map Payara groups to application roles using <code>glassfish-web.xml</code> file</li>
+</ul>
+<p>If you wanna know the full description of this mapping I found a useful post <a href="http://randomthoughtsonjavaprogramming.blogspot.com/2016/04/security-realms-in-glassfish.html">here</a>.</p>
+<p>First, I need to map the application to <code>burgerland</code> realm and declare the two roles. Since I'm not selecting an auth method, project will fallback to BASIC method, however I'm not protecting any resource so, credentials won't be explicitly required on any HTTP request:</p>
+<pre><code class="language-prettyprint">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
          xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
          xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;
@@ -344,8 +382,9 @@ public class TokenProviderResource {
         &lt;role-name&gt;mobile&lt;/role-name&gt;
     &lt;/security-role&gt;
 &lt;/web-app&gt;
-</code></pre><p>Payara groups and Java web application roles are not the same concepts, but these could actually be mapped using glassfish descriptor <code>glassfish-web.xml</code>:</p>
-<pre><code class="prettyprint">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+</code></pre>
+<p>Payara groups and Java web application roles are not the same concepts, but these could actually be mapped using glassfish descriptor <code>glassfish-web.xml</code>:</p>
+<pre><code class="language-prettyprint">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE glassfish-web-app PUBLIC &quot;-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN&quot; &quot;http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd&quot;&gt;
 &lt;glassfish-web-app error-url=&quot;&quot;&gt;
     &lt;security-role-mapping&gt;
@@ -357,7 +396,15 @@ public class TokenProviderResource {
         &lt;group-name&gt;web&lt;/group-name&gt;
     &lt;/security-role-mapping&gt;
 &lt;/glassfish-web-app&gt;
-</code></pre><p>Finally the new application is deployed and a simple test demonstrates the functionality of token provider:</p><p><img src="/images/posts/jwtrealm/postman.png" alt="Postman test" title="Postman test" /></p><p>The token could be explored using any JWT tool, like the popular jwt.io, here the token is a compatible JWT implementation:</p><p><img src="/images/posts/jwtrealm/jwt1.png" alt="JWT test" title="JWT test" /></p><p>And as stated previously the signature could be checked using only the PUBLIC key:</p><p><img src="/images/posts/jwtrealm/jwt2.png" alt="JWT test 2" title="JWT test 2" /></p><p>As always, full implementation <a href="https://github.com/tuxtor/microjwt-provider">is available at GitHub</a>.</p></p>
+</code></pre>
+<p>Finally the new application is deployed and a simple test demonstrates the functionality of token provider:</p>
+<p><img src="/images/posts/jwtrealm/postman.png" alt="Postman test" title="Postman test" /></p>
+<p>The token could be explored using any JWT tool, like the popular jwt.io, here the token is a compatible JWT implementation:</p>
+<p><img src="/images/posts/jwtrealm/jwt1.png" alt="JWT test" title="JWT test" /></p>
+<p>And as stated previously the signature could be checked using only the PUBLIC key:</p>
+<p><img src="/images/posts/jwtrealm/jwt2.png" alt="JWT test 2" title="JWT test 2" /></p>
+<p>As always, full implementation <a href="https://github.com/tuxtor/microjwt-provider">is available at GitHub</a>.</p>
+</p>
 
 			<div id="share">
 <!-- Twitter -->
@@ -435,7 +482,7 @@ public class TokenProviderResource {
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
       </div>
     </div>
 

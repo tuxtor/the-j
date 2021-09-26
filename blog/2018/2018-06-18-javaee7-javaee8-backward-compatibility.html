@@ -94,24 +94,41 @@
 	<div class="row">
 
 		<div class="col-md-9">
-			<p><p>One of the most interesting concepts that made Java EE (and Java) appealing for the enterprise is its <strong>great backward compatibility</strong>, ensuring that years of investment in R&amp;D could be reused in future developments.</p><p>Neverthless one of the least understood facts is that <strong>Java EE in the end is a set of curated APIs that could be extendend and improved</strong> with additional EE-based APIs -e.g Eclipse MicroProfile, DeltaSpike- and vendor-specific improvements -e.g. Hazelcast on Payara, Infinispan on Wildfly-.</p><p>In this article I'll try to elaborate a reponse for a recent question in my development team:</p>
-<blockquote><p>Is it possible to implement a new artifact that uses MicroProfile API within Java EE 7? May I use this artifact also in a Java EE 8 Server?</p>
-</blockquote><p>To answer this question, I prepared a <strong>POC to demonstrate Java EE capabilities</strong>.</p><h2>Is Java EE backward compatible? Is it safe to assume a clean migration from EE 7 to EE 8?</h2><p>One of the most pervasive rules in IT is "if ain't broke, don't fix it", however the <strong>broke is pretty relative in regards of security, bugs and features</strong>.</p><p>Commonly, <strong>security vunlerabilities and regular bugs are patched through vendor specific updates in Java EE</strong>, retaining the feature compatibility through EE API level, hence this kind of updates are considered safer and should be applied proactively.</p><p>However, once a new EE versión is on the streets, <strong>each vendor publish it's product calendar</strong>, being responsable of the future updates and it's expected that any Java EE user will update his stack (or perish :) ).</p><p>In this line Java EE has a complete set of <a href="https://javaee.github.io/javaee-spec/CompatibilityRequirements">requrimentes and backward compatibility instructions, for vendors, spec leads and contributors</a>, this is specially important considering that we receive on every version of Java EE:</p>
+			<p><p>One of the most interesting concepts that made Java EE (and Java) appealing for the enterprise is its <strong>great backward compatibility</strong>, ensuring that years of investment in R&amp;D could be reused in future developments.</p>
+<p>Neverthless one of the least understood facts is that <strong>Java EE in the end is a set of curated APIs that could be extendend and improved</strong> with additional EE-based APIs -e.g Eclipse MicroProfile, DeltaSpike- and vendor-specific improvements -e.g. Hazelcast on Payara, Infinispan on Wildfly-.</p>
+<p>In this article I'll try to elaborate a reponse for a recent question in my development team:</p>
+<blockquote>
+<p>Is it possible to implement a new artifact that uses MicroProfile API within Java EE 7? May I use this artifact also in a Java EE 8 Server?</p>
+</blockquote>
+<p>To answer this question, I prepared a <strong>POC to demonstrate Java EE capabilities</strong>.</p>
+<h2>Is Java EE backward compatible? Is it safe to assume a clean migration from EE 7 to EE 8?</h2>
+<p>One of the most pervasive rules in IT is &quot;if ain't broke, don't fix it&quot;, however the <strong>broke is pretty relative in regards of security, bugs and features</strong>.</p>
+<p>Commonly, <strong>security vunlerabilities and regular bugs are patched through vendor specific updates in Java EE</strong>, retaining the feature compatibility through EE API level, hence this kind of updates are considered safer and should be applied proactively.</p>
+<p>However, once a new EE versión is on the streets, <strong>each vendor publish it's product calendar</strong>, being responsable of the future updates and it's expected that any Java EE user will update his stack (or perish :) ).</p>
+<p>In this line Java EE has a complete set of <a href="https://javaee.github.io/javaee-spec/CompatibilityRequirements">requrimentes and backward compatibility instructions, for vendors, spec leads and contributors</a>, this is specially important considering that we receive on every version of Java EE:</p>
 <ul>
-  <li>New APIs (like Batch in EE 7 or JSON-B in EE 8)</li>
-  <li>APIs that simply don't change and are included in the next EE versión (like Batch in EE 8)</li>
-  <li>APIs with minor updates (Bean Validation in EE 8)</li>
-  <li>APIS with new features and interfaces (reactive client in JAX-RS EE 8)</li>
-</ul><p>According to compatibility requirements, if your code retains and implements only EE standard code you receive source-code compatibility, binary compatibility and behaviour compatibility for any application that uses a previous version of the specificiation, at least that's the idea.</p><h2>Creating a "complex" implementation</h2><p>To test this assumption I've prepared a POC that implements</p>
+<li>New APIs (like Batch in EE 7 or JSON-B in EE 8)</li>
+<li>APIs that simply don't change and are included in the next EE versión (like Batch in EE 8)</li>
+<li>APIs with minor updates (Bean Validation in EE 8)</li>
+<li>APIS with new features and interfaces (reactive client in JAX-RS EE 8)</li>
+</ul>
+<p>According to compatibility requirements, if your code retains and implements only EE standard code you receive source-code compatibility, binary compatibility and behaviour compatibility for any application that uses a previous version of the specificiation, at least that's the idea.</p>
+<h2>Creating a &quot;complex&quot; implementation</h2>
+<p>To test this assumption I've prepared a POC that implements</p>
 <ul>
-  <li>Servlets (updated in EE 8)</li>
-  <li>JAX-RS (updated in EE 8)</li>
-  <li>JPA (minor update in EE 8)</li>
-  <li>Batch (does not change in EE 8)</li>
-  <li>MicroProfile Config (extension)</li>
-  <li>DeltaSpike Data (extension)</li>
-</ul><p><img src="/images/posts/batch/batchee-diagram.png" alt="Batch Structure" title="Components Structure" /></p><p>This application just <strong>loads a bunch of IMDB records <a href="https://raw.githubusercontent.com/KarthikMaharajan/Data-Mining-on-IMDB-Dataset/master/imdb.csv">from a csv file</a> in background to save the records in Derby(Payara 4) and H2(Payara 5)</strong> using the <code>jdbc/__default</code> JTA Datasource.</p><p>For referece, the complete Maven project of this POC is available <a href="https://github.com/tuxtor/batchee-demo">at GitHub</a>.</p><h3>Part 1: File upload</h3><p>The POC a) implements a multipart servlet that receives files from a plain HTML form, b) saves the file using MicroProfile config to retreive the final destination URL and c) Calls a Batch Job named <code>csvJob</code>:</p>
-<pre><code class="prettyprint">@WebServlet(name = &quot;FileUploadServlet&quot;, urlPatterns = &quot;/upload&quot;)
+<li>Servlets (updated in EE 8)</li>
+<li>JAX-RS (updated in EE 8)</li>
+<li>JPA (minor update in EE 8)</li>
+<li>Batch (does not change in EE 8)</li>
+<li>MicroProfile Config (extension)</li>
+<li>DeltaSpike Data (extension)</li>
+</ul>
+<p><img src="/images/posts/batch/batchee-diagram.png" alt="Batch Structure" title="Components Structure" /></p>
+<p>This application just <strong>loads a bunch of IMDB records <a href="https://raw.githubusercontent.com/KarthikMaharajan/Data-Mining-on-IMDB-Dataset/master/imdb.csv">from a csv file</a> in background to save the records in Derby(Payara 4) and H2(Payara 5)</strong> using the <code>jdbc/__default</code> JTA Datasource.</p>
+<p>For referece, the complete Maven project of this POC is available <a href="https://github.com/tuxtor/batchee-demo">at GitHub</a>.</p>
+<h3>Part 1: File upload</h3>
+<p>The POC a) implements a multipart servlet that receives files from a plain HTML form,  b) saves the file using MicroProfile config to retreive the final destination URL and  c) Calls a Batch Job named <code>csvJob</code>:</p>
+<pre><code class="language-prettyprint">@WebServlet(name = &quot;FileUploadServlet&quot;, urlPatterns = &quot;/upload&quot;)
 @MultipartConfig
 public class FileUploadServlet extends HttpServlet {
     @Inject
@@ -158,8 +175,9 @@ public class FileUploadServlet extends HttpServlet {
     }
 
 }
-</code></pre><p>You also need a plain HTML form</p>
-<pre><code class="prettyprint">&lt;h1&gt;CSV Batchee Demo&lt;/h1&gt;
+</code></pre>
+<p>You also need a plain HTML form</p>
+<pre><code class="language-prettyprint">&lt;h1&gt;CSV Batchee Demo&lt;/h1&gt;
 &lt;form action=&quot;upload&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
     &lt;div class=&quot;form-group&quot;&gt;
         &lt;label for=&quot;description&quot;&gt;Description&lt;/label&gt;
@@ -172,8 +190,11 @@ public class FileUploadServlet extends HttpServlet {
 
     &lt;button type=&quot;submit&quot; class=&quot;btn btn-default&quot;&gt;Submit&lt;/button&gt;
 &lt;/form&gt;
-</code></pre><h3>Part 2: Batch Job, JTA and JPA</h3><p><a href="https://javaee.github.io/tutorial/batch-processing.html">As described in Java EE tutorial</a>, typical batch Jobs are composed by steps, these steps also implement a three phase process involving a reader, processor and writer that works by chunks.</p><p>Batch Job is defined by using a XML file located in <code>resources/META-INF/batch-jobs/csvJob.xml</code>, the reader-writer-processor triad will be implemented through named CDI beans.</p>
-<pre><code class="prettyprint">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+</code></pre>
+<h3>Part 2: Batch Job, JTA and JPA</h3>
+<p><a href="https://javaee.github.io/tutorial/batch-processing.html">As described in Java EE tutorial</a>, typical batch Jobs are composed by steps, these steps also implement a three phase process involving a reader, processor and writer that works by chunks.</p>
+<p>Batch Job is defined by using a XML file located in <code>resources/META-INF/batch-jobs/csvJob.xml</code>, the reader-writer-processor triad will be implemented through named CDI beans.</p>
+<pre><code class="language-prettyprint">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;job id=&quot;csvJob&quot; xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
     xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
     xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/jobXML_1_0.xsd&quot;
@@ -187,8 +208,9 @@ public class FileUploadServlet extends HttpServlet {
         &lt;/chunk&gt;
     &lt;/step&gt;
 &lt;/job&gt;
-</code></pre><p>MovieItemReader reads the csv file line per line and wraps the result using a <code>Movie</code> object for the next step, note that open, readItem and checkpointInfo methods are overwritten to ensure that the task restarts properly if needed.</p>
-<pre><code class="prettyprint">@Named
+</code></pre>
+<p>MovieItemReader reads the csv file line per line and wraps the result using a <code>Movie</code> object for the next step, note that open, readItem and checkpointInfo methods are overwritten to ensure that the task restarts properly if needed.</p>
+<pre><code class="language-prettyprint">@Named
 public class MovieItemReader extends AbstractItemReader {
 
 	@Inject
@@ -241,8 +263,9 @@ public class MovieItemReader extends AbstractItemReader {
 	        return recordNumber;
 	}
 }
-</code></pre><p>Since this is a POC my "processing" step just converts the movie title to uppercase and pauses the thread a half second on each row:</p>
-<pre><code class="prettyprint">@Named
+</code></pre>
+<p>Since this is a POC my &quot;processing&quot; step just converts the movie title to uppercase and pauses the thread a half second on each row:</p>
+<pre><code class="language-prettyprint">@Named
 public class MovieItemProcessor implements ItemProcessor {
 
   @Inject
@@ -261,8 +284,9 @@ public class MovieItemProcessor implements ItemProcessor {
       return inputRecord;
   } 
 }
-</code></pre><p>Finally each chunk is written on MovieItemWriter using a DeltaSpike repository:</p>
-<pre><code class="prettyprint">@Named
+</code></pre>
+<p>Finally each chunk is written on MovieItemWriter using a DeltaSpike repository:</p>
+<pre><code class="language-prettyprint">@Named
 public class MovieItemWriter extends AbstractItemWriter {
 
 	@Inject
@@ -278,8 +302,9 @@ public class MovieItemWriter extends AbstractItemWriter {
         }
     }
 }
-</code></pre><p>For reference, this is the Movie Object</p>
-<pre><code class="prettyprint">@Entity
+</code></pre>
+<p>For reference, this is the Movie Object</p>
+<pre><code class="language-prettyprint">@Entity
 @Table(name=&quot;movie&quot;)
 public class Movie implements Serializable {
 
@@ -302,8 +327,9 @@ public class Movie implements Serializable {
     private String releaseYear;
 
     //Getters and setters
-</code></pre><p>Default datasource is configured on <code>resources/META-INF/persistence.xml</code>, note that I'm using a JTA Data Source:</p>
-<pre><code class="prettyprint">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+</code></pre>
+<p>Default datasource is configured on <code>resources/META-INF/persistence.xml</code>, note that I'm using a JTA Data Source:</p>
+<pre><code class="language-prettyprint">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
 &lt;persistence xmlns=&quot;http://xmlns.jcp.org/xml/ns/persistence&quot;
              xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
              xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd&quot;
@@ -321,8 +347,9 @@ public class Movie implements Serializable {
 		    &lt;/properties&gt;
     &lt;/persistence-unit&gt;
 &lt;/persistence&gt;
-</code></pre><p>To test JSON marshalling throug JAX-RS I also implemented a Movie endpoint with GET method, the repository (AKA DAO) is defined by using DeltaSpike</p>
-<pre><code class="prettyprint">@Path(&quot;/movies&quot;)
+</code></pre>
+<p>To test JSON marshalling throug JAX-RS I also implemented a Movie endpoint with GET method, the repository (AKA DAO) is defined by using DeltaSpike</p>
+<pre><code class="language-prettyprint">@Path(&quot;/movies&quot;)
 @Produces({ &quot;application/xml&quot;, &quot;application/json&quot; })
 @Consumes({ &quot;application/xml&quot;, &quot;application/json&quot; })
 public class MovieEndpoint {
@@ -338,16 +365,19 @@ public class MovieEndpoint {
 	}
 
 }
-</code></pre><p>The repository</p>
-<pre><code class="prettyprint">@Repository(forEntity = Movie.class)
+</code></pre>
+<p>The repository</p>
+<pre><code class="language-prettyprint">@Repository(forEntity = Movie.class)
 public abstract class MovieRepository extends AbstractEntityRepository&lt;Movie, Long&gt; {
 	
 	@Inject
     public EntityManager em;
 }
 
-</code></pre><h2>Test 1: Java EE 7 server with Java EE 7 pom</h2><p>Since the objective is to test real backward (lower EE level than server) and forward (Micprofile and DeltaSpike extensions) compatibility, first I built and deployed this project with the following dependencies on <code>pom.xml</code>, the EE 7 Pom vs EE 7 Server test is only executed to verify that project works properly: </p>
-<pre><code class="prettyprint">&lt;dependencies&gt;
+</code></pre>
+<h2>Test 1: Java EE 7 server with Java EE 7 pom</h2>
+<p>Since the objective is to test real backward (lower EE level than server) and forward (Micprofile and DeltaSpike extensions) compatibility, first I built and deployed this project with the following dependencies on <code>pom.xml</code>, the EE 7 Pom vs EE 7 Server  test is only executed to verify that project works properly:</p>
+<pre><code class="language-prettyprint">&lt;dependencies&gt;
         &lt;dependency&gt;
             &lt;groupId&gt;javax&lt;/groupId&gt;
             &lt;artifactId&gt;javaee-api&lt;/artifactId&gt;
@@ -402,14 +432,30 @@ public abstract class MovieRepository extends AbstractEntityRepository&lt;Movie,
         &lt;deltaspike.version&gt;1.8.2&lt;/deltaspike.version&gt;
         &lt;failOnMissingWebXml&gt;false&lt;/failOnMissingWebXml&gt;
     &lt;/properties&gt;
-</code></pre><p>As expected, the application loads the data properly, here two screenshots taken during batch Job Execution:</p><p><img src="/images/posts/batch/payara4a.png" alt="Payara 4 Demo 1" title="Payara 4 Instant 1" /></p><p><img src="/images/posts/batch/payara4b.png" alt="Payara 4 Demo 2" title="Payara 4 Instant 2" /></p><h2>Test 2: Java EE 8 server with Java EE 7 pom</h2><p>To test the real binary compatibility, <strong>the application is deployed without changes on Payara 5 (Java EE 8)</strong>, <a href="https://docs.payara.fish/documentation/payara-micro/h2/h2.html">this Payara release also switches Apache Derby with H2 database</a>. </p><p>As expected and according with Java EE compatibility guidelines, the application works flawesly.</p><p><img src="/images/posts/batch/payara5a.png" alt="Payara 5 Demo 1" title="Payara 5 Instant 1" /></p><p><img src="/images/posts/batch/payara5b.png" alt="Payara 5 Demo 2" title="Payara 5 Instant 2" /></p><p>To verify assumptions, this is a query launched through SQuirrel SQL:<br/><img src="/images/posts/batch/squirel.png" alt="SQuirrel SQL Demo" title="SQuirrel SQL" /></p><h2>Test 3: Java EE 8 server with Java EE 8 pom</h2><p>Finally to enable new EE APIs, a little bit of tweaking is needed on pom.xml, specifically the JavaEE dependency</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+</code></pre>
+<p>As expected, the application loads the data properly, here two screenshots taken during batch Job Execution:</p>
+<p><img src="/images/posts/batch/payara4a.png" alt="Payara 4 Demo 1" title="Payara 4 Instant 1" /></p>
+<p><img src="/images/posts/batch/payara4b.png" alt="Payara 4 Demo 2" title="Payara 4 Instant 2" /></p>
+<h2>Test 2: Java EE 8 server with Java EE 7 pom</h2>
+<p>To test the real binary compatibility, <strong>the application is deployed without changes on Payara 5 (Java EE 8)</strong>, <a href="https://docs.payara.fish/documentation/payara-micro/h2/h2.html">this Payara release also switches Apache Derby with H2 database</a>.</p>
+<p>As expected and according with Java EE compatibility guidelines, the application works flawesly.</p>
+<p><img src="/images/posts/batch/payara5a.png" alt="Payara 5 Demo 1" title="Payara 5 Instant 1" /></p>
+<p><img src="/images/posts/batch/payara5b.png" alt="Payara 5 Demo 2" title="Payara 5 Instant 2" /></p>
+<p>To verify assumptions, this is a query launched through SQuirrel SQL:<br />
+<img src="/images/posts/batch/squirel.png" alt="SQuirrel SQL Demo" title="SQuirrel SQL" /></p>
+<h2>Test 3: Java EE 8 server with Java EE 8 pom</h2>
+<p>Finally to enable new EE APIs, a little bit of tweaking is needed on pom.xml, specifically the JavaEE dependency</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;javax&lt;/groupId&gt;
     &lt;artifactId&gt;javaee-api&lt;/artifactId&gt;
     &lt;version&gt;8.0&lt;/version&gt;
     &lt;scope&gt;provided&lt;/scope&gt;
 &lt;/dependency&gt;
-</code></pre><p>Again, the application just works:</p><p><img src="/images/posts/batch/payara5ee8.png" alt="Payara 5 Java EE 8" title="Payara 5 Java EE 8 pom" /></p><p>This is why standards matters :).</p></p>
+</code></pre>
+<p>Again, the application just works:</p>
+<p><img src="/images/posts/batch/payara5ee8.png" alt="Payara 5 Java EE 8" title="Payara 5 Java EE 8 pom" /></p>
+<p>This is why standards matters :).</p>
+</p>
 
 			<div id="share">
 <!-- Twitter -->
@@ -487,7 +533,7 @@ public abstract class MovieRepository extends AbstractEntityRepository&lt;Movie,
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
       </div>
     </div>
 

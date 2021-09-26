@@ -94,21 +94,51 @@
 	<div class="row">
 
 		<div class="col-md-9">
-			<p><p>. . . or why my report is half empty in Centos 7.</p><p>One of the most common and least emotional tasks in any enterprise software is to produce reports. However after many years today I got <strong>my first "serious bug" in Jasper Reports.</strong></p><h1>The problem</h1><p>My development team is composed by a mix of Ubuntu and Mac OS workstations, hence we could consider that we use user-friendly environments. Between many applications, we have in maintenance mode a not-so small accounting module which produces a considerable amount of reports. This applications is running (most of the times) on Openshift (Red Hat) platforms or on-premise (also Red Hat).</p><p>A recent deployment was carried over a headless(pure cli) CentOS 7 fresh install and after deploying application on the app server, all reports presented the following issue:</p><p>Good report, Red Hat, Mac Os, Ubuntu<br/><a href="/images/posts/jasper/goodreport.png" data-lightbox="image-1" title="Good Report" ><br/> <img class="img-fluid" src="/images/posts/jasper/goodreport.png"><br/></a></p><p>Bad report, Centos 7<br/><a href="/images/posts/jasper/badreport.png" data-lightbox="image-1" title="Bad Report" ><br/> <img class="img-fluid" src="/images/posts/jasper/badreport.png"><br/></a></p><p>At first sight both reports are working and equal, however <strong>in the Centos 7 version, all quantities disappeared</strong> and the only "meaningful" log message related to fonts was:</p>
-<blockquote><p>[org.springframework.beans.factory.xml.XmlBeanDefinitionReader] (default task-1) Loading XML bean definitions from URL [vfs:/content/erp-ear.ear/core-web.war/WEB-INF/lib/DynamicJasper-core-fonts-1.0.jar/fonts<br/>/fonts1334623843090.xml]</p>
-</blockquote><h1>Fonts in Java</h1><p>After many unsuccessful tests like deploying a new application server version, I learnt a little bit about fonts in the Java virtual machine and Jasper Reports.</p><p>According to <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/intl/font.html">Oracle official</a> documentation, you basically have four rules while using fonts in Java, being:</p>
+			<p><p>. . . or why my report is half empty in Centos 7.</p>
+<p>One of the most common and least emotional tasks in any enterprise software is to produce reports. However after many years today I got <strong>my first &quot;serious bug&quot; in Jasper Reports.</strong></p>
+<h1>The problem</h1>
+<p>My development team is composed by a mix of Ubuntu and Mac OS workstations, hence we could consider that we use user-friendly environments. Between many applications, we have in maintenance mode a not-so small accounting module which produces a considerable amount of reports. This applications is running (most of the times) on Openshift (Red Hat) platforms or on-premise (also Red Hat).</p>
+<p>A recent deployment was carried over a headless(pure cli) CentOS 7 fresh install and after deploying application on the app server, all reports presented the following issue:</p>
+<p>Good report, Red Hat, Mac Os, Ubuntu<br />
+<a href="/images/posts/jasper/goodreport.png" data-lightbox="image-1" title="Good Report" ><br />
+<img class="img-fluid" src="/images/posts/jasper/goodreport.png"><br />
+</a></p>
+<p>Bad report, Centos 7<br />
+<a href="/images/posts/jasper/badreport.png" data-lightbox="image-1" title="Bad Report" ><br />
+<img class="img-fluid" src="/images/posts/jasper/badreport.png"><br />
+</a></p>
+<p>At first sight both reports are working and equal, however <strong>in the Centos 7 version, all quantities disappeared</strong> and the only &quot;meaningful&quot; log message related to fonts was:</p>
+<blockquote>
+<p>[org.springframework.beans.factory.xml.XmlBeanDefinitionReader](default task-1) Loading XML bean definitions from URL [vfs:/content/erp-ear.ear/core-web.war/WEB-INF/lib/DynamicJasper-core-fonts-1.0.jar/fonts<br />
+/fonts1334623843090.xml]</p>
+</blockquote>
+<h1>Fonts in Java</h1>
+<p>After many unsuccessful tests like deploying a new application server version, I learnt a little bit about fonts in the Java virtual machine and Jasper Reports.</p>
+<p>According to <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/intl/font.html">Oracle official</a> documentation, you basically have four rules while using fonts in Java, being:</p>
 <ol>
-  <li>Java supports only TTF and Postscript type 1 fonts</li>
-  <li>The only font family included in JDK is Lucida</li>
-  <li>If not Lucida JDK will depend on operating system fonts</li>
-  <li>Java applications will fallback to the sans/serif default font if the required font is not present on the system</li>
-</ol><p>And if you are a Jaspersoft Studio, it makes easy for you to pick Microsoft's True Type fonts</p><p><a href="/images/posts/jasper/pickfont.png" data-lightbox="image-1" title="Pick font" ><br/> <img class="img-fluid" src="/images/posts/jasper/pickfont.png"><br/></a></p><h1>My CentOS 7 solution</h1><p>Of course Jasper Reports has <a href="https://community.jaspersoft.com/wiki/custom-font-font-extension">support for embedding fonts</a>, however report's font was not Lato, Roboto or Sage, <strong>it was the omnipresent Verdana</strong> part of the <a href="https://en.wikipedia.org/wiki/Core_fonts_for_the_Web">"Core fonts for the web"</a> from Microsoft, not included in most Unix variant <a href="https://blogs.oracle.com/solaris/truetype-fonts-v2">due license restrictions</a>.</p><p>Let's assume that nowadays MS Core Fonts are a gray area and you are actually able to install these by using repackaged versions, like mscorefonts2 at sourceforge.</p><p>In CentOS is easy as 1) install dependencies,</p>
+<li>Java supports only TTF and Postscript type 1 fonts</li>
+<li>The only font family included in JDK is Lucida</li>
+<li>If not Lucida JDK will depend on operating system fonts</li>
+<li>Java applications will fallback to the sans/serif default font if the required font is not present on the system</li>
+</ol>
+<p>And if you are a Jaspersoft Studio, it makes easy for you to pick Microsoft's True Type fonts</p>
+<p><a href="/images/posts/jasper/pickfont.png" data-lightbox="image-1" title="Pick font" ><br />
+<img class="img-fluid" src="/images/posts/jasper/pickfont.png"><br />
+</a></p>
+<h1>My CentOS 7 solution</h1>
+<p>Of course Jasper Reports has <a href="https://community.jaspersoft.com/wiki/custom-font-font-extension">support for embedding fonts</a>, however report's font was not Lato, Roboto or Sage, <strong>it was the omnipresent Verdana</strong> part of the <a href="https://en.wikipedia.org/wiki/Core_fonts_for_the_Web">&quot;Core fonts for the web&quot;</a> from Microsoft, not included in most Unix variant <a href="https://blogs.oracle.com/solaris/truetype-fonts-v2">due license restrictions</a>.</p>
+<p>Let's assume that nowadays MS Core Fonts are a gray area and you are actually able to install these by using repackaged versions, like mscorefonts2 at sourceforge.</p>
+<p>In CentOS is easy as 1) install dependencies,</p>
 <pre><code>yum install curl cabextract xorg-x11-font-utils fontconfig
-</code></pre><p>2) download the <a href="http://mscorefonts2.sourceforge.net/">repackaged fonts</a></p>
+</code></pre>
+<p>2) download the <a href="http://mscorefonts2.sourceforge.net/">repackaged fonts</a></p>
 <pre><code>wget https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-2.1-1.noarch.rpm
-</code></pre><p>3) and install the already available rpm file</p>
+</code></pre>
+<p>3) and install the already available rpm file</p>
 <pre><code>yum install msttcore-fonts-2.1-1.noarch.rpm
-</code></pre><p>With this, all reports were fixed. I really hope that you were able to found this post before trying anything else.</p></p>
+</code></pre>
+<p>With this, all reports were fixed. I really hope that you were able to found this post before trying anything else.</p>
+</p>
 
 			<div id="share">
 <!-- Twitter -->
@@ -186,7 +216,7 @@
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
       </div>
     </div>
 

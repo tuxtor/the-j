@@ -94,101 +94,172 @@
 	<div class="row">
 
 		<div class="col-md-9">
-			<p><p><img src="/images/posts/java8java11/shell11.png" alt="shell11" title="shell11" /></p><p>The purpose of this article is to <strong>consolidate all difficulties and solutions that I've encountered while updating Java EE projects from Java 8 to Java 11 (and beyond)</strong>. It's a known fact that Java 11 has a lot of new characteristics that are revolutionizing how Java is used to create applications, despite being problematic under certain conditions.</p><p>This article is focused on Java/Jakarta EE but it could be used as basis for other enterprise Java frameworks and libraries migrations.</p><h2>Is it possible to update Java EE/MicroProfile projects from Java 8 to Java 11?</h2><p>Yes, absolutely. <a href="https://nabenik.com">My team</a> has been able to bump at least two mature enterprise applications with more than three years in development, being:</p><h3>A Management Information System (MIS)</h3><p><img src="/images/posts/java8java11/erp-1024x508.png" alt="Nabenik MIS" title="Nabenik MIS" /></p>
+			<p><p><img src="/images/posts/java8java11/shell11.png" alt="shell11" title="shell11" /></p>
+<p>The purpose of this article is to <strong>consolidate all difficulties and solutions that I've encountered while updating Java EE projects from Java 8 to Java 11 (and beyond)</strong>. It's a known fact that Java 11 has a lot of new characteristics that are revolutionizing how Java is used to create applications, despite being problematic under certain conditions.</p>
+<p>This article is focused on Java/Jakarta EE but it could be used as basis for other enterprise Java frameworks and libraries migrations.</p>
+<h2>Is it possible to update Java EE/MicroProfile projects from Java 8 to Java 11?</h2>
+<p>Yes, absolutely. <a href="https://nabenik.com">My team</a> has been able to bump at least two mature enterprise applications with more than three years in development, being:</p>
+<h3>A Management Information System (MIS)</h3>
+<p><img src="/images/posts/java8java11/erp-1024x508.png" alt="Nabenik MIS" title="Nabenik MIS" /></p>
 <ul>
-  <li>Time for migration: 1 week</li>
-  <li>Modules: 9 EJB, 1 WAR, 1 EAR</li>
-  <li>Classes: 671 and counting</li>
-  <li>Code lines: 39480</li>
-  <li>Project's beginning: 2014</li>
-  <li>Original platform: Java 7, Wildfly 8, Java EE 7</li>
-  <li>Current platform: Java 11, Wildfly 17, Jakarta EE 8, MicroProfile 3.0</li>
-  <li>Web client: Angular</li>
-</ul><h3>Mobile POS and Geo-fence</h3><p><img src="/images/posts/java8java11/rep-1024x467.png" alt="Medmigo REP" title="Medmigo REP" /></p>
+<li>Time for migration: 1 week</li>
+<li>Modules: 9 EJB, 1 WAR, 1 EAR</li>
+<li>Classes: 671 and counting</li>
+<li>Code lines: 39480</li>
+<li>Project's beginning: 2014</li>
+<li>Original platform: Java 7, Wildfly 8, Java EE 7</li>
+<li>Current platform: Java 11, Wildfly 17, Jakarta EE 8, MicroProfile 3.0</li>
+<li>Web client: Angular</li>
+</ul>
+<h3>Mobile POS and Geo-fence</h3>
+<p><img src="/images/posts/java8java11/rep-1024x467.png" alt="Medmigo REP" title="Medmigo REP" /></p>
 <ul>
-  <li>Time for migration: 3 week</li>
-  <li>Modules: 5 WAR/MicroServices</li>
-  <li>Classes: 348 and counting</li>
-  <li>Code lines: 17160</li>
-  <li>Project's beginning: 2017</li>
-  <li>Original platform: Java 8, Glassfish 4, Java EE 7</li>
-  <li>Current platform: Java 11, Payara (Micro) 5, Jakarta EE 8, MicroProfile 3.2</li>
-  <li>Web client: Angular</li>
-</ul><h2>Why should I ever consider migrating to Java 11?</h2><p>As everything in IT the answer is "It depends . . .". However there are a couple of good reasons to do it:</p>
+<li>Time for migration: 3 week</li>
+<li>Modules: 5 WAR/MicroServices</li>
+<li>Classes: 348 and counting</li>
+<li>Code lines: 17160</li>
+<li>Project's beginning: 2017</li>
+<li>Original platform: Java 8, Glassfish 4, Java EE 7</li>
+<li>Current platform: Java 11, Payara (Micro) 5, Jakarta EE 8, MicroProfile 3.2</li>
+<li>Web client: Angular</li>
+</ul>
+<h2>Why should I ever consider migrating to Java 11?</h2>
+<p>As everything in IT the answer is &quot;It depends . . .&quot;. However there are a couple of good reasons to do it:</p>
 <ol>
-  <li>Reduce <a href="https://securitytrails.com/blog/attack-surface">attack surface</a> by updating project dependencies proactively</li>
-  <li>Reduce <a href="https://dzone.com/articles/dealing-technical-debt">technical debt</a> and most importantly, prepare your project for the new and dynamic Java world</li>
-  <li>Take advantage of <a href="https://optaweb.org/blog/2019/01/17/HowMuchFasterIsJava11.html">performance improvements</a> on new JVM versions</li>
-  <li>Take advantage from improvements of <a href="https://www.forbes.com/sites/oracle/2020/04/02/java-14-makes-code-super-expressive-say-top-developers/">Java as programming language</a></li>
-  <li>Sleep better by having a more secure, efficient and quality product</li>
-</ol><h2>Why Java updates from Java 8 to Java 11 are considered difficult?</h2><p>From my experience with many teams, because of this:</p><h3>Changes in Java release cadence</h3><p><img src="/images/posts/java8java11/javareleasecadence.png" alt="Java Release Cadence" title="Java Release Cadence" /></p><p>Currently, there are <a href="https://www.oracle.com/java/technologies/java-se-support-roadmap.html">two big branches in JVMs release model</a>:</p>
+<li>Reduce <a href="https://securitytrails.com/blog/attack-surface">attack surface</a> by updating project dependencies proactively</li>
+<li>Reduce <a href="https://dzone.com/articles/dealing-technical-debt">technical debt</a> and most importantly, prepare your project for the new and dynamic Java world</li>
+<li>Take advantage of <a href="https://optaweb.org/blog/2019/01/17/HowMuchFasterIsJava11.html">performance improvements</a> on new JVM versions</li>
+<li>Take advantage from improvements of <a href="https://www.forbes.com/sites/oracle/2020/04/02/java-14-makes-code-super-expressive-say-top-developers/">Java as programming language</a></li>
+<li>Sleep better by having a more secure, efficient and quality product</li>
+</ol>
+<h2>Why Java updates from Java 8 to Java 11 are considered difficult?</h2>
+<p>From my experience with many teams, because of this:</p>
+<h3>Changes in Java release cadence</h3>
+<p><img src="/images/posts/java8java11/javareleasecadence.png" alt="Java Release Cadence" title="Java Release Cadence" /></p>
+<p>Currently, there are <a href="https://www.oracle.com/java/technologies/java-se-support-roadmap.html">two big branches in JVMs release model</a>:</p>
 <ul>
-  <li>Java LTS: With a fixed lifetime (3 years) for long term support, being Java 11 the latest one</li>
-  <li>Java current: A fast-paced Java version that is available every 6 months over a predictable calendar, being Java 15 the latest (at least at the time of publishing for this article)</li>
-</ul><p>The rationale behind this decision is that <strong>Java needed dynamism in providing new characteristics to the language, API and JVM</strong>, which I really agree.</p><p>Nevertheless, <strong>it is a know fact that most enterprise frameworks seek and use Java for stability</strong>. Consequently, most of these frameworks target Java 11 as "certified" Java Virtual Machine for deployments.</p><h3>Usage of internal APIs</h3><p><img src="/images/posts/java8java11/versiones-1024x516.png" alt="Java 9" title="Java 9" /></p><p>Errata: I <a href="https://www.reddit.com/r/java/comments/iyknaa/general_considerations_on_updating_enterprise/">fixed and simplified this section following an interesting discussion on reddit :)</a></p><p><strong>Java 9 introduced changes in internal classes that weren't meant for usage outside JVM</strong>, preventing/breaking the functionality of popular libraries that made use of these internals -e.g. Hibernate, ASM, Hazelcast- to gain performance.</p><p>Hence to avoid it, internal APIs in JDK 9 are inaccessible at compile time (but accesible with --add-exports), remaining accessible if they were in JDK 8 but in a future release they will become inaccessible, <strong>in the long run this change will reduce the costs borne by the maintainers of the JDK itself and by the maintainers of libraries and applications that, knowingly or not, make use of these internal APIs</strong>.</p><p>Finally, during the introduction of JEP-260 internal APIs were classified as critical and non-critical, consequently critical internal APIs for which replacements are introduced in JDK 9 are deprecated in JDK 9 and will be either encapsulated or removed in a future release.</p><p>However, you are inside the danger zone if:</p>
+<li>Java LTS: With a fixed lifetime (3 years) for long term support, being Java 11 the latest one</li>
+<li>Java current: A fast-paced Java version that is available every 6 months over a predictable calendar, being Java 15 the latest (at least at the time of publishing for this article)</li>
+</ul>
+<p>The rationale behind this decision is that <strong>Java needed dynamism in providing new characteristics to the language, API and JVM</strong>, which I really agree.</p>
+<p>Nevertheless, <strong>it is a know fact that most enterprise frameworks seek and use Java for stability</strong>. Consequently, most of these frameworks target Java 11 as &quot;certified&quot; Java Virtual Machine for deployments.</p>
+<h3>Usage of internal APIs</h3>
+<p><img src="/images/posts/java8java11/versiones-1024x516.png" alt="Java 9" title="Java 9" /></p>
+<p>Errata: I <a href="https://www.reddit.com/r/java/comments/iyknaa/general_considerations_on_updating_enterprise/">fixed and simplified this section following an interesting discussion on reddit :)</a></p>
+<p><strong>Java 9 introduced changes in internal classes that weren't meant for usage outside JVM</strong>, preventing/breaking the functionality of popular libraries that made use of these internals -e.g. Hibernate, ASM, Hazelcast- to gain performance.</p>
+<p>Hence to avoid it, internal APIs in JDK 9 are inaccessible at compile time (but accesible with --add-exports), remaining accessible if they were in JDK 8 but in a future release they will become inaccessible, <strong>in the long run this change will reduce the costs borne by the maintainers of the JDK itself and by the maintainers of libraries and applications that, knowingly or not, make use of these internal APIs</strong>.</p>
+<p>Finally, during the introduction of JEP-260 internal APIs were classified as critical and non-critical, consequently critical internal APIs for which replacements are introduced in JDK 9 are deprecated in JDK 9 and will be either encapsulated or removed in a future release.</p>
+<p>However, you are inside the danger zone if:</p>
 <ol>
-  <li>Your project compiles against dependencies pre-Java 9 depending on critical internals</li>
-  <li>You bundle dependencies pre-Java 9 depending on critical internals</li>
-  <li>You run your applications over a runtime -e.g. Application Servers- that include pre Java 9 transitive dependencies</li>
-</ol><p>Any of these situations means that your application has a probability of not being compatible with JVMs above Java 8. At least not without updating your dependencies, which also could uncover breaking changes in library APIs creating mandatory refactors.</p><h3>Removal of CORBA and Java EE modules from OpenJDK</h3><p><img src="/images/posts/java8java11/jep320.png" alt="JEP230" title="JEP230" /></p><p>Also during Java 9 release, many Java EE and CORBA modules <a href="https://cr.openjdk.java.net/~iris/se/9/java-se-9-fr-spec/#APIs-proposed-for-removal">were marked as deprecated</a>, <strong>being effectively <a href="https://openjdk.java.net/jeps/320">removed at Java 11</a></strong>, specifically:</p>
+<li>Your project compiles against dependencies pre-Java 9 depending on critical internals</li>
+<li>You bundle dependencies pre-Java 9 depending on critical internals</li>
+<li>You run your applications over a runtime -e.g. Application Servers- that include pre Java 9 transitive dependencies</li>
+</ol>
+<p>Any of these situations means that your application has a probability of not being compatible with JVMs above Java 8. At least not without updating your dependencies, which also could uncover breaking changes in library APIs creating mandatory refactors.</p>
+<h3>Removal of CORBA and Java EE modules from OpenJDK</h3>
+<p><img src="/images/posts/java8java11/jep320.png" alt="JEP230" title="JEP230" /></p>
+<p>Also during Java 9 release, many Java EE and CORBA modules <a href="https://cr.openjdk.java.net/~iris/se/9/java-se-9-fr-spec/#APIs-proposed-for-removal">were marked as deprecated</a>, <strong>being effectively <a href="https://openjdk.java.net/jeps/320">removed at Java 11</a></strong>, specifically:</p>
 <ul>
-  <li>java.xml.ws (JAX-WS, plus the related technologies SAAJ and Web Services Metadata)</li>
-  <li>java.xml.bind (JAXB)</li>
-  <li>java.activation (JAF)</li>
-  <li>java.xml.ws.annotation (Common Annotations)</li>
-  <li>java.corba (CORBA)</li>
-  <li>java.transaction (JTA)</li>
-  <li>java.se.ee (Aggregator module for the six modules above)</li>
-  <li>jdk.xml.ws (Tools for JAX-WS)</li>
-  <li>jdk.xml.bind (Tools for JAXB)</li>
-</ul><p>As JEP-320 states, many of these modules were included in Java 6 as a convenience to generate/support SOAP Web Services. But these modules eventually took off as independent projects already available at Maven Central. <strong>Therefore it is necessary to include these as dependencies</strong> if our project implements services with JAX-WS and/or depends on any library/utility that was included previously.</p><h3>IDEs and application servers</h3><p><img src="/images/posts/java8java11/eclipse11.png" alt="Eclipse" title="Eclipse" /></p><p>In the same way as libraries, Java IDEs had to catch-up with the introduction of Java 9 at least in three levels:</p>
+<li>java.xml.ws (JAX-WS, plus the related technologies SAAJ and Web Services Metadata)</li>
+<li>java.xml.bind (JAXB)</li>
+<li>java.activation (JAF)</li>
+<li>java.xml.ws.annotation (Common Annotations)</li>
+<li>java.corba (CORBA)</li>
+<li>java.transaction (JTA)</li>
+<li>java.se.ee (Aggregator module for the six modules above)</li>
+<li>jdk.xml.ws (Tools for JAX-WS)</li>
+<li>jdk.xml.bind (Tools for JAXB)</li>
+</ul>
+<p>As JEP-320 states, many of these modules were included in Java 6 as a convenience to generate/support SOAP Web Services. But these modules eventually took off as independent projects already available at Maven Central. <strong>Therefore it is necessary to include these as dependencies</strong> if our project implements services with JAX-WS and/or depends on any library/utility that was included previously.</p>
+<h3>IDEs and application servers</h3>
+<p><img src="/images/posts/java8java11/eclipse11.png" alt="Eclipse" title="Eclipse" /></p>
+<p>In the same way as libraries, Java IDEs had to catch-up with the introduction of Java 9 at least in three levels:</p>
 <ol>
-  <li>IDEs as Java programs should be compatible with Java Modules</li>
-  <li>IDEs should support new Java versions as programming language -i.e. Incremental compilation, linting, text analysis, modules-</li>
-  <li>IDEs are also basis for an ecosystem of plugins that are developed independently. Hence if plugins have any transitive dependency with issues over JPMS, these also have to be updated</li>
-</ol><p>Overall, none of the Java IDEs guaranteed that plugins will work in JVMs above Java 8. Therefore you could possibly run your IDE over Java 11 but a legacy/deprecated plugin could prevent you to run your application.</p><h2>How do I update?</h2><p>You must notice that Java 9 launched three years ago, hence the situations previously described are mostly covered. However you should do the following verifications and actions to prevent failures in the process:</p>
+<li>IDEs as Java programs should be compatible with Java Modules</li>
+<li>IDEs should support new Java versions as programming language -i.e. Incremental compilation, linting, text analysis, modules-</li>
+<li>IDEs are also basis for an ecosystem of plugins that are developed independently. Hence if plugins have any transitive dependency with issues over JPMS, these also have to be updated</li>
+</ol>
+<p>Overall, none of the Java IDEs guaranteed that plugins will work in JVMs above Java 8. Therefore you could possibly run your IDE over Java 11 but a legacy/deprecated plugin could prevent you to run your application.</p>
+<h2>How do I update?</h2>
+<p>You must notice that Java 9 launched three years ago, hence the situations previously described are mostly covered. However you should do the following verifications and actions to prevent failures in the process:</p>
 <ol>
-  <li>Verify server compatibility</li>
-  <li>Verify if you need a specific JVM due support contracts and conditions</li>
-  <li>Configure your development environment to support multiple JVMs during the migration process</li>
-  <li>Verify your IDE compatibility and update</li>
-  <li>Update Maven and Maven projects</li>
-  <li>Update dependencies</li>
-  <li>Include Java/Jakarta EE dependencies</li>
-  <li>Execute multiple JVMs in production</li>
-</ol><h3>Verify server compatibility</h3><p><img src="/images/posts/java8java11/tomcat.png" alt="Tomcat" title="Tomcat" /></p><p><strong><a href="https://www.oreilly.com/radar/rethinking-programming/">Mike Luikides from O'Reilly affirms</a> that there are two types of programmers</strong>. In one hand we have the low level programmers that create tools as libraries or frameworks, and on the other hand we have developers that use these tools to create experience, products and services.</p><p><strong>Java Enterprise is mostly on the second hand, the "productive world" resting in giant's shoulders</strong>. That's why you should check first if your runtime or framework already has a version compatible with Java 11, and also if you have the time/decision power to proceed with an update. If not, any other action from this point is useless.</p><p>The good news is that most of the popular servers in enterprise Java world are already compatible, like:</p>
+<li>Verify server compatibility</li>
+<li>Verify if you need a specific JVM due support contracts and conditions</li>
+<li>Configure your development environment to support multiple JVMs during the migration process</li>
+<li>Verify your IDE compatibility and update</li>
+<li>Update Maven and Maven projects</li>
+<li>Update dependencies</li>
+<li>Include Java/Jakarta EE dependencies</li>
+<li>Execute multiple JVMs in production</li>
+</ol>
+<h3>Verify server compatibility</h3>
+<p><img src="/images/posts/java8java11/tomcat.png" alt="Tomcat" title="Tomcat" /></p>
+<p><strong><a href="https://www.oreilly.com/radar/rethinking-programming/">Mike Luikides from O'Reilly affirms</a> that there are two types of programmers</strong>. In one hand we have the low level programmers that create tools as libraries or frameworks, and on the other hand we have developers that use these tools to create experience, products and services.</p>
+<p><strong>Java Enterprise is mostly on the second hand, the &quot;productive world&quot; resting in giant's shoulders</strong>. That's why you should check first if your runtime or framework already has a version compatible with Java 11, and also if you have the time/decision power to proceed with an update. If not, any other action from this point is useless.</p>
+<p>The good news is that most of the popular servers in enterprise Java world are already compatible, like:</p>
 <ul>
-  <li><a href="http://tomcat.apache.org/whichversion.html">Apache Tomcat</a></li>
-  <li><a href="https://winterbe.com/posts/2018/08/29/migrate-maven-projects-to-java-11-jigsaw/">Apache Maven</a></li>
-  <li><a href="https://spring.io/blog/2020/03/11/spring-tips-java-14-or-can-your-java-do-this">Spring</a></li>
-  <li><a href="https://docs.oracle.com/en/middleware/standalone/weblogic-server/14.1.1.0/notes/whatsnew.html">Oracle WebLogic</a></li>
-  <li><a href="https://blog.payara.fish/jdk-11-support-available-in-payara-platform-194">Payara</a></li>
-  <li><a href="http://tomee-openejb.979440.n4.nabble.com/Does-TomEE-8-0-0-run-on-Java-11-td4690633.html">Apache TomEE</a><br/>... among others</li>
-</ul><p>If you happen to depend on non compatible runtimes, <strong>this is where the road ends unless you support the maintainer to update it</strong>.</p><h3>Verify if you need an specific JVM</h3><p><img src="/images/posts/java8java11/fixes.png" alt="FixesJDK15" title="FixesJDK15" /></p><p>On a non-technical side, under support contract conditions you could be obligated to use an specific JVM version.</p><p><strong>OpenJDK by itself is an open source project receiving contributions from many companies (being Oracle the most active contributor)</strong>, but nothing prevents any other company to compile, pack and TCK other JVM distribution as demonstrated by <a href="https://aws.amazon.com/corretto/">Amazon Correto</a>, <a href="https://www.azul.com/downloads/zulu-community/">Azul Zulu</a>, <a href="https://bell-sw.com/">Liberica JDK</a>, etc.</p><p>In short, there is software that technically could run over any JVM distribution and version, but the support contract will ask you for a particular version. For instance:</p>
+<li><a href="http://tomcat.apache.org/whichversion.html">Apache Tomcat</a></li>
+<li><a href="https://winterbe.com/posts/2018/08/29/migrate-maven-projects-to-java-11-jigsaw/">Apache Maven</a></li>
+<li><a href="https://spring.io/blog/2020/03/11/spring-tips-java-14-or-can-your-java-do-this">Spring</a></li>
+<li><a href="https://docs.oracle.com/en/middleware/standalone/weblogic-server/14.1.1.0/notes/whatsnew.html">Oracle WebLogic</a></li>
+<li><a href="https://blog.payara.fish/jdk-11-support-available-in-payara-platform-194">Payara</a></li>
+<li><a href="http://tomee-openejb.979440.n4.nabble.com/Does-TomEE-8-0-0-run-on-Java-11-td4690633.html">Apache TomEE</a><br />
+... among others</li>
+</ul>
+<p>If you happen to depend on non compatible runtimes, <strong>this is where the road ends unless you support the maintainer to update it</strong>.</p>
+<h3>Verify if you need an specific JVM</h3>
+<p><img src="/images/posts/java8java11/fixes.png" alt="FixesJDK15" title="FixesJDK15" /></p>
+<p>On a non-technical side, under support contract conditions you could be obligated to use an specific JVM version.</p>
+<p><strong>OpenJDK by itself is an open source project receiving contributions from many companies (being Oracle the most active contributor)</strong>, but nothing prevents any other company to compile, pack and TCK other JVM distribution as demonstrated by <a href="https://aws.amazon.com/corretto/">Amazon Correto</a>, <a href="https://www.azul.com/downloads/zulu-community/">Azul Zulu</a>, <a href="https://bell-sw.com/">Liberica JDK</a>, etc.</p>
+<p>In short, there is software that technically could run over any JVM distribution and version, but the support contract will ask you for a particular version. For instance:</p>
 <ul>
-  <li>WebLogic is only <a href="https://docs.oracle.com/en/middleware/standalone/weblogic-server/14.1.1.0/notes/whatsnew.html#GUID-960100E8-DFC1-49E5-8CED-1EC1D883A42F">certified for Oracle HotSpot and GraalVM</a></li>
-  <li>SAP Netweaver <a href="https://wiki.scn.sap.com/wiki/display/ASJAVA/SAP%20JVM%20Netweaver%20compatibility%20and%20Installation">includes by itself SAP JVM</a></li>
-</ul><h3>Configure your development environment to support multiple JDKs</h3><p>Since the jump from Java 8 to Java 11 is mostly an experimentation process, it is a good idea to install multiple JVMs on the development computer, being SDKMan and jEnv the common options:</p><h4>SDKMan</h4><p><img src="/images/posts/java8java11/sdkman.jpg" alt="sdkman" title="sdkman" /></p><p>SDKMan is available for Unix-Like environments (Linux, Mac OS, Cygwin, BSD) and as the name suggests, acts as a Java tools package manager.</p><p>It helps to install and manage JVM ecosystem tools -e.g. Maven, Gradle, Leiningen- and also <a href="https://sdkman.io/jdks">multiple JDK installations</a> from different providers.</p><h4>jEnv</h4><p><img src="/images/posts/java8java11/jenv.png" alt="jenv" title="jenv" /></p><p>Also available for Unix-Like environments (Linux, Mac OS, Cygwin, BSD), jEnv is basically a script to manage and switch multiple JVM installations per system, user and shell.</p><p>If you happen to install JDKs from different sources -e.g Homebrew, Linux Repo, Oracle Technology Network- it is a good choice.</p><p>Finally, if you use Windows the common alternative is to <a href="https://blogs.oracle.com/pranav/switch-between-different-jdk-versions-in-windows">automate the switch using .bat files</a> however I would appreciate any other suggestion since I don't use Windows so often. </p><h3>Verify your IDE compatibility and update</h3><p>Please remember that any IDE ecosystem is composed by three levels:</p>
+<li>WebLogic is only <a href="https://docs.oracle.com/en/middleware/standalone/weblogic-server/14.1.1.0/notes/whatsnew.html#GUID-960100E8-DFC1-49E5-8CED-1EC1D883A42F">certified for Oracle HotSpot and GraalVM</a></li>
+<li>SAP Netweaver <a href="https://wiki.scn.sap.com/wiki/display/ASJAVA/SAP%20JVM%20Netweaver%20compatibility%20and%20Installation">includes by itself SAP JVM</a></li>
+</ul>
+<h3>Configure your development environment to support multiple JDKs</h3>
+<p>Since the jump from Java 8 to Java 11 is mostly an experimentation process, it is a good idea to install multiple JVMs on the development computer, being SDKMan and jEnv the common options:</p>
+<h4>SDKMan</h4>
+<p><img src="/images/posts/java8java11/sdkman.jpg" alt="sdkman" title="sdkman" /></p>
+<p>SDKMan is available for Unix-Like environments (Linux, Mac OS, Cygwin, BSD) and as the name suggests, acts as a Java tools package manager.</p>
+<p>It helps to install and manage JVM ecosystem tools -e.g. Maven, Gradle, Leiningen- and also <a href="https://sdkman.io/jdks">multiple JDK installations</a> from different providers.</p>
+<h4>jEnv</h4>
+<p><img src="/images/posts/java8java11/jenv.png" alt="jenv" title="jenv" /></p>
+<p>Also available for Unix-Like environments (Linux, Mac OS, Cygwin, BSD), jEnv is basically a script to manage and switch multiple JVM installations per system, user and shell.</p>
+<p>If you happen to install JDKs from different sources -e.g Homebrew, Linux Repo, Oracle Technology Network- it is a good choice.</p>
+<p>Finally, if you use Windows the common alternative is to <a href="https://blogs.oracle.com/pranav/switch-between-different-jdk-versions-in-windows">automate the switch using .bat files</a> however I would appreciate any other suggestion since I don't use Windows so often.</p>
+<h3>Verify your IDE compatibility and update</h3>
+<p>Please remember that any IDE ecosystem is composed by three levels:</p>
 <ol>
-  <li>The IDE acting as platform</li>
-  <li>Programming language support</li>
-  <li>Plugins to support tools and libraries</li>
-</ol><p>After updating your IDE, you should also verify if all of the plugins that make part of your development cycle work fine under Java 11.</p><h3>Update Maven and Maven projects</h3><p><img src="/images/posts/java8java11/maven.png" alt="maven" title="maven" /></p><p>Probably the most common choice in Enterprise Java is Maven, and many IDEs use it under the hood or explicitly. Hence, you should update it.</p><p>Besides installation, please remember that Maven has a modular architecture and Maven modules version could be forced on any project definition. So, as rule of thumb you should also update these modules in your projects to the <a href="https://maven.apache.org/pom-archives/default-plugins-LATEST/plugin-management.html">latest stable version</a>.</p><p>To verify this quickly, you could use <a href="https://www.mojohaus.org/versions-maven-plugin/">versions-maven-plugin</a>:</p>
-<pre><code class="prettyprint">&lt;plugin&gt;
+<li>The IDE acting as platform</li>
+<li>Programming language support</li>
+<li>Plugins to support tools and libraries</li>
+</ol>
+<p>After updating your IDE, you should also verify if all of the plugins that make part of your development cycle work fine under Java 11.</p>
+<h3>Update Maven and Maven projects</h3>
+<p><img src="/images/posts/java8java11/maven.png" alt="maven" title="maven" /></p>
+<p>Probably the most common choice in Enterprise Java is Maven, and many IDEs use it under the hood or explicitly. Hence, you should update it.</p>
+<p>Besides installation, please remember that Maven has a modular architecture and Maven modules version could be forced on any project definition. So, as rule of thumb you should also update these modules in your projects to the <a href="https://maven.apache.org/pom-archives/default-plugins-LATEST/plugin-management.html">latest stable version</a>.</p>
+<p>To verify this quickly, you could use <a href="https://www.mojohaus.org/versions-maven-plugin/">versions-maven-plugin</a>:</p>
+<pre><code class="language-prettyprint">&lt;plugin&gt;
       &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
       &lt;artifactId&gt;versions-maven-plugin&lt;/artifactId&gt;
       &lt;version&gt;2.8.1&lt;/version&gt;
 &lt;/plugin&gt;
-</code></pre><p>Which includes a specific goal to verify Maven plugins versions:</p>
-<pre><code class="prettyprint">mvn versions:display-plugin-updates
-</code></pre><p><img src="/images/posts/java8java11/maven-versions-output.png" alt="mavenversions" title="mavenversions" /></p><p>After that, you also need to configure Java source and target compatibility, generally this is achieved in two points.</p><p>As properties:</p>
-<pre><code class="prettyprint">&lt;properties&gt;
+</code></pre>
+<p>Which includes a specific goal to verify Maven plugins versions:</p>
+<pre><code class="language-prettyprint">mvn versions:display-plugin-updates
+</code></pre>
+<p><img src="/images/posts/java8java11/maven-versions-output.png" alt="mavenversions" title="mavenversions" /></p>
+<p>After that, you also need to configure Java source and target compatibility, generally this is achieved in two points.</p>
+<p>As properties:</p>
+<pre><code class="language-prettyprint">&lt;properties&gt;
         ...
     &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
     &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
 &lt;/properties&gt;
-</code></pre><p>As configuration on Maven plugins, specially in maven-compiler-plugin:</p>
-<pre><code class="prettyprint">&lt;plugin&gt;
+</code></pre>
+<p>As configuration on Maven plugins, specially in maven-compiler-plugin:</p>
+<pre><code class="language-prettyprint">&lt;plugin&gt;
     &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
     &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
     &lt;version&gt;3.8.0&lt;/version&gt;
@@ -196,8 +267,10 @@
         &lt;release&gt;11&lt;/release&gt;
     &lt;/configuration&gt;
 &lt;/plugin&gt;
-</code></pre><p>Finally, some plugins need to "break" the barriers imposed by Java Modules and Java Platform Teams knows about it. Hence JVM has an <a href="https://docs.oracle.com/javase/9/tools/java.htm#JSWOR624">argument called illegal-access</a> to allow this, at least during Java 11.</p><p>This could be a good idea in plugins like surefire and failsafe which also invoke runtimes that depend on this flag (like Arquillian tests):</p>
-<pre><code class="prettyprint">&lt;plugin&gt;
+</code></pre>
+<p>Finally, some plugins need to &quot;break&quot; the barriers imposed by Java Modules and Java Platform Teams knows about it. Hence JVM has an <a href="https://docs.oracle.com/javase/9/tools/java.htm#JSWOR624">argument called illegal-access</a> to allow this, at least during Java 11.</p>
+<p>This could be a good idea in plugins like surefire and failsafe which also invoke runtimes that depend on this flag (like Arquillian tests):</p>
+<pre><code class="language-prettyprint">&lt;plugin&gt;
     &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
     &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
     &lt;version&gt;2.22.0&lt;/version&gt;
@@ -217,106 +290,150 @@
         &lt;/argLine&gt;
     &lt;/configuration&gt;
 &lt;/plugin&gt;
-</code></pre><h3>Update project dependencies</h3><p>As mentioned before, you need to check for compatible versions on your Java dependencies. Sometimes these libraries could introduce breaking changes on each major version -e.g. Flyway- and you should consider a time to refactor this changes.</p><p>Again, if you use Maven <a href="https://www.mojohaus.org/versions-maven-plugin/">versions-maven-plugin</a> has a goal to verify dependencies version. The plugin will inform you about available updates.:</p>
-<pre><code class="prettyprint">mvn versions:display-dependency-updates
-</code></pre><p><img src="/images/posts/java8java11/maven-dependency-update.png" alt="mavendependency" title="mavendependency" /></p><p>In the particular case of Java EE, you already have an advantage. <strong>If you depend only on APIs -e.g. Java EE, MicroProfile- and not particular implementations, many of these issues are already solved for you</strong>.</p><h3>Include Java/Jakarta EE dependencies</h3><p><img src="/images/posts/java8java11/jakarta.png" alt="jakarta" title="jakarta" /></p><p>Probably modern REST based services won't need this, <strong>however in projects with heavy usage of SOAP and XML marshalling is mandatory to include the Java EE modules removed on Java 11</strong>. Otherwise your project won't compile and run.</p><p>You must include as dependency:</p>
+</code></pre>
+<h3>Update project dependencies</h3>
+<p>As mentioned before, you need to check for compatible versions on your Java dependencies. Sometimes these libraries could introduce breaking changes on each major version -e.g. Flyway- and you should consider a time to refactor this changes.</p>
+<p>Again, if you use Maven <a href="https://www.mojohaus.org/versions-maven-plugin/">versions-maven-plugin</a> has a goal to verify dependencies version. The plugin will inform you about available updates.:</p>
+<pre><code class="language-prettyprint">mvn versions:display-dependency-updates
+</code></pre>
+<p><img src="/images/posts/java8java11/maven-dependency-update.png" alt="mavendependency" title="mavendependency" /></p>
+<p>In the particular case of Java EE, you already have an advantage. <strong>If you depend only on APIs -e.g. Java EE, MicroProfile- and not particular implementations, many of these issues are already solved for you</strong>.</p>
+<h3>Include Java/Jakarta EE dependencies</h3>
+<p><img src="/images/posts/java8java11/jakarta.png" alt="jakarta" title="jakarta" /></p>
+<p>Probably modern REST based services won't need this, <strong>however in projects with heavy usage of SOAP and XML marshalling is mandatory to include the Java EE modules removed on Java 11</strong>. Otherwise your project won't compile and run.</p>
+<p>You must include as dependency:</p>
 <ul>
-  <li>API definition</li>
-  <li>Reference Implementation (if needed)</li>
-</ul><p><strong>At this point is also a good idea to evaluate if you could move to Jakarta EE</strong>, <a href="https://dzone.com/articles/jakarta-ee-generation-iv-a-new-hope">the evolution of Java EE under Eclipse Foundation</a>.</p><p>Jakarta EE 8 is practically Java EE 8 with another name, but it retains package and features compatibility, <a href="https://jakarta.ee/compatibility/">most of application servers are in the process or already have Jakarta EE certified implementations</a>:</p><p>We could swap the Java EE API:</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+<li>API definition</li>
+<li>Reference Implementation (if needed)</li>
+</ul>
+<p><strong>At this point is also a good idea to evaluate if you could move to Jakarta EE</strong>, <a href="https://dzone.com/articles/jakarta-ee-generation-iv-a-new-hope">the evolution of Java EE under Eclipse Foundation</a>.</p>
+<p>Jakarta EE 8 is practically Java EE 8 with another name, but it retains package and features compatibility, <a href="https://jakarta.ee/compatibility/">most of application servers are in the process or already have Jakarta EE certified implementations</a>:</p>
+<p>We could swap the Java EE API:</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;javax&lt;/groupId&gt;
     &lt;artifactId&gt;javaee-api&lt;/artifactId&gt;
     &lt;version&gt;8.0.1&lt;/version&gt;
     &lt;scope&gt;provided&lt;/scope&gt;
 &lt;/dependency&gt;
-</code></pre><p>For Jakarta EE API:</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+</code></pre>
+<p>For Jakarta EE API:</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;jakarta.platform&lt;/groupId&gt;
     &lt;artifactId&gt;jakarta.jakartaee-api&lt;/artifactId&gt;
     &lt;version&gt;8.0.0&lt;/version&gt;
     &lt;scope&gt;provided&lt;/scope&gt;
 &lt;/dependency&gt;
-</code></pre><p>After that, please include any of these dependencies (if needed):</p><h4>Java Beans Activation</h4><p>Java EE</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+</code></pre>
+<p>After that, please include any of these dependencies (if needed):</p>
+<h4>Java Beans Activation</h4>
+<p>Java EE</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;javax.activation&lt;/groupId&gt;
     &lt;artifactId&gt;javax.activation-api&lt;/artifactId&gt;
     &lt;version&gt;1.2.0&lt;/version&gt;
 &lt;/dependency&gt;
-</code></pre><p>Jakarta EE</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+</code></pre>
+<p>Jakarta EE</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;jakarta.activation&lt;/groupId&gt;
     &lt;artifactId&gt;jakarta.activation-api&lt;/artifactId&gt;
     &lt;version&gt;1.2.2&lt;/version&gt;
 &lt;/dependency&gt;
-</code></pre><h4>JAXB (Java XML Binding)</h4><p>Java EE</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+</code></pre>
+<h4>JAXB (Java XML Binding)</h4>
+<p>Java EE</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;javax.xml.bind&lt;/groupId&gt;
     &lt;artifactId&gt;jaxb-api&lt;/artifactId&gt;
     &lt;version&gt;2.3.1&lt;/version&gt;
 &lt;/dependency&gt;
-</code></pre><p>Jakarta EE</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+</code></pre>
+<p>Jakarta EE</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;jakarta.xml.bind&lt;/groupId&gt;
     &lt;artifactId&gt;jakarta.xml.bind-api&lt;/artifactId&gt;
     &lt;version&gt;2.3.3&lt;/version&gt;
 &lt;/dependency&gt;
-</code></pre><p>Implementation</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+</code></pre>
+<p>Implementation</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;org.glassfish.jaxb&lt;/groupId&gt;
     &lt;artifactId&gt;jaxb-runtime&lt;/artifactId&gt;
     &lt;version&gt;2.3.3&lt;/version&gt;
 &lt;/dependency&gt;
-</code></pre><h4>JAX-WS</h4><p>Java EE</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+</code></pre>
+<h4>JAX-WS</h4>
+<p>Java EE</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;javax.xml.ws&lt;/groupId&gt;
     &lt;artifactId&gt;jaxws-api&lt;/artifactId&gt;
     &lt;version&gt;2.3.1&lt;/version&gt;
 &lt;/dependency&gt;
-</code></pre><p>Jakarta EE</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+</code></pre>
+<p>Jakarta EE</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;jakarta.xml.ws&lt;/groupId&gt;
     &lt;artifactId&gt;jakarta.xml.ws-api&lt;/artifactId&gt;
     &lt;version&gt;2.3.3&lt;/version&gt;
 &lt;/dependency&gt;
-</code></pre><p>Implementation (runtime)</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+</code></pre>
+<p>Implementation (runtime)</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
     &lt;artifactId&gt;jaxws-rt&lt;/artifactId&gt;
     &lt;version&gt;2.3.3&lt;/version&gt;
 &lt;/dependency&gt;
-</code></pre><p>Implementation (standalone)</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+</code></pre>
+<p>Implementation (standalone)</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
     &lt;artifactId&gt;jaxws-ri&lt;/artifactId&gt;
     &lt;version&gt;2.3.2-1&lt;/version&gt;
     &lt;type&gt;pom&lt;/type&gt;
 &lt;/dependency&gt;
-</code></pre><h4>Java Annotation</h4><p>Java EE</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+</code></pre>
+<h4>Java Annotation</h4>
+<p>Java EE</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;javax.annotation&lt;/groupId&gt;
     &lt;artifactId&gt;javax.annotation-api&lt;/artifactId&gt;
     &lt;version&gt;1.3.2&lt;/version&gt;
 &lt;/dependency&gt;
-</code></pre><p>Jakarta EE</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+</code></pre>
+<p>Jakarta EE</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;jakarta.annotation&lt;/groupId&gt;
     &lt;artifactId&gt;jakarta.annotation-api&lt;/artifactId&gt;
     &lt;version&gt;1.3.5&lt;/version&gt;
 &lt;/dependency&gt;
-</code></pre><h4>Java Transaction</h4><p>Java EE</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+</code></pre>
+<h4>Java Transaction</h4>
+<p>Java EE</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;javax.transaction&lt;/groupId&gt;
     &lt;artifactId&gt;javax.transaction-api&lt;/artifactId&gt;
     &lt;version&gt;1.3&lt;/version&gt;
 &lt;/dependency&gt;
-</code></pre><p>Jakarta EE</p>
-<pre><code class="prettyprint">&lt;dependency&gt;
+</code></pre>
+<p>Jakarta EE</p>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
     &lt;groupId&gt;jakarta.transaction&lt;/groupId&gt;
     &lt;artifactId&gt;jakarta.transaction-api&lt;/artifactId&gt;
     &lt;version&gt;1.3.3&lt;/version&gt;
 &lt;/dependency&gt;
-</code></pre><h3>CORBA</h3><p>In the particular case of CORBA, I'm aware of its adoption. <a href="https://github.com/eclipse-ee4j/orb">There is an independent project in eclipse to support CORBA</a>, based on Glassfish CORBA, but this should be investigated further.</p><h2>Multiple JVMs in production</h2><p>If everything compiles, tests and executes. You did a successful migration.</p><p>Some deployments/environments run multiple application servers over the same Linux installation. <strong>If this is your case it is a good idea to install multiple JVMs</strong> to allow stepped migrations instead of big bang.</p><p>For instance, RHEL based distributions like <a href="https://blogs.igalia.com/dpino/2011/10/13/configuring-different-jdks-with-alternatives/">CentOS, Oracle Linux or Fedora</a> include various JVM versions:</p><p><img src="/images/posts/java8java11/olinux.png" alt="olinux" title="olinux" /></p><p>Most importantly, If you install JVMs outside directly from RPMs(like Oracle HotSpot), Java alternatives will give you support:</p><p><img src="/images/posts/java8java11/hotspot.png" alt="hotspot" title="hotspot" /></p><p><strong>However on modern deployments probably would be better to use Docker, specially on Windows</strong> which also needs .bat script to automate this task. Most of the JVM distributions are also available on Docker Hub:</p><p><img src="/images/posts/java8java11/dockerjava.png" alt="dockerjava" title="dockerjava" /></p></p>
+</code></pre>
+<h3>CORBA</h3>
+<p>In the particular case of CORBA, I'm aware of its adoption. <a href="https://github.com/eclipse-ee4j/orb">There is an independent project in eclipse to support CORBA</a>, based on Glassfish CORBA, but this should be investigated further.</p>
+<h2>Multiple JVMs in production</h2>
+<p>If everything compiles, tests and executes. You did a successful migration.</p>
+<p>Some deployments/environments run multiple application servers over the same Linux installation. <strong>If this is your case it is a good idea to install multiple JVMs</strong> to allow stepped migrations instead of big bang.</p>
+<p>For instance, RHEL based distributions like <a href="https://blogs.igalia.com/dpino/2011/10/13/configuring-different-jdks-with-alternatives/">CentOS, Oracle Linux or Fedora</a> include various JVM versions:</p>
+<p><img src="/images/posts/java8java11/olinux.png" alt="olinux" title="olinux" /></p>
+<p>Most importantly, If you install JVMs outside directly from RPMs(like Oracle HotSpot), Java alternatives will give you support:</p>
+<p><img src="/images/posts/java8java11/hotspot.png" alt="hotspot" title="hotspot" /></p>
+<p><strong>However on modern deployments probably would be better to use Docker, specially on Windows</strong> which also needs .bat script to automate this task. Most of the JVM distributions are also available on Docker Hub:</p>
+<p><img src="/images/posts/java8java11/dockerjava.png" alt="dockerjava" title="dockerjava" /></p>
+</p>
 
 			<div id="share">
 <!-- Twitter -->
@@ -394,7 +511,7 @@
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
       </div>
     </div>
 

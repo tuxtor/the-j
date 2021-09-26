@@ -94,81 +94,135 @@
 	<div class="row">
 
 		<div class="col-md-9">
-			<p><h2>Background</h2><p>At the end of 2000 decade, one of the main motivations for DevOps creation was the (relatively speaking) neglected interaction between development, QA and operations teams.</p><p>In this line, <strong>the "DevOps promise" could be summarized as the union between culture, practices and tools</strong> to improve software quality and, at the same time, to speed up software development teams in terms of time to market. Winning in many successful implementations colateral effects like scalability, stability, security and development speed.</p><p>In line with <a href="https://aws.amazon.com/devops/what-is-devops/">diverse opinions</a>, to implement a successful DevOps culture IT teams need to implement practices like:</p>
+			<p><h2>Background</h2>
+<p>At the end of 2000 decade, one of the main motivations for DevOps creation was the (relatively speaking) neglected interaction between development, QA and operations teams.</p>
+<p>In this line, <strong>the &quot;DevOps promise&quot; could be summarized as the union between culture, practices and tools</strong> to improve software quality and, at the same time, to speed up software development teams in terms of time to market. Winning in many successful implementations colateral effects like scalability, stability, security and development speed.</p>
+<p>In line with <a href="https://aws.amazon.com/devops/what-is-devops/">diverse opinions</a>, to implement a successful DevOps culture IT teams need to implement practices like:</p>
 <ul>
-  <li>Continuos integration (CI)</li>
-  <li>Continuos delivery (CD)</li>
-  <li>MicroServices</li>
-  <li>Infrastructure as code</li>
-  <li>Communication and collaboration</li>
-  <li><strong>Monitoring and metrics</strong></li>
-</ul><p>In this world of <strong>buzzwords</strong> it's indeed difficult to identify the DevOps maturity state without losing the final goal: <strong>To create applications that generate value for the customer in short periods of time</strong>.</p><p>In this post, we will discuss about monitoring and metrics in the Java Enterprise World, specially how the new DevOps practices impact the architectural decision at the technology selection phase.</p><h2>Metrics in Java monoliths</h2><p>If traditional architectures are considered, monolithic applications hold common characteristics like:</p>
+<li>Continuos integration (CI)</li>
+<li>Continuos delivery (CD)</li>
+<li>MicroServices</li>
+<li>Infrastructure as code</li>
+<li>Communication and collaboration</li>
+<li><strong>Monitoring and metrics</strong></li>
+</ul>
+<p>In this world of <strong>buzzwords</strong> it's indeed difficult to identify the DevOps maturity state without losing the final goal: <strong>To create applications that generate value for the customer in short periods of time</strong>.</p>
+<p>In this post, we will discuss about monitoring and metrics in the Java Enterprise World, specially how the new DevOps practices impact the architectural decision at the technology selection phase.</p>
+<h2>Metrics in Java monoliths</h2>
+<p>If traditional architectures are considered, monolithic applications hold common characteristics like:</p>
 <ol>
-  <li>Execution over servlet containers and application servers, with the JVM being a <strong>long running</strong> process.</li>
-  <li>Ideally, these containers are never rebooted, or reboots are allowed on planned maintenance Windows.</li>
-  <li>An application could compromise the integrity of the entire monolith under several conditions like bad code, bad deployments and server issues.</li>
-</ol><p><strong>Without considering any Java framework, the deployment structure will be similar to the figure</strong>. In here we observe that applications are distributed by using .war or .jar files, being collected in .ear files for management purposes. In these architectures applications are created as modules, and separated considering its business objectives.</p><p><img src="/images/posts/metrics/monolith.png" alt="Monolith deployment" /></p><p>If a need to scale appears, there are basically two options, <strong>1- to scale server resources (vertical) and 2- to add more servers with an application copy to distribute clients using a load balancer</strong>. It is worth to notice that new nodes tend to be also <strong>long running</strong> processes, since any application server reboot implies a considerable amount of time that is directly proportional to the quantity of applications that have been deployed.</p><p>Hence, the decision to provision (or not) a new application server often is a combined decision between development and operations teams, and with this you have the following options to monitor the state of your applications and application server:</p>
+<li>Execution over servlet containers and application servers, with the JVM being a <strong>long running</strong> process.</li>
+<li>Ideally, these containers are never rebooted, or reboots are allowed on planned maintenance Windows.</li>
+<li>An application could compromise the integrity of the entire monolith under several conditions like bad code, bad deployments and server issues.</li>
+</ol>
+<p><strong>Without considering any Java framework, the deployment structure will be similar to the figure</strong>. In here we observe that applications are distributed by using .war or .jar files, being collected in .ear files for management purposes. In these architectures applications are created as modules, and separated considering its business objectives.</p>
+<p><img src="/images/posts/metrics/monolith.png" alt="Monolith deployment" /></p>
+<p>If a need to scale appears, there are basically two options, <strong>1- to scale server resources (vertical) and 2- to add more servers with an application copy to distribute clients using a load balancer</strong>. It is worth to notice that new nodes tend to be also <strong>long running</strong> processes, since any application server reboot implies a considerable amount of time that is directly proportional to the quantity of applications that have been deployed.</p>
+<p>Hence, the decision to provision (or not) a new application server often is a combined decision between development and operations teams, and with this you have the following options to monitor the state of your applications and application server:</p>
 <ol>
-  <li>Vendor or vendor-neutral telemetric APIs -e.g <a href="https://jolokia.org/">Jookla</a>, <a href="https://www.oracle.com/technetwork/articles/java/glassfishmm-2082439.html">Glassfish REST Metrics</a>-</li>
-  <li>JMX monitoring through specific tools and ports -e.g. <a href="https://visualvm.github.io/">VisualVM</a>, <a href="https://github.com/JDKMissionControl/jmc">Mission Control</a>-</li>
-  <li>"Shell wrangling" with tail, sed, cat, top and htop</li>
-</ol><p>It should be noticed also, in this kind of deployments it's necessary to obtain metrics from <strong>application and server</strong>, creating a complex scenario for status monitoring.</p><p>The <em>rule of thumb</em> for this scenarios is often to choose telemetric/own APIs to monitor application state and JMX/Logs for a deeper analysis of runtime situation, again presenting more questions:</p>
+<li>Vendor or vendor-neutral telemetric APIs -e.g  <a href="https://jolokia.org/">Jookla</a>, <a href="https://www.oracle.com/technetwork/articles/java/glassfishmm-2082439.html">Glassfish REST Metrics</a>-</li>
+<li>JMX monitoring through specific tools and ports -e.g. <a href="https://visualvm.github.io/">VisualVM</a>, <a href="https://github.com/JDKMissionControl/jmc">Mission Control</a>-</li>
+<li>&quot;Shell wrangling&quot; with tail, sed, cat, top and htop</li>
+</ol>
+<p>It should be noticed also, in this kind of deployments it's necessary to obtain metrics from <strong>application and server</strong>, creating a complex scenario for status monitoring.</p>
+<p>The <em>rule of thumb</em> for this scenarios is often to choose telemetric/own APIs to monitor application state and JMX/Logs for a deeper analysis of runtime situation, again presenting more questions:</p>
 <ul>
-  <li>Which telemetric API should I choose? Do I need a specific format?</li>
-  <li>Server's telemetry would be sufficient? How metrics will be processed?</li>
-  <li>How do I got access to JMX in my deployments if I'm a Containers/PaaS user?</li>
-</ul><h2>Reactive applications</h2><p><strong>One of the (not so) recent approaches to improve users experience is to implement reactive systems</strong> with the defined principles of the <a href="https://www.reactivemanifesto.org/">Reactive Manifesto</a>.</p><p><img src="/images/posts/metrics/reactive-traits.png" alt="Reactive manifesto" /></p><p>In short, a reactive system is a system capable of:</p>
+<li>Which telemetric API should I choose? Do I need a specific format?</li>
+<li>Server's telemetry would be sufficient? How metrics will be processed?</li>
+<li>How do I got access to JMX in my deployments if I'm a Containers/PaaS user?</li>
+</ul>
+<h2>Reactive applications</h2>
+<p><strong>One of the (not so) recent approaches to improve users experience is to implement reactive systems</strong> with the defined principles of the <a href="https://www.reactivemanifesto.org/">Reactive Manifesto</a>.</p>
+<p><img src="/images/posts/metrics/reactive-traits.png" alt="Reactive manifesto" /></p>
+<p>In short, a reactive system is a system capable of:</p>
 <ul>
-  <li>Being directed/activated by messages often processed asynchronously</li>
-  <li>Presents resilience by failing partially, without compromising all the system</li>
-  <li>Is elastic to provision and halt modules and resources on demand, having a direct impact in resources billing</li>
-  <li>The final result is a responsive system for the user</li>
-</ul><p>Despite not being discussed so often, <strong>reactive architectures have a direct impact on metrics</strong>. With dynamic provisioning you won't have long running processes to attach and save metrics, and additionally the services are switching ip addresses depending on clients demand.</p><h2>Metrics in Java Microservices architectures</h2><p>Without considering any particular framework or library, the reactive architectural style puts as <strong>strong suggestion</strong> the usage of containers and/or Microservice, specially for resilience and elasticity:</p><p><img src="/images/posts/metrics/microservices.png" alt="Microservices deployment" /></p><p>In a traditional Microservices architecture we observe that services are basically short-lived "workers", which could have clones reacting to changes on clients demand. These environments are often orchestrated with tools like Docker Swarm or Kubernetes, hence each service is responsable of register themself to a service registry acting as a directory. Being the registry, the ideal source for any metric tool to read services location, <strong>pulling and saving the correspondent metrics</strong>.</p><h2>Metrics with Java EE and Eclipse MicroProfile</h2><p>Despite the early efforts on the EE space like <a href="https://jcp.org/en/jsr/detail?id=77">an administrative API with metrics</a>, the need of a formal standard for metrics became mandatory due Microservices popularization. Being <strong><a href="https://metrics.dropwizard.io/3.1.0/">Dropwizard Metrics</a> one of the pioneers to cover the need of a telemetric toolkit with <a href="https://github.com/astefanutti/metrics-cdi">specific CDI extensions</a></strong>.</p><p>In this line, the MicroProfile project has included among its recent versions(1.4 and 2.0) support for Healthcheck and state Metrics. <strong>Many of the current DropWizard users would notice that annotations are similar if not the same. In fact MicroProfile annotations are based directly on DropWizard's <a href="https://microprofile.io/project/eclipse/microprofile-metrics/spec/src/main/asciidoc/app-programming-model.adoc">API 3.2.3</a></strong>.</p><p>To differentiate between concepts, Healtheck API is in charge of answering a simple question "Is the service running and how well is it doing it?" and are targeted for orchestrations. On the other side Metrics present instant or periodical metrics on how services are reacting over consumers requests.</p><p>Latest version of MicroProfile (2.0) includes support for Metrics 1.1, including:</p>
+<li>Being directed/activated by messages often processed asynchronously</li>
+<li>Presents resilience by failing partially, without compromising all the system</li>
+<li>Is elastic to provision and halt modules and resources on demand, having a direct impact in resources billing</li>
+<li>The final result is a responsive system for the user</li>
+</ul>
+<p>Despite not being discussed so often, <strong>reactive architectures have a direct impact on metrics</strong>. With dynamic provisioning you won't have long running processes to attach and save metrics, and additionally the services are switching ip addresses depending on clients demand.</p>
+<h2>Metrics in Java Microservices architectures</h2>
+<p>Without considering any particular framework or library, the reactive architectural style puts as <strong>strong suggestion</strong> the usage of containers and/or Microservice, specially for resilience and elasticity:</p>
+<p><img src="/images/posts/metrics/microservices.png" alt="Microservices deployment" /></p>
+<p>In a traditional Microservices architecture we observe that services are basically short-lived &quot;workers&quot;, which could have clones reacting to changes on clients demand. These environments are often orchestrated with tools like Docker Swarm or Kubernetes, hence each service is responsable of register themself to a service registry acting as a directory. Being the registry, the ideal source for any metric tool to read services location, <strong>pulling and saving the correspondent metrics</strong>.</p>
+<h2>Metrics with Java EE and Eclipse MicroProfile</h2>
+<p>Despite the early efforts on the EE space like <a href="https://jcp.org/en/jsr/detail?id=77">an administrative API with metrics</a>, the need of a formal standard for metrics became mandatory due Microservices popularization. Being <strong><a href="https://metrics.dropwizard.io/3.1.0/">Dropwizard Metrics</a> one of the pioneers to cover the need of a telemetric toolkit with <a href="https://github.com/astefanutti/metrics-cdi">specific CDI extensions</a></strong>.</p>
+<p>In this line, the MicroProfile project has included among its recent versions(1.4 and 2.0) support for Healthcheck and state Metrics. <strong>Many of the current DropWizard users would notice that annotations are similar if not the same. In fact MicroProfile annotations are based directly on DropWizard's <a href="https://microprofile.io/project/eclipse/microprofile-metrics/spec/src/main/asciidoc/app-programming-model.adoc">API 3.2.3</a></strong>.</p>
+<p>To differentiate between concepts, Healtheck API is in charge of answering a simple question &quot;Is the service running and how well is it doing it?&quot; and are targeted for orchestrations. On the other side Metrics present instant or periodical metrics on how services are reacting over consumers requests.</p>
+<p>Latest version of MicroProfile (2.0) includes support for Metrics 1.1, including:</p>
 <ul>
-  <li>Counted</li>
-  <li>Gauge</li>
-  <li>Metered</li>
-  <li>Timed</li>
-  <li>Histogram</li>
-</ul><p>So, it is worth to <strong>give them a try with practical use cases</strong>.</p><h2>Metrics with Payara and Eclipse MicroProfile</h2><p>For the test we will use an application composed by two microservices, as described in the diagram:</p><p><img src="/images/posts/metrics/demomicro.png" alt="Arquitectura tests" /></p><p><strong>Our scenario includes two microservices, OmdbService focused on information retrieving from <a href="http://www.omdbapi.com/">OMDB</a> to obtain up to date movie information and MovieService aimed to obtain movie information from a relational database and mix it with OMDB plot</strong>. Projects code is available at GitHub.</p>
+<li>Counted</li>
+<li>Gauge</li>
+<li>Metered</li>
+<li>Timed</li>
+<li>Histogram</li>
+</ul>
+<p>So, it is worth to <strong>give them a try with practical use cases</strong>.</p>
+<h2>Metrics with Payara and Eclipse MicroProfile</h2>
+<p>For the test we will use an application composed by two microservices, as described in the diagram:</p>
+<p><img src="/images/posts/metrics/demomicro.png" alt="Arquitectura tests" /></p>
+<p><strong>Our scenario includes two microservices, OmdbService focused on information retrieving from <a href="http://www.omdbapi.com/">OMDB</a> to obtain up to date movie information and MovieService aimed to obtain movie information from a relational database and mix it with OMDB plot</strong>. Projects code is available at GitHub.</p>
 <ul>
-  <li><a href="https://github.com/tuxtor/payara-demo/tree/micro">https://github.com/tuxtor/payara-demo/tree/micro</a></li>
-  <li><a href="https://github.com/tuxtor/omdb-demo">https://github.com/tuxtor/omdb-demo</a></li>
-</ul><p>To activate support for MicroProfile 2.0 two things are needed, 1- the right dependency on pom.xml and 2- to deploy/run our application over a MicroProfile compatible implementation, like Payara Micro.</p>
-<pre><code class="xml">&lt;dependency&gt;
+<li><a href="https://github.com/tuxtor/payara-demo/tree/micro">https://github.com/tuxtor/payara-demo/tree/micro</a></li>
+<li><a href="https://github.com/tuxtor/omdb-demo">https://github.com/tuxtor/omdb-demo</a></li>
+</ul>
+<p>To activate support for MicroProfile 2.0 two things are needed, 1- the right dependency on pom.xml and 2- to deploy/run our application over a MicroProfile compatible implementation, like Payara Micro.</p>
+<pre><code class="language-xml">&lt;dependency&gt;
 	&lt;groupId&gt;org.eclipse.microprofile&lt;/groupId&gt;
 	&lt;artifactId&gt;microprofile&lt;/artifactId&gt;
 	&lt;type&gt;pom&lt;/type&gt;
 	&lt;version&gt;2.0.1&lt;/version&gt;
 	&lt;scope&gt;provided&lt;/scope&gt;
 &lt;/dependency&gt;
-</code></pre><p>MicroProfile uses a basic convention in regards of metrics, presenting three levels:</p>
+</code></pre>
+<p>MicroProfile uses a basic convention in regards of metrics, presenting three levels:</p>
 <ol>
-  <li><strong>Base:</strong> Mandatory Metrics for all MicroProfile implementations, located at <code>/metrics/base</code></li>
-  <li><strong>Application:</strong> Custom metrics exposed by the developer, located at <code>/metrics/application</code></li>
-  <li><strong>Vendor:</strong> Any MicroProfile implementation could implement its own variant, located at <code>/metrics/vendor</code></li>
-</ol><p>Depending on requests header, metrics will be available in JSON or <a href="https://openmetrics.io/">OpenMetrics</a> format. The last one popularized by Prometheus, a <a href="https://www.cncf.io/announcement/2018/08/09/prometheus-graduates/">Cloud Native Computing Foundation project</a>.</p><h2>Practical use cases</h2><p>So far, we've established that:</p>
+<li><strong>Base:</strong> Mandatory Metrics for all MicroProfile implementations, located at <code>/metrics/base</code></li>
+<li><strong>Application:</strong> Custom metrics exposed by the developer, located at <code>/metrics/application</code></li>
+<li><strong>Vendor:</strong> Any MicroProfile implementation could implement its own variant, located at <code>/metrics/vendor</code></li>
+</ol>
+<p>Depending on requests header, metrics will be available in JSON or <a href="https://openmetrics.io/">OpenMetrics</a> format. The last one popularized by Prometheus, a <a href="https://www.cncf.io/announcement/2018/08/09/prometheus-graduates/">Cloud Native Computing Foundation project</a>.</p>
+<h2>Practical use cases</h2>
+<p>So far, we've established that:</p>
 <ol>
-  <li>You could monitor your Java application by using telemetric APIs and JMX</li>
-  <li>Reactive applications present new challenges, specially due microservices dynamic and short running nature</li>
-  <li>JMX is sometimes difficult to implement on container/PaaS based deployments</li>
-  <li>MicroProfile Metrics is a new proposal for Java(Jakarta) EE environments, working indistinctly for monoliths and microservices architectures</li>
-</ol><p>In this post we present a couple of cases discussed also at Oracle Code One:</p><p><iframe width="560" height="315" src="https://www.youtube.com/embed/eUiXJWDy_g0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p><h3>Case 0: Telemetry from JVM</h3><p>To give a quick look on MicroProfile metrics, it is enough to boot a MicroProfile compliant app server/microservice framework with any deployment. Since Payara Micro is compatible with Microprofile, <strong>metrics will be available from the beginning</strong> at <code>http://localhost:8080/metrics/base</code>.</p><p><img src="/images/posts/metrics/base-metrics.png" alt="Base metrics" /></p><p>You could switch the <strong>Accept request header</strong> in order to obtain JSON format, in curl for instance:</p>
+<li>You could monitor your Java application by using telemetric APIs and JMX</li>
+<li>Reactive applications present new challenges, specially due microservices dynamic and short running nature</li>
+<li>JMX is sometimes difficult to implement on container/PaaS based deployments</li>
+<li>MicroProfile Metrics is a new proposal for Java(Jakarta) EE environments, working indistinctly for monoliths and microservices architectures</li>
+</ol>
+<p>In this post we present a couple of cases discussed also at Oracle Code One:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eUiXJWDy_g0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h3>Case 0: Telemetry from JVM</h3>
+<p>To give a quick look on MicroProfile metrics, it is enough to boot a MicroProfile compliant app server/microservice framework with any deployment. Since Payara Micro is compatible with Microprofile, <strong>metrics will be available from the beginning</strong> at <code>http://localhost:8080/metrics/base</code>.</p>
+<p><img src="/images/posts/metrics/base-metrics.png" alt="Base metrics" /></p>
+<p>You could switch the <strong>Accept request header</strong> in order to obtain JSON format, in curl for instance:</p>
 <pre><code>curl -H &quot;Accept: application/json&quot; http://localhost:8080/metrics/base
-</code></pre><p><img src="/images/posts/metrics/json-metrics.png" alt="JSON metrics" /></p><p>By itself metrics are just an <strong>up to date snapshot</strong> about platform state. If you wanna compare these snapshots over time, metrics should be retrieved on constant periods of time . . . or you could integrate prometheus which already does it for you. In here I demonstrate some useful querys for JVM state, including heap state, cpu utilization and GC executions:</p>
+</code></pre>
+<p><img src="/images/posts/metrics/json-metrics.png" alt="JSON metrics" /></p>
+<p>By itself metrics are just an <strong>up to date snapshot</strong> about platform state. If you wanna compare these snapshots over time, metrics should be retrieved on constant periods of time . . . or you could integrate prometheus which already does it for you. In here I demonstrate some useful querys for JVM state, including heap state, cpu utilization and GC executions:</p>
 <pre><code>base:memory_used_heap_bytes
-</code></pre><p><img src="/images/posts/metrics/metrics-heap.png" alt="Heap metrics" /></p>
+</code></pre>
+<p><img src="/images/posts/metrics/metrics-heap.png" alt="Heap metrics" /></p>
 <pre><code>base:cpu_system_load_average
-</code></pre><p><img src="/images/posts/metrics/metrics-cpu.png" alt="CPU metrics" /></p>
+</code></pre>
+<p><img src="/images/posts/metrics/metrics-cpu.png" alt="CPU metrics" /></p>
 <pre><code>base:gc_ps_mark_sweep_count
-</code></pre><p><img src="/images/posts/metrics/metrics-gc.png" alt="GC metrics" /></p><h3>Case 1: Metrics for Microservices</h3><p>In a regular and "full tolerant" request from one microservice to another your communication flow will go through the following decisions:</p><p><img src="/images/posts/metrics/fallpattern.png" alt="Metrics fallback patterns" /></p>
+</code></pre>
+<p><img src="/images/posts/metrics/metrics-gc.png" alt="GC metrics" /></p>
+<h3>Case 1: Metrics for Microservices</h3>
+<p>In a regular and &quot;full tolerant&quot; request from one microservice to another your communication flow will go through the following decisions:</p>
+<p><img src="/images/posts/metrics/fallpattern.png" alt="Metrics fallback patterns" /></p>
 <ol>
-  <li>To use or not a cache to attend the request</li>
-  <li>To cut the communication (circuit breaker) and execute a fallback method if a metric threshold has been reached</li>
-  <li>To reject the request if a bulkhead has been exhausted and execute a fallback method instead</li>
-  <li>To execute a fallback method if the execution reached a failed state</li>
-</ol><p>Many of the caveats on developing Microservices come from the fact that you are dealing with distributed computation, hence you should include new patterns that already depend on metrics. If metrics are being generated, with exposure you will gain data for improvements, diagnosis and issue management.</p><h4>Case 1.1: Counted to retrieve failed hits</h4><p>The first metric to implement will be Counted, a pretty simple one actually. Its main objective is to increment/decrement its value over time. <strong>In this use case the metric is counting how many times the service reached the fallBack alternative</strong> by injecting it directly on a JAX-RS service:</p>
-<pre><code class="prettyprint">@Inject
+<li>To use or not a cache to attend the request</li>
+<li>To cut the communication (circuit breaker) and execute a fallback method if a metric threshold has been reached</li>
+<li>To reject the request if a bulkhead has been exhausted and execute a fallback method instead</li>
+<li>To execute a fallback method if the execution reached a failed state</li>
+</ol>
+<p>Many of the caveats on developing Microservices come from the fact that you are dealing with distributed computation, hence you should include new patterns that already depend on metrics. If metrics are being generated, with exposure you will gain data for improvements, diagnosis and issue management.</p>
+<h4>Case 1.1: Counted to retrieve failed hits</h4>
+<p>The first metric to implement will be Counted, a pretty simple one actually. Its main objective is to increment/decrement its value over time. <strong>In this use case the metric is counting how many times the service reached the fallBack alternative</strong> by injecting it directly on a JAX-RS service:</p>
+<pre><code class="language-prettyprint">@Inject
 @Metric
 Counter failedQueries;
 ...
@@ -186,8 +240,12 @@ final String imdbId) {
 	...
 	failedQueries.inc();
 }
-</code></pre><p>After simulating a couple of failed queries over OMDB database (no internet :) ) the metric <code>application:com_nabenik_omdb_rest_omdb_endpoint_failed_queries</code> shows how many times my service has invoked the fallback method:</p><p><img src="/images/posts/metrics/counted-metrics.png" alt="Counted metrics" /></p><h4>Case 1.2: Gauge to create your own metric</h4><p>Although you could depend on simple counters to describe the state of any given service. With gauge you could create your own metric . . . like a dummy metric to display 100 or 50 depending on odd/even random number:</p>
-<pre><code class="prettyprint">@Gauge(unit = &quot;ExternalDatabases&quot;, name = &quot;movieDatabases&quot;, absolute = true)
+</code></pre>
+<p>After simulating a couple of failed queries over OMDB database (no internet :) ) the metric <code>application:com_nabenik_omdb_rest_omdb_endpoint_failed_queries</code> shows how many times my service has invoked the fallback method:</p>
+<p><img src="/images/posts/metrics/counted-metrics.png" alt="Counted metrics" /></p>
+<h4>Case 1.2: Gauge to create your own metric</h4>
+<p>Although you could depend on simple counters to describe the state of any given service. With gauge you could create your own metric . . . like a dummy metric to display 100 or 50 depending on odd/even random number:</p>
+<pre><code class="language-prettyprint">@Gauge(unit = &quot;ExternalDatabases&quot;, name = &quot;movieDatabases&quot;, absolute = true)
 public long getDatabases() {
 	int number = (int)(Math.random() * 100);
 	int criteria = number % 2;
@@ -198,20 +256,33 @@ public long getDatabases() {
 		return 50;
 	}
 }
-</code></pre><p>Again, you could search for the metric at prometheus, specifically <code>application:movie_databases_ExternalDatabases</code></p><p><img src="/images/posts/metrics/gauge-metrics.png" alt="Gauge metrics" /></p><h4>Case 1.3: Metered to analyze request totals</h4><p>Are you charging your API per request? Don't worry you could measure the usage rate with <code>@Metered</code>.</p>
-<pre><code class="prettyprint">@Metered(name = &quot;moviesRetrieved&quot;,
+</code></pre>
+<p>Again, you could search for the metric at prometheus, specifically <code>application:movie_databases_ExternalDatabases</code></p>
+<p><img src="/images/posts/metrics/gauge-metrics.png" alt="Gauge metrics" /></p>
+<h4>Case 1.3: Metered to analyze request totals</h4>
+<p>Are you charging your API per request? Don't worry you could measure the usage rate with <code>@Metered</code>.</p>
+<pre><code class="language-prettyprint">@Metered(name = &quot;moviesRetrieved&quot;,
 	unit = MetricUnits.MINUTES,
 	description = &quot;Metrics to monitor movies&quot;,
 	absolute = true)
 public Response findExpandedById(@PathParam(&quot;id&quot;) final Long id) 
-</code></pre><p>In this practical use case 500 +/- requests where simulated over a one minute period. As you could observe from the metric <code>application:movies_retrieved_total</code> the stress test from JMeter and Prometheus show the same information:</p><p><img src="/images/posts/metrics/metered-stress.png" alt="Stress metrics" /><br/><img src="/images/posts/metrics/metered-metric.png" alt="Metered metrics" /></p><h4>Case 1.4: Timed to analyze your response performance</h4><p>If used properly, <code>@Timed</code> will give you information about requests performance over time units.</p>
-<pre><code class="prettyprint">@Timed(name = &quot;moviesDelay&quot;,
+</code></pre>
+<p>In this practical use case 500 +/- requests where simulated over a one minute period. As you could observe from the metric <code>application:movies_retrieved_total</code> the stress test from JMeter and Prometheus show the same information:</p>
+<p><img src="/images/posts/metrics/metered-stress.png" alt="Stress metrics" /><br />
+<img src="/images/posts/metrics/metered-metric.png" alt="Metered metrics" /></p>
+<h4>Case 1.4: Timed to analyze your response performance</h4>
+<p>If used properly, <code>@Timed</code> will give you information about requests performance over time units.</p>
+<pre><code class="language-prettyprint">@Timed(name = &quot;moviesDelay&quot;,
 	description = &quot;Metrics to monitor the time for movies retrieval&quot;,
 	unit = MetricUnits.MINUTES,
 	absolute = true)
 public Response findExpandedById(@PathParam(&quot;id&quot;) final Long id)
-</code></pre><p>By retrieving the metric <code>application:movies_delay_rate_per_second</code> its observable that requests take more time to complete at the end of the stress test (as expected with more traffic, less bandwidth and more time to answer):</p><p><img src="/images/posts/metrics/timed-metric.png" alt="Timed metrics" /></p><h4>Case 1.5: Histogram to accumulate useful information</h4><p>As described in Wikipedia, an Histogram is an accurate representation of the distribution of numerical data. Hence we could create our own distribution by manipulating directly the metrics API with any given data, like global attendees:</p>
-<pre><code class="prettyprint">@Inject
+</code></pre>
+<p>By retrieving the metric <code>application:movies_delay_rate_per_second</code> its observable that requests take more time to complete at the end of the stress test (as expected with more traffic, less bandwidth and more time to answer):</p>
+<p><img src="/images/posts/metrics/timed-metric.png" alt="Timed metrics" /></p>
+<h4>Case 1.5: Histogram to accumulate useful information</h4>
+<p>As described in Wikipedia, an Histogram is an accurate representation of the distribution of numerical data. Hence we could create our own distribution by manipulating directly the metrics API with any given data, like global attendees:</p>
+<pre><code class="language-prettyprint">@Inject
 MetricRegistry registry;
 
 @POST
@@ -225,7 +296,10 @@ public Response addAttendees(@PathParam(&quot;attendees&quot;) Long attendees) {
 	histogram.update(attendees);
 	return Response.ok().build();
 }
-</code></pre><p>And as any distribution, we could get the mins, max, average and values per quantile:</p><p><img src="/images/posts/metrics/histogram-metric.png" alt="Histogram metrics" /></p></p>
+</code></pre>
+<p>And as any distribution, we could get the mins, max, average and values per quantile:</p>
+<p><img src="/images/posts/metrics/histogram-metric.png" alt="Histogram metrics" /></p>
+</p>
 
 			<div id="share">
 <!-- Twitter -->
@@ -303,7 +377,7 @@ public Response addAttendees(@PathParam(&quot;attendees&quot;) Long attendees) {
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
       </div>
     </div>
 

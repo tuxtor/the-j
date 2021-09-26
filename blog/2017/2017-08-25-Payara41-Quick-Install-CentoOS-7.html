@@ -94,19 +94,37 @@
 	<div class="row">
 
 		<div class="col-md-9">
-			<p><p><a href="/images/posts/payara/payara.png" data-lightbox="image-1" title="Payara" ><br/> <img src="/images/posts/payara/payara.png"><br/></a></p><p>In this "back to basics tutorial" I'll try to explain <strong>how to install properly Payara 4.1 on Centos 7</strong> (it should be fine for Red Hat, Oracle Unbreakable Linux and other *hat distributions).</p><p>Why not Docker, Ansible, Chef, Puppet, . . .?. Sometimes the best solution is the easiest :).</p><h1>Pre-requisites</h1><p>The only software requirement to run Payara is to <strong>have a JDK installed</strong>. CentOS offers a custom OpenJDK build called <a href="https://centos.pkgs.org/7/centos-x86_64/java-1.8.0-openjdk-headless-1.8.0.102-4.b14.el7.x86_64.rpm.html">"headless"</a> that doesn't offer support for audio and video, perfect for cli environments.</p><p>You can install it with Yum.</p>
+			<p><p><a href="/images/posts/payara/payara.png" data-lightbox="image-1" title="Payara" ><br />
+<img src="/images/posts/payara/payara.png"><br />
+</a></p>
+<p>In this &quot;back to basics tutorial&quot; I'll try to explain <strong>how to install properly Payara 4.1 on Centos 7</strong> (it should be fine for Red Hat, Oracle Unbreakable Linux and other *hat distributions).</p>
+<p>Why not Docker, Ansible, Chef, Puppet, . . .?. Sometimes the best solution is the easiest :).</p>
+<h1>Pre-requisites</h1>
+<p>The only software requirement to run Payara is to <strong>have a JDK installed</strong>. CentOS offers a custom OpenJDK build called <a href="https://centos.pkgs.org/7/centos-x86_64/java-1.8.0-openjdk-headless-1.8.0.102-4.b14.el7.x86_64.rpm.html">&quot;headless&quot;</a> that doesn't offer support for audio and video, perfect for cli environments.</p>
+<p>You can install it with Yum.</p>
 <pre><code>yum install java-1.8.0-openjdk-headless
-</code></pre><h1>Create a Payara user</h1><p>As mentioned in the official <a href="https://javaee.github.io/glassfish/documentation">Glassfish documentation</a>, it is convenient to <strong>run your application server in a dedicated user</strong> for security and administrative reasons.</p>
+</code></pre>
+<h1>Create a Payara user</h1>
+<p>As mentioned in the official <a href="https://javaee.github.io/glassfish/documentation">Glassfish documentation</a>, it is convenient to <strong>run your application server in a dedicated user</strong> for security and administrative reasons.</p>
 <pre><code>adduser payara
-</code></pre><p>Although you could be tempted to create a no-login, no-shell user, Payara saves many preferences in user's home directory and <strong>the shell/login is actually needed to execute administrative commands like <code>asadmin</code></strong>.</p><h1>Download and unzip Payara</h1><p>Payara is hosted at Amazon S3, please double check this link on <a href="https://www.payara.fish/">Payara's website</a>, for this guide I'm installing Payara at server's <code>/opt</code> directory.</p>
+</code></pre>
+<p>Although you could be tempted to create a no-login, no-shell user, Payara saves many preferences in user's home directory and <strong>the shell/login is actually needed to execute administrative commands like <code>asadmin</code></strong>.</p>
+<h1>Download and unzip Payara</h1>
+<p>Payara is hosted at Amazon S3, please double check this link on <a href="https://www.payara.fish/">Payara's website</a>, for this guide I'm installing Payara at server's <code>/opt</code> directory.</p>
 <pre><code>cd /opt
 wget https://s3-eu-west-1.amazonaws.com/payara.fish/Payara+Downloads/Payara+4.1.2.173/payara-4.1.2.173.zip
 unzip payara-4.1.2.173.zip
-</code></pre><p>You should execute the above commands as super-user, after that <strong>you should change permissions for the Payara directory before any domain start</strong>. Otherwise you won't be able to use the server with <code>payara</code> user</p>
+</code></pre>
+<p>You should execute the above commands as super-user, after that <strong>you should change permissions for the Payara directory before any domain start</strong>. Otherwise you won't be able to use the server with <code>payara</code> user</p>
 <pre><code>chown -R payara:payara payara41
-</code></pre><h1>systemd unit</h1><p>Centos 7 uses systemd as init system, consequently it is possible and actually quite easy to create a <strong>systemd unit to start, stop and restart Payara default domain</strong><br/>.<br/>First, create a file that represents Payara systemd unit.</p>
+</code></pre>
+<h1>systemd unit</h1>
+<p>Centos 7 uses systemd as init system, consequently it is possible and actually quite easy to create a <strong>systemd unit to start, stop and restart Payara default domain</strong><br />
+.<br />
+First, create a file that represents Payara systemd unit.</p>
 <pre><code>/etc/systemd/system/payara.service
-</code></pre><p>And add the following content:</p>
+</code></pre>
+<p>And add the following content:</p>
 <pre><code>[Unit]
 Description = Payara Server v4.1
 After = syslog.target network.target
@@ -120,25 +138,40 @@ Type = forking
 
 [Install]
 WantedBy = multi-user.target
-</code></pre><p>Note that Payara administration is achieved with <code>payara</code> user. You could personalize it to fit your needs.</p><p>Optionally you could enable the service to start with the server and/or after server reboots.</p>
+</code></pre>
+<p>Note that Payara administration is achieved with <code>payara</code> user. You could personalize it to fit your needs.</p>
+<p>Optionally you could enable the service to start with the server and/or after server reboots.</p>
 <pre><code>systemctl enable payara
-</code></pre><p>Check if all is working properly with the systemd standard commands</p>
+</code></pre>
+<p>Check if all is working properly with the systemd standard commands</p>
 <pre><code>systemctl start payara
 systemctl restart payara
 systemctl stop payara
-</code></pre><h1>Payara user PATH</h1><p>As Payara and Glassfish users already know, <strong>most administrative tasks in Payara application server are achieved by using cli commands</strong> like <code>asadmin</code>. Hence it is convenient to have all tools available in our administrative <code>payara</code> user.</p><p>First log-in as Payara user, if you didn't assign a password for the user you could switch to this user using <code>su</code> as root user.</p>
+</code></pre>
+<h1>Payara user PATH</h1>
+<p>As Payara and Glassfish users already know, <strong>most administrative tasks in Payara application server are achieved by using cli commands</strong> like <code>asadmin</code>. Hence it is convenient to have all tools available in our administrative <code>payara</code> user.</p>
+<p>First log-in as Payara user, if you didn't assign a password for the user you could switch to this user using <code>su</code> as root user.</p>
 <pre><code>su payara
-</code></pre><p>Later you shoud create or edit the <code>.bashrc</code> file for the Payara user, the most common location being user's home directory.</p>
+</code></pre>
+<p>Later you shoud create or edit the <code>.bashrc</code> file for the Payara user, the most common location being user's home directory.</p>
 <pre><code>cd /home/payara
 vim .bashrc
-</code></pre><p>And add the following line:</p>
+</code></pre>
+<p>And add the following line:</p>
 <pre><code>export PATH=$PATH:/opt/payara41/glassfish/bin
-</code></pre><h1>Final result</h1><p>If your setup was done properly you should obtain an environment like in the following screenshot:</p><p><a href="/images/posts/payara/payarafinish.png" data-lightbox="image-1" title="Payara Centos 7" ><br/> <img src="/images/posts/payara/payarafinish.png"><br/></a></p><p>Note that:</p>
+</code></pre>
+<h1>Final result</h1>
+<p>If your setup was done properly you should obtain an environment like in the following screenshot:</p>
+<p><a href="/images/posts/payara/payarafinish.png" data-lightbox="image-1" title="Payara Centos 7" ><br />
+<img src="/images/posts/payara/payarafinish.png"><br />
+</a></p>
+<p>Note that:</p>
 <ul>
-  <li>I'm able to use systemd commands</li>
-  <li>It actually restarded since PID changed after <code>systemd restart</code></li>
-  <li><code>asadmin</code> works and displays properly the running domain</li>
-</ul></p>
+<li>I'm able to use systemd commands</li>
+<li>It actually restarded since PID changed after <code>systemd restart</code></li>
+<li><code>asadmin</code> works and displays properly the running domain</li>
+</ul>
+</p>
 
 			<div id="share">
 <!-- Twitter -->
@@ -216,7 +249,7 @@ vim .bashrc
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
       </div>
     </div>
 

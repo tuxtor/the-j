@@ -94,36 +94,48 @@
 	<div class="row">
 
 		<div class="col-md-9">
-			<p><p><img src="/images/posts/reversepayara/payarassl.png" alt="Payara SSL" title="Payara SSl" /></p><p>From field experiences I must affirm that one of the greatest and stable combinations is Java Application Servers + Reverse Proxies, although some of the functionality is a clear overlap, I tend to put reverse proxies in front of application servers for the following reasons (<a href="https://www.nginx.com/resources/glossary/reverse-proxy-server/">please see NGINX page for more details</a>):</p>
+			<p><p><img src="/images/posts/reversepayara/payarassl.png" alt="Payara SSL" title="Payara SSl" /></p>
+<p>From field experiences I must affirm that one of the greatest and stable combinations is Java Application Servers + Reverse Proxies, although some of the functionality is a clear overlap, I tend to put reverse proxies in front of application servers for the following reasons (<a href="https://www.nginx.com/resources/glossary/reverse-proxy-server/">please see NGINX page for more details</a>):</p>
 <ul>
-  <li><strong>Load balancing:</strong> The reverse proxy acts as traffic cop and could be used as API gateway for clustered instances/backing services</li>
-  <li><strong>Web acceleration:</strong> Most of our applications nowadays use SPA frameworks, hence it is worth to cache all the js/css/html files and free the application server from this responsibility</li>
-  <li><strong>Security:</strong> Most of the HTTP requests could be intercepted by the reverse proxy <strong>before</strong> any attempt against the application server, increasing the opportunity to define rules</li>
-  <li><strong>SSL Management:</strong> It is easier to install/manage/deploy OpenSSL certificates in Apache/NGINX if compared to <a href="https://en.wikipedia.org/wiki/Java_KeyStore">Java KeyStores</a>. Besides this, <a href="https://letsencrypt.org/">Let's Encrypt</a> officially support NGINX with plugins.</li>
-</ul><h2>Requirements</h2><p>To demonstrate this functionality, this tutorial combines the following stack in a classic (non-docker) way, however most of the concepts could be useful for Docker deployments:</p>
+<li><strong>Load balancing:</strong> The reverse proxy acts as traffic cop and could be used as API gateway for clustered instances/backing services</li>
+<li><strong>Web acceleration:</strong> Most of our applications nowadays use SPA frameworks, hence it is worth to cache all the js/css/html files and free the application server from this responsibility</li>
+<li><strong>Security:</strong> Most of the HTTP requests could be intercepted by the reverse proxy <strong>before</strong> any attempt against the application server, increasing the opportunity to define rules</li>
+<li><strong>SSL Management:</strong> It is easier to install/manage/deploy OpenSSL certificates in Apache/NGINX if compared to <a href="https://en.wikipedia.org/wiki/Java_KeyStore">Java KeyStores</a>. Besides this, <a href="https://letsencrypt.org/">Let's Encrypt</a> officially support NGINX with plugins.</li>
+</ul>
+<h2>Requirements</h2>
+<p>To demonstrate this functionality, this tutorial combines the following stack in a classic (non-docker) way, however most of the concepts could be useful for Docker deployments:</p>
 <ul>
-  <li>Payara 5 as application server</li>
-  <li>NGINX as reverse proxy</li>
-  <li>Let's encrypt SSL certificates</li>
-</ul><p>It is assumed that a clean Oracle Linux 7.x (7.6) box will be used during this tutorial and tests will be executed over Oracle Cloud with <code>root</code> user.</p><p><img src="/images/posts/reversepayara/oraclelinux.png" alt="Oracle Linux" title="Oracle Linux" /></p><h2>Preparing the OS</h2><p>Since Oracle Linux is binary compatible with RHEL, <a href="https://fedoraproject.org/wiki/EPEL">EPEL</a> repository will be added to get access to Let's Encrypt. It is also useful to update the OS as a previous step:</p>
-<pre><code class="prettyprint">yum -y update
+<li>Payara 5 as application server</li>
+<li>NGINX as reverse proxy</li>
+<li>Let's encrypt SSL certificates</li>
+</ul>
+<p>It is assumed that a clean Oracle Linux 7.x (7.6) box will be used during this tutorial and tests will be executed over Oracle Cloud with <code>root</code> user.</p>
+<p><img src="/images/posts/reversepayara/oraclelinux.png" alt="Oracle Linux" title="Oracle Linux" /></p>
+<h2>Preparing the OS</h2>
+<p>Since Oracle Linux is binary compatible with RHEL, <a href="https://fedoraproject.org/wiki/EPEL">EPEL</a> repository will be added to get access to Let's Encrypt. It is also useful to update the OS as a previous step:</p>
+<pre><code class="language-prettyprint">yum -y update
 yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-</code></pre><h2>Setting up Payara 5</h2><p>In order to install Payara application server a couple of dependencies will be needed, specially a Java Developer Kit. For instance OpenJDK is included at Oracle Linux repositories.</p>
-<pre><code class="prettyprint">yum -y install java-1.8.0-openjdk-headless
+</code></pre>
+<h2>Setting up Payara 5</h2>
+<p>In order to install Payara application server a couple of dependencies will be needed, specially a Java Developer Kit. For instance OpenJDK is included at Oracle Linux repositories.</p>
+<pre><code class="language-prettyprint">yum -y install java-1.8.0-openjdk-headless
 yum -y install wget
 yum -y install unzip
-</code></pre><p>Once all dependencies are installed, it is time to download, unzip and install Payara. It will be located at <code>/opt</code> following standard Linux conventions for external packages:</p>
-<pre><code class="prettyprint">cd /opt
+</code></pre>
+<p>Once all dependencies are installed, it is time to download, unzip and install Payara. It will be located at <code>/opt</code> following standard Linux conventions for external packages:</p>
+<pre><code class="language-prettyprint">cd /opt
 wget -O payara-5.191.zip https://search.maven.org/remotecontent?filepath=fish/payara/distributions/payara/5.191/payara-5.191.zip
 unzip payara-5.191.zip
 rm payara-5.191.zip
-</code></pre><p>It is also useful to create a <code>payara</code> user for administrative purposes, to administrate the domain(s) or to run Payara as Linux service with systemd:</p>
-<pre><code class="prettyprint">adduser payara
+</code></pre>
+<p>It is also useful to create a <code>payara</code> user for administrative purposes, to administrate the domain(s) or to run Payara as Linux service with systemd:</p>
+<pre><code class="language-prettyprint">adduser payara
 chown -R payara:payara payara5
-echo &#39;export PATH=$PATH:/opt/payara5/glassfish/bin&#39; &gt;&gt; /home/payara/.bashrc
+echo 'export PATH=$PATH:/opt/payara5/glassfish/bin' &gt;&gt; /home/payara/.bashrc
 chown payara:payara /home/payara/.bashrc
-</code></pre><p>A systemd unit is also needed:</p>
-<pre><code class="prettyprint">echo &#39;[Unit]
+</code></pre>
+<p>A systemd unit is also needed:</p>
+<pre><code class="language-prettyprint">echo '[Unit]
 Description = Payara Server v5
 After = syslog.target network.target
 
@@ -135,28 +147,40 @@ ExecReload = /usr/bin/java -jar /opt/payara5/glassfish/lib/client/appserver-cli.
 Type = forking
 
 [Install]
-WantedBy = multi-user.target&#39; &gt; /etc/systemd/system/payara.service
+WantedBy = multi-user.target' &gt; /etc/systemd/system/payara.service
 systemctl enable payara
-</code></pre><p>Additionally if remote administration is needed, secure admin should be enabled:</p>
-<pre><code class="prettyprint">sudo -u payara /opt/payara5/bin/asadmin --host localhost --port 4848 change-admin-password
+</code></pre>
+<p>Additionally if remote administration is needed, secure admin should be enabled:</p>
+<pre><code class="language-prettyprint">sudo -u payara /opt/payara5/bin/asadmin --host localhost --port 4848 change-admin-password
 systemctl start payara
 sudo -u payara /opt/payara5/bin/asadmin --host localhost --port 4848 enable-secure-admin
 systemctl restart payara
-</code></pre><p><img src="/images/posts/reversepayara/payaraboot.png" alt="Payara Boot" title="Payara Boot" /></p><p>Oracle Cloud default configuration will create a VNIC attached to your instance, hence you should check the rules in order to allow access to ports.</p><p><img src="/images/posts/reversepayara/ingresrules.png" alt="Ingres Rules" title="Ingres Rules" /></p><p>By default, Oracle Linux instances have a restricted set of rules in iptables and SELinux, hence ports should be opened with firewalld and SELinux should be configured to allow reverse proxy traffic:</p>
-<pre><code class="prettyprint">firewall-cmd --zone=public --permanent --add-service=http
+</code></pre>
+<p><img src="/images/posts/reversepayara/payaraboot.png" alt="Payara Boot" title="Payara Boot" /></p>
+<p>Oracle Cloud default configuration will create a VNIC attached to your instance, hence you should check the rules in order to allow access to ports.</p>
+<p><img src="/images/posts/reversepayara/ingresrules.png" alt="Ingres Rules" title="Ingres Rules" /></p>
+<p>By default, Oracle Linux instances have a restricted set of rules in iptables and SELinux, hence ports should be opened with firewalld and SELinux should be configured to allow reverse proxy traffic:</p>
+<pre><code class="language-prettyprint">firewall-cmd --zone=public --permanent --add-service=http
 firewall-cmd --zone=public --permanent --add-service=https
 firewall-cmd --zone=public --permanent --add-port=4848/tcp
 setsebool -P httpd_can_network_connect 1
-</code></pre><p>With this, the access is guaranteed to http+https+payara admin port.</p><h2>Setting up NGINX reverse proxy</h2><p>NGINX is available at EPEL:</p>
-<pre><code class="prettyprint">yum -y install nginx
+</code></pre>
+<p>With this, the access is guaranteed to http+https+payara admin port.</p>
+<h2>Setting up NGINX reverse proxy</h2>
+<p>NGINX is available at EPEL:</p>
+<pre><code class="language-prettyprint">yum -y install nginx
 systemctl enable nginx
-</code></pre><p>At this time your will need a FQDN pointing to your server, otherwhise Let's encrypt validation won't work. For this tutorial the <code>ocl.nabenik.com</code> domain will be used. If your domain propagated properly you should see a page like this:</p><p><img src="/images/posts/reversepayara/nginxproxy.png" alt="NGINX Proxy" title="NGINX Proxy" /></p><p>Don't worry the Fedora logo is due EPEL usage, but you're running Oracle Linux :).</p><p>Now it's time to setup NGINX as reverse proxy, an opinionated deployment option is to create a <code>/etc/nginx/sites-available</code> and <code>/etc/nginx/sites-enabled</code> structure inside NGINX configuration, to isolate/manage multiple domains with the same instance (aka virtual hosts).</p>
-<pre><code class="prettyprint">mkdir -p /etc/nginx/sites-available
+</code></pre>
+<p>At this time your will need a FQDN pointing to your server, otherwhise Let's encrypt validation won't work. For this tutorial the <code>ocl.nabenik.com</code> domain will be used. If your domain propagated properly you should see a page like this:</p>
+<p><img src="/images/posts/reversepayara/nginxproxy.png" alt="NGINX Proxy" title="NGINX Proxy" /></p>
+<p>Don't worry the Fedora logo is due EPEL usage, but you're running Oracle Linux :).</p>
+<p>Now it's time to setup NGINX as reverse proxy, an opinionated deployment option is to create a <code>/etc/nginx/sites-available</code> and <code>/etc/nginx/sites-enabled</code> structure inside NGINX configuration, to isolate/manage multiple domains with the same instance (aka virtual hosts).</p>
+<pre><code class="language-prettyprint">mkdir -p /etc/nginx/sites-available
 mkdir -p /etc/nginx/sites-enabled
 mkdir -p /var/www/ocl.nabenik.com/
 chown -R nginx:nginx /var/www/ocl.nabenik.com
 
-echo &#39;server {
+echo 'server {
     server_name ocl.nabenik.com;
 
     gzip on;
@@ -184,21 +208,32 @@ echo &#39;server {
     }
 
     listen 80;
-}&#39; &gt; /etc/nginx/sites-available/ocl.nabenik.com.conf
-</code></pre><p>To enable the new host, a symlink is created on <code>sites-enabled</code>:</p>
-<pre><code class="prettyprint">ln -s /etc/nginx/sites-available/ocl.nabenik.com.conf /etc/nginx/sites-enabled/ocl.nabenik.com.conf
-</code></pre><p>After that you should include the following line inside <code>/etc/nginx/nginx.conf</code>, just before config file ending.</p>
+}' &gt; /etc/nginx/sites-available/ocl.nabenik.com.conf
+</code></pre>
+<p>To enable the new host, a symlink is created on <code>sites-enabled</code>:</p>
+<pre><code class="language-prettyprint">ln -s /etc/nginx/sites-available/ocl.nabenik.com.conf /etc/nginx/sites-enabled/ocl.nabenik.com.conf
+</code></pre>
+<p>After that you should include the following line inside <code>/etc/nginx/nginx.conf</code>, just before config file ending.</p>
 <pre><code>include /etc/nginx/sites-enabled/*.conf;
-</code></pre><p>It is also useful to check your configuration with <code>nginx -t</code>, if all works property you should reach payara after NGINX reload.</p><p><img src="/images/posts/reversepayara/reversepayara.png" alt="Reverse Payara" title="Reverse Payara" /></p><h2>Setting up Let's Encrypt</h2><p>Once the reverse proxy is working, certbot should be enough to add an SSL certificate, the plugin itself will create a challenge at <code>^~ /.well-known/acme-challenge/</code>, hence the proxy exclusion is mandatory (as reflected in the previous configuration step).</p>
-<pre><code class="prettyprint">yum install -y certbot-nginx
+</code></pre>
+<p>It is also useful to check your configuration with <code>nginx -t</code>, if all works property you should reach payara after NGINX reload.</p>
+<p><img src="/images/posts/reversepayara/reversepayara.png" alt="Reverse Payara" title="Reverse Payara" /></p>
+<h2>Setting up Let's Encrypt</h2>
+<p>Once the reverse proxy is working, certbot should be enough to add an SSL certificate, the plugin itself will create a challenge at <code>^~ /.well-known/acme-challenge/</code>, hence the proxy exclusion is mandatory (as reflected in the previous configuration step).</p>
+<pre><code class="language-prettyprint">yum install -y certbot-nginx
 certbot --nginx -d ocl.nabenik.com
-</code></pre><p>One of the caveats of using certbot is the dependency of python version. Another alternative if you find any issues is to install it with <code>pip</code></p>
-<pre><code class="prettyprint">yum install -y python-pip
+</code></pre>
+<p>One of the caveats of using certbot is the dependency of python version. Another alternative if you find any issues is to install it with <code>pip</code></p>
+<pre><code class="language-prettyprint">yum install -y python-pip
 pip install certbot-nginx
 certbot --nginx -d ocl.nabenik.com
-</code></pre><p>If everything works as expected, you should see the Payara page under SSL.</p><p><img src="/images/posts/reversepayara/payarassl.png" alt="Payara SSL" title="Payara SSL" /></p><p>Finally and most importantly, Let's Encrypt certificates are valid just for 90 days, hence you could add certification renewal (<code>crontab -e</code>) as a cron task</p>
+</code></pre>
+<p>If everything works as expected, you should see the Payara page under SSL.</p>
+<p><img src="/images/posts/reversepayara/payarassl.png" alt="Payara SSL" title="Payara SSL" /></p>
+<p>Finally and most importantly, Let's Encrypt certificates are valid just for 90 days, hence you could add certification renewal (<code>crontab -e</code>) as a cron task</p>
 <pre><code>15 3 * * * /usr/bin/certbot renew --quiet
-</code></pre></p>
+</code></pre>
+</p>
 
 			<div id="share">
 <!-- Twitter -->
@@ -276,7 +311,7 @@ certbot --nginx -d ocl.nabenik.com
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
       </div>
     </div>
 
