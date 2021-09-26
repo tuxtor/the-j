@@ -29,7 +29,7 @@
 	    	</div>
 	    	<div class="row">
 	    		<p>Is The-J a broken blog?</p>
-	    		<p><a href="https://travis-ci.org/tuxtor/the-j" target="_blank"><img src="https://travis-ci.org/tuxtor/the-j.svg?branch=master" alt="travis status"></a></p>
+	    		<p><a href="https://travis-ci.org/tuxtor/the-j" target="_blank"><img src="https://github.com/tuxtor/the-j/actions/workflows/gradle.yaml/badge.svg" alt="actions status"></a></p>
 	    	</div>
 	    </div>
 	    <div class="col-md-6"><img src="/images/global/playground.png" alt="playground"></div>

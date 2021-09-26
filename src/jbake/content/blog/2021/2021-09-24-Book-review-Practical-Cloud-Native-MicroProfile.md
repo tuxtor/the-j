@@ -37,9 +37,9 @@ Subsequently if you think that it sounds a lot like Java EE, that's right, **it'
 The main value of this book is **the willingness to go beyond the APIs**, providing four structured sections that have different writing styles, for instance:
 
 1. Section 1: Cloud Native Applications - Written as a didactical resource to learn fundamentals of distributed systems with Cloud Native approach
-2. Section 2: MicroProfile Deep Dive - Written as a reference book with code snippets to understand the motivation, functionality and specific details in MicroProfile APIs and the relation between this APIs and common Microservices patterns -e.g. Remote procedure invocation, Health Check APIs, Externalized configuration-
+2. Section 2: MicroProfile Deep Dive - Written as a reference book with code snippets to understand the motivation, functionality and specific details in MicroProfile APIs and the relation between these APIs and common Microservices patterns -e.g. Remote procedure invocation, Health Check APIs, Externalized configuration-
 3. Section 3: End-to-End Project Using MicroProfile - Written as a narrative workshop with source code already available, to understand the development and deployment process of Cloud Native applications with MicroProfile
-4. Section 4: The standalone specifications - Written as a reference book with code snippets, it describes the development of newer specs that could be included in future under MicroProfile's umbrella
+4. Section 4: The standalone specifications - Written as a reference book with code snippets, it describes the development of newer specs that could be included in the future under MicroProfile's umbrella
 
 ### First section
 
