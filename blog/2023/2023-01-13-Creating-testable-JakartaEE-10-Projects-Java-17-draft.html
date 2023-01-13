@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Creating testable Jakarta EE 10 projects with Java 17 and MySQL (A step-by-step guide)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The J*, a blog about Java, JVM, JavaScript and Gentoo Linux">
+    <meta name="author" content="Víctor Orozco">
+    <meta name="keywords" content="java,jvm,javascript,gentoo,linux">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <!--link href="../../css/bootstrap.min.css" rel="stylesheet"-->
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <meta property="og:title" content="Creating testable Jakarta EE 10 projects with Java 17 and MySQL (A step-by-step guide)">
+    <meta property="og:type" content="post">
+    <meta property="og:url" content="https://www.vorozco.com/blog/2023/2023-01-13-Creating-testable-JakartaEE-10-Projects-Java-17.html">
+    <meta property="og:site_name" content="The J*">
+    <meta property="og:locale" content="en-US">
+    <meta property="article:published_time" content="14 January 2023">
+    <meta property="article:author" content="https://www.facebook.com/tuxtor">
+    <meta property="fb:app_id" content="753735224749731">
+    <meta property="og:image" content="http://vorozco.com/images/global/playground.png">
+
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-41004409-2', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=290416645177";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+        <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">The J*</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../blog">Blog</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <li><a href="../../contact.html">Contact</a></li>
+            <li><a href="https://feeds.feedburner.com/the-j">Subscribe</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	<div class="page-header">
+		<h1>Creating testable Jakarta EE 10 projects with Java 17 and MySQL (A step-by-step guide)</h1>
+	</div>
+
+	<p><em>14 January 2023</em></p>
+
+	<div class="row">
+
+		<div class="col-md-9">
+			<p><p>In this &quot;Giga&quot; tutorial I'll try to consolidate some introductory knowledge and the steps needed to create a testable (Integration testing) project on Jakarta EE 10 and Java 17.</p>
+<p>The tutorial aims to be portable between traditional application servers, hence when created (2023-01-13) I selected three of the four <a href="https://jakarta.ee/compatibility/download/">implementations compatible with Jakarta EE 10</a>, being Glassfish 7, Payara 6, and Wildfly 27.</p>
+<p>For the record, I left out <a href="https://www.fujitsu.com/jp/products/software/middleware/business-middleware/middleware/applatform/">FUJITSU Software Enterprise Application Platform</a> on purpose, basically because my Japanese is mostly Naruto's catchphrases.</p>
+<p>Through the text, you'll find some links to go deeper into each of the concepts, and many &quot;down-to-earth&quot; explanations about each of the concepts, hence it could be tiresome for more experienced people but useful for beginners. You could safely jump &quot;down-to-earth&quot; explanations if you want to.</p>
+<p>My main intention is to provide a complete tutorial for beginners and people on-boarding enterprise Java.</p>
+<p>This tutorial is divided into the following sections:</p>
+<ol>
+<li>What is Jakarta EE anyway</li>
+<li>Bootstrapping a Jakarta EE 10 Project with Java 17</li>
+<li>A basic JAX-RS API with CDI and Data Persistence capabilities</li>
+<li>Integration tests with Arquillian and JUnit 5 over Glassfish/Payara</li>
+<li>Integration tests with Arquillian and JUnit 5 over Wildfly</li>
+<li>Configuring MySQL data source with Payara/Glassfish descriptors</li>
+<li>Configuring MySQL data source with Wildfly descriptors</li>
+<li>Bootstrapping real databases with Testcontainers and Docker</li>
+<li>Wrap up and final GitHub repository</li>
+</ol>
+<h2>What is Jakarta EE anyway</h2>
+<p>From <a href="https://jakarta.ee/about/jakarta-ee/">Jakarta EE's website</a> you could extract the following definition:</p>
+<blockquote>
+<p>Jakarta EE gives developers a comprehensive set of vendor neutral, open specifications that are used for developing modern, cloud native Java applications from the ground up. With Jakarta EE, technology developers and consumers can be confident they have the best technologies for developing cloud native, mission-critical applications. And they can build on decades of Java developer expertise to move existing workloads to the cloud.</p>
+</blockquote>
+<h3>What does this mean for the developers? (Down to earth)</h3>
+<p>One of the strongest points of being a Java developer is <strong>the ecosystem</strong>. In principle, you could choose among different providers for JVM, frameworks, libraries, and runtimes. This has been the situation since Sun Microsystems era and you will find different frameworks for different needs, for example, if we want to create a REST API with Java the first selection should be among:</p>
+<ul>
+<li>Microframeworks that provide an imperative programming model and HTTP communications like <a href="https://sparkjava.com/">SparkJava</a> or <a href="https://javalin.io/">Javalin</a></li>
+<li>Opinionated end-to-end frameworks with their own mindset and way of doing things like <a href="https://armeria.dev/">Armeria</a> or <a href="https://akka.io/">Akka</a></li>
+<li>Generalistic end-to-end frameworks based on declarative programming (annotations), like <a href="https://spring.io/projects/spring-boot">Spring Boot</a> or <a href="https://www.dropwizard.io/en/latest/">Dropwizard</a></li>
+</ul>
+<p>With this in mind, a regular Java developer can't know every particular aspect of every framework, hence in many situations your knowledge about one solution is not portable at all to other solutions despite <strong>both solutions being Java</strong>.</p>
+<p>What to do about it? In 1998 Sun Microsystems created the Java Community Process, a <a href="https://en.wikipedia.org/wiki/Standards_organization">standards organization</a> aiming to provide a common set of technical specifications for Java Core (J2SE), Java Micro (J2ME) and Java Enterprise (J2EE). Fast forwarding to present times J2EE became Java EE, and some years later the [Java EE process was donated to the Eclipse <a href="https://www.infoq.com/news/2017/09/JavaEEtoEclipse/">Foundation</a>, where Jakarta EE was born. Within Eclipse, software providers (communities or companies) could take (or propose) a specification, aiming for technical common grounds to define a &quot;Java enterprise way&quot; of doing things.</p>
+<p>A specification &quot;product&quot; is mostly (but not exclusively) four things, 1. A sub-project in charge of specification, basically a community composed of interested parties, 2. The specification definition (documentation about it), 3. A set of Java APIs and 4. A set of compatibility tests to validate eventual implementations (TCK).</p>
+<h2>How Jakarta EE looks in the real life (Down to earth)</h2>
+<p>Let's take one of the most popular Jakarta EE specifications, the specification for Java object persistence -i.e. <strong>Jakarta Persistence</strong>-.</p>
+<p>The textual definition of it is:</p>
+<blockquote>
+<p>Jakarta Persistence defines a standard for management of persistence and object/relational mapping in Java® environments.</p>
+</blockquote>
+<p>As you probably are guessing, it has (at least) the four elements described previously, being:</p>
+<ol>
+<li><a href="https://jakarta.ee/specifications/persistence/3.1/">A community steering the specification</a></li>
+<li><a href="https://jakarta.ee/specifications/persistence/3.1/jakarta-persistence-spec-3.1.html">The specification definition</a></li>
+<li><a href="https://github.com/jakartaee/persistence/tree/master/api">A set of Java APIs</a></li>
+<li><a href="https://download.eclipse.org/jakartaee/persistence/3.1/jakarta-persistence-tck-3.1.0.zip">A TCK</a></li>
+</ol>
+<p>Later or during the specification creation, communities and companies create Java libraries and/or products compatible with this specification, at this time Jakarta Persistence 3.1 has two implementations:</p>
+<ol>
+<li><a href="https://www.eclipse.org/eclipselink/releases/4.0.php">EclipseLink (Eclipse)</a></li>
+<li><a href="https://hibernate.org/orm/releases/6.1/">Hibernate (Red Hat)</a></li>
+</ol>
+<p>In practical terms, this means that EclipseLink and Hibernate as libraries provide the source code to satisfy the Jakarta Persistence objective, being tested against the TCK, and having a predictable behavior where your knowledge about Jakarta Persistence is portable. If you decide to stay in the specification, your code will be portable among implementations.</p>
+<p>At the same time, each project provides extra capabilities like being compatible with some particular cache -e.g. <a href="https://infinispan.org/docs/stable/titles/hibernate/hibernate.html">Infinispan and Hibernate</a>- or having extra features for some particular databases -e.g. <a href="https://www.eclipse.org/eclipselink/documentation/2.5/solutions/oracledb.htm">EclipseLink and Oracle</a>-. If you decide to use the extra capabilities, your code probably won't be portable among implementations but it still will have the <strong>Enterprise way</strong> of doing things.</p>
+<h2>Collections of specifications and certified runtimes</h2>
+<p>Some Jakarta specifications are more popular than others, and <strong>most importantly</strong> not every Java community or company will adopt every especification.</p>
+<p>For example both <a href="https://spring.io/projects/spring-data-jpa">Spring Boot</a> and <a href="https://micronaut-projects.github.io/micronaut-data/latest/guide/#hibernate">Micronaut</a> offer abstraction data layers over JPA, but each has its own way to define REST endpoints (<a href="https://spring.io/guides/gs/rest-service/">Spring</a>, <a href="https://docs.micronaut.io/2.0.0.M2/api/io/micronaut/http/annotation/Controller.html">Micronaut</a>).</p>
+<p>Still, if a given company or community decides to fully embrace Jakarta EE, it can be certified against <a href="https://jakarta.ee/release/10/">Jakarta EE profiles</a>:</p>
+<ul>
+<li>Jakarta EE Core: Offering a minimalistic set of specifications for REST services creation</li>
+<li>Jakarta EE Web: Offering a set of specifications for creating Web applications</li>
+<li>Jakarta EE Full: Offering a complete set of specifications for products that need to offer a robust set of feature for any kind of Java Enterprise applications</li>
+</ul>
+<p>Again, a given product could target the minimum to comply with Jakarta EE Core, but still offer a lot of extras with its own mindset and not necesarly compatible with Jakarta EE Full, like Quarkus <a href="https://es.quarkus.io/blog/our-bumpy-road-to-jakarta-ee-10/">which is planing to support Jakarta EE 10</a>).</p>
+<h2>Which one is better?</h2>
+<p>Not my call to do since it depends on your needs. Still, if you want an oppinion.</p>
+<p>I tend to prefer <a href="https://www.payara.fish/">Payara</a> if I need an standalone server, mostly because I have many years of experience in Glassfish. Also if I need to distribute a simple application on a fatjar I tend to use Payara Micro or <a href="https://tomee.apache.org/">Apache TomEE</a>.</p>
+<p>If I need a microservice architecture, I'll probably be using <a href="https://quarkus.io/">Quarkus</a> or <a href="https://helidon.io/">Helidon</a>.</p>
+<p>If I need a lambda function, <a href="https://quarkus.io/">Quarkus</a> it is.</p>
+</p>
+
+			<div id="share">
+<!-- Twitter -->
+<a href="https://twitter.com/share" class="twitter-share-button" data-dnt="true">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+<!-- Google Plus -->
+<div class="g-plusone" data-size="medium"></div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'en-GB'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<!-- Facebook -->
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="false">
+</div></div>
+			
+			<hr />
+
+			<div id="disqus_thread"></div>
+			<script type="text/javascript">
+			    /* * * CONFIGURATION VARIABLES * * */
+			    var disqus_shortname = 'opinguimacademicoq';
+
+			    /* * * DON'T EDIT BELOW THIS LINE * * */
+			    (function() {
+			        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			    })();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+		</div>
+			<div class="col-md-3">
+			<form style="border:1px solid #ccc;padding:3px;text-align:center;" action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri=the-j', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true"><p>Enter your email address:</p><p><input type="text" style="width:140px" name="email"/></p><input type="hidden" value="the-j" name="uri"/><input type="hidden" name="loc" value="en_US"/><input type="submit" value="Subscribe" /><p>Delivered by <a href="https://feedburner.google.com" target="_blank">FeedBurner</a></p></form>
+			<hr/>
+			
+			<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"><img src="/images/global/getjavasesdk-120x30.png" alt="Get Java SE SDK" border="0" width="120" height="30" /></a>
+
+			<br/>
+
+			<a href="http://www.gentoo.org/"><img src="//www.gentoo.org/assets/img/badges/gentoo-badge.png" alt="Gentoo" style="border:0" /></a>
+
+			<br/>
+
+			<a href="https://community.oracle.com/community/technology_network_community/java/java-champions">
+			<img src="/images/global/jc.png" alt="Java Champions" style="border:0" />
+			</a>
+
+			<hr/>
+
+		    <a class="twitter-timeline"  href="https://twitter.com/tuxtor" data-widget-id="633158537896722432">Tweets by @tuxtor</a>
+	            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</div>
+	</div>
+
+	
+
+	
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2015-2021 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    <link  href="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.7.1/lazyload.min.js"></script>
+    </body>
+</html>

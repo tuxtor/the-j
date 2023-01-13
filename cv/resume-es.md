@@ -1,4 +1,4 @@
-![](cvalt.png) Víctor Leonel Orozco López
+Víctor Leonel Orozco López
 ===========================================
 
 ----
@@ -17,12 +17,12 @@ Website
 : [https://vorozco.com/](http://vorozco.com/)
 
 Edad
-: 32 años
+: 34 años
 
 Educación
 ---------
 2012-2013
-:	*Master of Science (MSc), Computer Science* 
+:	*Master of Science (MSc), Computer Science*  
 	Area de investigación: Seguridad de sistemas de información 
 	Universidade Federal de Santa Maria (RS, Brazil) 
 	GPA: 3.84/A-
@@ -34,6 +34,10 @@ Educación
 
 Certificaciones
 --------------
+2021
+:	*CKA: Certified Kubernetes Administrator*  
+	The Linux Foundation  
+
 2018
 :	*Oracle Certified Professional, Java SE 8 Programmer*  
 	Oracle Corporation  
@@ -48,15 +52,15 @@ Certificaciones
 
 Premios
 ------
+2022  
+:	*Oracle ACE Pro*  
+	[Oracle Corporation](https://apex.oracle.com/pls/apex/aces/d/victor.orozco)  
+	El programa Oracle ACE destaca la excelencia dentro de la comunidad global de Oracle al reconocer a las personas que han demostrado competencia técnica y sólidas credenciales como entusiastas y defensores de la comunidad.
+
 2018  
 :	*Java Champion*  
 	[Oracle Corporation](https://blogs.oracle.com/java/30-new-java-champions-confirmed-in-2018)  
 	Java Champions son un grupo exclusivo de apasionados en Java, lideres comunitarios que son nominados y seleccionados a través de un proyecto patrocinado por Oracle, los cuales reciben la oportunidad de proveer retroalimentación, ideas y dirección para ayudar al crecimiento de la plataforma Java.
-
-2018  
-:	*Oracle Groundbreakers Ambassador*  
-	[Oracle Corporation](https://twitter.com/Java_Champions/status/1044284671998218248)  
-	Los Oracle Groundbreakers Ambassador son profesionales con experiencia en desarrollo moderno, en areas como Cloud, Microservicios, Contenedores, Java, Devops y técnologias Open Source. Identificados como contribuyentes al desarrollo Open Source y oradores en las conferencias top de la industria como DeveloperWeek, DevNexus, Devoxx, Oracle Code One y QCon.
 
 2016
 :	*Duke's Choice Award*  
@@ -84,23 +88,28 @@ Experiencia
 -----------
 
 2014-actualmente
-:	*Director de R&D/Fundador*  
+:	*Arquitecto de Soluciones*  
 	[Nabenik](http://www.nabenik.com/)  
 	Estudio de software dedicado a investigación y desarrollo de soluciones de TI y gestión de la innovación.  
-	Desarrollo de aplicaciones de alto desempeño, software empresarial y movíl.
+	Desarrollo de aplicaciones de alto desempeño, software empresarial y móvil.
+ 
+2020-actualmente  
+:	*Profesor asociado, Facultad de Ingenieria*  
+	[Universidad de San Carlos de Guatemala, Centro Universitario de Occidente](http://www.ingenieria.cunoc.usac.edu.gt/portal/)  
+	Profesor asociado al Departamento de Computación, disciplinas de sistemas organizacionales y gerenciales  
+	Supervisor de trabajos de graduación y EPS 
 
-2016-actualmente  
+2016-2020  
 :	*Profesor asociado, Facultad de Ingenieria*  
 	[Universidad Rafael Landivar de Guatemala](http://www.url.edu.gt)  
-	Profesor asociado al Departamento de Computación, Facultad de Ingenieria  
+	Profesor asociado al Departamento de Computación, Facultad de Ingeniería  
 	Cursos: Inteligencia Artificial, Modelación y Simulación, Programación Avanzada
-
+ 
 2018-2019
 :	*Vicepresidente comisión de informatica*  
 	[Senacyt](http://comisiones.concyt.gob.gt/portal/index.php/comisiones/d-informatica/77-jd-informatica)  
 	Vicepresidente de la comisión nacional de informatica en el sistema nacional de ciencia y tecnologia.  
-
-
+ 
 2016
 :	*Instructor*  
 	[Edx.org - Universidad Galileo](https://www.edx.org/course/java-fundamentals-android-development-galileox-caad001x)  
@@ -150,7 +159,7 @@ Lenguajes
 :	Java, JavaScript, Kotlin, Scala, Python, C, C++, HTML, CSS, TeX
 
 Plataformas  
-:	Java EE, Java SE, Java ME, AngularJS, Java FX, Android, iOS, Spring, QT
+:	Kubernetes, Java EE, Java SE, Java FX, Android, Spring
 
 Bases de datos
 :	Oracle, MySQL, PostreSQL, MongoDB
@@ -202,9 +211,12 @@ XII SEPROSUL Semana de Engenharia de Produção Sulamericana, 2012, Assunção-P
 LÓPEZ, V. L. O. ; LOBOS, J. F.  
 Workshop Software Livre 2012, 2012, Porto Alegre, Rs. Anais do WSL 2012. Porto Alegre, Associação Software Livre.Org., 2012.
 
-Participaciones internacionales como expositor[^1]
---------------------------------------------------
+Participaciones internacionales como ponente[^1]
+------------------------------------------------
 
+* MicroProfile: A World Beyond REST APIs • Java One 2022 - San Francisco, CA, United States • Oct 2022
+* From Traditional to GitOps: A Tale of Modernizing Two Government Institutions in One Year • Open Source Summit Latin America - Virtual • Ago 2022
+* Creating CLI tools with GraalVM Native and Kotlin • JVM Barranquilla - Barranquilla, Colombia • Nov 2021
 * Microservices Patterns with MicroProfile • The Developers Conference/Oracle - Porto Alegre, Brasil • Dec 2020
 * Securing Java EE applications for the OWASP Top 10  • Ekoparty University Talks - BS, Argentina • Nov 2020
 * From the TV to the Cloud, the Java ecosystem in 25 years • Oracle - LATAM • Oct 2020
@@ -235,9 +247,17 @@ Participaciones internacionales como expositor[^1]
 * High performance and flexibility with Gentoo Linux • Fórum Software Livre Tchelinux.org - Santa Maria, RS, Brazil • Dec 2012
 * Distributed compilation with Distcc and Icecream clusters using Gentoo, a benchmarking study case • Forum Internacional de Software Livre (FISL) - Porto Alegre, RS Brazil • Apr 2012
 
-Participaciones nacionales como expositor[^1]
----------------------------------------------
+Participaciones nacionales como ponente[^1]
+-------------------------------------------
 
+* The Open Source State in 2022 • PMI Guatemala Meetups - Guatemala • Mar 2022 
+* Considerations for migrations between on premise and Cloud Native • PMI Guatemala Meetups - Guatemala • Mar 2022 
+* Microservice Chassis vs. Service Mesh • Kubernetes Community Days Guatemala - Guatemala • Nov 2021 
+* Serverless with FN Project • Colegio de Ingenieros de Guatemala - Guatemala • Nov 2021
+* From Java 8 to Java 17 • Colegio de Ingenieros de Guatemala - Guatemala • Oct 2021
+* Microservices Patterns with MicroProfile and Oracle Cloud • Colegio de Ingenieros de Guatemala - Guatemala • Nov 2020
+* The current state of languages in the JVM • Congreso de Estudiantes de Ingenieria (CEI) - Guatemala • Oct 2020 
+* Java Projects Management with Maven • Colegio de Ingenieros de Guatemala - Guatemala • Oct 2020
 * Kotlin for Java Developers • Colegio de Ingenieros de Guatemala - Guatemala • Sep 2020
 * Introduccción a Microservicios con Eclipse MicroProfile y Java EE • Oracle Developer Tour LA - GOUG, Guatemala • Ago 2018
 * 101 on securing Java EE 7 and 8 Applications OWASP Latam Tour May 2018 • OWASP Latam Tour 2018 - OWASP • Jul 2018
