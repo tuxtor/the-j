@@ -94,15 +94,15 @@
 	<div class="row">
 
 		<div class="col-md-9">
-			<p><p>In this &quot;Giga&quot; tutorial I'll try to consolidate some introductory knowledge and the steps needed to create a testable (Integration testing) project on Jakarta EE 10 and Java 17.</p>
-<p>The tutorial aims to be portable between traditional application servers, hence when created (2023-01-13) I selected three of the four <a href="https://jakarta.ee/compatibility/download/">implementations compatible with Jakarta EE 10</a>, being Glassfish 7, Payara 6, and Wildfly 27.</p>
-<p>For the record, I left out <a href="https://www.fujitsu.com/jp/products/software/middleware/business-middleware/middleware/applatform/">FUJITSU Software Enterprise Application Platform</a> on purpose, basically because my Japanese is mostly Naruto's catchphrases.</p>
-<p>Through the text, you'll find some links to go deeper into each of the concepts, and many &quot;down-to-earth&quot; explanations about each of the concepts, hence it could be tiresome for more experienced people but useful for beginners. You could safely jump &quot;down-to-earth&quot; explanations if you want to.</p>
-<p>My main intention is to provide a complete tutorial for beginners and people on-boarding enterprise Java.</p>
+			<p><p>In this &quot;Giga&quot; tutorial I'll try to consolidate some introductory knowledge and the <strong>steps needed to create a testable (Integration testing) project on Jakarta EE 10 and Java 17</strong>.</p>
+<p><strong>The tutorial aims to be portable between traditional application servers</strong>, hence when created (2023-01-13) I selected three of the four <a href="https://jakarta.ee/compatibility/download/">implementations compatible with Jakarta EE 10</a>, being Glassfish 7, Payara 6, and Wildfly 27.</p>
+<p>For the record, I left out <a href="https://www.fujitsu.com/jp/products/software/middleware/business-middleware/middleware/applatform/">FUJITSU Software Enterprise Application Platform</a> on purpose, my Japanese is mostly Naruto's catchphrases.</p>
+<p><strong>Through the text, you'll find some links and many &quot;down-to-earth&quot; explanations about each of the concepts</strong>, hence it could be tiresome for more experienced people but useful for beginners. You could safely jump &quot;down-to-earth&quot; explanations if you want to.</p>
+<p>My main intention is to provide <strong>a complete tutorial for beginners</strong> and people on-boarding enterprise Java.</p>
 <p>This tutorial is divided into the following sections:</p>
 <ol>
-<li>What is Jakarta EE anyway</li>
-<li>Bootstrapping a Jakarta EE 10 Project with Java 17</li>
+<li><a href="#what-is-Jakarta-EE-anyway">What is Jakarta EE anyway</a></li>
+<li>Bootstrapping new Jakarta EE 10 projects with Eclipse Starter for Jakarta EE</li>
 <li>A basic JAX-RS API with CDI and Data Persistence capabilities</li>
 <li>Integration tests with Arquillian and JUnit 5 over Glassfish/Payara</li>
 <li>Integration tests with Arquillian and JUnit 5 over Wildfly</li>
@@ -116,7 +116,7 @@
 <blockquote>
 <p>Jakarta EE gives developers a comprehensive set of vendor neutral, open specifications that are used for developing modern, cloud native Java applications from the ground up. With Jakarta EE, technology developers and consumers can be confident they have the best technologies for developing cloud native, mission-critical applications. And they can build on decades of Java developer expertise to move existing workloads to the cloud.</p>
 </blockquote>
-<h3>What does this mean for the developers? (Down to earth)</h3>
+<h3>What does this mean for the developers?</h3>
 <p>One of the strongest points of being a Java developer is <strong>the ecosystem</strong>. In principle, you could choose among different providers for JVM, frameworks, libraries, and runtimes. This has been the situation since Sun Microsystems era and you will find different frameworks for different needs, for example, if we want to create a REST API with Java the first selection should be among:</p>
 <ul>
 <li>Microframeworks that provide an imperative programming model and HTTP communications like <a href="https://sparkjava.com/">SparkJava</a> or <a href="https://javalin.io/">Javalin</a></li>
@@ -126,41 +126,43 @@
 <p>With this in mind, a regular Java developer can't know every particular aspect of every framework, hence in many situations your knowledge about one solution is not portable at all to other solutions despite <strong>both solutions being Java</strong>.</p>
 <p>What to do about it? In 1998 Sun Microsystems created the Java Community Process, a <a href="https://en.wikipedia.org/wiki/Standards_organization">standards organization</a> aiming to provide a common set of technical specifications for Java Core (J2SE), Java Micro (J2ME) and Java Enterprise (J2EE). Fast forwarding to present times J2EE became Java EE, and some years later the [Java EE process was donated to the Eclipse <a href="https://www.infoq.com/news/2017/09/JavaEEtoEclipse/">Foundation</a>, where Jakarta EE was born. Within Eclipse, software providers (communities or companies) could take (or propose) a specification, aiming for technical common grounds to define a &quot;Java enterprise way&quot; of doing things.</p>
 <p>A specification &quot;product&quot; is mostly (but not exclusively) four things, 1. A sub-project in charge of specification, basically a community composed of interested parties, 2. The specification definition (documentation about it), 3. A set of Java APIs and 4. A set of compatibility tests to validate eventual implementations (TCK).</p>
-<h2>How Jakarta EE looks in the real life (Down to earth)</h2>
+<h3>How Jakarta EE looks in the real life</h3>
 <p>Let's take one of the most popular Jakarta EE specifications, the specification for Java object persistence -i.e. <strong>Jakarta Persistence</strong>-.</p>
-<p>The textual definition of it is:</p>
+<p>The definition states:</p>
 <blockquote>
 <p>Jakarta Persistence defines a standard for management of persistence and object/relational mapping in Java® environments.</p>
 </blockquote>
-<p>As you probably are guessing, it has (at least) the four elements described previously, being:</p>
+<p>As you probably guess, it has (at least) the four elements described previously, being:</p>
 <ol>
 <li><a href="https://jakarta.ee/specifications/persistence/3.1/">A community steering the specification</a></li>
 <li><a href="https://jakarta.ee/specifications/persistence/3.1/jakarta-persistence-spec-3.1.html">The specification definition</a></li>
 <li><a href="https://github.com/jakartaee/persistence/tree/master/api">A set of Java APIs</a></li>
 <li><a href="https://download.eclipse.org/jakartaee/persistence/3.1/jakarta-persistence-tck-3.1.0.zip">A TCK</a></li>
 </ol>
-<p>Later or during the specification creation, communities and companies create Java libraries and/or products compatible with this specification, at this time Jakarta Persistence 3.1 has two implementations:</p>
+<p>Later or during the specification creation, communities and companies create Java libraries and/or products compatible with this specification, currently Jakarta Persistence 3.1 has two implementations:</p>
 <ol>
 <li><a href="https://www.eclipse.org/eclipselink/releases/4.0.php">EclipseLink (Eclipse)</a></li>
 <li><a href="https://hibernate.org/orm/releases/6.1/">Hibernate (Red Hat)</a></li>
 </ol>
-<p>In practical terms, this means that EclipseLink and Hibernate as libraries provide the source code to satisfy the Jakarta Persistence objective, being tested against the TCK, and having a predictable behavior where your knowledge about Jakarta Persistence is portable. If you decide to stay in the specification, your code will be portable among implementations.</p>
-<p>At the same time, each project provides extra capabilities like being compatible with some particular cache -e.g. <a href="https://infinispan.org/docs/stable/titles/hibernate/hibernate.html">Infinispan and Hibernate</a>- or having extra features for some particular databases -e.g. <a href="https://www.eclipse.org/eclipselink/documentation/2.5/solutions/oracledb.htm">EclipseLink and Oracle</a>-. If you decide to use the extra capabilities, your code probably won't be portable among implementations but it still will have the <strong>Enterprise way</strong> of doing things.</p>
-<h2>Collections of specifications and certified runtimes</h2>
+<p>In practical terms, this means that EclipseLink and Hibernate as libraries provide the source code to satisfy the Jakarta Persistence objective, being tested against the TCK, and having a predictable behavior where your knowledge about Jakarta Persistence is universal. If you decide to stay in the specification, your code will be portable among implementations.</p>
+<p>At the same time, each project provides extra capabilities like being compatible with some particular cache -e.g. <a href="https://infinispan.org/docs/stable/titles/hibernate/hibernate.html">Infinispan and Hibernate</a>- or having extra features for some particular databases -e.g. <a href="https://www.eclipse.org/eclipselink/documentation/2.5/solutions/oracledb.htm">EclipseLink and Oracle</a>-. If you decide to use the extra capabilities, your code probably won't be portable among implementations but it will have the <strong>Enterprise way</strong> of doing things.</p>
+<h3>Collections of specifications and certified runtimes</h3>
 <p>Some Jakarta specifications are more popular than others, and <strong>most importantly</strong> not every Java community or company will adopt every especification.</p>
-<p>For example both <a href="https://spring.io/projects/spring-data-jpa">Spring Boot</a> and <a href="https://micronaut-projects.github.io/micronaut-data/latest/guide/#hibernate">Micronaut</a> offer abstraction data layers over JPA, but each has its own way to define REST endpoints (<a href="https://spring.io/guides/gs/rest-service/">Spring</a>, <a href="https://docs.micronaut.io/2.0.0.M2/api/io/micronaut/http/annotation/Controller.html">Micronaut</a>).</p>
-<p>Still, if a given company or community decides to fully embrace Jakarta EE, it can be certified against <a href="https://jakarta.ee/release/10/">Jakarta EE profiles</a>:</p>
+<p>For example both <a href="https://spring.io/projects/spring-data-jpa">Spring Boot</a> and <a href="https://micronaut-projects.github.io/micronaut-data/latest/guide/#hibernate">Micronaut</a> offer abstraction data layers over JPA, but each community has its own way to define REST endpoints (<a href="https://spring.io/guides/gs/rest-service/">Spring</a>, <a href="https://docs.micronaut.io/2.0.0.M2/api/io/micronaut/http/annotation/Controller.html">Micronaut</a>).</p>
+<p>Still, if a given company or community decides to embrace Jakarta EE by selecting/implementing many specifications, it can be certified against <a href="https://jakarta.ee/release/10/">Jakarta EE profiles</a>:</p>
 <ul>
 <li>Jakarta EE Core: Offering a minimalistic set of specifications for REST services creation</li>
 <li>Jakarta EE Web: Offering a set of specifications for creating Web applications</li>
 <li>Jakarta EE Full: Offering a complete set of specifications for products that need to offer a robust set of feature for any kind of Java Enterprise applications</li>
 </ul>
 <p>Again, a given product could target the minimum to comply with Jakarta EE Core, but still offer a lot of extras with its own mindset and not necesarly compatible with Jakarta EE Full, like Quarkus <a href="https://es.quarkus.io/blog/our-bumpy-road-to-jakarta-ee-10/">which is planing to support Jakarta EE 10</a>).</p>
-<h2>Which one is better?</h2>
-<p>Not my call to do since it depends on your needs. Still, if you want an oppinion.</p>
-<p>I tend to prefer <a href="https://www.payara.fish/">Payara</a> if I need an standalone server, mostly because I have many years of experience in Glassfish. Also if I need to distribute a simple application on a fatjar I tend to use Payara Micro or <a href="https://tomee.apache.org/">Apache TomEE</a>.</p>
-<p>If I need a microservice architecture, I'll probably be using <a href="https://quarkus.io/">Quarkus</a> or <a href="https://helidon.io/">Helidon</a>.</p>
-<p>If I need a lambda function, <a href="https://quarkus.io/">Quarkus</a> it is.</p>
+<h2>Bootstrapping new Jakarta EE 10 projects with Eclipse Starter for Jakarta EE</h2>
+<p>Although Java IDEs have templates to create new projects, one of the most &quot;vendor-neutral&quot; ways of doing it is by using <strong><a href="https://start.jakarta.ee/">Eclipse Starter for Jakarta EE</a></strong>.</p>
+<p>As the name suggests, the starter is a <strong>web application directly available on Jakarta EE website</strong>, you ony need to fill in Maven coordinates (group, name, version) and choose between the available profiles (core, web or platform). It will generate a <strong>new Maven project</strong> compatible with major Java IDEs.</p>
+<p><img src="/images/posts/jakartaee/starter.png" alt="Eclipse Starter for Jakarta EE" title="Eclipse Starter for Jakarta EE" /></p>
+<p>The starter will generate a command to bootstrap the project using <strong>Maven archetypes</strong>, as an example, the execution described in the previous image will generate the following:</p>
+<pre><code class="language-bash">mvn archetype:generate -DarchetypeGroupId=org.eclipse.starter -DarchetypeArtifactId=jakartaee10-minimal -DarchetypeVersion=1.1.0 -DgroupId=com.vorozco -DartifactId=demoee10 -Dprofile=web-api -Dversion=1.0.0-SNAPSHOT -DinteractiveMode=false
+</code></pre>
 </p>
 
 			<div id="share">
