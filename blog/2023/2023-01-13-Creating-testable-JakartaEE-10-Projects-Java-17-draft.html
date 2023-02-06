@@ -101,8 +101,9 @@
 <p>My main intention is to provide <strong>a complete tutorial for beginners</strong> and people on-boarding enterprise Java.</p>
 <p>This tutorial is divided into the following sections:</p>
 <ol>
-<li><a href="#what-is-Jakarta-EE-anyway">What is Jakarta EE anyway</a></li>
+<li>What is Jakarta EE anyway</li>
 <li>Bootstrapping new Jakarta EE 10 projects with Eclipse Starter for Jakarta EE</li>
+<li>Configuring applications servers and Java IDEs</li>
 <li>A basic JAX-RS API with CDI and Data Persistence capabilities</li>
 <li>Integration tests with Arquillian and JUnit 5 over Glassfish/Payara</li>
 <li>Integration tests with Arquillian and JUnit 5 over Wildfly</li>
@@ -157,12 +158,66 @@
 </ul>
 <p>Again, a given product could target the minimum to comply with Jakarta EE Core, but still offer a lot of extras with its own mindset and not necesarly compatible with Jakarta EE Full, like Quarkus <a href="https://es.quarkus.io/blog/our-bumpy-road-to-jakarta-ee-10/">which is planing to support Jakarta EE 10</a>).</p>
 <h2>Bootstrapping new Jakarta EE 10 projects with Eclipse Starter for Jakarta EE</h2>
-<p>Although Java IDEs have templates to create new projects, one of the most &quot;vendor-neutral&quot; ways of doing it is by using <strong><a href="https://start.jakarta.ee/">Eclipse Starter for Jakarta EE</a></strong>.</p>
-<p>As the name suggests, the starter is a <strong>web application directly available on Jakarta EE website</strong>, you ony need to fill in Maven coordinates (group, name, version) and choose between the available profiles (core, web or platform). It will generate a <strong>new Maven project</strong> compatible with major Java IDEs.</p>
+<p>Although Java IDEs, communities and providers have templates to create new projects, one of the most &quot;vendor-neutral&quot; ways of doing it is by using <strong><a href="https://start.jakarta.ee/">Eclipse Starter for Jakarta EE</a></strong>.</p>
+<p>As the name suggests, the starter is a <strong>web application directly available on Jakarta EE website</strong>, you ony need to provide Maven coordinates (group, name, version) and choose between the available profiles (core, web or platform). It will generate a <strong>new Maven project</strong> compatible with major Java IDEs.</p>
 <p><img src="/images/posts/jakartaee/starter.png" alt="Eclipse Starter for Jakarta EE" title="Eclipse Starter for Jakarta EE" /></p>
-<p>The starter will generate a command to bootstrap the project using <strong>Maven archetypes</strong>, as an example, the execution described in the previous image will generate the following:</p>
-<pre><code class="language-bash">mvn archetype:generate -DarchetypeGroupId=org.eclipse.starter -DarchetypeArtifactId=jakartaee10-minimal -DarchetypeVersion=1.1.0 -DgroupId=com.vorozco -DartifactId=demoee10 -Dprofile=web-api -Dversion=1.0.0-SNAPSHOT -DinteractiveMode=false
+<p>The starter will generate a command to bootstrap the project using <strong>Maven archetypes</strong>. As an example, the execution described in the previous image will generate the following:</p>
+<pre><code class="language-prettyprint">mvn archetype:generate -DarchetypeGroupId=org.eclipse.starter -DarchetypeArtifactId=jakartaee10-minimal -DarchetypeVersion=1.1.0 -DgroupId=com.vorozco -DartifactId=demoee10 -Dprofile=web-api -Dversion=1.0.0-SNAPSHOT -DinteractiveMode=false
 </code></pre>
+<p>Once the project is ready, it will be compatible with any Maven aware IDE -e.g. Eclipse, NetBeans, IntelliJ, VSCode- and it should have the following structure:</p>
+<p><img src="/images/posts/jakartaee/structure.png" alt="Project structure" title="Project structure" /></p>
+<p>This project will include just one dependency over the desired Jakarta EE profile, and is quite usable on traditional application servers:</p>
+<pre><code class="language-prettyprint">...
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;jakarta.platform&lt;/groupId&gt;
+        &lt;artifactId&gt;jakarta.jakartaee-web-api&lt;/artifactId&gt;
+        &lt;version&gt;10.0.0&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+...
+</code></pre>
+<p>Additionaly, it includes a JAX-RS resource (more on that later) with the following code snipet:</p>
+<pre><code class="language-prettyprint">@Path(&quot;hello&quot;)
+public class RestResource {
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public HelloRecord hello(){
+        return new HelloRecord(&quot;Hello from Jakarta EE&quot;);
+    }
+}
+</code></pre>
+<p>Depending on your IDE you should configure the connection to your application server to deploy the project. The following section traces some combinations among JVM, IDE and Application Server, but you could safely jump to the next section if you want to.</p>
+<h2>Configuring applications servers and Java IDEs</h2>
+<p>By itself you won't find A UNIQUE Jakarta EE runtime, however and as described previously, nowadays these come in different flavors, being:</p>
+<ul>
+<li>Traditional application servers: <strong>These are able to run MULTIPLE applications over the same JVM</strong>. For development purposes, you commonly need to download and unzip the server, and for production, you will deploy the applications over an already running server. Over here you will find servers like Red Hat JBoss and Oracle WebLogic</li>
+<li>Micro runtimes: <strong>These aim to run ONE application on a particular JVM</strong>. For development purposes you pack an application with the help of Maven plugins -e.g. Payara Micro, Apache TomEE-. For production you'll distribute a .jar file that includes all of the dependencies needed to run your application, commonly named as FatJars or UberJars,</li>
+<li>Custom runtimes: <strong>These also aim to run ONE application on a particular JVM</strong>, however the main difference is about modularity. If compared with micro runtimes, a custom runtime will pack only the bare minimum set of dependencies to provide support for Jakarta EE APIs, in general this improves loading times but is a little bit difficult to configure. A good example of this is <a href="https://openliberty.io/">Open Liberty</a> and <a href="https://piranha.cloud/core-profile/">Piranha Core</a>.</li>
+</ul>
+<p><strong>For simplicity, this tutorial is focused on application servers</strong>, but remember, the code will be the same on any of the runtimes if you remain in the domain of the specification :).</p>
+<h3>Deploying a pristine project with NetBeans, Payara and Java 17</h3>
+<p><strong>Out of the box, NetBeans offers support for Jakarta EE projects and Payara</strong>, to start using it you only require Java 11, and officialy supports Java 11 and Java 17. Hence the first step is to download it from <a href="https://netbeans.apache.org/">https://netbeans.apache.org/</a></p>
+<p><img src="/images/posts/jakartaee/netbeansweb.png" alt="NetBeans Web" title="NetBeans Web" /></p>
+<p><strong>You must download Payara</strong> from <a href="https://www.payara.fish/downloads/payara-platform-community-edition/">https://www.payara.fish/downloads/payara-platform-community-edition/</a>, it offers zipfiles compatible with Web and Full profiles.</p>
+<p><img src="/images/posts/jakartaee/payaraweb.png" alt="Payara Web" title="Payara Web" /></p>
+<p>Payara installation steps are quite simple, you only need to unzip the file over a directory reachable by your IDE, hence not in root/Administrator reserved directories, and in the case of Windows using a not so deep path to avoid Windows issues with longer paths, specially with Maven.</p>
+<p>As an example I've downloaded Payara Web, the zipfile was located at <code>/Users/tuxtor/Downloads/</code> (MacOS) and I wan't to unzip it over <code>/Users/tuxtor/opt/</code>. A couple of bash commands do the work:</p>
+<pre><code class="language-prettyprint">mv /Users/tuxtor/Downloads/payara-web-6.2023.1.zip /Users/tuxtor/opt/
+unzip /Users/tuxtor/opt/payara-web-6.2023.1.zip
+</code></pre>
+<p>As result my Payara installation will be located at <code>/Users/tuxtor/opt/payara6</code></p>
+<p><img src="/images/posts/jakartaee/payarainstall.png" alt="Payara" title="Payara" /></p>
+<p>Back to NetBeans and after running it for the first time, <strong>it should look similar to this</strong>. So please go directly to the Servers tab:</p>
+<p><img src="/images/posts/jakartaee/netbeans.png" alt="Apache NetBeans" title="Apache NetBeans" /></p>
+<p>Once there, a right-click will offer you to add a server, where you'll find Payara</p>
+<p><img src="/images/posts/jakartaee/netbeanservers.png" alt="Apache NetBeans Servers" title="Apache NetBeans Servers" /></p>
+<p><img src="/images/posts/jakartaee/netbeansglassfish.png" alt="Apache NetBeans Payara" title="Apache NetBeans Payara" /></p>
+<p>Please also note, you could download Payara directly from here, however at the time I wrote this guide, the last version wasn't available. Hence you should locate Glassfish's path</p>
+<h3>Deploying a pristine project with Eclipse, Wildfly and Java 17</h3>
+<h3>Deploying a pristine project with IntelliJ, Payara and Java 17</h3>
 </p>
 
 			<div id="share">
