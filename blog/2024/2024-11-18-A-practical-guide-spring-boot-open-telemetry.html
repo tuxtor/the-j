@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>A practical guide to implement OpenTelemetry in Spring Boot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The J*, a blog about Java, JVM, JavaScript and Gentoo Linux">
+    <meta name="author" content="Víctor Orozco">
+    <meta name="keywords" content="java,jvm,javascript,gentoo,linux">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <!--link href="../../css/bootstrap.min.css" rel="stylesheet"-->
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <meta property="og:title" content="A practical guide to implement OpenTelemetry in Spring Boot">
+    <meta property="og:type" content="post">
+    <meta property="og:url" content="https://www.vorozco.com/blog/2024/2024-11-18-A-practical-guide-spring-boot-open-telemetry.html">
+    <meta property="og:site_name" content="The J*">
+    <meta property="og:locale" content="en-US">
+    <meta property="article:published_time" content="01 December 2024">
+    <meta property="article:author" content="https://www.facebook.com/tuxtor">
+    <meta property="fb:app_id" content="753735224749731">
+    <meta property="og:image" content="http://vorozco.com/images/global/playground.png">
+
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-41004409-2', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=290416645177";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+        <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">The J*</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../blog">Blog</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <li><a href="../../contact.html">Contact</a></li>
+            <li><a href="https://feeds.feedburner.com/the-j">Subscribe</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	<div class="page-header">
+		<h1>A practical guide to implement OpenTelemetry in Spring Boot</h1>
+	</div>
+
+	<p><em>01 December 2024</em></p>
+
+	<div class="row">
+
+		<div class="col-md-9">
+			<p><p>In this tutorial I want to consolidate some practical ideas regarding OpenTelemetry and how to use it with Spring Boot.</p>
+<p>This tutorial is composed of four sections</p>
+<ol>
+<li>OpenTelemetry practical concepts</li>
+<li>Setting up an observability stack with OpenTelemetry Collector, Grafana, Loki, Tempo and Podman</li>
+<li>Instrumenting Spring Boot applications for OpenTelemetry</li>
+<li>Tesing and E2E sample</li>
+</ol>
+<p>By the end of the tutorial, you should be able to implement the following architecture:</p>
+<p><img src="/images/posts/opentelemetry/arch.png" alt="Arch" title="Arch" /></p>
+<h2>OpenTelemetry practical concepts</h2>
+<p>As the <a href="https://opentelemetry.io/docs/what-is-opentelemetry/">official documentation</a> states, OpenTelemetry is</p>
+<ul>
+<li>An Observability framework and toolkit designed to <strong>create and manage telemetry data such as traces, metrics, and logs.</strong></li>
+<li>Vendor and tool-agnostic, meaning that it can be used with a broad variety of Observability backends.</li>
+<li>Focused on the generation, collection, management, and export of telemetry. A major goal of OpenTelemetry is that you can easily instrument your applications or systems, no matter their language, infrastructure, or runtime environment.</li>
+</ul>
+<h3>Monitoring, observability and METL</h3>
+<p>To keep things short, monitoring is the process of collecting, processing and analyzing data to track the state of a (information) system. Then, monitoring is going to the next level, <strong>to actually understand the information that is being collected</strong> and do something with it, like <a href="https://sre.google/sre-book/monitoring-distributed-systems/">defining alerts for a given system</a>.</p>
+<p>To achieve both goals it is necessary to collect three dimensions of data, specifically:</p>
+<ul>
+<li><strong>Logs:</strong> Registries about processes and applications, with useful data like timestamps and context</li>
+<li><strong>Metrics:</strong> Numerical data about the performance of applications and application modules</li>
+<li><strong>Traces:</strong> Data that allow to estabilish the complete route that a given operation traverses through a series of dependent applications</li>
+</ul>
+<p>Hence, when the state of a given system is altered in some way, we have an <strong>Event</strong>, that correlates and ideally generates data on the three dimensions.</p>
+<h3>Why is OpenTelemetry important and which problem does it solve?</h3>
+<p>Developers recognize by experience that <strong>monitoring and observability</strong> are important, either to evaluate the actual state of a system or to do post-mortem analysis after disasters. Hence, it is natural to think that observability has been implemented in <strong>various ways</strong>. For example if we think on a system constructed with Java we have at least the following collection points:</p>
+<ul>
+<li>Logs: Systemd, /var/log, /opt/tomcat, FluentD</li>
+<li>Metrics: Java metrics via JMX, OS Metrics, vendor specific metrics via Spring Actuator</li>
+<li>Tracing: Data via Jaeger or Zipkin tooling in our Java workloads</li>
+</ul>
+<p>This variety in turn imposes a great amount of <strong>complexity in instrumenting our systems to provide information</strong>, that a- comes in different formats, from b- technology that is difficult to implement, often with c- solutions that are too tied to a given provider or in the worst cases, d- technologies that only work with certain languages/frameworks.</p>
+<p>And that's the <em>magic</em> about OpenTelemetry proposal, by creating a working group <a href="https://opentelemetry.devstats.cncf.io/d/8/dashboards?orgId=1&amp;refresh=15m">under the CNCF umbrella</a> the project is able to provide useful things like:</p>
+<ol>
+<li>Common protocols that vendors and communities can implement to talk each other</li>
+<li>Standards for software communities to implement instrumentation in libraries and frameworks to provide data in OpenTelemetry format</li>
+<li>A collector able to retrieve/receive data from diverse origins compatible with OpenTelemetry, process it and send it to ...</li>
+<li>Analysis platforms, databases and cloud vendors able to receive the data and provide added value over it</li>
+</ol>
+<p>In short, OpenTelemetry is the reunion of various great monitoring ideas that overlapping software communities can implement to facilitate the burden of monitoring implementations.</p>
+<h3>OpenTelemetry data pipeline</h3>
+<p>For me, the easiest way to think about OpenTelemetry concepts is a data pipeline, in this data pipeline you need to</p>
+<ol>
+<li><em>Instrument your workloads</em> to push (or offer) the <em>telemetry data</em> to a processing/collecting element -i.e. OpenTelemetry Collector-</li>
+<li><em>Configure OpenTelemetry Collector to receive</em> or pull the data from diverse workloads</li>
+<li><em>Configure OpenTelemetry Collector to process</em> the data -i.e adding special tags, filtering data-</li>
+<li><em>Configure OpenTelemetry Collector to push</em> (or offer) the data to compatible backends</li>
+<li><em>Configure and use the backends to receive</em> (or pull) the data from the collector, to allow analysis, alarms, AI ... pretty much any case that you can think about with data</li>
+</ol>
+<p><img src="/images/posts/opentelemetry/otelpipeline.png" alt="Otel Pipeline" title="Otel Pipeline" /></p>
+<h2>Setting up an observability stack with OpenTelemetry Collector, Grafana, Prometheus, Loki, Tempo and Podman</h2>
+<p><img src="/images/posts/opentelemetry/collectorarch.png" alt="Collectorarch" title="Collector Arch" /></p>
+<p>As OpenTelemetry got popular various vendors have implemented support for it, to mention a few:</p>
+<p>Self-hosted platforms</p>
+<ul>
+<li><a href="https://www.elastic.co/what-is/opentelemetry">Elastic</a></li>
+<li><a href="https://grafana.com/oss/opentelemetry/">Grafana</a></li>
+<li><a href="https://www.hyperdx.io/docs/install/opentelemetry">HyperDX</a></li>
+</ul>
+<p>Cloud platforms</p>
+<ul>
+<li><a href="https://aws-otel.github.io/">Amazon</a></li>
+<li><a href="https://docs.oracle.com/en-us/iaas/application-performance-monitoring/doc/configure-open-source-tracing-systems.html">Oracle Cloud</a></li>
+<li><a href="https://www.splunk.com/en_us/solutions/opentelemetry.html">Splunk</a></li>
+<li><a href="https://docs.datadoghq.com/opentelemetry/">Datadog</a></li>
+</ul>
+<p>Hence, for development purposes, <strong>it is always useful to know how to bootstrap a quick observability stack</strong> able to receive and show OpenTelemetry capabilities.</p>
+<p>For this purpose we will use the following elements:</p>
+<ul>
+<li>Prometheus as time-series database for metrics</li>
+<li>Loki as logs platform</li>
+<li>Tempo as a tracing platform</li>
+<li>Grafana as a web UI</li>
+</ul>
+<p>And of course OpenTelemetry collector. This example is based on various <a href="https://github.com/grafana/tempo/tree/main/example/docker-compose">Grafana examples</a>, with a little bit of tweaking to demonstrate the different ways of collecting, processing and sending data to backends.</p>
+<h3>OpenTelemetry collector</h3>
+<p>As stated previously, <strong>OpenTelemetry collector acts as an intermediary that receives/pull information from data sources, processes this information and, forwards the information to destinations</strong> like analysis platforms or even other collectors. The collector is able to do this either with compliant workloads or via plugins that talk with the workloads using proprietary formats.</p>
+<p>As the plugins collection can be increased or decreased, vendors have created their own <em>distributions</em> of OpenTelemetry collectors, for reference I've used successfully in the real world:</p>
+<ul>
+<li><a href="https://aws-otel.github.io/">Amazon ADOT</a></li>
+<li><a href="https://github.com/signalfx/splunk-otel-collector">Splunk Distribution of OpenTelemetry Collector</a></li>
+<li><a href="https://github.com/grafana/alloy">Grafana Alloy</a></li>
+<li><a href="https://opentelemetry.io/docs/collector/">OpenTelemetry Collector (the reference implementation)</a></li>
+</ul>
+<p>You could find a complete list directly on <a href="https://opentelemetry.io/ecosystem/distributions/">OpenTelemetry website</a>.</p>
+<p>For this demonstration, we will create a <em>data pipeline</em> using the <a href="https://github.com/open-telemetry/opentelemetry-collector-contrib">contrib version of the reference implementation</a> which provides a good amount of receivers, exporters and processors. In our case Otel configuration is designed to:</p>
+<ul>
+<li><em>Receive</em> data from Spring Boot workloads (ports 4317 and 4318)</li>
+<li><em>Process</em> the data adding a new tag to metrics</li>
+<li><em>Expose</em> an endpoint for Prometheus scrapping (port 8889)</li>
+<li><em>Send</em> logs to Loki (port 3100) using otlphttp format</li>
+<li><em>Send</em> traces to Tempo (port 9411) using otlp format</li>
+<li><em>Exposes</em> a rudimentary dashboard from the collector, called zpages. Very useful for debugging.</li>
+</ul>
+<p><code>otel-config.yaml</code></p>
+<pre><code class="language-prettyprint">receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+processors:
+  attributes:
+    actions:
+      - key: team
+        action: insert
+        value: vorozco
+exporters:
+  debug:
+  prometheus:
+    endpoint: &quot;0.0.0.0:8889&quot;
+  otlphttp:
+    endpoint: http://loki:3100/otlp
+  otlp:
+    endpoint: tempo:4317
+    tls:
+      insecure: true
+service:
+  extensions: [zpages]
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      processors: [attributes]
+      exporters: [debug,prometheus]
+    traces:
+      receivers: [otlp]
+      exporters: [debug, otlp]
+    logs:
+      receivers: [otlp]
+      exporters: [debug, otlphttp]
+extensions:
+  zpages:
+    endpoint: &quot;0.0.0.0:55679&quot;
+</code></pre>
+<h3>Prometheus</h3>
+<p><a href="https://prometheus.io/">Prometheus is a well known analysis platform</a>, that among other things offers dimensional data and a performant time-series storage.</p>
+<p>By default it works as a metrics scrapper, then, workloads provide a http endpoint offering data using the <a href="https://prometheus.io/docs/concepts/data_model/">Prometheus format</a>. For our example we configured Otel to <strong>offer metrics to the prometheus host via port 8889</strong>.</p>
+<pre><code class="language-prettyprint">prometheus:
+    endpoint: &quot;prometheus:8889&quot;
+</code></pre>
+<p>Then, whe need to configure Prometheus to <strong>scrape the metrics from the Otel host</strong>. You would notice two ports, the one that we defined for the active workload data (8889) and another for metrics data for the collector itself (8888).</p>
+<p><code>prometheus.yml</code></p>
+<pre><code class="language-prettyprint">scrape_configs:
+- job_name: &quot;otel&quot;
+  scrape_interval: 10s
+  static_configs:
+    - targets: [&quot;otel:8889&quot;]
+    - targets: [&quot;otel:8888&quot;]
+</code></pre>
+<p>It is worth highlighting that <a href="https://prometheus.io/docs/specs/remote_write_spec/">Prometheus also offers a way to <em>ingest</em> information</a> instead of scrapping it, and, <a href="https://prometheus.io/blog/2024/03/14/commitment-to-opentelemetry/">the official support for OpenTelemetry ingestion is coming</a> on the new versions.</p>
+<h3>Loki</h3>
+<p>As described in the website, <strong><a href="https://grafana.com/oss/loki/">Loki is a specific solution for log aggregation heavily inspired by Prometheus</a></strong>, with the particular design decision to NOT format in any way the log contents, leaving that responsibility to the query system.</p>
+<p>To configure the project for local environments, <a href="https://github.com/grafana/loki/blob/main/cmd/loki/loki-local-config.yaml">the project offers a configuration that is usable for most of the development purposes</a>. The following configuration is an adaptation to preserve the bare minimum to work with temporal files and memory.</p>
+<p><code>loki.yaml</code></p>
+<pre><code class="language-prettyprint">auth_enabled: false
+
+server:
+  http_listen_port: 3100
+  grpc_listen_port: 9096
+
+common:
+  instance_addr: 127.0.0.1
+  path_prefix: /tmp/loki
+  storage:
+    filesystem:
+      chunks_directory: /tmp/loki/chunks
+      rules_directory: /tmp/loki/rules
+  replication_factor: 1
+  ring:
+    kvstore:
+      store: inmemory
+
+query_range:
+  results_cache:
+    cache:
+      embedded_cache:
+        enabled: true
+        max_size_mb: 100
+
+schema_config:
+  configs:
+    - from: 2020-10-24
+      store: tsdb
+      object_store: filesystem
+      schema: v13
+      index:
+        prefix: index_
+        period: 24h
+
+ruler:
+  alertmanager_url: http://localhost:9093
+
+limits_config:
+  allow_structured_metadata: true
+</code></pre>
+<p>Then, we configure an exporter to deliver the data to the loki host using <a href="https://opentelemetry.io/docs/specs/otlp/#otlphttp">oltphttp format</a>.</p>
+<pre><code class="language-prettyprint">otlphttp:
+  endpoint: http://loki:3100/otlp
+</code></pre>
+<h3>Tempo</h3>
+<p>In similar fashion than Loki, <strong>Tempo is an Open Source project created by grafana that aims to provide a <a href="https://grafana.com/oss/tempo/">distributed tracing backend</a></strong>. On a personal note, for me besides performance it shines for being compatible not only with OpenTelemetry, it can also ingest data in Zipkin and Jaeger formats.</p>
+<p>To configure the project for local environments, <a href="https://github.com/grafana/tempo/tree/main/example/docker-compose">the project offers a configuration that is usable for most of the development purposes</a>. The following configuration is an adaptation to remove the metrics generation and simplify the configuration, however with this <a href="https://grafana.com/docs/tempo/latest/metrics-generator/service_graphs/">we loose the service graph feature</a>.</p>
+<p><code>tempo.yaml</code></p>
+<pre><code class="language-prettyprint">stream_over_http_enabled: true
+server:
+  http_listen_port: 3200
+  log_level: info
+
+query_frontend:
+  search:
+    duration_slo: 5s
+    throughput_bytes_slo: 1.073741824e+09
+    metadata_slo:
+      duration_slo: 5s
+      throughput_bytes_slo: 1.073741824e+09
+  trace_by_id:
+    duration_slo: 5s
+
+distributor:
+  receivers:
+    otlp:
+      protocols:
+        http:
+        grpc:
+
+ingester:
+  max_block_duration: 5m               # cut the headblock when this much time passes. this is being set for demo purposes and should probably be left alone normally
+
+compactor:
+  compaction:
+    block_retention: 1h                # overall Tempo trace retention. set for demo purposes
+
+storage:
+  trace:
+    backend: local                     # backend configuration to use
+    wal:
+      path: /var/tempo/wal             # where to store the wal locally
+    local:
+      path: /var/tempo/blocks
+</code></pre>
+<p>Then, we configure an exporter to deliver the data to Tempo host using <a href="https://opentelemetry.io/docs/specs/otlp/#otlpgrpc">oltp/grpc format</a>.</p>
+<pre><code class="language-prettyprint">otlp:
+    endpoint: tempo:4317
+    tls:
+      insecure: true
+</code></pre>
+<h3>Grafana</h3>
+<p>Loki, Tempo and (to some extent) Prometheus are data storages, but we still need to show this data to the user. Here, Grafana enters the scene.</p>
+<p>Grafana offers <strong>a good selection of analysis tools, plugins, dashboards, alarms, connectors and a great community that empowers observability</strong>. Besides having a great compatibility with Prometheus, it offers of course a perfect compatibility with their other offerings.</p>
+<p>To configure Grafana you just need to plug compatible datasources and the rest of work will be on the web ui.</p>
+<p><code>grafana.yaml</code></p>
+<pre><code class="language-prettyprint">apiVersion: 1
+
+datasources:
+  - name: Otel-Grafana-Example
+    type: prometheus
+    url: http://prometheus:9090
+    editable: true
+  - name: Loki
+    type: loki
+    access: proxy
+    orgId: 1
+    url: http://loki:3100
+    basicAuth: false
+    isDefault: true
+    version: 1
+    editable: false
+  - name: Tempo
+    type: tempo
+    access: proxy
+    orgId: 1
+    url: http://tempo:3200
+    basicAuth: false
+    version: 1
+    editable: false
+    apiVersion: 1
+    uid: tempo
+</code></pre>
+<h3>Podman (or Docker)</h3>
+<p>At this point you may have noticed that I've referred to the backends using single names, <strong>this is because I intend to set these names using a Podman Compose deployment</strong>.</p>
+<p><code>otel-compose.yml</code></p>
+<pre><code class="language-prettyprint">version: '3'
+services:
+  otel:
+    container_name: otel
+    image: otel/opentelemetry-collector-contrib:latest
+    command: [--config=/etc/otel-config.yml]
+    volumes:
+      - ./otel-config.yml:/etc/otel-config.yml
+    ports:
+      - &quot;4318:4318&quot;
+      - &quot;4317:4317&quot;
+      - &quot;55679:55679&quot;
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus
+    command: [--config.file=/etc/prometheus/prometheus.yml]
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - &quot;9091:9090&quot;
+  grafana:
+    container_name: grafana
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    image: grafana/grafana
+    volumes:
+      - ./grafana.yml:/etc/grafana/provisioning/datasources/default.yml
+    ports:
+      - &quot;3000:3000&quot;
+  loki:
+    container_name: loki
+    image: grafana/loki:3.2.0
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki.yaml:/etc/loki/local-config.yaml
+    ports:
+      - &quot;3100&quot;
+  tempo:
+    container_name: tempo
+    image: grafana/tempo:latest
+    command: [ &quot;-config.file=/etc/tempo.yaml&quot; ]
+    volumes:
+      - ./tempo.yaml:/etc/tempo.yaml
+    ports:
+      - &quot;4317&quot;  # otlp grpc
+      - &quot;4318&quot;
+</code></pre>
+<p>At this point the compose description is pretty self-descriptive, but I would like to highlight some things:</p>
+<ul>
+<li>Some ports are open to the host -e.g. 4318:4318 - while others are closed to the default network that compose will be created among containers -e.g. 3100-</li>
+<li><strong>This stack is designed to avoid any permanent data.</strong> Again, this is my personal way to boot quickly an observability stack to allow tests during deployment. To make it ready for production you probably would want to preserve the data in some volumes</li>
+</ul>
+<p>Once the configuration is ready, you can launch it using the compose file</p>
+<pre><code class="language-prettyprint">cd podman
+podman compose -f otel-compose.yml up
+</code></pre>
+<p>If the configuration is ok, you should have five containers running without errors.</p>
+<p><img src="/images/posts/opentelemetry/podman.png" alt="Podman Otel" title="Podman Otel" /></p>
+<h2>Instrumenting Spring Boot applications for OpenTelemetry</h2>
+<p><img src="/images/posts/opentelemetry/springbootarch.png" alt="Springbootarch" title="Springboot Arch" /></p>
+<p>As part of my daily activities I was in charge of a major implementation of all these concepts. Hence it was natural for me to create a proof of concept that you could find at my <a href="https://github.com/tuxtor/spring-boot-otel-poc/tree/main">GitHub</a>.</p>
+<p>For demonstration purposes we have two services with different HTTP endpoints:</p>
+<ul>
+<li><a href="https://github.com/tuxtor/spring-boot-otel-poc/tree/main/springboot-demo"><code>springboot-demo:8080</code></a> - Useful to demonstrate local and database tracing, performance, logs and OpenTelemetry instrumentation
+<ul>
+<li><a href="https://github.com/tuxtor/spring-boot-otel-poc/blob/main/springboot-demo/src/main/java/com/vorozco/controller/AdmBookController.java"><code>/books</code></a> - A books CRUD using Spring Data</li>
+<li><a href="https://github.com/tuxtor/spring-boot-otel-poc/blob/main/springboot-demo/src/main/java/com/vorozco/controller/FibonacciController.java"><code>/fibo</code></a> - A <a href="https://www.geeksforgeeks.org/program-for-nth-fibonacci-number/#naive-approach-using-recursion-o2n-time-and-on-space">Naive Fibonacci</a> implementation that generates CPU load and delays</li>
+<li><a href="https://github.com/tuxtor/spring-boot-otel-poc/blob/main/springboot-demo/src/main/java/com/vorozco/controller/LogController.java"><code>/log</code></a> - Which generate log messages using the different SLF4J levels</li>
+</ul>
+</li>
+<li><a href="https://github.com/tuxtor/spring-boot-otel-poc/tree/main/springboot-client-demo"><code>springboot-client-demo:8081</code></a> - Useful to demonstrate tracing capabilities, Micrometer instrumentation and Micrometer Tracing instrumentation
+<ul>
+<li><a href="https://github.com/tuxtor/spring-boot-otel-poc/blob/main/springboot-client-demo/src/main/java/com/vorozco/springboot_client_demo/controller/TraceDemoController.java"><code>/trace-demo</code></a> - A quick OpenFeing client that invokes books GetAll Books demo</li>
+</ul>
+</li>
+</ul>
+<h3>Instrumentation options</h3>
+<p>Given the popularity of OpenTelemetry, developers can expect also multiple instrumentation options.</p>
+<p><strong>First of all, the OpenTelemetry project offers a framework-agnostic instrumentation</strong> that uses bytecode manipulation, for this instrumentation to work you need to <a href="https://opentelemetry.io/docs/zero-code/java/agent/">include a Java Agent via Java Classpath</a>. In my experience this instrumentation is preferred if you don't control the workload or if your platform does not offer OpenTelemetry support at all.</p>
+<p>However, instrumentation of workloads can become really specific -e.g. instrumentation of a Database pool given a particular IoC mechanism-. For this, the Java world provides a good ecosystem, for example:</p>
+<ul>
+<li><a href="https://quarkus.io/guides/opentelemetry">Quarkus</a></li>
+<li><a href="https://helidon.io/docs/v4/mp/telemetry">Helidon</a></li>
+<li><a href="https://docs.payara.fish/enterprise/docs/Technical%20Documentation/Payara%20Server%20Documentation/Logging%20and%20Monitoring/Request%20Tracing%20Service/OpenTelemetry%20and%20OpenTracing.html">Payara</a></li>
+</ul>
+<p><strong>And of course Spring Boot.</strong></p>
+<p>Spring Boot is a special case with TWO major instrumentation options</p>
+<ol>
+<li><a href="https://opentelemetry.io/docs/zero-code/java/spring-boot-starter/">OpenTelemetry's Spring Boot starter</a></li>
+<li><a href="https://docs.micrometer.io/micrometer/reference/implementations/otlp.html">Micrometer</a> and <a href="https://docs.micrometer.io/tracing/reference/index.html">Micrometer Tracing</a></li>
+</ol>
+<p>Both options use Spring concepts like decorators and interceptors to capture and send information to the destinations. The only rule is to create the clients/services/objects in the Spring way (hence via Spring IoC).</p>
+<p>I've used both successfully and my heavily opinionated conclusion is the following:</p>
+<ul>
+<li>Micrometer collects more information about spring metrics. Besides OpenTelemetry backend, it supports a <a href="https://docs.spring.io/spring-boot/reference/actuator/metrics.html">plethora of backends</a> directly without any collector intervention. If you cannot <em>afford</em> a collector, this is the way. From Micrometer perspective OpenTelemetry is just another backend</li>
+<li><a href="https://docs.micrometer.io/tracing/reference/index.html">Micrometer Tracing is the evolution of Spring Cloud Sleuth</a>, hence if you have workloads with Spring Boot 2 and 3, you have to support both tools (or maybe migrate everything to Spring boot 3?)</li>
+<li><strong>The Micrometer family does not offer a way to collect logs</strong> and send these to a backend, hence devs have to solve this by using an appender specific to your logging library. On the other hand OpenTelemetry Spring Boot starter offers this out of the box if you use Spring Boot default (SLF4J over Logback)</li>
+</ul>
+<p>As these libraries are mutually exclusive, <strong>if the decision is mine, I would pick OpenTelemetry's Spring Boot starter</strong>. It offers logs support OOB and also a <a href="https://opentelemetry.io/docs/zero-code/java/spring-boot-starter/out-of-the-box-instrumentation/">bridge for micrometer Metrics</a>.</p>
+<h3>Instrumenting springboot-demo with OpenTelemetry SpringBoot starter</h3>
+<p>As always, <a href="https://opentelemetry.io/docs/zero-code/java/spring-boot-starter/getting-started/">it is also good to consider the official documentation</a>.</p>
+<p>Otel instrumentation with the Spring started is activated in three steps:</p>
+<ol>
+<li>You need to include both OpenTelemetry Bom and OpenTelemetry dependency. If you are planning to also use micrometer metrics, it is also a good idea to include Spring Actuator</li>
+</ol>
+<pre><code class="language-prettyprint">&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;io.opentelemetry.instrumentation&lt;/groupId&gt;
+            &lt;artifactId&gt;opentelemetry-instrumentation-bom&lt;/artifactId&gt;
+            &lt;version&gt;2.10.0&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+...
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.opentelemetry.instrumentation&lt;/groupId&gt;
+    &lt;artifactId&gt;opentelemetry-spring-boot-starter&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<ol>
+<li>
+<p>There is a set of <a href="https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/docs/supported-libraries.md#libraries--frameworks">optional libraries and adapters</a> that you can configure if your workloads already diverged from the &quot;Spring Way&quot;</p>
+</li>
+<li>
+<p>You need to activate (or not) the dimensions of observability (metrics, traces and logs). Also, <a href="https://opentelemetry.io/docs/zero-code/java/spring-boot-starter/out-of-the-box-instrumentation/">you can finetune the exporting</a> parameter like ports, urls or exporting periods. Either by using Spring Properties or env variables</p>
+</li>
+</ol>
+<pre><code class="language-prettyprint">#Configure exporters
+otel.logs.exporter=otlp
+otel.metrics.exporter=otlp
+otel.traces.exporter=otlp
+
+#Configure metrics generation
+otel.metric.export.interval=5000 #Export metrics each five seconds
+otel.instrumentation.micrometer.enabled=true #Enabe Micrometer metrics bridge
+</code></pre>
+<h3>Instrumenting springboot-client-demo with Micrometer and Micrometer Tracing</h3>
+<p><strong>Again, this instrumentation does not support logs exporting.</strong> Also, it is a good idea to check the latest documentation for <a href="https://docs.spring.io/spring-boot/reference/actuator/metrics.html#actuator.metrics.export.otlp">Micrometer</a> and <a href="https://docs.spring.io/spring-boot/reference/actuator/tracing.html">Micrometer Tracing</a>.</p>
+<ol>
+<li>As in the previous example, you need to enable Spring Actuator (which includes Micrometer). As OpenTelemetry is just a backend from Micrometer perspective, you just need to ehable the corresponding OTLP registry which will export metrics to localhost by default.</li>
+</ol>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.micrometer&lt;/groupId&gt;
+    &lt;artifactId&gt;micrometer-registry-otlp&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<ol>
+<li>In a similar way you need to Metrics, once actuator is enabled you just need to add support for the tracing backend</li>
+</ol>
+<pre><code class="language-prettyprint">&lt;dependency&gt;
+  &lt;groupId&gt;io.micrometer&lt;/groupId&gt;
+  &lt;artifactId&gt;micrometer-tracing-bridge-otel&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<ol>
+<li>Finally, you can finetune the configuration using Spring properties. For example, you can decide if 100% of traces are reproted or how often the metrics are reported to the backend.</li>
+</ol>
+<pre><code class="language-prettyprint">management.otlp.tracing.endpoint=http://localhost:4318/v1/traces
+management.otlp.tracing.timeout=10s
+management.tracing.sampling.probability=1
+
+management.otlp.metrics.export.url=http://localhost:4318/v1/metrics
+management.otlp.metrics.export.step=5s
+management.opentelemetry.resource-attributes.&quot;service-name&quot;=${spring.application.name}
+</code></pre>
+<h2>Testing and E2E sample</h2>
+<h3>Generating workload data</h3>
+<p>The POC provides the following structure</p>
+<pre><code class="language-prettyprint">├── podman # Podman compose config files
+├── springboot-client-demo #Spring Boot Client instrumented with Actuator, Micrometer and MicroMeter tracing 
+└── springboot-demo #Spring Boot service instrumented with OpenTelemetry Spring Boot Starter
+
+</code></pre>
+<ol>
+<li>The first step is to boot the observability stack we created previously.</li>
+</ol>
+<pre><code class="language-prettyprint">cd podman
+podman compose -f otel-compose.yml up
+</code></pre>
+<p>This will provide you an instance of Grafana on port 3000</p>
+<p><img src="/images/posts/opentelemetry/grafana.png" alt="Grafana" title="Grafana" /></p>
+<p>Then, it is time to boot the first service!. You only need Java 21 on the active shell:</p>
+<pre><code class="language-prettyprint">cd springboot-demo
+mvn spring-boot:run
+</code></pre>
+<p>If the workload is properly configured, you will see the following information on the OpenTelemetry container standard output. Which basically says you are successfully reporting data.</p>
+<pre><code class="language-prettyprint">[otel]       | 2024-12-01T22:10:07.730Z info    Logs    {&quot;kind&quot;: &quot;exporter&quot;, &quot;data_type&quot;: &quot;logs&quot;, &quot;name&quot;: &quot;debug&quot;, &quot;resource logs&quot;: 1, &quot;log records&quot;: 24}
+[otel]       | 2024-12-01T22:10:10.671Z info    Metrics {&quot;kind&quot;: &quot;exporter&quot;, &quot;data_type&quot;: &quot;metrics&quot;, &quot;name&quot;: &quot;debug&quot;, &quot;resource metrics&quot;: 1, &quot;metrics&quot;: 64, &quot;data points&quot;: 90}
+[otel]       | 2024-12-01T22:10:10.672Z info    Traces  {&quot;kind&quot;: &quot;exporter&quot;, &quot;data_type&quot;: &quot;traces&quot;, &quot;name&quot;: &quot;debug&quot;, &quot;resource spans&quot;: 1, &quot;spans&quot;: 5}
+[otel]       | 2024-12-01T22:10:15.691Z info    Metrics {&quot;kind&quot;: &quot;exporter&quot;, &quot;data_type&quot;: &quot;metrics&quot;, &quot;name&quot;: &quot;debug&quot;, &quot;resource metrics&quot;: 1, &quot;metrics&quot;: 65, &quot;data points&quot;: 93}
+[otel]       | 2024-12-01T22:10:15.833Z info    Metrics {&quot;kind&quot;: &quot;exporter&quot;, &quot;data_type&quot;: &quot;metrics&quot;, &quot;name&quot;: &quot;debug&quot;, &quot;resource metrics&quot;: 1, &quot;metrics&quot;: 65, &quot;data points&quot;: 93}
+[otel]       | 2024-12-01T22:10:15.835Z info    Logs    {&quot;kind&quot;: &quot;exporter&quot;, &quot;data_type&quot;: &quot;logs&quot;, &quot;name&quot;: &quot;debug&quot;, &quot;resource logs&quot;: 1, &quot;log records&quot;: 5}
+</code></pre>
+<p><strong>The data is being reported over the OpenTelemetry ports (4317 and 4318)</strong> which are open from Podman to the host. By default all telemetry libraries report to localhost, but this can be configured for other cases like FaaS or Kubernetes.</p>
+<p>Also, you could verify the reporting status in ZPages</p>
+<p><img src="/images/posts/opentelemetry/zpages.png" alt="Zpages" title="Zpages" /></p>
+<p>Finally let's do the same with Spring Boot client:</p>
+<pre><code class="language-prettyprint">cd springboot-client-demo
+mvn spring-boot:run
+</code></pre>
+<p>As described in the previous section, I created a set of interactions to:</p>
+<p>Generate CPU workload using Naive fibonacci</p>
+<pre><code class="language-prettyprint">curl http://localhost:8080/fibo\?n\=45
+</code></pre>
+<p>Generate logs in different levels</p>
+<pre><code class="language-prettyprint">curl http://localhost:8080/fibo\?n\=45
+</code></pre>
+<p>Persist data using a CRUD</p>
+<pre><code class="language-prettyprint">curl -X POST --location &quot;http://localhost:8080/books&quot; \
+-H &quot;Content-Type: application/json&quot; \
+-d '{
+&quot;author&quot;: &quot;Miguel Angel Asturias&quot;,
+&quot;title&quot;: &quot;El señor presidente&quot;,
+&quot;isbn&quot;: &quot;978-84-376-0494-7&quot;,
+&quot;publisher&quot;: &quot;Editorial planeta&quot;
+}'
+</code></pre>
+<p>And then retrieve the data using a secondary service</p>
+<pre><code class="language-prettyprint">curl http://localhost:8081/trace-demo 
+</code></pre>
+<p>This asciicast shows the interaction:</p>
+<p><a href="https://asciinema.org/a/692968"><img src="https://asciinema.org/a/692968.svg" alt="asciicast" /></a></p>
+<h3>Grafana results</h3>
+<p>Once the data is accesible by Grafana, the <em>what</em> to do with data is up to you, again, you could:</p>
+<ul>
+<li>Create dashboards</li>
+<li>Configure alarms</li>
+<li>Configure notifications from alarms</li>
+</ul>
+<p>The quickest way to verify if the data is reported correctly is to verify directly in Grafana explore.</p>
+<p>First, <strong>we can check some metrics like <em>system_cpu_usage</em> and filter by service name</strong>. In this case I used <code>springboot-demo</code> which has the CPU demo using naive fibonacci, I can even filter by my own tag (which was added by Otel processor):</p>
+<p><img src="/images/posts/opentelemetry/grafanametrics.png" alt="Grafana Metrics" title="Grafana Metrics" /></p>
+<p>In the same way, logs are already stored in Loki:</p>
+<p><img src="/images/posts/opentelemetry/grafanalogs.png" alt="Grafana Logs" title="Grafana Logs" /></p>
+<p>Finally, we could check the whole trace, including both services and interaction with H2 RDBMS:</p>
+<p><img src="/images/posts/opentelemetry/grafanatraces.png" alt="Grafana Traces" title="Grafana Traces" /></p>
+</p>
+
+			<div id="share">
+<!-- Twitter -->
+<a href="https://twitter.com/share" class="twitter-share-button" data-dnt="true">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+<!-- Google Plus -->
+<div class="g-plusone" data-size="medium"></div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'en-GB'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<!-- Facebook -->
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="false">
+</div></div>
+			
+			<hr />
+
+			<div id="disqus_thread"></div>
+			<script type="text/javascript">
+			    /* * * CONFIGURATION VARIABLES * * */
+			    var disqus_shortname = 'opinguimacademicoq';
+
+			    /* * * DON'T EDIT BELOW THIS LINE * * */
+			    (function() {
+			        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			    })();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+		</div>
+			<div class="col-md-3">
+			<form style="border:1px solid #ccc;padding:3px;text-align:center;" action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri=the-j', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true"><p>Enter your email address:</p><p><input type="text" style="width:140px" name="email"/></p><input type="hidden" value="the-j" name="uri"/><input type="hidden" name="loc" value="en_US"/><input type="submit" value="Subscribe" /><p>Delivered by <a href="https://feedburner.google.com" target="_blank">FeedBurner</a></p></form>
+			<hr/>
+			
+			<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"><img src="/images/global/getjavasesdk-120x30.png" alt="Get Java SE SDK" border="0" width="120" height="30" /></a>
+
+			<br/>
+
+			<a href="http://www.gentoo.org/"><img src="//www.gentoo.org/assets/img/badges/gentoo-badge.png" alt="Gentoo" style="border:0" /></a>
+
+			<br/>
+
+			<a href="https://community.oracle.com/community/technology_network_community/java/java-champions">
+			<img src="/images/global/jc.png" alt="Java Champions" style="border:0" />
+			</a>
+
+			<hr/>
+
+		    <a class="twitter-timeline"  href="https://twitter.com/tuxtor" data-widget-id="633158537896722432">Tweets by @tuxtor</a>
+	            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</div>
+	</div>
+
+	
+
+	
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2015-2024 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="//cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <link  href="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.7.1/lazyload.min.js"></script>
+    </body>
+</html>
