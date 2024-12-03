@@ -6,8 +6,8 @@
     <atom:link href="https://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Sun, 1 Dec 2024 23:46:46 +0000</pubDate>
-    <lastBuildDate>Sun, 1 Dec 2024 23:46:46 +0000</lastBuildDate>
+    <pubDate>Tue, 3 Dec 2024 18:40:38 +0000</pubDate>
+    <lastBuildDate>Tue, 3 Dec 2024 18:40:38 +0000</lastBuildDate>
 
     <item>
       <title>A practical guide to implement OpenTelemetry in Spring Boot</title>
@@ -16,12 +16,12 @@
       <guid isPermaLink="false">blog/2024/2024-11-18-A-practical-guide-spring-boot-open-telemetry.html</guid>
       	<description>
 	&lt;p&gt;In this tutorial I want to consolidate some practical ideas regarding OpenTelemetry and how to use it with Spring Boot.&lt;/p&gt;
-&lt;p&gt;This tutorial is composed of four sections&lt;/p&gt;
+&lt;p&gt;This tutorial is composed by four sections&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;OpenTelemetry practical concepts&lt;/li&gt;
 &lt;li&gt;Setting up an observability stack with OpenTelemetry Collector, Grafana, Loki, Tempo and Podman&lt;/li&gt;
 &lt;li&gt;Instrumenting Spring Boot applications for OpenTelemetry&lt;/li&gt;
-&lt;li&gt;Tesing and E2E sample&lt;/li&gt;
+&lt;li&gt;Testing and E2E sample&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;By the end of the tutorial, you should be able to implement the following architecture:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/images/posts/opentelemetry/arch.png&quot; alt=&quot;Arch&quot; title=&quot;Arch&quot; /&gt;&lt;/p&gt;
