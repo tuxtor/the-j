@@ -6,12 +6,12 @@ status=published
 ~~~~~~
 In this tutorial I want to consolidate some practical ideas regarding OpenTelemetry and how to use it with Spring Boot.
 
-This tutorial is composed of four sections
+This tutorial is composed by four sections
 
 1. OpenTelemetry practical concepts
 2. Setting up an observability stack with OpenTelemetry Collector, Grafana, Loki, Tempo and Podman
 3. Instrumenting Spring Boot applications for OpenTelemetry
-4. Tesing and E2E sample
+4. Testing and E2E sample
 
 By the end of the tutorial, you should be able to implement the following architecture:
 
