@@ -6,8 +6,8 @@
     <atom:link href="https://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Tue, 3 Dec 2024 18:40:38 +0000</pubDate>
-    <lastBuildDate>Tue, 3 Dec 2024 18:40:38 +0000</lastBuildDate>
+    <pubDate>Tue, 17 Dec 2024 15:02:15 +0000</pubDate>
+    <lastBuildDate>Tue, 17 Dec 2024 15:02:15 +0000</lastBuildDate>
 
     <item>
       <title>A practical guide to implement OpenTelemetry in Spring Boot</title>
