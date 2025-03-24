@@ -6,9 +6,97 @@
     <atom:link href="https://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Tue, 17 Dec 2024 15:02:15 +0000</pubDate>
-    <lastBuildDate>Tue, 17 Dec 2024 15:02:15 +0000</lastBuildDate>
+    <pubDate>Mon, 24 Mar 2025 15:19:25 +0000</pubDate>
+    <lastBuildDate>Mon, 24 Mar 2025 15:19:25 +0000</lastBuildDate>
 
+    <item>
+      <title>Install VirtualBox over Fedora with SecureBoot enabled</title>
+      <link>https://www.vorozco.com/blog/2025/2025-03-23-Fedora-Secure-Boot-VirtualBox.html</link>
+      <pubDate>Mon, 24 Mar 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2025/2025-03-23-Fedora-Secure-Boot-VirtualBox.html</guid>
+      	<description>
+	&lt;p&gt;Not too long ago, I upgraded my computer and got a new &lt;strong&gt;Lenovo ThinkPad X1 Carbon&lt;/strong&gt; (a great machine so far!).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/posts/virtualboxsecureboot/00-lenovo.jpg&quot; alt=&quot;Lenovo&quot; title=&quot;Lenovo&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Since I was accustomed to working on a gaming rig (Ryzen 7, 64GB RAM, 4TB) that I had set up about five years ago, &lt;strong&gt;I completely missed the Secure Boot and TPM trends&lt;/strong&gt;—these weren’t relevant for my fixed workstation.&lt;/p&gt;
+&lt;p&gt;However, my goal with this new laptop is to work with both &lt;strong&gt;Linux and Windows on the go&lt;/strong&gt;, making encryption mandatory. As a non-expert Windows user, &lt;strong&gt;I enabled encryption via BitLocker on Windows 11&lt;/strong&gt;, which worked perfectly... until it didn’t.&lt;/p&gt;
+&lt;h2&gt;The Issue with Secure Boot and VirtualBox/VMware&lt;/h2&gt;
+&lt;p&gt;This week, I discovered that &lt;strong&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/windows/security/operating-system-security/data-protection/bitlocker/countermeasures&quot;&gt;BitLocker leverages&lt;/a&gt; TPM (the encryption chip) and Secure Boot&lt;/strong&gt; if they’re enabled during encryption. While this is beneficial for Windows users, it created an unexpected problem for me: &lt;strong&gt;virtualization on Linux&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Let me explain. &lt;a href=&quot;https://wiki.gentoo.org/wiki/Secure_Boot&quot;&gt;Secure Boot&lt;/a&gt; is:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;...an enhancement of the security of the pre-boot process of a UEFI system. When enabled, the UEFI firmware verifies the signature of every component used in the boot process. This results in boot files that are easily readable but tamper-evident.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This means components like the &lt;strong&gt;kernel, kernel modules, and firmware&lt;/strong&gt; must be signed with a recognized signature, which must be installed on the computer.&lt;/p&gt;
+&lt;p&gt;This creates a tricky situation for Linux because &lt;strong&gt;virtualization software like VMware or VirtualBox typically compiles kernel modules on the user’s machine&lt;/strong&gt;. These modules are unsigned by default, leading to errors when loading them:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-prettyprint&quot;&gt;# modprobe vboxdrv
+modprobe: ERROR: could not insert &apos;vboxdrv&apos;: Key was rejected by service
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A good way to diagnose this is to check &lt;code&gt;dmesg&lt;/code&gt; for messages like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[47921.605346] Loading of unsigned module is rejected
+[47921.664572] Loading of unsigned module is rejected
+[47932.035014] Loading of unsigned module is rejected
+[47932.056838] Loading of unsigned module is rejected
+[47947.224484] Loading of unsigned module is rejected
+[47947.257641] Loading of unsigned module is rejected
+[48291.102147] Loading of unsigned module is rejected
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;How to Fix the Issue with VirtualBox Using RPMFusion and Akmods&lt;/h2&gt;
+&lt;p&gt;Oracle is aware of this issue, but their &lt;a href=&quot;https://www.virtualbox.org/manual/topics/installation.html#kernel-modules-efi-secure-boot&quot;&gt;documentation&lt;/a&gt; is lacking. To quote:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If you are running on a system using UEFI (Unified Extensible Firmware Interface) Secure Boot, you may need to sign the following kernel modules before you can load them: &lt;code&gt;vboxdrv&lt;/code&gt;, &lt;code&gt;vboxnetadp&lt;/code&gt;, &lt;code&gt;vboxnetflt&lt;/code&gt;, &lt;code&gt;vboxpci&lt;/code&gt;. &lt;strong&gt;See your system documentation for details of the kernel module signing process&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Fedora’s documentation is sparse, so I spent a lot of time researching &lt;strong&gt;manual kernel module signing&lt;/strong&gt; (&lt;a href=&quot;https://docs.fedoraproject.org/en-US/quick-docs/kernel-build-custom/#_secure_boot&quot;&gt;Fedora docs&lt;/a&gt;) and following &lt;a href=&quot;https://gist.github.com/reillysiemens/ac6bea1e6c7684d62f544bd79b2182a4&quot;&gt;user guides&lt;/a&gt; until I discovered that &lt;strong&gt;VirtualBox is available in &lt;a href=&quot;https://rpmfusion.org/&quot;&gt;RPMFusion&lt;/a&gt; with &lt;a href=&quot;https://packages.fedoraproject.org/pkgs/akmods/akmods/index.html&quot;&gt;akmods&lt;/a&gt; support&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Some definitions:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;RPM Fusion&lt;/strong&gt; is a community repository for Enterprise Linux (Fedora, RHEL, etc.) that provides packages not included in official distributions.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Akmds&lt;/strong&gt; automates the process of building and signing kernel modules.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Here’s the step-by-step solution:&lt;/p&gt;
+&lt;h3&gt;1. Enable RPM Fusion (Free Repo)&lt;/h3&gt;
+&lt;p&gt;Install the RPM Fusion free repository:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-prettyprint&quot;&gt;sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;/images/posts/virtualboxsecureboot/01-install.png&quot; alt=&quot;RPM Fusion Install&quot; title=&quot;RPM Fusion Install&quot; /&gt;&lt;/p&gt;
+&lt;h3&gt;2. Install VirtualBox (with Akmods)&lt;/h3&gt;
+&lt;p&gt;Ensure VirtualBox is installed from RPMFusion (akmods will be a dependency):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-prettyprint&quot;&gt;sudo dnf install virtualbox
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;/images/posts/virtualboxsecureboot/02-virtualbox.png&quot; alt=&quot;VirtualBox Install&quot; title=&quot;VirtualBox Install&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/posts/virtualboxsecureboot/03-akmods.png&quot; alt=&quot;VirtualBox Akmods&quot; title=&quot;VirtualBox Akmods&quot; /&gt;&lt;/p&gt;
+&lt;h3&gt;3. Start Akmods to Generate Keys&lt;/h3&gt;
+&lt;p&gt;Akmods will automatically sign the modules with a key stored in &lt;code&gt;/etc/pki/akmods/certs&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-prettyprint&quot;&gt;sudo systemctl start akmods.service
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;/images/posts/virtualboxsecureboot/04-akmods-start.png&quot; alt=&quot;Akmods Start&quot; title=&quot;Akmods Start&quot; /&gt;&lt;/p&gt;
+&lt;h3&gt;4. Enroll the Key with Mokutil&lt;/h3&gt;
+&lt;p&gt;Use &lt;code&gt;mokutil&lt;/code&gt; to register the key in Secure Boot:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-prettyprint&quot;&gt;sudo mokutil --import /etc/pki/akmods/certs/public_key.der
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;/images/posts/virtualboxsecureboot/05-mokutil.png&quot; alt=&quot;Mokutil Key Import&quot; title=&quot;Mokutil Key Import&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;You’ll be prompted for a &lt;strong&gt;case-sensitive password&lt;/strong&gt;—remember it for the next step.&lt;/p&gt;
+&lt;h3&gt;5. Reboot and Enroll the Key&lt;/h3&gt;
+&lt;p&gt;After rebooting, the UEFI firmware will prompt you to &lt;strong&gt;enroll the new key&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/posts/virtualboxsecureboot/06-mokenroll.png&quot; alt=&quot;MOK Enrollment&quot; title=&quot;MOK Enrollment&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/posts/virtualboxsecureboot/08-mokenroll-3.png&quot; alt=&quot;MOK Enrollment 3&quot; title=&quot;MOK Enrollmen 3&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;If needed, you could also check for the key contents in that screen.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/posts/virtualboxsecureboot/07-mokenroll-2.png&quot; alt=&quot;MOK Enrollment 2&quot; title=&quot;MOK Enrollment 2&quot; /&gt;&lt;/p&gt;
+&lt;h3&gt;6. Start VirtualBox Kernel Modules&lt;/h3&gt;
+&lt;p&gt;The modules are now signed and can be loaded. Enable these at boot:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-prettyprint&quot;&gt;sudo systemctl start vboxdrv
+sudo systemctl enable vboxdrv
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Verify they’re loaded:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-prettyprint&quot;&gt;lsmod | grep vbox
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Output:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vboxnetadp             32768  0
+vboxnetflt             40960  0
+vboxdrv               708608  2 vboxnetadp,vboxnetflt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, &lt;strong&gt;VirtualBox runs on Fedora with Secure Boot and TPM enabled&lt;/strong&gt;, without disabling BitLocker on Windows.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/posts/virtualboxsecureboot/09-finalresult.png&quot; alt=&quot;VirtualBox Running&quot; title=&quot;VirtualBox Running&quot; /&gt;&lt;/p&gt;
+
+	</description>
+    </item>
     <item>
       <title>A practical guide to implement OpenTelemetry in Spring Boot</title>
       <link>https://www.vorozco.com/blog/2024/2024-11-18-A-practical-guide-spring-boot-open-telemetry.html</link>

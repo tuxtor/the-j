@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>GuateJUG Tour 2015</title>
+    <title>Install VirtualBox over Fedora with SecureBoot enabled</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="The J*, a blog about Java, JVM, JavaScript and Gentoo Linux">
     <meta name="author" content="Víctor Orozco">
@@ -28,12 +28,12 @@
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
     <link rel="shortcut icon" href="../../favicon.ico">
 
-    <meta property="og:title" content="GuateJUG Tour 2015">
+    <meta property="og:title" content="Install VirtualBox over Fedora with SecureBoot enabled">
     <meta property="og:type" content="post">
-    <meta property="og:url" content="https://www.vorozco.com/blog/2015/GuateJUG-Tour-2015.html">
+    <meta property="og:url" content="https://www.vorozco.com/blog/2025/2025-03-23-Fedora-Secure-Boot-VirtualBox.html">
     <meta property="og:site_name" content="The J*">
     <meta property="og:locale" content="en-US">
-    <meta property="article:published_time" content="26 September 2015">
+    <meta property="article:published_time" content="24 March 2025">
     <meta property="article:author" content="https://www.facebook.com/tuxtor">
     <meta property="fb:app_id" content="753735224749731">
     <meta property="og:image" content="http://vorozco.com/images/global/playground.png">
@@ -86,28 +86,93 @@
     </div>
     <div class="container">
 	<div class="page-header">
-		<h1>GuateJUG Tour 2015</h1>
+		<h1>Install VirtualBox over Fedora with SecureBoot enabled</h1>
 	</div>
 
-	<p><em>26 September 2015</em></p>
+	<p><em>24 March 2025</em></p>
 
 	<div class="row">
 
 		<div class="col-md-9">
-			<p><p>In <a href="http://www.guate-jug.net">GuateJUG</a> <strong>we arrived to our fifth year</strong>, consequently I must start this post with a &quot;thanks to everybody that made this possible (developers, advocates, supporters, sponsors, friends, family, and other-UG)&quot;.</p>
-<p><strong>This year has been a special year for GuateJUG</strong> and Java in general, in February we were very excited about being featured at  <a href="http://gtts.ehu.es/WDW/biblio/JavaMagazine/javamagazine20150102-dl.pdf">Java Magazine</a> (a little step for .gt developers, a great step for our user group), and as every inch of the web knows 2015 is the year of the 20 years of Java, another anniversary that came in hand to believe that 2015 is the year of Java reborn.</p>
-<p>Hence, at GuateJUG we added to our regular activities a conference circuit called <strong>GuateJUG Tour</strong>.</p>
-<p><a href="/images/posts/gtour2015.png" target="_blank"><br />
-<img src="/images/posts/gtour2015.png" alt="GuateJUG Tour" style="width: 300px;"/><br />
-</a></p>
-<p>As many of our activities, this is some kind of spontaneous tour, hence <strong>we'll be adding dates as new cities are confirmed</strong> (Guatemala is a small country so it's possible to confirm in very short notice).</p>
-<p>The tour started on September 26 and I'm confirmed as a speaker in three cities, so <strong>I'll be collecting my slides in this post for quick reference</strong> :).</p>
-<h1>Java 8: Más funcional que nunca</h1>
-<iframe src="//www.slideshare.net/slideshow/embed_code/key/30AXtCu2ARI9hD" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/tuxtor/java-8-ms-funcional-que-nunca" title="Java 8: Más funcional que nunca" target="_blank">Java 8: Más funcional que nunca</a> </strong> from <strong><a href="//www.slideshare.net/tuxtor" target="_blank">Víctor Orozco</a></strong> </div>
-<h1>Git 101 (with Java)</h1>
-<iframe src="//www.slideshare.net/slideshow/embed_code/key/H4g9lRHrc63bzj" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/tuxtor/introduccin-a-git-git-101" title="Introducción a Git (Git 101)" target="_blank">Introducción a Git (Git 101)</a> </strong> from <strong><a href="//www.slideshare.net/tuxtor" target="_blank">Víctor Orozco</a></strong> </div>
-<h1>Aplicaciones HTML5 con AngularJS y JavaEE</h1>
-<iframe src="//www.slideshare.net/slideshow/embed_code/key/EVtupsoyepJrX3" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/tuxtor/inciando-con-angularjs-y-javaee-7" title="Inciando con AngularJS y JavaEE 7" target="_blank">Inciando con AngularJS y JavaEE 7</a> </strong> from <strong><a href="//www.slideshare.net/tuxtor" target="_blank">Víctor Orozco</a></strong> </div>
+			<p><p>Not too long ago, I upgraded my computer and got a new <strong>Lenovo ThinkPad X1 Carbon</strong> (a great machine so far!).</p>
+<p><img src="/images/posts/virtualboxsecureboot/00-lenovo.jpg" alt="Lenovo" title="Lenovo" /></p>
+<p>Since I was accustomed to working on a gaming rig (Ryzen 7, 64GB RAM, 4TB) that I had set up about five years ago, <strong>I completely missed the Secure Boot and TPM trends</strong>—these weren’t relevant for my fixed workstation.</p>
+<p>However, my goal with this new laptop is to work with both <strong>Linux and Windows on the go</strong>, making encryption mandatory. As a non-expert Windows user, <strong>I enabled encryption via BitLocker on Windows 11</strong>, which worked perfectly... until it didn’t.</p>
+<h2>The Issue with Secure Boot and VirtualBox/VMware</h2>
+<p>This week, I discovered that <strong><a href="https://learn.microsoft.com/en-us/windows/security/operating-system-security/data-protection/bitlocker/countermeasures">BitLocker leverages</a> TPM (the encryption chip) and Secure Boot</strong> if they’re enabled during encryption. While this is beneficial for Windows users, it created an unexpected problem for me: <strong>virtualization on Linux</strong>.</p>
+<p>Let me explain. <a href="https://wiki.gentoo.org/wiki/Secure_Boot">Secure Boot</a> is:</p>
+<blockquote>
+<p>...an enhancement of the security of the pre-boot process of a UEFI system. When enabled, the UEFI firmware verifies the signature of every component used in the boot process. This results in boot files that are easily readable but tamper-evident.</p>
+</blockquote>
+<p>This means components like the <strong>kernel, kernel modules, and firmware</strong> must be signed with a recognized signature, which must be installed on the computer.</p>
+<p>This creates a tricky situation for Linux because <strong>virtualization software like VMware or VirtualBox typically compiles kernel modules on the user’s machine</strong>. These modules are unsigned by default, leading to errors when loading them:</p>
+<pre><code class="language-prettyprint"># modprobe vboxdrv
+modprobe: ERROR: could not insert 'vboxdrv': Key was rejected by service
+</code></pre>
+<p>A good way to diagnose this is to check <code>dmesg</code> for messages like:</p>
+<pre><code>[47921.605346] Loading of unsigned module is rejected
+[47921.664572] Loading of unsigned module is rejected
+[47932.035014] Loading of unsigned module is rejected
+[47932.056838] Loading of unsigned module is rejected
+[47947.224484] Loading of unsigned module is rejected
+[47947.257641] Loading of unsigned module is rejected
+[48291.102147] Loading of unsigned module is rejected
+</code></pre>
+<h2>How to Fix the Issue with VirtualBox Using RPMFusion and Akmods</h2>
+<p>Oracle is aware of this issue, but their <a href="https://www.virtualbox.org/manual/topics/installation.html#kernel-modules-efi-secure-boot">documentation</a> is lacking. To quote:</p>
+<blockquote>
+<p>If you are running on a system using UEFI (Unified Extensible Firmware Interface) Secure Boot, you may need to sign the following kernel modules before you can load them: <code>vboxdrv</code>, <code>vboxnetadp</code>, <code>vboxnetflt</code>, <code>vboxpci</code>. <strong>See your system documentation for details of the kernel module signing process</strong>.</p>
+</blockquote>
+<p>Fedora’s documentation is sparse, so I spent a lot of time researching <strong>manual kernel module signing</strong> (<a href="https://docs.fedoraproject.org/en-US/quick-docs/kernel-build-custom/#_secure_boot">Fedora docs</a>) and following <a href="https://gist.github.com/reillysiemens/ac6bea1e6c7684d62f544bd79b2182a4">user guides</a> until I discovered that <strong>VirtualBox is available in <a href="https://rpmfusion.org/">RPMFusion</a> with <a href="https://packages.fedoraproject.org/pkgs/akmods/akmods/index.html">akmods</a> support</strong>.</p>
+<p>Some definitions:</p>
+<ol>
+<li><strong>RPM Fusion</strong> is a community repository for Enterprise Linux (Fedora, RHEL, etc.) that provides packages not included in official distributions.</li>
+<li><strong>Akmds</strong> automates the process of building and signing kernel modules.</li>
+</ol>
+<p>Here’s the step-by-step solution:</p>
+<h3>1. Enable RPM Fusion (Free Repo)</h3>
+<p>Install the RPM Fusion free repository:</p>
+<pre><code class="language-prettyprint">sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+</code></pre>
+<p><img src="/images/posts/virtualboxsecureboot/01-install.png" alt="RPM Fusion Install" title="RPM Fusion Install" /></p>
+<h3>2. Install VirtualBox (with Akmods)</h3>
+<p>Ensure VirtualBox is installed from RPMFusion (akmods will be a dependency):</p>
+<pre><code class="language-prettyprint">sudo dnf install virtualbox
+</code></pre>
+<p><img src="/images/posts/virtualboxsecureboot/02-virtualbox.png" alt="VirtualBox Install" title="VirtualBox Install" /></p>
+<p><img src="/images/posts/virtualboxsecureboot/03-akmods.png" alt="VirtualBox Akmods" title="VirtualBox Akmods" /></p>
+<h3>3. Start Akmods to Generate Keys</h3>
+<p>Akmods will automatically sign the modules with a key stored in <code>/etc/pki/akmods/certs</code>:</p>
+<pre><code class="language-prettyprint">sudo systemctl start akmods.service
+</code></pre>
+<p><img src="/images/posts/virtualboxsecureboot/04-akmods-start.png" alt="Akmods Start" title="Akmods Start" /></p>
+<h3>4. Enroll the Key with Mokutil</h3>
+<p>Use <code>mokutil</code> to register the key in Secure Boot:</p>
+<pre><code class="language-prettyprint">sudo mokutil --import /etc/pki/akmods/certs/public_key.der
+</code></pre>
+<p><img src="/images/posts/virtualboxsecureboot/05-mokutil.png" alt="Mokutil Key Import" title="Mokutil Key Import" /></p>
+<p>You’ll be prompted for a <strong>case-sensitive password</strong>—remember it for the next step.</p>
+<h3>5. Reboot and Enroll the Key</h3>
+<p>After rebooting, the UEFI firmware will prompt you to <strong>enroll the new key</strong>.</p>
+<p><img src="/images/posts/virtualboxsecureboot/06-mokenroll.png" alt="MOK Enrollment" title="MOK Enrollment" /></p>
+<p><img src="/images/posts/virtualboxsecureboot/08-mokenroll-3.png" alt="MOK Enrollment 3" title="MOK Enrollmen 3" /></p>
+<p>If needed, you could also check for the key contents in that screen.</p>
+<p><img src="/images/posts/virtualboxsecureboot/07-mokenroll-2.png" alt="MOK Enrollment 2" title="MOK Enrollment 2" /></p>
+<h3>6. Start VirtualBox Kernel Modules</h3>
+<p>The modules are now signed and can be loaded. Enable these at boot:</p>
+<pre><code class="language-prettyprint">sudo systemctl start vboxdrv
+sudo systemctl enable vboxdrv
+</code></pre>
+<p>Verify they’re loaded:</p>
+<pre><code class="language-prettyprint">lsmod | grep vbox
+</code></pre>
+<p>Output:</p>
+<pre><code>vboxnetadp             32768  0
+vboxnetflt             40960  0
+vboxdrv               708608  2 vboxnetadp,vboxnetflt
+</code></pre>
+<p>Now, <strong>VirtualBox runs on Fedora with Secure Boot and TPM enabled</strong>, without disabling BitLocker on Windows.</p>
+<p><img src="/images/posts/virtualboxsecureboot/09-finalresult.png" alt="VirtualBox Running" title="VirtualBox Running" /></p>
 </p>
 
 			<div id="share">
