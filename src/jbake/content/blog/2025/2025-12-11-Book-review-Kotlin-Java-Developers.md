@@ -5,7 +5,7 @@ tags=java
 status=published
 ~~~~~~
 
-![Kotlin for Java Developers](/images/posts/kotlin/kotlin-book-cover.png "Kotlin for Java Developers")
+![Kotlin for Java Developers](/images/posts/kotlin-book/kotlin-book-cover.png "Kotlin for Java Developers")
 
 ## General information
 
@@ -57,11 +57,13 @@ This last part is what gives the book its value. Studying a programming language
 
 If I were to use a rocket analogy, imagine that the following chapters are like Apollo 11 in full ascent from Cape Canaveral.
 
-Part I
+**Part I**
+
 * Null and non-nullable types
 * Extension Functions and the apply function
 
-Part II
+**Part II**
+
 * Object-Oriented programming basics
 * Generics and variance
 * Data and sealed classes
@@ -70,12 +72,14 @@ Because this is not a reference book or official documentation, up to this point
 
 From Part III there is a noticeable shift: we leave the Java-centric atmosphere and enter idiomatic Kotlin territory. Java-only developers will likely notice this change, as we move into structures that are often too abstract to have direct equivalents in Java, including:
 
-Part III - All this in the "Kotlin way"
+**Part III** - All this in the "Kotlin way"
+
 * Basics of functional programming 
 * Lambdas
 * Collections and sequences
 
-Part IV
+**Part IV**
+
 * Coroutines
 * Synchronous and asynchronous programming
 
