@@ -6,8 +6,8 @@
     <atom:link href="https://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Thu, 11 Dec 2025 14:36:05 +0000</pubDate>
-    <lastBuildDate>Thu, 11 Dec 2025 14:36:05 +0000</lastBuildDate>
+    <pubDate>Thu, 11 Dec 2025 14:44:41 +0000</pubDate>
+    <lastBuildDate>Thu, 11 Dec 2025 14:44:41 +0000</lastBuildDate>
 
     <item>
       <title>Book Review: Kotlin for Java Developers</title>
@@ -15,7 +15,7 @@
       <pubDate>Thu, 11 Dec 2025 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2025/2025-12-11-Book-review-Kotlin-Java-Developers.html</guid>
       	<description>
-	&lt;p&gt;&lt;img src=&quot;/images/posts/kotlin/kotlin-book-cover.png&quot; alt=&quot;Kotlin for Java Developers&quot; title=&quot;Kotlin for Java Developers&quot; /&gt;&lt;/p&gt;
+	&lt;p&gt;&lt;img src=&quot;/images/posts/kotlin-book/kotlin-book-cover.png&quot; alt=&quot;Kotlin for Java Developers&quot; title=&quot;Kotlin for Java Developers&quot; /&gt;&lt;/p&gt;
 &lt;h2&gt;General information&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Pages: 414&lt;/li&gt;
@@ -57,22 +57,30 @@
 &lt;/ul&gt;
 &lt;p&gt;This last part is what gives the book its value. Studying a programming language — especially when you already know how to program — is a different process than learning to program for the first time. This book recognizes that and discusses Kotlin&apos;s value propositions in technical terms, presenting self-contained snippets that readers can try in their IDE or download from the book&apos;s official repository.&lt;/p&gt;
 &lt;p&gt;If I were to use a rocket analogy, imagine that the following chapters are like Apollo 11 in full ascent from Cape Canaveral.&lt;/p&gt;
-&lt;p&gt;Part I&lt;br /&gt;
-* Null and non-nullable types&lt;br /&gt;
-* Extension Functions and the apply function&lt;/p&gt;
-&lt;p&gt;Part II&lt;br /&gt;
-* Object-Oriented programming basics&lt;br /&gt;
-* Generics and variance&lt;br /&gt;
-* Data and sealed classes&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Part I&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Null and non-nullable types&lt;/li&gt;
+&lt;li&gt;Extension Functions and the apply function&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Part II&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Object-Oriented programming basics&lt;/li&gt;
+&lt;li&gt;Generics and variance&lt;/li&gt;
+&lt;li&gt;Data and sealed classes&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;Because this is not a reference book or official documentation, up to this point the book presents each concept well without diving into corner cases — which is fine. With practice, the book can be completed in about a week and provides a solid foundation for moving to the next level, whether that&apos;s Android development or Kotlin backend programming.&lt;/p&gt;
 &lt;p&gt;From Part III there is a noticeable shift: we leave the Java-centric atmosphere and enter idiomatic Kotlin territory. Java-only developers will likely notice this change, as we move into structures that are often too abstract to have direct equivalents in Java, including:&lt;/p&gt;
-&lt;p&gt;Part III - All this in the &amp;quot;Kotlin way&amp;quot;&lt;br /&gt;
-* Basics of functional programming&lt;br /&gt;
-* Lambdas&lt;br /&gt;
-* Collections and sequences&lt;/p&gt;
-&lt;p&gt;Part IV&lt;br /&gt;
-* Coroutines&lt;br /&gt;
-* Synchronous and asynchronous programming&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Part III&lt;/strong&gt; - All this in the &amp;quot;Kotlin way&amp;quot;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Basics of functional programming&lt;/li&gt;
+&lt;li&gt;Lambdas&lt;/li&gt;
+&lt;li&gt;Collections and sequences&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Part IV&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Coroutines&lt;/li&gt;
+&lt;li&gt;Synchronous and asynchronous programming&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;Finally, once we&apos;re in orbit the book presents two topics that are useful for day-to-day development but are not strictly part of the language:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Kotlin testing&lt;/li&gt;
@@ -84,8 +92,9 @@
 &lt;li&gt;The null safety chapter omits any mention of Java&apos;s &lt;code&gt;Optional&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;The coroutines section briefly mentions Virtual Threads but then presents Loom as a separate effort and likens it to Quasar (a library ecosystem). In reality, Virtual Threads are part of Project Loom&lt;/li&gt;
 &lt;li&gt;The book inconsistently presents different JDK recommendations across chapters; sometimes it suggests Corretto while other times it simply suggests OpenJDK&lt;/li&gt;
-&lt;li&gt;Also on the JVM side, most of the time it suggests Java 17. I imagine this was related to the time of writing. I can say that all samples worked just fine on Java 25 (the latest LTS at the time of writing), so you should be fine using that or Java 21.&lt;/li&gt;
+&lt;li&gt;Also on the JVM side, most of the time it suggests Java 17. I imagine this was related to the time of writing. I can say that all samples worked just fine on Java 25 (the latest LTS at the time of this review), so you should be fine using that or Java 21 (officially supported by Kotlin compiler).&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Most of these are not deal-breakers, this is still an easy to read book which I enjoyed.&lt;/strong&gt;&lt;/p&gt;
 &lt;h2&gt;Who should read this book?&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Java developers exploring the Kotlin ecosystem, those interested in Android development, or developers considering switching to Kotlin as their primary language&lt;/li&gt;

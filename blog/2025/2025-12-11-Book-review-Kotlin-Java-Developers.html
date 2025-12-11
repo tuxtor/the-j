@@ -94,7 +94,7 @@
 	<div class="row">
 
 		<div class="col-md-9">
-			<p><p><img src="/images/posts/kotlin/kotlin-book-cover.png" alt="Kotlin for Java Developers" title="Kotlin for Java Developers" /></p>
+			<p><p><img src="/images/posts/kotlin-book/kotlin-book-cover.png" alt="Kotlin for Java Developers" title="Kotlin for Java Developers" /></p>
 <h2>General information</h2>
 <ul>
 <li>Pages: 414</li>
@@ -136,22 +136,30 @@
 </ul>
 <p>This last part is what gives the book its value. Studying a programming language — especially when you already know how to program — is a different process than learning to program for the first time. This book recognizes that and discusses Kotlin's value propositions in technical terms, presenting self-contained snippets that readers can try in their IDE or download from the book's official repository.</p>
 <p>If I were to use a rocket analogy, imagine that the following chapters are like Apollo 11 in full ascent from Cape Canaveral.</p>
-<p>Part I<br />
-* Null and non-nullable types<br />
-* Extension Functions and the apply function</p>
-<p>Part II<br />
-* Object-Oriented programming basics<br />
-* Generics and variance<br />
-* Data and sealed classes</p>
+<p><strong>Part I</strong></p>
+<ul>
+<li>Null and non-nullable types</li>
+<li>Extension Functions and the apply function</li>
+</ul>
+<p><strong>Part II</strong></p>
+<ul>
+<li>Object-Oriented programming basics</li>
+<li>Generics and variance</li>
+<li>Data and sealed classes</li>
+</ul>
 <p>Because this is not a reference book or official documentation, up to this point the book presents each concept well without diving into corner cases — which is fine. With practice, the book can be completed in about a week and provides a solid foundation for moving to the next level, whether that's Android development or Kotlin backend programming.</p>
 <p>From Part III there is a noticeable shift: we leave the Java-centric atmosphere and enter idiomatic Kotlin territory. Java-only developers will likely notice this change, as we move into structures that are often too abstract to have direct equivalents in Java, including:</p>
-<p>Part III - All this in the &quot;Kotlin way&quot;<br />
-* Basics of functional programming<br />
-* Lambdas<br />
-* Collections and sequences</p>
-<p>Part IV<br />
-* Coroutines<br />
-* Synchronous and asynchronous programming</p>
+<p><strong>Part III</strong> - All this in the &quot;Kotlin way&quot;</p>
+<ul>
+<li>Basics of functional programming</li>
+<li>Lambdas</li>
+<li>Collections and sequences</li>
+</ul>
+<p><strong>Part IV</strong></p>
+<ul>
+<li>Coroutines</li>
+<li>Synchronous and asynchronous programming</li>
+</ul>
 <p>Finally, once we're in orbit the book presents two topics that are useful for day-to-day development but are not strictly part of the language:</p>
 <ul>
 <li>Kotlin testing</li>
@@ -163,8 +171,9 @@
 <li>The null safety chapter omits any mention of Java's <code>Optional</code></li>
 <li>The coroutines section briefly mentions Virtual Threads but then presents Loom as a separate effort and likens it to Quasar (a library ecosystem). In reality, Virtual Threads are part of Project Loom</li>
 <li>The book inconsistently presents different JDK recommendations across chapters; sometimes it suggests Corretto while other times it simply suggests OpenJDK</li>
-<li>Also on the JVM side, most of the time it suggests Java 17. I imagine this was related to the time of writing. I can say that all samples worked just fine on Java 25 (the latest LTS at the time of writing), so you should be fine using that or Java 21.</li>
+<li>Also on the JVM side, most of the time it suggests Java 17. I imagine this was related to the time of writing. I can say that all samples worked just fine on Java 25 (the latest LTS at the time of this review), so you should be fine using that or Java 21 (officially supported by Kotlin compiler).</li>
 </ul>
+<p><strong>Most of these are not deal-breakers, this is still an easy to read book which I enjoyed.</strong></p>
 <h2>Who should read this book?</h2>
 <ul>
 <li>Java developers exploring the Kotlin ecosystem, those interested in Android development, or developers considering switching to Kotlin as their primary language</li>
