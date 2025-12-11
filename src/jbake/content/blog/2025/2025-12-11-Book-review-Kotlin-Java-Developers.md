@@ -1,4 +1,3 @@
-the-j/src/jbake/content/blog/2025/2025-12-11-Book-review-Kotlin-Java-Developers.md#L1-999
 title=Book Review: Kotlin for Java Developers
 date=2025-12-11
 type=post
