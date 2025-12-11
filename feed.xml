@@ -6,8 +6,8 @@
     <atom:link href="https://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Thu, 11 Dec 2025 14:44:41 +0000</pubDate>
-    <lastBuildDate>Thu, 11 Dec 2025 14:44:41 +0000</lastBuildDate>
+    <pubDate>Thu, 11 Dec 2025 15:08:36 +0000</pubDate>
+    <lastBuildDate>Thu, 11 Dec 2025 15:08:36 +0000</lastBuildDate>
 
     <item>
       <title>Book Review: Kotlin for Java Developers</title>
@@ -94,7 +94,7 @@
 &lt;li&gt;The book inconsistently presents different JDK recommendations across chapters; sometimes it suggests Corretto while other times it simply suggests OpenJDK&lt;/li&gt;
 &lt;li&gt;Also on the JVM side, most of the time it suggests Java 17. I imagine this was related to the time of writing. I can say that all samples worked just fine on Java 25 (the latest LTS at the time of this review), so you should be fine using that or Java 21 (officially supported by Kotlin compiler).&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Most of these are not deal-breakers, this is still an easy to read book which I enjoyed.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Most of these are not deal-breakers, this is still an enyojable book.&lt;/strong&gt;&lt;/p&gt;
 &lt;h2&gt;Who should read this book?&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Java developers exploring the Kotlin ecosystem, those interested in Android development, or developers considering switching to Kotlin as their primary language&lt;/li&gt;
