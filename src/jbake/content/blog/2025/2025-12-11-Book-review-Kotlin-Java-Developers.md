@@ -2,7 +2,7 @@ title=Book Review: Kotlin for Java Developers
 date=2025-12-11
 type=post
 tags=java
-status=draft
+status=published
 ~~~~~~
 
 ![Kotlin for Java Developers](/images/posts/kotlin/kotlin-book-cover.png "Kotlin for Java Developers")
