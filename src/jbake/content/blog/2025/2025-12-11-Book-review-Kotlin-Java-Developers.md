@@ -95,7 +95,9 @@ As with any review, this is the most difficult section to write. Besides the fir
 * The null safety chapter omits any mention of Java's `Optional`
 * The coroutines section briefly mentions Virtual Threads but then presents Loom as a separate effort and likens it to Quasar (a library ecosystem). In reality, Virtual Threads are part of Project Loom
 * The book inconsistently presents different JDK recommendations across chapters; sometimes it suggests Corretto while other times it simply suggests OpenJDK
-* Also on the JVM side, most of the time it suggests Java 17. I imagine this was related to the time of writing. I can say that all samples worked just fine on Java 25 (the latest LTS at the time of writing), so you should be fine using that or Java 21.
+* Also on the JVM side, most of the time it suggests Java 17. I imagine this was related to the time of writing. I can say that all samples worked just fine on Java 25 (the latest LTS at the time of this review), so you should be fine using that or Java 21 (officially supported by Kotlin compiler).
+
+**Most of these are not deal-breakers, this is still an easy to read book which I enjoyed.**
 
 ## Who should read this book?
 
