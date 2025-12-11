@@ -6,8 +6,8 @@
     <atom:link href="https://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Mon, 24 Mar 2025 15:19:25 +0000</pubDate>
-    <lastBuildDate>Mon, 24 Mar 2025 15:19:25 +0000</lastBuildDate>
+    <pubDate>Thu, 11 Dec 2025 14:31:26 +0000</pubDate>
+    <lastBuildDate>Thu, 11 Dec 2025 14:31:26 +0000</lastBuildDate>
 
     <item>
       <title>Install VirtualBox over Fedora with SecureBoot enabled</title>
