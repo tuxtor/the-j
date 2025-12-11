@@ -6,9 +6,93 @@
     <atom:link href="https://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Thu, 11 Dec 2025 14:31:26 +0000</pubDate>
-    <lastBuildDate>Thu, 11 Dec 2025 14:31:26 +0000</lastBuildDate>
+    <pubDate>Thu, 11 Dec 2025 14:36:05 +0000</pubDate>
+    <lastBuildDate>Thu, 11 Dec 2025 14:36:05 +0000</lastBuildDate>
 
+    <item>
+      <title>Book Review: Kotlin for Java Developers</title>
+      <link>https://www.vorozco.com/blog/2025/2025-12-11-Book-review-Kotlin-Java-Developers.html</link>
+      <pubDate>Thu, 11 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2025/2025-12-11-Book-review-Kotlin-Java-Developers.html</guid>
+      	<description>
+	&lt;p&gt;&lt;img src=&quot;/images/posts/kotlin/kotlin-book-cover.png&quot; alt=&quot;Kotlin for Java Developers&quot; title=&quot;Kotlin for Java Developers&quot; /&gt;&lt;/p&gt;
+&lt;h2&gt;General information&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Pages: 414&lt;/li&gt;
+&lt;li&gt;Published by: Packt&lt;/li&gt;
+&lt;li&gt;Release date: October 2025&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Disclaimer: I received this book as part of a collaboration with Packt&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;TL;DR&lt;/h2&gt;
+&lt;p&gt;Essentially, this is a book that uses a &amp;quot;problem-reasoning-solution&amp;quot; approach to present the building blocks that make Kotlin interesting and different from Java. Hence, it isn&apos;t:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A Kotlin reference book (i.e., it does not provide deep technical documentation)&lt;/li&gt;
+&lt;li&gt;A book for learning how to program from scratch&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;In my opinion, it delivers what it promises.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;About the book and how I read it&lt;/h2&gt;
+&lt;p&gt;I work with both Java and Kotlin professionally. However, as a technical trainer I&apos;m always looking for educational resources that can boost students&apos; knowledge, either as a main reference or as a complementary resource. I think this book fits the latter category.&lt;/p&gt;
+&lt;p&gt;Right from the cover, the book states its value proposition:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Confidently transition from Java to Kotlin through hands-on examples and idiomatic Kotlin practices&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I believe it achieves that, although at least in the first two chapters the writing style can make the book somewhat hard to read.&lt;/p&gt;
+&lt;h2&gt;A rocket that takes time to launch but can reach Mars&lt;/h2&gt;
+&lt;p&gt;The book is divided into four sections:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Getting started with Kotlin&lt;/li&gt;
+&lt;li&gt;Object-Oriented Programming&lt;/li&gt;
+&lt;li&gt;Functional Programming&lt;/li&gt;
+&lt;li&gt;Coroutines, Testing and DSLs&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;My least favorite section was the first, especially the first two chapters. The first chapter tries to give an overview of Kotlin versus Java, but it is too superficial and perhaps even unnecessary. I imagine the goal of this chapter is to spark interest in Kotlin, but it also anticipates that everything will be covered in more detail later. Personally, I almost skipped this chapter because I knew I would see the topics in more depth later. I suppose that&apos;s a matter of taste.&lt;/p&gt;
+&lt;p&gt;Then, the second chapter sketches out Maven and Gradle without going in depth, which felt redundant since the book is targeted at Java developers. I expected more detail in this section about which plugins are used in the build process, how they interact with Maven lifecycles, and other specific topics. But the book delegates this responsibility to the IDE wizard and that&apos;s it.&lt;/p&gt;
+&lt;p&gt;From chapter three onward something magical happens. The book finally launches and its value proposition starts to materialize. Starting in chapter three the writing style changes and consistently presents concept by concept. Almost every chapter is structured like this:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A common problem is discussed, often respectfully from a Java perspective&lt;/li&gt;
+&lt;li&gt;The Kotlin design decision is presented and how it aims to improve the problem&lt;/li&gt;
+&lt;li&gt;A concise, self-contained Kotlin snippet explains the programming concept&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This last part is what gives the book its value. Studying a programming language — especially when you already know how to program — is a different process than learning to program for the first time. This book recognizes that and discusses Kotlin&apos;s value propositions in technical terms, presenting self-contained snippets that readers can try in their IDE or download from the book&apos;s official repository.&lt;/p&gt;
+&lt;p&gt;If I were to use a rocket analogy, imagine that the following chapters are like Apollo 11 in full ascent from Cape Canaveral.&lt;/p&gt;
+&lt;p&gt;Part I&lt;br /&gt;
+* Null and non-nullable types&lt;br /&gt;
+* Extension Functions and the apply function&lt;/p&gt;
+&lt;p&gt;Part II&lt;br /&gt;
+* Object-Oriented programming basics&lt;br /&gt;
+* Generics and variance&lt;br /&gt;
+* Data and sealed classes&lt;/p&gt;
+&lt;p&gt;Because this is not a reference book or official documentation, up to this point the book presents each concept well without diving into corner cases — which is fine. With practice, the book can be completed in about a week and provides a solid foundation for moving to the next level, whether that&apos;s Android development or Kotlin backend programming.&lt;/p&gt;
+&lt;p&gt;From Part III there is a noticeable shift: we leave the Java-centric atmosphere and enter idiomatic Kotlin territory. Java-only developers will likely notice this change, as we move into structures that are often too abstract to have direct equivalents in Java, including:&lt;/p&gt;
+&lt;p&gt;Part III - All this in the &amp;quot;Kotlin way&amp;quot;&lt;br /&gt;
+* Basics of functional programming&lt;br /&gt;
+* Lambdas&lt;br /&gt;
+* Collections and sequences&lt;/p&gt;
+&lt;p&gt;Part IV&lt;br /&gt;
+* Coroutines&lt;br /&gt;
+* Synchronous and asynchronous programming&lt;/p&gt;
+&lt;p&gt;Finally, once we&apos;re in orbit the book presents two topics that are useful for day-to-day development but are not strictly part of the language:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Kotlin testing&lt;/li&gt;
+&lt;li&gt;Domain-specific languages (DSLs)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Things that could be improved&lt;/h2&gt;
+&lt;p&gt;As with any review, this is the most difficult section to write. Besides the first two chapters, I noticed a few things that could cause confusion:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The null safety chapter omits any mention of Java&apos;s &lt;code&gt;Optional&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;The coroutines section briefly mentions Virtual Threads but then presents Loom as a separate effort and likens it to Quasar (a library ecosystem). In reality, Virtual Threads are part of Project Loom&lt;/li&gt;
+&lt;li&gt;The book inconsistently presents different JDK recommendations across chapters; sometimes it suggests Corretto while other times it simply suggests OpenJDK&lt;/li&gt;
+&lt;li&gt;Also on the JVM side, most of the time it suggests Java 17. I imagine this was related to the time of writing. I can say that all samples worked just fine on Java 25 (the latest LTS at the time of writing), so you should be fine using that or Java 21.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Who should read this book?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Java developers exploring the Kotlin ecosystem, those interested in Android development, or developers considering switching to Kotlin as their primary language&lt;/li&gt;
+&lt;/ul&gt;
+
+	</description>
+    </item>
     <item>
       <title>Install VirtualBox over Fedora with SecureBoot enabled</title>
       <link>https://www.vorozco.com/blog/2025/2025-03-23-Fedora-Secure-Boot-VirtualBox.html</link>

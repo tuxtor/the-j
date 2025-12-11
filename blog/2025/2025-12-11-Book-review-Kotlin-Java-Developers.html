@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Book Review: Kotlin for Java Developers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The J*, a blog about Java, JVM, JavaScript and Gentoo Linux">
+    <meta name="author" content="Víctor Orozco">
+    <meta name="keywords" content="java,jvm,javascript,gentoo,linux">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <!--link href="../../css/bootstrap.min.css" rel="stylesheet"-->
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <meta property="og:title" content="Book Review: Kotlin for Java Developers">
+    <meta property="og:type" content="post">
+    <meta property="og:url" content="https://www.vorozco.com/blog/2025/2025-12-11-Book-review-Kotlin-Java-Developers.html">
+    <meta property="og:site_name" content="The J*">
+    <meta property="og:locale" content="en-US">
+    <meta property="article:published_time" content="11 December 2025">
+    <meta property="article:author" content="https://www.facebook.com/tuxtor">
+    <meta property="fb:app_id" content="753735224749731">
+    <meta property="og:image" content="http://vorozco.com/images/global/playground.png">
+
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-41004409-2', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=290416645177";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+        <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">The J*</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../blog">Blog</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <li><a href="../../contact.html">Contact</a></li>
+            <li><a href="https://feeds.feedburner.com/the-j">Subscribe</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	<div class="page-header">
+		<h1>Book Review: Kotlin for Java Developers</h1>
+	</div>
+
+	<p><em>11 December 2025</em></p>
+
+	<div class="row">
+
+		<div class="col-md-9">
+			<p><p><img src="/images/posts/kotlin/kotlin-book-cover.png" alt="Kotlin for Java Developers" title="Kotlin for Java Developers" /></p>
+<h2>General information</h2>
+<ul>
+<li>Pages: 414</li>
+<li>Published by: Packt</li>
+<li>Release date: October 2025</li>
+</ul>
+<blockquote>
+<p>Disclaimer: I received this book as part of a collaboration with Packt</p>
+</blockquote>
+<h2>TL;DR</h2>
+<p>Essentially, this is a book that uses a &quot;problem-reasoning-solution&quot; approach to present the building blocks that make Kotlin interesting and different from Java. Hence, it isn't:</p>
+<ul>
+<li>A Kotlin reference book (i.e., it does not provide deep technical documentation)</li>
+<li>A book for learning how to program from scratch</li>
+</ul>
+<p><strong>In my opinion, it delivers what it promises.</strong></p>
+<h2>About the book and how I read it</h2>
+<p>I work with both Java and Kotlin professionally. However, as a technical trainer I'm always looking for educational resources that can boost students' knowledge, either as a main reference or as a complementary resource. I think this book fits the latter category.</p>
+<p>Right from the cover, the book states its value proposition:</p>
+<blockquote>
+<p>Confidently transition from Java to Kotlin through hands-on examples and idiomatic Kotlin practices</p>
+</blockquote>
+<p>I believe it achieves that, although at least in the first two chapters the writing style can make the book somewhat hard to read.</p>
+<h2>A rocket that takes time to launch but can reach Mars</h2>
+<p>The book is divided into four sections:</p>
+<ol>
+<li>Getting started with Kotlin</li>
+<li>Object-Oriented Programming</li>
+<li>Functional Programming</li>
+<li>Coroutines, Testing and DSLs</li>
+</ol>
+<p>My least favorite section was the first, especially the first two chapters. The first chapter tries to give an overview of Kotlin versus Java, but it is too superficial and perhaps even unnecessary. I imagine the goal of this chapter is to spark interest in Kotlin, but it also anticipates that everything will be covered in more detail later. Personally, I almost skipped this chapter because I knew I would see the topics in more depth later. I suppose that's a matter of taste.</p>
+<p>Then, the second chapter sketches out Maven and Gradle without going in depth, which felt redundant since the book is targeted at Java developers. I expected more detail in this section about which plugins are used in the build process, how they interact with Maven lifecycles, and other specific topics. But the book delegates this responsibility to the IDE wizard and that's it.</p>
+<p>From chapter three onward something magical happens. The book finally launches and its value proposition starts to materialize. Starting in chapter three the writing style changes and consistently presents concept by concept. Almost every chapter is structured like this:</p>
+<ul>
+<li>A common problem is discussed, often respectfully from a Java perspective</li>
+<li>The Kotlin design decision is presented and how it aims to improve the problem</li>
+<li>A concise, self-contained Kotlin snippet explains the programming concept</li>
+</ul>
+<p>This last part is what gives the book its value. Studying a programming language — especially when you already know how to program — is a different process than learning to program for the first time. This book recognizes that and discusses Kotlin's value propositions in technical terms, presenting self-contained snippets that readers can try in their IDE or download from the book's official repository.</p>
+<p>If I were to use a rocket analogy, imagine that the following chapters are like Apollo 11 in full ascent from Cape Canaveral.</p>
+<p>Part I<br />
+* Null and non-nullable types<br />
+* Extension Functions and the apply function</p>
+<p>Part II<br />
+* Object-Oriented programming basics<br />
+* Generics and variance<br />
+* Data and sealed classes</p>
+<p>Because this is not a reference book or official documentation, up to this point the book presents each concept well without diving into corner cases — which is fine. With practice, the book can be completed in about a week and provides a solid foundation for moving to the next level, whether that's Android development or Kotlin backend programming.</p>
+<p>From Part III there is a noticeable shift: we leave the Java-centric atmosphere and enter idiomatic Kotlin territory. Java-only developers will likely notice this change, as we move into structures that are often too abstract to have direct equivalents in Java, including:</p>
+<p>Part III - All this in the &quot;Kotlin way&quot;<br />
+* Basics of functional programming<br />
+* Lambdas<br />
+* Collections and sequences</p>
+<p>Part IV<br />
+* Coroutines<br />
+* Synchronous and asynchronous programming</p>
+<p>Finally, once we're in orbit the book presents two topics that are useful for day-to-day development but are not strictly part of the language:</p>
+<ul>
+<li>Kotlin testing</li>
+<li>Domain-specific languages (DSLs)</li>
+</ul>
+<h2>Things that could be improved</h2>
+<p>As with any review, this is the most difficult section to write. Besides the first two chapters, I noticed a few things that could cause confusion:</p>
+<ul>
+<li>The null safety chapter omits any mention of Java's <code>Optional</code></li>
+<li>The coroutines section briefly mentions Virtual Threads but then presents Loom as a separate effort and likens it to Quasar (a library ecosystem). In reality, Virtual Threads are part of Project Loom</li>
+<li>The book inconsistently presents different JDK recommendations across chapters; sometimes it suggests Corretto while other times it simply suggests OpenJDK</li>
+<li>Also on the JVM side, most of the time it suggests Java 17. I imagine this was related to the time of writing. I can say that all samples worked just fine on Java 25 (the latest LTS at the time of writing), so you should be fine using that or Java 21.</li>
+</ul>
+<h2>Who should read this book?</h2>
+<ul>
+<li>Java developers exploring the Kotlin ecosystem, those interested in Android development, or developers considering switching to Kotlin as their primary language</li>
+</ul>
+</p>
+
+			<div id="share">
+<!-- Twitter -->
+<a href="https://twitter.com/share" class="twitter-share-button" data-dnt="true">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+<!-- Google Plus -->
+<div class="g-plusone" data-size="medium"></div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'en-GB'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<!-- Facebook -->
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="false">
+</div></div>
+			
+			<hr />
+
+			<div id="disqus_thread"></div>
+			<script type="text/javascript">
+			    /* * * CONFIGURATION VARIABLES * * */
+			    var disqus_shortname = 'opinguimacademicoq';
+
+			    /* * * DON'T EDIT BELOW THIS LINE * * */
+			    (function() {
+			        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			    })();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+		</div>
+			<div class="col-md-3">
+			<form style="border:1px solid #ccc;padding:3px;text-align:center;" action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri=the-j', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true"><p>Enter your email address:</p><p><input type="text" style="width:140px" name="email"/></p><input type="hidden" value="the-j" name="uri"/><input type="hidden" name="loc" value="en_US"/><input type="submit" value="Subscribe" /><p>Delivered by <a href="https://feedburner.google.com" target="_blank">FeedBurner</a></p></form>
+			<hr/>
+			
+			<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"><img src="/images/global/getjavasesdk-120x30.png" alt="Get Java SE SDK" border="0" width="120" height="30" /></a>
+
+			<br/>
+
+			<a href="http://www.gentoo.org/"><img src="//www.gentoo.org/assets/img/badges/gentoo-badge.png" alt="Gentoo" style="border:0" /></a>
+
+			<br/>
+
+			<a href="https://community.oracle.com/community/technology_network_community/java/java-champions">
+			<img src="/images/global/jc.png" alt="Java Champions" style="border:0" />
+			</a>
+
+			<hr/>
+
+		    <a class="twitter-timeline"  href="https://twitter.com/tuxtor" data-widget-id="633158537896722432">Tweets by @tuxtor</a>
+	            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</div>
+	</div>
+
+	
+
+	
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2015-2025 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="//cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <link  href="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.7.1/lazyload.min.js"></script>
+    </body>
+</html>
