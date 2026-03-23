@@ -6,8 +6,8 @@
     <atom:link href="https://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Mon, 23 Mar 2026 03:39:03 +0000</pubDate>
-    <lastBuildDate>Mon, 23 Mar 2026 03:39:03 +0000</lastBuildDate>
+    <pubDate>Mon, 23 Mar 2026 03:44:27 +0000</pubDate>
+    <lastBuildDate>Mon, 23 Mar 2026 03:44:27 +0000</lastBuildDate>
 
     <item>
       <title>A mix between Proxmox, Oracle Linux and Docker, my new Homelab</title>
@@ -118,7 +118,7 @@ e. Tailscale&lt;/li&gt;
 &lt;img src=&quot;/images/posts/homelab/oracle-linux.png&quot; alt=&quot;The Oracle Linux&quot; title=&quot;The Oracle Linux&quot; /&gt;&lt;/p&gt;
 &lt;h2&gt;Is it worth to host your own services?&lt;/h2&gt;
 &lt;p&gt;Yes but &lt;strong&gt;not exactly money-wise&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Between the mini-pc, SSD disks, a UPS and a living-room friendly rack I invested amlmos $600 and my electricity bill increased arround $3 per month. &lt;strong&gt;Also, I added an old Android phone as a monitoring gimmick running Beszel in kiosk mode&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Between the mini-pc, SSD disks, a UPS and a living-room friendly rack I invested almost $600 and my electricity bill increased arround $3 per month. &lt;strong&gt;Also, I added an old Android phone as a monitoring gimmick running Beszel in kiosk mode&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;Let&apos;s say my raw yearly cost is about $ 650, which doesn&apos;t account for my hourly rate (you put a number, Java tech lead, working remotely, etc.). If I consider that, this whole project is a cash-burner vs. just buying subscriptions.&lt;/p&gt;
 &lt;p&gt;However, I truly own my data in this way, and most importantly, &lt;strong&gt;not everything needs to be a VC backed idea&lt;/strong&gt;. Part of life is having hobbies that help you to grow, and &lt;strong&gt;my whole carrer is a product of this type of hobbies&lt;/strong&gt;, so blame me for having fun.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/images/posts/homelab/beszel.png&quot; alt=&quot;The Beszel&quot; title=&quot;The Beszel&quot; /&gt;&lt;/p&gt;
