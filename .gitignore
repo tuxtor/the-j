@@ -3,3 +3,6 @@ src/jbake/output
 .gradle
 src/jbake/assets/cv
 .idea
+.settings
+.vscode
+target
