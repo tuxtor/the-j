@@ -138,7 +138,7 @@ And that's how I ended up choosing. The Enterprise Linux ecosystem is a battle-t
 
 Yes but **not exactly money-wise**.
 
-Between the mini-pc, SSD disks, a UPS and a living-room friendly rack I invested amlmos $600 and my electricity bill increased arround $3 per month. **Also, I added an old Android phone as a monitoring gimmick running Beszel in kiosk mode**.
+Between the mini-pc, SSD disks, a UPS and a living-room friendly rack I invested almost $600 and my electricity bill increased arround $3 per month. **Also, I added an old Android phone as a monitoring gimmick running Beszel in kiosk mode**.
 
 Let's say my raw yearly cost is about $ 650, which doesn't account for my hourly rate (you put a number, Java tech lead, working remotely, etc.). If I consider that, this whole project is a cash-burner vs. just buying subscriptions.
 
