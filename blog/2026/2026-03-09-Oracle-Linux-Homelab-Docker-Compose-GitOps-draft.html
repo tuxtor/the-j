@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>Book Review: Kotlin for Java Developers</title>
+    <title>A quick tour of my new Homelab</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="The J*, a blog about Java, JVM, JavaScript and Gentoo Linux">
     <meta name="author" content="Víctor Orozco">
@@ -28,12 +28,12 @@
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
     <link rel="shortcut icon" href="../../favicon.ico">
 
-    <meta property="og:title" content="Book Review: Kotlin for Java Developers">
+    <meta property="og:title" content="A quick tour of my new Homelab">
     <meta property="og:type" content="post">
-    <meta property="og:url" content="https://www.vorozco.com/blog/2025/2025-12-11-Book-review-Kotlin-Java-Developers.html">
+    <meta property="og:url" content="https://www.vorozco.com/blog/2026/2026-03-09-Oracle-Linux-Homelab-Docker-Compose-GitOps.html">
     <meta property="og:site_name" content="The J*">
     <meta property="og:locale" content="en-US">
-    <meta property="article:published_time" content="11 December 2025">
+    <meta property="article:published_time" content="09 March 2026">
     <meta property="article:author" content="https://www.facebook.com/tuxtor">
     <meta property="fb:app_id" content="753735224749731">
     <meta property="og:image" content="http://vorozco.com/images/global/playground.png">
@@ -86,98 +86,60 @@
     </div>
     <div class="container">
 	<div class="page-header">
-		<h1>Book Review: Kotlin for Java Developers</h1>
+		<h1>A quick tour of my new Homelab</h1>
 	</div>
 
-	<p><em>11 December 2025</em></p>
+	<p><em>09 March 2026</em></p>
 
 	<div class="row">
 
 		<div class="col-md-9">
-			<p><p><img src="/images/posts/kotlin-book/kotlin-book-cover.png" alt="Kotlin for Java Developers" title="Kotlin for Java Developers" /></p>
-<h2>General information</h2>
-<ul>
-<li>Pages: 414</li>
-<li>Published by: Packt</li>
-<li>Release date: October 2025</li>
-</ul>
-<blockquote>
-<p>Disclaimer: I received this book as part of a collaboration with Packt</p>
-</blockquote>
-<h2>TL;DR</h2>
-<p>Essentially, this is a book that uses a &quot;problem-reasoning-solution&quot; approach to present the building blocks that make Kotlin interesting and different from Java. Hence, it isn't:</p>
-<ul>
-<li>A Kotlin reference book (i.e., it does not provide deep technical documentation)</li>
-<li>A book for learning how to program from scratch</li>
-</ul>
-<p><strong>In my opinion, it delivers what it promises.</strong></p>
-<h2>About the book and how I read it</h2>
-<p>I work with both Java and Kotlin professionally. However, as a technical trainer I'm always looking for educational resources that can boost students' knowledge, either as a main reference or as a complementary resource. I think this book fits the latter category.</p>
-<p>Right from the cover, the book states its value proposition:</p>
-<blockquote>
-<p>Confidently transition from Java to Kotlin through hands-on examples and idiomatic Kotlin practices</p>
-</blockquote>
-<p>I believe it achieves that, although at least in the first two chapters the writing style can make the book somewhat hard to read.</p>
-<h2>A rocket that takes time to launch but can reach Mars</h2>
-<p>The book is divided into four sections:</p>
+			<p><p>Disclaimer: I really tried to write this with AI but the slop was too much. So I hope you enjoy it!</p>
+<p>I've been on the self-hosting trend for a couple of years, mostly running Raspberry Pis 24/7 in my network. Why? ... as a 90's kid <strong>I've hoarded a lot of music, videos, films and photos that I prefer to host myself</strong> due space (&gt; 2TB), privacy and cost.</p>
+<p>In this line, my procedure to self host was like this over the years:</p>
 <ol>
-<li>Getting started with Kotlin</li>
-<li>Object-Oriented Programming</li>
-<li>Functional Programming</li>
-<li>Coroutines, Testing and DSLs</li>
+<li>Buy a low powered device capable of running 24/7 without breaking the bank</li>
+<li>Install a Debian based distro (which is common on the Pi community)</li>
+<li>Connect via USB one big SSD</li>
+<li>Bootstrap services here and there with apt and config files wrangling, services like<br />
+a. MiniDLNA<br />
+b. SMB Server<br />
+c. Nextcloud<br />
+d. Pi-hole<br />
+e. Tailscale</li>
 </ol>
-<p>My least favorite section was the first, especially the first two chapters. The first chapter tries to give an overview of Kotlin versus Java, but it is too superficial and perhaps even unnecessary. I imagine the goal of this chapter is to spark interest in Kotlin, but it also anticipates that everything will be covered in more detail later. Personally, I almost skipped this chapter because I knew I would see the topics in more depth later. I suppose that's a matter of taste.</p>
-<p>Then, the second chapter sketches out Maven and Gradle without going in depth, which felt redundant since the book is targeted at Java developers. I expected more detail in this section about which plugins are used in the build process, how they interact with Maven lifecycles, and other specific topics. But the book delegates this responsibility to the IDE wizard and that's it.</p>
-<p>From chapter three onward something magical happens. The book finally launches and its value proposition starts to materialize. Starting in chapter three the writing style changes and consistently presents concept by concept. Almost every chapter is structured like this:</p>
+<p><strong>This was enough for a couple of years and I lived the transition Pi 2 -&gt; Pi 3 -&gt; Pi 4</strong>. However, the Pi 4 was was a breaking point.</p>
+<p>Altough I like the case I chose for it (the Nespi case) most of the times <strong>I ended up buying some kind of fan because CPU gets really hot, and, these broke once per semester and/or made a lot of noise</strong>. The Pi was the obvius choise because of the power vs. energy vs. price balance these oferred. <a href="https://www.raspberrypi.com/news/more-memory-driven-price-rises/">However the balance got lost with the Pi 5</a>.</p>
+<h2>From ARM to x86_64</h2>
+<p>As a <em>self-hoster</em>, I was quite aware of a trend in the community surrounding the Intel N100, which finally delivered a capable and energy efficient x86_64 processor. So, as the time passed, it became the obvious choice as I didn't really use the GPIO pins from the Raspi, I'm far from a maker.</p>
+<p>All and all, I took a brief detour from my family vacations and went to Paraguay, which is <a href="https://es.wikipedia.org/wiki/Ciudad_del_Este">the biggest electronic market in LATAM</a>, to get a cheap and lovelly N150 machine capable enough running my homelab, specifically a Blackview MP60.</p>
+<p>This little machine included:</p>
+<ol>
+<li>16 GB of RAM</li>
+<li>A NVME SSD with 512 GB</li>
+<li>A SSD cady where I attached a 2.5&quot; 2 TB SSD</li>
+<li>A couple of USB-3 ports</li>
+<li>Surprisingly a low noise fan</li>
+</ol>
+<p>And I added</p>
+<ol>
+<li>A main 2 TB storage 2.5&quot; SSD inside the caddy. <strong>A RAW space directly attached to my Oracle Linux VM</strong></li>
+<li>A backup 512 GB storage 2.5&quot; SSD using a external caddy. <strong>This to isolate my backups</strong>.</li>
+</ol>
+<h2>Approaching the server as a software engineer</h2>
+<p>On my daily job I do tons of DevOps stuff but I never tried to approach the homelab like IaC, however, it was time to get serius. I took some design choices and landed the following abstraction layers:</p>
 <ul>
-<li>A common problem is discussed, often respectfully from a Java perspective</li>
-<li>The Kotlin design decision is presented and how it aims to improve the problem</li>
-<li>A concise, self-contained Kotlin snippet explains the programming concept</li>
+<li><strong>Level -1</strong>: The MP60 machine</li>
+<li><strong>Level 0</strong>: A hypervisor with proxmox. Which among other things allows KVM virtual machines, LXC containers and is giving a good fight to other virtualization platforms.</li>
+<li><strong>Level 1.a</strong>: <em>The Docker House</em>. As <a href="">suggested by proxmox</a>, whenever you run Docker containers it is preferred to run these inside a VM host. For this I chose Oracle Linux 10, which is free to use, particularly stable and a well know <a href="">Enterprise Linux</a> supporter</li>
+<li><strong>Level 1.b</strong>: <em>The Tailscale Tunnel</em>. I ran a different &quot;host&quot; to create a Tailscale exit node. Whenever I'm on the road and wanna hit something on my homeserver. I turn on the Tailscale network and I'm able to reach my home network, and then, this little container is the exit port for me <em>to be</em> in Brazil inside my home network. I deploed this with Oracle Linux 9 and LXC containers</li>
+<li><strong>Level 1.c</strong>: <em>The Kopia storage</em>. A Rocky Linux 10 LXC container, running nothing. Just a pure SSH server to isolate the access to the external SSD</li>
+<li><strong>Level 2</strong>: Inside the Docker House. I run my services using Docker Compose files</li>
 </ul>
-<p>This last part is what gives the book its value. Studying a programming language — especially when you already know how to program — is a different process than learning to program for the first time. This book recognizes that and discusses Kotlin's value propositions in technical terms, presenting self-contained snippets that readers can try in their IDE or download from the book's official repository.</p>
-<p>If I were to use a rocket analogy, imagine that the following chapters are like Apollo 11 in full ascent from Cape Canaveral.</p>
-<p><strong>Part I</strong></p>
-<ul>
-<li>Null and non-nullable types</li>
-<li>Extension Functions and the apply function</li>
-</ul>
-<p><strong>Part II</strong></p>
-<ul>
-<li>Object-Oriented programming basics</li>
-<li>Generics and variance</li>
-<li>Data and sealed classes</li>
-</ul>
-<p>Because this is not a reference book or official documentation, up to this point the book presents each concept well without diving into corner cases — which is fine. With practice, the book can be completed in about a week and provides a solid foundation for moving to the next level, whether that's Android development or Kotlin backend programming.</p>
-<p>From Part III there is a noticeable shift: we leave the Java-centric atmosphere and enter idiomatic Kotlin territory. Java-only developers will likely notice this change, as we move into structures that are often too abstract to have direct equivalents in Java, including:</p>
-<p><strong>Part III</strong> - All this in the &quot;Kotlin way&quot;</p>
-<ul>
-<li>Basics of functional programming</li>
-<li>Lambdas</li>
-<li>Collections and sequences</li>
-</ul>
-<p><strong>Part IV</strong></p>
-<ul>
-<li>Coroutines</li>
-<li>Synchronous and asynchronous programming</li>
-</ul>
-<p>Finally, once we're in orbit the book presents two topics that are useful for day-to-day development but are not strictly part of the language:</p>
-<ul>
-<li>Kotlin testing</li>
-<li>Domain-specific languages (DSLs)</li>
-</ul>
-<h2>Things that could be improved</h2>
-<p>As with any review, this is the most difficult section to write. Besides the first two chapters, I noticed a few things that could cause confusion:</p>
-<ul>
-<li>The null safety chapter omits any mention of Java's <code>Optional</code></li>
-<li>The coroutines section briefly mentions Virtual Threads but then presents Loom as a separate effort and likens it to Quasar (a library ecosystem). In reality, Virtual Threads are part of Project Loom</li>
-<li>The book inconsistently presents different JDK recommendations across chapters; sometimes it suggests Corretto while other times it simply suggests OpenJDK</li>
-<li>Also on the JVM side, most of the time it suggests Java 17. I imagine this was related to the time of writing. I can say that all samples worked just fine on Java 25 (the latest LTS at the time of this review), so you should be fine using that or Java 21 (officially supported by Kotlin compiler).</li>
-</ul>
-<p><strong>Most of these are not deal-breakers, this is still an enyojable book.</strong></p>
-<h2>Who should read this book?</h2>
-<ul>
-<li>Java developers exploring the Kotlin ecosystem, those interested in Android development, or developers considering switching to Kotlin as their primary language</li>
-</ul>
+<h2>Docker vs. LXC vs. VM</h2>
+<p>Since I mostly do</p>
+<h2>Final thoughts</h2>
+<p>The full source is at <a href="https://github.com/tuxtor/oracle-linux-docker-0-compose-stacks">github.com/tuxtor/oracle-linux-docker-0-compose-stacks</a>. I think the main value of this setup isn't any individual service — it's the discipline of treating homelab infrastructure as code. If the machine dies tomorrow, I push to a new box and everything comes back. I really hope this is useful if you're thinking about doing something similar.</p>
 </p>
 
 			<div id="share">
