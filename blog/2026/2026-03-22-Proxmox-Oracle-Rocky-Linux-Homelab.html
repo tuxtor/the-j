@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>A mix between Proxmox, Oracle Linux and Docker, my new Homelab</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The J*, a blog about Java, JVM, JavaScript and Gentoo Linux">
+    <meta name="author" content="Víctor Orozco">
+    <meta name="keywords" content="java,jvm,javascript,gentoo,linux">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <!--link href="../../css/bootstrap.min.css" rel="stylesheet"-->
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <meta property="og:title" content="A mix between Proxmox, Oracle Linux and Docker, my new Homelab">
+    <meta property="og:type" content="post">
+    <meta property="og:url" content="https://www.vorozco.com/blog/2026/2026-03-22-Proxmox-Oracle-Rocky-Linux-Homelab.html">
+    <meta property="og:site_name" content="The J*">
+    <meta property="og:locale" content="en-US">
+    <meta property="article:published_time" content="22 March 2026">
+    <meta property="article:author" content="https://www.facebook.com/tuxtor">
+    <meta property="fb:app_id" content="753735224749731">
+    <meta property="og:image" content="http://vorozco.com/images/global/playground.png">
+
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-41004409-2', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=290416645177";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+        <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">The J*</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../blog">Blog</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <li><a href="../../contact.html">Contact</a></li>
+            <li><a href="https://feeds.feedburner.com/the-j">Subscribe</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	<div class="page-header">
+		<h1>A mix between Proxmox, Oracle Linux and Docker, my new Homelab</h1>
+	</div>
+
+	<p><em>22 March 2026</em></p>
+
+	<div class="row">
+
+		<div class="col-md-9">
+			<p><p><img src="/images/posts/homelab/homelab.jpg" alt="The Homelab" title="The Homelab" /></p>
+<p>Disclaimers: I really tried to write this with AI, but the slop was too much. So this was written like a caveman; I hope you enjoy it!</p>
+<p>I've been into self-hosting for a couple of years, mostly running Raspberry Pis 24/7 on my network. Why? As a 90s kid, <strong>I've hoarded a lot of music, videos, films, and photos that I prefer to host myself</strong> due to space (&gt; 2 TB), privacy, and costs.</p>
+<p>Along those lines, my self-hosting procedure looked like this over the years:</p>
+<ol>
+<li>Buy a low powered device capable of running 24/7 without breaking the bank</li>
+<li>Install a Debian-based distro (which is common in the Raspberry Pi community)</li>
+<li>Connect via USB one big SSD</li>
+<li>Bootstrap services here and there with apt and config-file wrangling, services like<br />
+a. MiniDLNA<br />
+b. SMB Server<br />
+c. Nextcloud<br />
+d. Pi-hole<br />
+e. Tailscale</li>
+</ol>
+<p><strong>This was enough for a couple of years, and I lived through the transition Pi 2 -&gt; Pi 3 -&gt; Pi 4</strong>, until I reached a breaking point.</p>
+<p>Although I like the case I chose for my last Raspberry Pi (the Nespi case), most of the time <strong>I ended up buying some kind of fan because the CPU gets really hot, and those fans broke once per semester and/or made a lot of noise</strong>. The Pi was the obvious choice because of the power vs. energy vs. price balance it offered. <a href="https://www.raspberrypi.com/news/more-memory-driven-price-rises/">However, that balance was lost with the Pi 5</a>.</p>
+<p><img src="/images/posts/homelab/nespi.jpg" alt="The Raspi" title="The Raspi" /></p>
+<h2>From ARM to x86_64</h2>
+<p>As a <em>self-hoster</em>, I was quite aware of a trend in the community around the Intel N100, which <strong>finally delivered a capable and energy-efficient x86_64 processor</strong>. So, as time passed, it became the obvious choice since I didn't really use the GPIO pins on the Raspi; I'm far from a maker.</p>
+<p>All in all, I took a brief detour from my family vacation and went to Paraguay, which has <a href="https://en.wikipedia.org/wiki/Ciudad_del_Este">the biggest electronics market in LATAM</a>, to get a cheap and lovely N150 machine capable of running my homelab, specifically a <a href="https://www.blackview.hk/products/item/mp60">Blackview MP60</a>.</p>
+<p>This little machine included:</p>
+<ol>
+<li>16 GB of RAM</li>
+<li>An NVMe SSD with 512 GB</li>
+<li>An SSD caddy via USB-C</li>
+<li>Two regular USB 2.0 and two regular USB 3.1 ports</li>
+</ol>
+<p>And I added:</p>
+<ol>
+<li>A main 2 TB storage 2.5&quot; SSD inside the caddy. <strong>A RAW space directly attached to an Oracle Linux VM</strong></li>
+<li>A backup 512 GB 2.5&quot; SSD using an external caddy. <strong>This was to isolate my backups</strong>.</li>
+</ol>
+<h2>Approaching the server as a software engineer</h2>
+<p><img src="/images/posts/homelab/homelab-arch.png" alt="The Arch" title="The Arch" /></p>
+<p>In my day job I do tons of DevOps work, but I never tried to approach my homelab like IaC. However, it was time to get serious. I made some design choices and landed on the following abstraction layers:</p>
+<ul>
+<li><strong>Level -1</strong>: The MP60 machine</li>
+<li><strong>Level 0</strong>: A hypervisor with Proxmox, which among other things allows KVM virtual machines and LXC containers, and is <a href="https://www.reddit.com/r/Proxmox/comments/1pnbazc/our_midsize_business_moved_to_proxmox_heres_my/">giving a good fight to other virtualization platforms</a>.</li>
+<li><strong>Level 1.a</strong>: <em>The Docker House</em>. As <a href="https://forum.proxmox.com/threads/docker-compose-command-not-found.124939/">suggested by Proxmox staff</a>, whenever you run Docker containers, it is preferred to run them inside a VM host. For this I chose Oracle Linux 10, which is free to use, particularly stable, and a well-known <a href="https://openela.org/">OpenELA</a> supporter.</li>
+<li><strong>Level 1.b</strong>: <em>The Tailscale Tunnel</em>. An Oracle Linux 9 LXC container acting as a Tailscale exit node. Hence, I'm able to reach my local network while on the road.</li>
+<li><strong>Level 1.c</strong>: <em>The Kopia storage</em>. A Rocky Linux 10 LXC container, running nothing. Just a pure SSH server to isolate the access to the external SSD</li>
+<li><strong>Level 2</strong>: Inside the Docker House. I run my services using Docker Compose files, including
+<ul>
+<li><a href="https://kopia.io/">Kopia backup server</a></li>
+<li><a href="https://dockhand.pro/">Dockhand containers manager</a></li>
+<li><a href="https://pi-hole.net/">Pi-hole ad blocker</a></li>
+<li><a href="https://www.qbittorrent.org/">Headless Qbittorrent as torrent client for the arr stack</a></li>
+<li><a href="https://jellyfin.org/">Jellyfin streaming server</a></li>
+<li><a href="https://nextcloud.com/">Nextcloud cloud storage</a></li>
+<li>among others ...</li>
+</ul>
+</li>
+</ul>
+<p>To deploy this into the Docker House I also deployed a <a href="https://docs.github.com/en/actions/concepts/runners/self-hosted-runners">Github Actions self-hosted runner</a>, which allowed me to create a deployment pipeline with the same tools I use daily, and evend assign the Compose creation to AI Agents (which contrary to writing this article, work really well).</p>
+<p><img src="/images/posts/homelab/pipeline.png" alt="The Pipeline" title="The Pipeline" /></p>
+<p>In that line, once I bootstrapped a couple of stacks + a quite tailored GitHub Copilot skill ... I created the reset of deployment descriptors with GitHub Copilot sessions. <strong>This is the true power of IaC + AI</strong></p>
+<p><img src="/images/posts/homelab/copilot.png" alt="The Copilot" title="The Copilot" /></p>
+<h2>Docker vs. LXC vs. VM</h2>
+<p>One of the things that took me a while to understand was the difference between LXC containers and OCI (Docker) containers. <strong>To be honest, until this experiment I wasn't very aware of the LXC ecosystem</strong>.</p>
+<p>So, quoting myself</p>
+<ul>
+<li>A VM is exactly that: a whole machine running over a hypervisor (in Proxmox KVM). For this I chose Oracle Linux 10 because I tend to prefer EL distros.</li>
+<li>An LXC is a container that isolates the memory space of a whole Linux system (including userland). Think of it as a lightweight-ish virtual machine. Again, I chose EL distros, specifically Oracle Linux and Rocky Linux.</li>
+<li>An OCI (Docker) container is a container that isolates the memory space of a Linux system (including userland), focused <strong>on providing an environment for a single process</strong>.</li>
+</ul>
+<p>So, why Debian, Oracle and Rocky Linux? Let's find out.</p>
+<h2>A Debian bedrock</h2>
+<p>In the past I've used other hypervisor platforms like OpenNebula, pure Xen, bare-bones KVM, and vSphere with various levels of success in production. However, Proxmox was on my radar because it popped up from time to time in the Linux blogs I follow. Actually <strong>I wanted to try it a long time ago, but my previous homelab lacked the raw power to run it.</strong></p>
+<p>With Debian as basis, Proxmox became a Reddit community favourite to create self-hosted home labs. Which, after running it for three months, I finally get it. SREs and domestic sysadmins love Proxmox because ...</p>
+<ol>
+<li>It is easy to set up: just boot an installation pendrive, allow it to take a whole disk, and that's pretty much it</li>
+<li>It has various &quot;batteries included&quot; features, like a hypervisor firewall, backup automation, LVM-thin pool provisioning, ZFS support, cluster capabilities, Ceph, ... , all in a very intuitive user interface</li>
+<li>It doesn't need a beefy server to run; again, I'm using an N150 machine in a mini-PC form factor</li>
+<li>Eventually I can buy and join other nodes (maybe for another Paraguay travel)</li>
+<li>There is a <a href="https://registry.terraform.io/providers/Terraform-for-Proxmox/proxmox/latest/docs">community Terraform provider</a>. So more IaC!</li>
+</ol>
+<p><img src="/images/posts/homelab/proxmox.png" alt="The Proxmox" title="The Proxmox" /></p>
+<h2>The battle of OpenELAs</h2>
+<p>Once I confirmed the Proxmox team advised running containers inside a VM, I decided to create a Docker server where I would deploy my services using plain old Docker Compose files. <strong>As in the the underlying layer, I wanted something easy to manage, rock-solid enough to forget, and familiar with my day-to-day cloud operations</strong>.</p>
+<p>Hence the next step was to pick an <strong>Enterprise Linux</strong>.</p>
+<p>What is an Enterprise Linux, BTW? Enterprise Linux is a <strong>generic name given to Linux distributions that derive in some way from Red Hat Enterprise Linux source code</strong>, with CentOS being the most famous. It was for a while the de facto downstream Linux distribution of Red Hat... <a href="https://www.redhat.com/en/topics/linux/centos-linux-eol">until it was EOL'd by Red Hat</a>.</p>
+<p>Not long after that, various <strong>communities and companies stepped up to fill the niche left by CentOS</strong>, creating free (as in free coffee) Linux distros with optional support plans, to name a few:</p>
+<ul>
+<li><a href="https://almalinux.org/">Alma Linux (with support via TuxCare)</a></li>
+<li><a href="https://rockylinux.org/">Rocky Linux</a> (and <a href="https://ciq.com/products/rocky-linux/pro/">Rocky Linux supported by CIQ</a>)</li>
+<li><a href="https://www.oracle.com/linux/">Oracle Linux</a></li>
+<li><a href="https://www.openeuler.org/en/">OpenEuler</a></li>
+<li><a href="https://www.suse.com/c/the-suse-liberty-linux-packages-which-support-option-is-right-for-you/">SUSE Liberty Linux (which later became SUSE Multi-Linux Support)</a></li>
+</ul>
+<p>Eventually, CIQ, Oracle, and SUSE created a joint effort called <a href="https://openela.org/">OpenELA</a> <strong>aiming to provide accessible and buildable sources for the whole community</strong>.</p>
+<p>Also, since all this exploded, Red Hat also offers a <a href="https://developers.redhat.com/products/rhel/download">no-cost RHEL for developers subscription</a>.</p>
+<p>Do you see the problem? <strong>I had all these great options available to create my rock-solid server</strong>. Considering these distros are managed with the same tools and principles (package manager/config files/third-party compatibility), I was back at km 0 and had to decide.</p>
+<p>This decision wasn't easy, so I had to add another criterion: who had the best logo?</p>
+<ol>
+<li>Who has the best logo? Oracle Linux, of course</li>
+<li>Who has the second-best logo? That's Rocky Linux</li>
+</ol>
+<p>And that's how I ended up choosing. The Enterprise Linux ecosystem is a battle-tested environment that <strong>just works</strong>, and works well.</p>
+<p><img src="/images/posts/homelab/oracle-tux.jpg" alt="The Oracle Linux Tux" title="The Oracle Tux" /><br />
+<img src="/images/posts/homelab/oracle-linux.png" alt="The Oracle Linux" title="The Oracle Linux" /></p>
+<h2>Is it worth to host your own services?</h2>
+<p>Yes but <strong>not exactly money-wise</strong>.</p>
+<p>Between the mini-pc, SSD disks, a UPS and a living-room friendly rack I invested amlmos $600 and my electricity bill increased arround $3 per month. <strong>Also, I added an old Android phone as a monitoring gimmick running Beszel in kiosk mode</strong>.</p>
+<p>Let's say my raw yearly cost is about $ 650, which doesn't account for my hourly rate (you put a number, Java tech lead, working remotely, etc.). If I consider that, this whole project is a cash-burner vs. just buying subscriptions.</p>
+<p>However, I truly own my data in this way, and most importantly, <strong>not everything needs to be a VC backed idea</strong>. Part of life is having hobbies that help you to grow, and <strong>my whole carrer is a product of this type of hobbies</strong>, so blame me for having fun.</p>
+<p><img src="/images/posts/homelab/beszel.png" alt="The Beszel" title="The Beszel" /></p>
+</p>
+
+			<div id="share">
+<!-- Twitter -->
+<a href="https://twitter.com/share" class="twitter-share-button" data-dnt="true">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+<!-- Google Plus -->
+<div class="g-plusone" data-size="medium"></div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'en-GB'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<!-- Facebook -->
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="false">
+</div></div>
+			
+			<hr />
+
+			<div id="disqus_thread"></div>
+			<script type="text/javascript">
+			    /* * * CONFIGURATION VARIABLES * * */
+			    var disqus_shortname = 'opinguimacademicoq';
+
+			    /* * * DON'T EDIT BELOW THIS LINE * * */
+			    (function() {
+			        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			    })();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+		</div>
+			<div class="col-md-3">
+			<form style="border:1px solid #ccc;padding:3px;text-align:center;" action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri=the-j', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true"><p>Enter your email address:</p><p><input type="text" style="width:140px" name="email"/></p><input type="hidden" value="the-j" name="uri"/><input type="hidden" name="loc" value="en_US"/><input type="submit" value="Subscribe" /><p>Delivered by <a href="https://feedburner.google.com" target="_blank">FeedBurner</a></p></form>
+			<hr/>
+			
+			<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"><img src="/images/global/getjavasesdk-120x30.png" alt="Get Java SE SDK" border="0" width="120" height="30" /></a>
+
+			<br/>
+
+			<a href="http://www.gentoo.org/"><img src="//www.gentoo.org/assets/img/badges/gentoo-badge.png" alt="Gentoo" style="border:0" /></a>
+
+			<br/>
+
+			<a href="https://community.oracle.com/community/technology_network_community/java/java-champions">
+			<img src="/images/global/jc.png" alt="Java Champions" style="border:0" />
+			</a>
+
+			<hr/>
+
+		    <a class="twitter-timeline"  href="https://twitter.com/tuxtor" data-widget-id="633158537896722432">Tweets by @tuxtor</a>
+	            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</div>
+	</div>
+
+	
+
+	
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2015-2026 | Mixed with <a href="https://bootswatch.com/">Bootswatch</a> | Baked with <a href="http://jbake.org">JBake v2.7.0</a> | Licensed under the <a href="http://www.wtfpl.net/"/>WTFPL 2.0</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="//cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <link  href="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.7.1/lazyload.min.js"></script>
+    </body>
+</html>
