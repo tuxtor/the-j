@@ -2,7 +2,7 @@ title=A mix between Proxmox, Oracle Linux and Docker, my new Homelab
 date=2026-03-22
 type=post
 tags=linux,docker
-status=publish
+status=published
 ~~~~~~
 
 ![The Homelab](/images/posts/homelab/homelab.jpg "The Homelab")
