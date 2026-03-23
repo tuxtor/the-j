@@ -23,13 +23,13 @@
 				  <li><a href="https://github.com/tuxtor" target="_blank">GitHub</a></li>
 				  <li><a href="https://last.fm/user/cdmgt" target="_blank">Last.fm</a></li>
 				  <li><a href="https://www.facebook.com/tuxtor" target="_blank">Facebook</a></li>
-				  <li><a href="/cv/index.html" target="_blank">CV</a></li>
+				  <li><a href="https://github.com/tuxtor/resume/blob/master/resume.md" target="_blank">CV</a></li>
 				  <li><a href="http://tuxtor.shekalug.org" target="_blank">Old spanish blog</a></li>
 				</ul> 
 	    	</div>
 	    	<div class="row">
 	    		<p>Is The-J a broken blog?</p>
-	    		<p><a href="https://github.com/tuxtor/the-j/actions" target="_blank"><img src="https://github.com/tuxtor/the-j/actions/workflows/gradle.yaml/badge.svg" alt="actions status"></a></p>
+	    		<p><a href="https://github.com/tuxtor/the-j/actions" target="_blank"><img src="https://github.com/tuxtor/the-j/actions/workflows/maven.yaml/badge.svg" alt="actions status"></a></p>
 	    	</div>
 	    </div>
 	    <div class="col-md-6"><img src="/images/global/playground.png" alt="playground"></div>
