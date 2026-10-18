@@ -12,19 +12,19 @@
 	  <div class="row">
 	    <div class="col-md-6">
 	    	<div class="row">
-	    		<p>I'm Víctor Orozco AKA tuxtor, I do code for living and I'm currently living at Guatemala.</p>
+	    		<p>I'm Víctor Orozco AKA tuxtor, I do code for living and I'm currently living in Brazil.</p>
 	    	</div>
 	    	<div class="row">
 	    		<h1>Me @ interwebz</h1>
 	    		<ul>
-				  <li><a href="https://twitter.com/tuxtor" target="_blank">Twitter</a></li>
-				  <li><a href="https://gt.linkedin.com/in/victororozco" target="_blank">Linkedin</a></li>
-				  <li><a href="https://www.youtube.com/VictorOrozcoTuxtor" target="_blank">Youtube</a></li>
+				  <li><a href="https://x.com/tuxtor" target="_blank">X</a></li>
+				  <li><a href="https://www.linkedin.com/in/victororozco/" target="_blank">Linkedin</a></li>
+				  <li><a href="https://www.youtube.com/@tuxtor" target="_blank">Youtube</a></li>
 				  <li><a href="https://github.com/tuxtor" target="_blank">GitHub</a></li>
 				  <li><a href="https://last.fm/user/cdmgt" target="_blank">Last.fm</a></li>
 				  <li><a href="https://www.facebook.com/tuxtor" target="_blank">Facebook</a></li>
 				  <li><a href="https://github.com/tuxtor/resume/blob/master/resume.md" target="_blank">CV</a></li>
-				  <li><a href="http://tuxtor.shekalug.org" target="_blank">Old spanish blog</a></li>
+				  <li><a href="https://tuxtor.shekalug.org" target="_blank">Old spanish blog</a></li>
 				</ul> 
 	    	</div>
 	    	<div class="row">
