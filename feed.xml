@@ -6,8 +6,8 @@
     <atom:link href="https://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Mon, 23 Mar 2026 03:44:27 +0000</pubDate>
-    <lastBuildDate>Mon, 23 Mar 2026 03:44:27 +0000</lastBuildDate>
+    <pubDate>Sun, 18 Oct 2026 16:48:10 +0000</pubDate>
+    <lastBuildDate>Sun, 18 Oct 2026 16:48:10 +0000</lastBuildDate>
 
     <item>
       <title>A mix between Proxmox, Oracle Linux and Docker, my new Homelab</title>
