@@ -1,5 +1,5 @@
 title=Getting started with Elastic Cloud Managed OTLP Endpoint (mOTLP) and Spring Boot 4.x
-date=2026-03-22
+date=2026-10-01
 type=post
 tags=java,spring,elastic,otlp
 status=published
@@ -220,7 +220,7 @@ curl http://localhost:8081/trace-demo
 
 ## Observing Results in Elastic Cloud
 
-After running the above commands and allowing a few seconds for data propagation, you should see observability data flowing into your Elastic deployment. **The best way to confirm this is by using the Discovery tab, where you can explore data using ES|QA queries**. Also, the Cloud instance offers an AI assisted query builder, capable of translating natural language queries to actual deterministic queries.
+After running the above commands and allowing a few seconds for data propagation, you should see observability data flowing into your Elastic deployment. **The best way to confirm this is by using the Discovery tab, where you can explore data using ES|QL queries**. Also, the Cloud instance offers an AI assisted query builder, capable of translating natural language queries to actual deterministic queries.
 
 ### Logs
 
