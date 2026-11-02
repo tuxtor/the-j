@@ -6,13 +6,13 @@
     <atom:link href="https://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Mon, 2 Nov 2026 05:22:24 +0000</pubDate>
-    <lastBuildDate>Mon, 2 Nov 2026 05:22:24 +0000</lastBuildDate>
+    <pubDate>Mon, 2 Nov 2026 12:57:15 +0000</pubDate>
+    <lastBuildDate>Mon, 2 Nov 2026 12:57:15 +0000</lastBuildDate>
 
     <item>
       <title>Getting started with Elastic Cloud Managed OTLP Endpoint (mOTLP) and Spring Boot 4.x</title>
       <link>https://www.vorozco.com/blog/2026/2026-10-01-Getting-started-with-Elastic-mOTLP.html</link>
-      <pubDate>Sun, 22 Mar 2026 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 1 Oct 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2026/2026-10-01-Getting-started-with-Elastic-mOTLP.html</guid>
       	<description>
 	&lt;p&gt;In this tutorial, we&apos;ll explore a simple and clear way to &lt;strong&gt;integrate observability into your workloads using Spring Boot 4.x and Elastic Cloud&lt;/strong&gt; through mOTLP.&lt;/p&gt;
@@ -166,7 +166,7 @@ mvn spring-boot:run
 &lt;pre&gt;&lt;code class=&quot;language-prettyprint&quot;&gt;curl http://localhost:8081/trace-demo 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2&gt;Observing Results in Elastic Cloud&lt;/h2&gt;
-&lt;p&gt;After running the above commands and allowing a few seconds for data propagation, you should see observability data flowing into your Elastic deployment. &lt;strong&gt;The best way to confirm this is by using the Discovery tab, where you can explore data using ES|QA queries&lt;/strong&gt;. Also, the Cloud instance offers an AI assisted query builder, capable of translating natural language queries to actual deterministic queries.&lt;/p&gt;
+&lt;p&gt;After running the above commands and allowing a few seconds for data propagation, you should see observability data flowing into your Elastic deployment. &lt;strong&gt;The best way to confirm this is by using the Discovery tab, where you can explore data using ES|QL queries&lt;/strong&gt;. Also, the Cloud instance offers an AI assisted query builder, capable of translating natural language queries to actual deterministic queries.&lt;/p&gt;
 &lt;h3&gt;Logs&lt;/h3&gt;
 &lt;p&gt;You&apos;ll see structured logs from both services showing:&lt;/p&gt;
 &lt;ul&gt;
