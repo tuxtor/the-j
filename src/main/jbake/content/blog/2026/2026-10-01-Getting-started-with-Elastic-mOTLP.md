@@ -185,7 +185,7 @@ cd springboot-client-demo
 mvn spring-boot:run
 ```
 
-To demonstrate observability in the three dimensions, both sprinboot-demo (8080) and springboot-client-demo (8081) have some interactions to:
+To demonstrate observability in the three dimensions, both springboot-demo (8080) and springboot-client-demo (8081) have some interactions to:
 
 Generate CPU workload using Naive Fibonacci:
 
@@ -220,7 +220,7 @@ curl http://localhost:8081/trace-demo
 
 ## Observing Results in Elastic Cloud
 
-After running the above commands and allowing a few seconds for data propagation, you should see observability data flowing into your Elastic deployment. **The best way to confirm this is by using the Discovery tab, where you can explore data using ES|QL queries**. Also, the Cloud instance offers an AI assisted query builder, capable of translating natural language queries to actual deterministic queries.
+After running the above commands and allowing a few seconds for data propagation, you should see observability data flowing into your Elastic deployment. **The best way to confirm this is by using the Discover tab, where you can explore data using ES|QL queries**. Also, the Cloud instance offers an AI assisted query builder, capable of translating natural language queries to actual deterministic queries.
 
 ### Logs
 
@@ -302,7 +302,7 @@ Click on any span to see:
 - Status (success/error)
 - Resource information (service version, environment)
 
-**Correlation across dimensions:** The trace ID connects all three observability dimensions. A single trace ID appears in logs, metrics, and traces, allowing you to correlate a user request with log entries and performance metrics—the foundation of effective observability.
+**Correlation across dimensions:** The trace ID connects observability dimensions. A single trace ID appears in logs and traces, allowing you to correlate a user request with log entries.
 
 ![Elastic Serverless Traces](/images/posts/elastic/traces.png "Elastic Serverless Traces")
 
@@ -310,7 +310,7 @@ Click on any span to see:
 
 ### Service inventory view
 
-Kibana also includes an "eagle-eye" in the service inventory section. Where you can spot-check all the tree dimensions, in a service-oriented way.
+Kibana also includes an "eagle-eye" in the service inventory section. Where you can spot-check all the three dimensions, in a service-oriented way.
 
 ![Elastic Serverless Service View](/images/posts/elastic/service-view.png "Elastic Serverless Service View")
 
