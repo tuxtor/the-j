@@ -224,7 +224,7 @@ mvn spring-boot:run
 <pre><code class="language-prettyprint">cd springboot-client-demo
 mvn spring-boot:run
 </code></pre>
-<p>To demonstrate observability in the three dimensions, both sprinboot-demo (8080) and springboot-client-demo (8081) have some interactions to:</p>
+<p>To demonstrate observability in the three dimensions, both springboot-demo (8080) and springboot-client-demo (8081) have some interactions to:</p>
 <p>Generate CPU workload using Naive Fibonacci:</p>
 <pre><code class="language-prettyprint">curl http://localhost:8080/fibo\?n\=45
 </code></pre>
@@ -245,7 +245,7 @@ mvn spring-boot:run
 <pre><code class="language-prettyprint">curl http://localhost:8081/trace-demo 
 </code></pre>
 <h2>Observing Results in Elastic Cloud</h2>
-<p>After running the above commands and allowing a few seconds for data propagation, you should see observability data flowing into your Elastic deployment. <strong>The best way to confirm this is by using the Discovery tab, where you can explore data using ES|QL queries</strong>. Also, the Cloud instance offers an AI assisted query builder, capable of translating natural language queries to actual deterministic queries.</p>
+<p>After running the above commands and allowing a few seconds for data propagation, you should see observability data flowing into your Elastic deployment. <strong>The best way to confirm this is by using the Discover tab, where you can explore data using ES|QL queries</strong>. Also, the Cloud instance offers an AI assisted query builder, capable of translating natural language queries to actual deterministic queries.</p>
 <h3>Logs</h3>
 <p>You'll see structured logs from both services showing:</p>
 <ul>
@@ -309,10 +309,10 @@ mvn spring-boot:run
 <li>Status (success/error)</li>
 <li>Resource information (service version, environment)</li>
 </ul>
-<p><strong>Correlation across dimensions:</strong> The trace ID connects all three observability dimensions. A single trace ID appears in logs, metrics, and traces, allowing you to correlate a user request with log entries and performance metrics—the foundation of effective observability.</p>
+<p><strong>Correlation across dimensions:</strong> The trace ID connects observability dimensions. A single trace ID appears in logs and traces, allowing you to correlate a user request with log entries.</p>
 <p><img src="/images/posts/elastic/traces.png" alt="Elastic Serverless Traces" title="Elastic Serverless Traces" /></p>
 <h3>Service inventory view</h3>
-<p>Kibana also includes an &quot;eagle-eye&quot; in the service inventory section. Where you can spot-check all the tree dimensions, in a service-oriented way.</p>
+<p>Kibana also includes an &quot;eagle-eye&quot; in the service inventory section. Where you can spot-check all the three dimensions, in a service-oriented way.</p>
 <p><img src="/images/posts/elastic/service-view.png" alt="Elastic Serverless Service View" title="Elastic Serverless Service View" /></p>
 <h2>Final Comment</h2>
 <p>mOTLP is one of many options to implement observability in our Java workloads. In my opinion, <strong>it's one of the easiest ways to get fast results and enable the next level</strong>: doing something with the data, like dashboards, alarms, and even AI analysis. So don't miss my next publications on these topics.</p>

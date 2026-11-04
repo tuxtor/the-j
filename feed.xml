@@ -6,8 +6,8 @@
     <atom:link href="https://www.vorozco.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>The J*, a blog about Java, JVM, JavaScript and Gentoo Linux</description>
     <language>en-us</language>
-    <pubDate>Mon, 2 Nov 2026 12:57:15 +0000</pubDate>
-    <lastBuildDate>Mon, 2 Nov 2026 12:57:15 +0000</lastBuildDate>
+    <pubDate>Wed, 4 Nov 2026 20:18:57 +0000</pubDate>
+    <lastBuildDate>Wed, 4 Nov 2026 20:18:57 +0000</lastBuildDate>
 
     <item>
       <title>Getting started with Elastic Cloud Managed OTLP Endpoint (mOTLP) and Spring Boot 4.x</title>
@@ -145,7 +145,7 @@ mvn spring-boot:run
 &lt;pre&gt;&lt;code class=&quot;language-prettyprint&quot;&gt;cd springboot-client-demo
 mvn spring-boot:run
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To demonstrate observability in the three dimensions, both sprinboot-demo (8080) and springboot-client-demo (8081) have some interactions to:&lt;/p&gt;
+&lt;p&gt;To demonstrate observability in the three dimensions, both springboot-demo (8080) and springboot-client-demo (8081) have some interactions to:&lt;/p&gt;
 &lt;p&gt;Generate CPU workload using Naive Fibonacci:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-prettyprint&quot;&gt;curl http://localhost:8080/fibo\?n\=45
 &lt;/code&gt;&lt;/pre&gt;
@@ -166,7 +166,7 @@ mvn spring-boot:run
 &lt;pre&gt;&lt;code class=&quot;language-prettyprint&quot;&gt;curl http://localhost:8081/trace-demo 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2&gt;Observing Results in Elastic Cloud&lt;/h2&gt;
-&lt;p&gt;After running the above commands and allowing a few seconds for data propagation, you should see observability data flowing into your Elastic deployment. &lt;strong&gt;The best way to confirm this is by using the Discovery tab, where you can explore data using ES|QL queries&lt;/strong&gt;. Also, the Cloud instance offers an AI assisted query builder, capable of translating natural language queries to actual deterministic queries.&lt;/p&gt;
+&lt;p&gt;After running the above commands and allowing a few seconds for data propagation, you should see observability data flowing into your Elastic deployment. &lt;strong&gt;The best way to confirm this is by using the Discover tab, where you can explore data using ES|QL queries&lt;/strong&gt;. Also, the Cloud instance offers an AI assisted query builder, capable of translating natural language queries to actual deterministic queries.&lt;/p&gt;
 &lt;h3&gt;Logs&lt;/h3&gt;
 &lt;p&gt;You&apos;ll see structured logs from both services showing:&lt;/p&gt;
 &lt;ul&gt;
@@ -230,10 +230,10 @@ mvn spring-boot:run
 &lt;li&gt;Status (success/error)&lt;/li&gt;
 &lt;li&gt;Resource information (service version, environment)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Correlation across dimensions:&lt;/strong&gt; The trace ID connects all three observability dimensions. A single trace ID appears in logs, metrics, and traces, allowing you to correlate a user request with log entries and performance metrics—the foundation of effective observability.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Correlation across dimensions:&lt;/strong&gt; The trace ID connects observability dimensions. A single trace ID appears in logs and traces, allowing you to correlate a user request with log entries.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/images/posts/elastic/traces.png&quot; alt=&quot;Elastic Serverless Traces&quot; title=&quot;Elastic Serverless Traces&quot; /&gt;&lt;/p&gt;
 &lt;h3&gt;Service inventory view&lt;/h3&gt;
-&lt;p&gt;Kibana also includes an &amp;quot;eagle-eye&amp;quot; in the service inventory section. Where you can spot-check all the tree dimensions, in a service-oriented way.&lt;/p&gt;
+&lt;p&gt;Kibana also includes an &amp;quot;eagle-eye&amp;quot; in the service inventory section. Where you can spot-check all the three dimensions, in a service-oriented way.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/images/posts/elastic/service-view.png&quot; alt=&quot;Elastic Serverless Service View&quot; title=&quot;Elastic Serverless Service View&quot; /&gt;&lt;/p&gt;
 &lt;h2&gt;Final Comment&lt;/h2&gt;
 &lt;p&gt;mOTLP is one of many options to implement observability in our Java workloads. In my opinion, &lt;strong&gt;it&apos;s one of the easiest ways to get fast results and enable the next level&lt;/strong&gt;: doing something with the data, like dashboards, alarms, and even AI analysis. So don&apos;t miss my next publications on these topics.&lt;/p&gt;
